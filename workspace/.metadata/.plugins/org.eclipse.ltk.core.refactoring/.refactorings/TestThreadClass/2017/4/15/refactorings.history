@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;maxIdx&apos; in &apos;program.MyThread&apos; to &apos;maxIndex&apos;&#x0D;&#x0A;- Original project: &apos;TestThreadClass&apos;&#x0D;&#x0A;- Original element: &apos;program.MyThread.maxIdx&apos;&#x0D;&#x0A;- Renamed element: &apos;program.MyThread.maxIndex&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;maxIdx&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;program{MyThread.java[MyThread^maxIdx" name="maxIndex" references="true" setter="false" stamp="1492184909883" textual="false" version="1.0"/>
+</session>

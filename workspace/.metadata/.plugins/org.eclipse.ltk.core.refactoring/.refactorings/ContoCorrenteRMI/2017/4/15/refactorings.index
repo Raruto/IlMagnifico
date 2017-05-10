@@ -1,0 +1,12 @@
+1492249635907	Move compilation unit
+1492249682959	Rename package 'contocorrente'
+1492249801074	Copy compilation unit
+1492249826753	Delete element
+1492249950456	Rename type 'RemoteInterface'
+1492250062395	Rename type 'RemoteImplementation'
+1492250176471	Rename local variable 'remote'
+1492250243990	Delete element
+1492252438369	Rename method 'testMethod'
+1492253514951	Move compilation unit
+1492253627830	Rename type 'ContoCorrente'
+1492253645801	Rename type 'ContoCorrenteImpl'
