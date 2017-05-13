@@ -36920,53 +36920,6 @@
 					"name": "SpazioTorre",
 					"ownedElements": [
 						{
-							"_type": "UMLAssociation",
-							"_id": "AAAAAAFb7k9uVqZxp28=",
-							"_parent": {
-								"$ref": "AAAAAAFb7kQOv6GK5pE="
-							},
-							"end1": {
-								"_type": "UMLAssociationEnd",
-								"_id": "AAAAAAFb7k9uVqZyWdU=",
-								"_parent": {
-									"$ref": "AAAAAAFb7k9uVqZxp28="
-								},
-								"reference": {
-									"$ref": "AAAAAAFb7kQOv6GK5pE="
-								},
-								"visibility": "public",
-								"navigable": true,
-								"aggregation": "none",
-								"multiplicity": "16",
-								"isReadOnly": false,
-								"isOrdered": false,
-								"isUnique": false,
-								"isDerived": false,
-								"isID": false
-							},
-							"end2": {
-								"_type": "UMLAssociationEnd",
-								"_id": "AAAAAAFb7k9uVqZzS2Q=",
-								"_parent": {
-									"$ref": "AAAAAAFb7k9uVqZxp28="
-								},
-								"reference": {
-									"$ref": "AAAAAAFb7h1ef6CHL+I="
-								},
-								"visibility": "public",
-								"navigable": true,
-								"aggregation": "none",
-								"multiplicity": "1",
-								"isReadOnly": false,
-								"isOrdered": false,
-								"isUnique": false,
-								"isDerived": false,
-								"isID": false
-							},
-							"visibility": "public",
-							"isDerived": false
-						},
-						{
 							"_type": "UMLInterfaceRealization",
 							"_id": "AAAAAAFb8W6r13DcWhE=",
 							"_parent": {
@@ -36977,20 +36930,6 @@
 							},
 							"target": {
 								"$ref": "AAAAAAFb8WsY1Wgp/jM="
-							},
-							"visibility": "public"
-						},
-						{
-							"_type": "UMLGeneralization",
-							"_id": "AAAAAAFb9xcxxL/jpvY=",
-							"_parent": {
-								"$ref": "AAAAAAFb7kQOv6GK5pE="
-							},
-							"source": {
-								"$ref": "AAAAAAFb7kQOv6GK5pE="
-							},
-							"target": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
 							},
 							"visibility": "public"
 						},
@@ -37035,53 +36974,6 @@
 								"$ref": "AAAAAAFb8WsY1Wgp/jM="
 							},
 							"visibility": "public"
-						},
-						{
-							"_type": "UMLAssociation",
-							"_id": "AAAAAAFb/moNZBST6Gs=",
-							"_parent": {
-								"$ref": "AAAAAAFb7kQOv6GK5pE="
-							},
-							"end1": {
-								"_type": "UMLAssociationEnd",
-								"_id": "AAAAAAFb/moNZBSU4M8=",
-								"_parent": {
-									"$ref": "AAAAAAFb/moNZBST6Gs="
-								},
-								"reference": {
-									"$ref": "AAAAAAFb7kQOv6GK5pE="
-								},
-								"visibility": "public",
-								"navigable": false,
-								"aggregation": "none",
-								"multiplicity": "1",
-								"isReadOnly": false,
-								"isOrdered": false,
-								"isUnique": false,
-								"isDerived": false,
-								"isID": false
-							},
-							"end2": {
-								"_type": "UMLAssociationEnd",
-								"_id": "AAAAAAFb/moNZBSV2Dw=",
-								"_parent": {
-									"$ref": "AAAAAAFb/moNZBST6Gs="
-								},
-								"reference": {
-									"$ref": "AAAAAAFb8XMcUYnahD4="
-								},
-								"visibility": "public",
-								"navigable": true,
-								"aggregation": "none",
-								"multiplicity": "1",
-								"isReadOnly": false,
-								"isOrdered": false,
-								"isUnique": false,
-								"isDerived": false,
-								"isID": false
-							},
-							"visibility": "public",
-							"isDerived": false
 						},
 						{
 							"_type": "UMLInterfaceRealization",
@@ -39548,106 +39440,6 @@
 				},
 				{
 					"_type": "UMLClass",
-					"_id": "AAAAAAFb9v15MiF+seU=",
-					"_parent": {
-						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
-					},
-					"name": "AreaTabellone",
-					"ownedElements": [
-						{
-							"_type": "UMLInterfaceRealization",
-							"_id": "AAAAAAFb+UQAxd+O2vA=",
-							"_parent": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
-							},
-							"source": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
-							},
-							"target": {
-								"$ref": "AAAAAAFb8WsY1Wgp/jM="
-							},
-							"visibility": "public"
-						}
-					],
-					"visibility": "public",
-					"attributes": [
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAFb9wP0Fl+DP4s=",
-							"_parent": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
-							},
-							"name": "puntiNecessariArea",
-							"visibility": "private",
-							"isStatic": false,
-							"isLeaf": false,
-							"type": "int",
-							"isReadOnly": false,
-							"isOrdered": false,
-							"isUnique": false,
-							"isDerived": false,
-							"aggregation": "none",
-							"isID": false
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAFb95Z8QN3GFoc=",
-							"_parent": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
-							},
-							"name": "azioneArea",
-							"visibility": "private",
-							"isStatic": false,
-							"isLeaf": false,
-							"type": "Azione",
-							"isReadOnly": false,
-							"isOrdered": false,
-							"isUnique": false,
-							"isDerived": false,
-							"aggregation": "none",
-							"isID": false
-						}
-					],
-					"operations": [
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAFb9wWvs3XkU1U=",
-							"_parent": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
-							},
-							"name": "azioneArea",
-							"visibility": "public",
-							"isStatic": false,
-							"isLeaf": false,
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFb9wZHRXaEeAQ=",
-									"_parent": {
-										"$ref": "AAAAAAFb9wWvs3XkU1U="
-									},
-									"visibility": "public",
-									"isStatic": false,
-									"isLeaf": false,
-									"type": "void",
-									"isReadOnly": false,
-									"isOrdered": false,
-									"isUnique": false,
-									"direction": "return"
-								}
-							],
-							"concurrency": "sequential",
-							"isQuery": false,
-							"isAbstract": true
-						}
-					],
-					"isAbstract": false,
-					"isFinalSpecialization": false,
-					"isLeaf": false,
-					"isActive": false
-				},
-				{
-					"_type": "UMLClass",
 					"_id": "AAAAAAFb9wEFbCluWfU=",
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
@@ -39748,20 +39540,6 @@
 					},
 					"name": "AreaProduzione",
 					"ownedElements": [
-						{
-							"_type": "UMLGeneralization",
-							"_id": "AAAAAAFb9xYVfKhAB5U=",
-							"_parent": {
-								"$ref": "AAAAAAFb9wEXUiqWPKk="
-							},
-							"source": {
-								"$ref": "AAAAAAFb9w3tmAwq3Yc="
-							},
-							"target": {
-								"$ref": "AAAAAAFb9v15MiF+seU="
-							},
-							"visibility": "public"
-						},
 						{
 							"_type": "UMLAssociation",
 							"_id": "AAAAAAFb/sg+TXzPL+M=",
