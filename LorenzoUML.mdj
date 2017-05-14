@@ -502,8 +502,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 2752,
-									"top": 2648,
+									"left": 2744,
+									"top": 3168,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -526,8 +526,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 2752,
-									"top": 2648,
+									"left": 2744,
+									"top": 3168,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -19416,7 +19416,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 968,
-									"top": 880,
+									"top": 616,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -19440,7 +19440,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 968,
-									"top": 880,
+									"top": 616,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -31578,7 +31578,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -712,
-									"top": -560,
+									"top": -1072,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -31602,7 +31602,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -712,
-									"top": -560,
+									"top": -1072,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -32015,7 +32015,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -128,
-									"top": -488,
+									"top": -1000,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -32039,7 +32039,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -128,
-									"top": -488,
+									"top": -1000,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -32423,7 +32423,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -64,
-									"top": -496,
+									"top": -1008,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -32447,7 +32447,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -64,
-									"top": -496,
+									"top": -1008,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -32831,7 +32831,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 0,
-									"top": 0,
+									"top": -512,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -32855,7 +32855,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 0,
-									"top": 0,
+									"top": -512,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -33254,7 +33254,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 0,
-									"top": 0,
+									"top": -512,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -33278,7 +33278,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 0,
-									"top": 0,
+									"top": -512,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -33677,7 +33677,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 0,
-									"top": 0,
+									"top": -512,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -33701,7 +33701,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 0,
-									"top": 0,
+									"top": -512,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -35336,8 +35336,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 264,
-									"top": 64,
+									"left": 0,
+									"top": 0,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -35360,8 +35360,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 264,
-									"top": 64,
+									"left": 0,
+									"top": 0,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -35757,8 +35757,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 264,
-									"top": 64,
+									"left": 0,
+									"top": 0,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -35781,8 +35781,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 264,
-									"top": 64,
+									"left": 0,
+									"top": 0,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -46689,18 +46689,6 @@
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
 					"name": "Effetti",
-					"visibility": "public",
-					"isAbstract": false,
-					"isFinalSpecialization": false,
-					"isLeaf": false
-				},
-				{
-					"_type": "UMLEnumeration",
-					"_id": "AAAAAAFcBAdSJyp9b3Q=",
-					"_parent": {
-						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
-					},
-					"name": "Enumeration1",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,

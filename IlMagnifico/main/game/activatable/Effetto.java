@@ -5,18 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Effetto implements Attivabile {
-
-    /**
-     * 
-     */
-    private int contatoreAttivazioni;
-
-    /**
-     * 
-     */
-    private boolean permanente;
-
+public class Effetto extens Attivabile {
     /**
      * Default constructor
      */

@@ -5,17 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Azione implements Attivabile {
-    /**
-     * 
-     */
-    private int contatoreAttivazioni;
-
-    /**
-     * 
-     */
-    private boolean permanente;
-
+public class Azione extends Attivabile {
     /**
      * Default constructor
      */

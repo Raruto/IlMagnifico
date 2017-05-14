@@ -5,12 +5,13 @@ import java.util.*;
 /**
  * 
  */
-public interface Attivabile {
+public abstract class Attivabile {
+	protected int contatoreAttivazioni;
+	protected boolean permanente;
 
-
-    /**
-     * @return
-     */
-    public void attiva();
+	/**
+	 * @return
+	 */
+	public void attiva();
 
 }
