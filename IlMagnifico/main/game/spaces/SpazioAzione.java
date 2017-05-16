@@ -44,8 +44,8 @@ public class SpazioAzione implements SpazioPedina{
      * @return
      */
     public Pedina visualizzaPedina() {
-        // TODO implement here
-        return null;
+        // restituisce la pedina
+        return this.pedina;
     }
 
     /**
@@ -53,19 +53,21 @@ public class SpazioAzione implements SpazioPedina{
      * @return
      */
     public void aggiungiPedina(Pedina pedina) {
-        // TODO implement here
-        return;
+        //mette una pedina nello spazio azione corrispondente
+    	this.pedina=pedina;
     }
 
 	@Override
 	public boolean spazioOccupato() {
-		// TODO Auto-generated method stub
-		return false;
+		// guarda se c'è una pedina nello spazio dell'azione. Restituisce vero se lo spazio è occupato, falso altrimenti
+		if(this.pedina==NULL)
+		return true;
+		else return false;
 	}
 
 	@Override
 	public PuntiGiocatore puntiRichiesti() {
-		// TODO Auto-generated method stub
+		// punti richiesti da parte del giocatore per posizionare la pedina nel corrispondente spazio azione
 		return null;
 	}
 

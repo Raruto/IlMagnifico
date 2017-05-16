@@ -38,7 +38,11 @@ public class Mazzo {
      * 
      */
     private ArrayList<CartaImpresa> carteImpresa;
-
+    
+    /**
+     * *
+     * */
+    private int periodo;
 
 
 
@@ -54,24 +58,33 @@ public class Mazzo {
      * @return
      */
     public CartaEdificio getCartaEdificio() {
-        // TODO implement here
-        return null;
+        //prende la prima carta dalla lista delle carte edificio e la restituisce, eliminandola dalla lista d'origine
+    	CartaEdificio cartaTemporanea=new CartaEdificio();
+    	cartaTemporanea=this.carteEdificio.get(0);
+    	this.carteEdificio.remove(0);
+        return cartaTemporanea;
     }
 
     /**
      * @return
      */
     public CartaTerritorio getCartaTerritorio() {
-        // TODO implement here
-        return null;
+        // stessa cosa del metodo sopra indicato ma con le carte territorio
+    	CartaTerritorio cartaTemporanea=new CartaTerritorio();
+    	crtaTemporanea=this.carteTerritorio.get(0);
+    	this.carteTerritorio.remove(0);
+        return cartaTemporanea;
     }
 
     /**
      * @return
      */
     public CartaPersonaggio getCartaPersonaggio() {
-        // TODO implement here
-        return null;
+        //stessa cosa dl metodo sopra indicato ma con le carte personaggio
+    	CartaPersonaggio cartaTemporanea=new CartaPersonaggio();
+    	crtaTemporanea=this.cartePersonaggio.get(0);
+    	this.cartePersonaggio.remove(0);
+        return cartaTemporanea;
     }
 
     /**
@@ -79,7 +92,18 @@ public class Mazzo {
      */
     public CartaImpresa getCartaImpresa() {
         // TODO implement here
-        return null;
+    	CartaImpresa cartaTemporanea=new CartaImpresa();
+    	crtaTemporanea=this.carteImpresa.get(0);
+    	this.carteImpresa.remove(0);
+        return cartaTemporanea;
+    }
+    
+    public void setPeriodo(int periodoNuovo){
+    	this.periodo=periodoNuovo;
+    }
+    
+    public void incrementaPeriodo(){
+    	this.periodo++;
     }
 
 }
