@@ -15,13 +15,18 @@ public class Dado {
      * Default constructor
      */
     public Dado() {
+    	this.dadoBianco=0;
+    	this.dadoArancione=0;
+    	this.dadoNero=0;
     }
 
     /**
      * 
      */
     public void lancia(){
-    	return;
+    	dadoBianco=new Random().nextInt(6-1)+1;
+    	dadoArancione=new Random().nextInt(6-1)+1;
+    	dadoNero=new Random().nextInt(6-1)+1;
     };
     
 	public int getDadoBianco() {
