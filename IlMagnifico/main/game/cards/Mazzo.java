@@ -103,8 +103,6 @@ public class Mazzo {
     	this.periodo=periodoNuovo;
     }
     
-    public void incrementaPeriodo(){
-    	this.periodo++;
-    }
+
 
 }
