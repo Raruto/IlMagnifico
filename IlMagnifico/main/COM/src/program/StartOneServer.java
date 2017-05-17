@@ -1,11 +1,10 @@
-package com;
+package program;
 
-import com.client.Client;
 import com.server.Server;
 
-public class Program {
+public class StartOneServer {
 	public static void main(String[] args) {
 		Server.main(args);
-		Client.main(args);
 	}
+
 }

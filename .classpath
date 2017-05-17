@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="CodeSamples/Battaglia Navale 2/BattagliaNavale/src"/>
+	<classpathentry kind="src" path="CodeSamples/ContoCorrenteRMI/src"/>
+	<classpathentry kind="src" path="CodeSamples/ContoCorrenteThread/src"/>
+	<classpathentry kind="src" path="CodeSamples/PerimetroPoligoni/src"/>
+	<classpathentry kind="src" path="CodeSamples/Poligoni/src"/>
+	<classpathentry kind="src" path="CodeSamples/ProduttoreConsumatoreThread/src"/>
+	<classpathentry kind="src" path="CodeSamples/Retta/src"/>
+	<classpathentry kind="src" path="CodeSamples/rmi/src"/>
+	<classpathentry kind="src" path="CodeSamples/RockPaperScissors/src"/>
+	<classpathentry kind="src" path="CodeSamples/Test/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestArrayList/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestClassi/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestFX/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestHashMap/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestJavaFX/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestRMI/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestSocket/src"/>
+	<classpathentry kind="src" path="CodeSamples/TestThreadClass/src"/>
+	<classpathentry kind="src" path="CodeSamples/TicTacToe/src"/>
+	<classpathentry excluding="main/COM/src/" kind="src" path="IlMagnifico"/>
+	<classpathentry kind="src" path="IlMagnifico/main/COM/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="CodeSamples/Battaglia Navale 2/bin"/>
+</classpath>
