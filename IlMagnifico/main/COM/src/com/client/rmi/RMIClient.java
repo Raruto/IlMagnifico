@@ -7,17 +7,23 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
+import com.NetworkException;
 import com.client.AbstractClient;
+import com.client.IClient;
 import com.server.rmi.RMIServerInterface;
 
 public class RMIClient extends AbstractClient {
 	
+	public RMIClient() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static void main(String[] args) {
 		RMIClient client = new RMIClient();
 		client.connect();
 	}
 
-	@Override
+	/*@Override*/
 	public void connect() {
 		RMIServerInterface server;
 		try {
@@ -61,6 +67,24 @@ public class RMIClient extends AbstractClient {
 			System.err.println("Il riferimento passato non è associato a nulla!");
 		}
 
+	}
+
+	@Override
+	public void loginPlayer(String nickname) throws NetworkException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void joinFirstAvailableRoom() throws NetworkException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendChatMessage(String receiver, String message) throws NetworkException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
