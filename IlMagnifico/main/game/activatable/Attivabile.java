@@ -12,6 +12,6 @@ public abstract class Attivabile {
 	/**
 	 * @return
 	 */
-	public void attiva();
+	public abstract void attiva();
 
 }
