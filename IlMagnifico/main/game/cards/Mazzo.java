@@ -50,7 +50,8 @@ public class Mazzo {
      * @return
      */
     public void mescolaMazzo() {
-        // TODO implement here
+        // Riempie gli ArrayList con le carte dei periodi corrispondenti e mischia gli elementi all'interno degli ArrayList
+    	//scorro l'enum in cerca delle carte che mi servono, del tipo e del periodo corrispondente
         return;
     }
 
