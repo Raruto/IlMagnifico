@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Effetto extens Attivabile {
+public class Effetto extends Attivabile {
     /**
      * Default constructor
      */

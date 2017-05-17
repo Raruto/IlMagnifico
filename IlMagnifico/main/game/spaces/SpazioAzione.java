@@ -59,8 +59,8 @@ public class SpazioAzione implements SpazioPedina{
 
 	@Override
 	public boolean spazioOccupato() {
-		// guarda se c'è una pedina nello spazio dell'azione. Restituisce vero se lo spazio è occupato, falso altrimenti
-		if(this.pedina==NULL)
+		// guarda se c'e' una pedina nello spazio dell'azione. Restituisce vero se lo spazio e' occupato, falso altrimenti
+		if(this.pedina==null)
 		return true;
 		else return false;
 	}
