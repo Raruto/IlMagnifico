@@ -9,19 +9,9 @@ import main.game.activatable.Effetto;
  */
 public class CartaSviluppo {
 
-private String nomeCarta;
-private int periodoCarta;
+
+private CostoCartaSviluppo costo;
+private Effetto[] effetto;
 
 
-private CartaSviluppo(){
-	
-}
-
-public int getPeriodoCarta(){
-	return this.periodoCarta;
-}
-
-public String getNomecarta(){
-	return this.nomeCarta;
-}
 }

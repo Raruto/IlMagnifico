@@ -1,23 +1,13 @@
 package main.game.activatable;
 
-import java.util.*;
+import main.game.enums.Effetti;
+import main.game.players.Giocatore;
 
-/**
- * 
- */
-public class Effetto extens Attivabile {
-    /**
-     * Default constructor
-     */
-    public Effetto() {
-    }
+public class Effetto extends Attivabili {
+	//vado a prendere dall'enumerazione degli effetti l'effetto corrispondente
+private Effetti effetto;
 
-    /**
-     * @return
-     */
-    public void attiva() {
-        // TODO implement here
-        return;
-    }
-
+public void attiva(Giocatore giocatore){
+	this.effetto.attiva(giocatore);
+}
 }
