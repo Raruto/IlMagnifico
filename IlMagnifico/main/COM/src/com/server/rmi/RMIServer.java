@@ -47,8 +47,7 @@ public class RMIServer {
 	private void publishRemoteObject() {
 		try {
 			// Aggiungo al registry l'associazione dell'oggetto
-			// serverImplementation
-			// con "//localhost/Server".
+			// serverImplementation con "//localhost/Server".
 			Naming.rebind("Server", serverImplementation);
 
 			System.out.println("[RMI Server] OK");
