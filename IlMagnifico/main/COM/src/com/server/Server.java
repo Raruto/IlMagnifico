@@ -43,7 +43,6 @@ public class Server {
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
@@ -58,7 +57,17 @@ public class Server {
 	 *             if some error occurs.
 	 */
 	private void startServer(int socketPort, int rmiPort) throws ServerException {
-		socketServer.startServer(socketPort);
+		startRMIServer(rmiPort);
+		startSocketServer(socketPort);
+	}
+
+	private void startRMIServer(int rmiPort) {
+		System.out.println("Starting RMI Server...");
 		rmiServer.startServer(rmiPort);
+	}
+
+	private void startSocketServer(int socketPort) {
+		System.out.println("Starting Socket Server...");
+		socketServer.startServer(socketPort);
 	}
 }

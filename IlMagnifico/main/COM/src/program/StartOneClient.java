@@ -1,6 +1,6 @@
 package program;
 
-import com.client.Client;
+import com.client.*;
 
 public class StartOneClient {
 

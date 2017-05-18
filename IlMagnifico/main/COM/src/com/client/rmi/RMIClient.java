@@ -50,6 +50,9 @@ public class RMIClient extends AbstractClient {
 			ClientInterface remoteRef = (ClientInterface) UnicastRemoteObject.exportObject(client, 0);
 
 			server.addClient(remoteRef);
+			
+			System.out.println("RMI Connection established");
+			
 			Scanner scanner = new Scanner(System.in);
 			boolean active = true;
 			while (active) {

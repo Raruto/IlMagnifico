@@ -9,8 +9,9 @@ public class SocketServer {
 	}
 
 	public void startServer(int socketPort) {
-		// TODO Auto-generated method stub
-		
+
+		System.out.println("[Socket Server] not yet implemented..");
+
 	}
 
 }

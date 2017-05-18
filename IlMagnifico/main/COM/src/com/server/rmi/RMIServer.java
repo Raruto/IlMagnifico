@@ -14,6 +14,7 @@ public class RMIServer {
 	}
 
 	public void startServer(int rmiPort) {
+		
 		try {
 			
 			// Creo un registry sulla porta "rmiPort".
@@ -34,6 +35,8 @@ public class RMIServer {
 			// serverImplementation
 			// con "//localhost/Server".
 			Naming.rebind("Server", serverImplementation);
+			
+			System.out.println("[RMI Server] OK");
 
 		} catch (MalformedURLException e) {
 			System.err.println("Impossibile registrare l'oggetto indicato!");
