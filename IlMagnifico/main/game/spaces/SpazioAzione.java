@@ -4,7 +4,7 @@ import java.util.*;
 
 import main.game.activatable.Azione;
 import main.game.players.Pedina;
-import main.game.res.PuntiGiocatore;
+import main.game.players.PuntiGiocatore;
 
 /**
  * 

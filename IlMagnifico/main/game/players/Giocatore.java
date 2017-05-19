@@ -2,9 +2,6 @@ package main.game.players;
 
 import java.util.*;
 
-import main.game.res.PuntiGiocatore;
-import main.game.res.RisorseGiocatore;
-
 /**
  * 
  */

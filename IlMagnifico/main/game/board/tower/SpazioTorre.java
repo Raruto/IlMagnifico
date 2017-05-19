@@ -5,8 +5,8 @@ import java.util.*;
 import main.game.activatable.Azione;
 import main.game.cards.development.CartaSviluppo;
 import main.game.players.Pedina;
+import main.game.players.PuntiGiocatore;
 import main.game.players.dashboard.SpazioCartaSviluppo;
-import main.game.res.PuntiGiocatore;
 import main.game.spaces.SpazioPedina;
 
 /**

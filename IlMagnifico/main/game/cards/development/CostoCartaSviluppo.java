@@ -2,8 +2,8 @@ package main.game.cards.development;
 
 import java.util.*;
 
-import main.game.res.PuntiGiocatore;
-import main.game.res.RisorseGiocatore;
+import main.game.players.PuntiGiocatore;
+import main.game.players.RisorseGiocatore;
 
 /**
  * 

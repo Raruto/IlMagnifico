@@ -2,7 +2,7 @@ package main.game.spaces;
 
 import java.util.*;
 
-import main.game.res.PuntiGiocatore;
+import main.game.players.PuntiGiocatore;
 
 /**
  * 

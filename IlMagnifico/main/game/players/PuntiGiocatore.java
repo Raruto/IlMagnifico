@@ -1,4 +1,4 @@
-package main.game.res;
+package main.game.players;
 
 import java.util.*;
 
