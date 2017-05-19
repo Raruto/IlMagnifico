@@ -2,7 +2,7 @@ package main.game.cards.development;
 
 import java.util.*;
 
-import main.game.activatable.Effetto;
+import main.game.activatables.Effetto;
 
 /**
  * 

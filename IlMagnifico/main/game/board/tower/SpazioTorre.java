@@ -2,7 +2,7 @@ package main.game.board.tower;
 
 import java.util.*;
 
-import main.game.activatable.Azione;
+import main.game.activatables.Azione;
 import main.game.cards.development.CartaSviluppo;
 import main.game.players.Pedina;
 import main.game.players.PuntiGiocatore;

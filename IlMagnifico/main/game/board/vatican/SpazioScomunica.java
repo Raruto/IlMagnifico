@@ -2,7 +2,7 @@ package main.game.board.vatican;
 
 import java.util.*;
 
-import main.game.activatable.Effetto;
+import main.game.activatables.Effetto;
 import main.game.players.Giocatore;
 
 /**

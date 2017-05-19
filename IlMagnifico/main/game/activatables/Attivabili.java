@@ -1,4 +1,4 @@
-package main.game.activatable;
+package main.game.activatables;
 
 public enum Attivabili {
 	Azioni, Effetti;
