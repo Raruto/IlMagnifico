@@ -1,28 +1,11 @@
 package main.game.enums;
 
-import java.util.*;
 
 /**
- * 
+ * Tipologie di carte usabili nel gioco
  */
-public class Carte {
+public enum Carte {
 
-    /**
-     * Default constructor
-     */
-    public Carte() {
-    }
-
-    /**
-     * 
-     */
-    public static TessereScomunica tessereScomunica;
-
-    /**
-     * 
-     */
-    public static CarteSviluppo carteSviluppo;
-
-
+	TesseraScomunica, CartaSviluppo;
 
 }
