@@ -54,8 +54,9 @@ public class Mazzo {
      * @return
      */
     public void mescolaMazzo() {
-        // Riempie gli ArrayList con le carte dei periodi corrispondenti e mischia gli elementi all'interno degli ArrayList
-    	//inizializzo delle variabili che mi serviranno per il mescolamento delle carte
+        // Riempie gli ArrayList con le carte dei periodi corrispondenti e 
+    	// mischia gli elementi all'interno degli ArrayList
+    	// inizializzo delle variabili che mi serviranno per il mescolamento delle carte
     	CartaTerritorio cartaTerritorioTemp1=new CartaTerritorio(null);
     	CartaTerritorio cartaTerritorioTemp2=new CartaTerritorio(null);
     	CartaPersonaggio cartaPersonaggioTemp1=new CartaPersonaggio(null);
