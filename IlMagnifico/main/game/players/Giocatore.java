@@ -41,6 +41,19 @@ public class Giocatore {
      */
     private FamigliaGiocatore famiglia;
 
+	public void setValoriPedine(int dadoBianco, int dadoArancione, int dadoNero) {
+		
+		//Si potrebbe anche passare l'oggetto "Dado dado" e dopo:
+		
+		//dado.getDadoBianco();
+		//dado.getDadoArancione();
+		//dado.getDadoNero();
+		
+		//Dipende da come vogliamo suddividere gli ambiti
+
+		
+	}
+
 
 
 

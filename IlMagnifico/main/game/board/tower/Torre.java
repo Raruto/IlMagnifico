@@ -5,8 +5,12 @@ import main.game.spaces.SpazioTorre;
 
 public class Torre {
 	private SpazioTorre[] piani;
-	
-	public void setCarta(CartaSviluppo carta){
-		
+
+	public void setCarta(CartaSviluppo carta) {
+
+	}
+
+	public void setCartaPiano(CartaSviluppo carta, int piano) {
+
 	}
 }

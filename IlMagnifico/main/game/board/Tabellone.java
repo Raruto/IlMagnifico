@@ -13,39 +13,49 @@ import main.game.board.tower.AreaTorre;
  */
 public class Tabellone {
 
-    /**
-     * Default constructor
-     */
-    public Tabellone() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public Tabellone() {
+	}
 
-    /**
-     * 
-     */
-    private AreaTorre torri;
+	/**
+	 * 
+	 */
+	private AreaTorre torri;
 
-    /**
-     * 
-     */
-    private AreaRaccolta areaRaccolta;
+	/**
+	 * 
+	 */
+	private AreaRaccolta areaRaccolta;
 
-    /**
-     * 
-     */
-    private AreaProduzione areaProduzione;
+	/**
+	 * 
+	 */
+	private AreaProduzione areaProduzione;
 
-    /**
-     * 
-     */
-    private Mercato mercato;
+	/**
+	 * 
+	 */
+	private Mercato mercato;
 
-    /**
-     * 
-     */
-    private PalazzoConsiglio palazzoDelConsiglio;
+	/**
+	 * 
+	 */
+	private PalazzoConsiglio palazzoDelConsiglio;
 
+	/**
+	 * 
+	 */
+	public AreaTorre getTorri() {
+		return this.torri;
+	}
 
-
-
+	/**
+	 * 
+	 */
+	public PalazzoConsiglio getPalazzoDelConsiglio() {
+		return this.palazzoDelConsiglio;
+	}
 
 }
