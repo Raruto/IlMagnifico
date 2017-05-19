@@ -70,11 +70,14 @@ public class Partita {
 
 	private void rapportoVaticano() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void giroDiTurni(){
-		//devo far fare il turno ad ogni giocatore secondo l'ordine di turno e alla fine decidere l'ordine del turno successivo. Devo sempre prima prendere le carte dal mazzo e posizionarle nel tabellone e alla fine del giro di turni togliere dal tbellone quelle rimanenti
+	// devo far fare il turno ad ogni giocatore secondo l'ordine di turno e alla 
+	// fine decidere l'ordine del turno successivo. Devo sempre prima prendere 
+	// le carte dal mazzo e posizionarle nel tabellone e alla fine del giro 
+	// di turni togliere dal tbellone quelle rimanenti
 	int contatore;
 	int contatore2;
 	ArrayList<Giocatore> ordineTurniTemporaneo=new ArrayList<Giocatore>();
@@ -109,7 +112,7 @@ public class Partita {
 
 	private void turnoGiocatore(Giocatore giocatore) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
