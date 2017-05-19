@@ -2,8 +2,6 @@ package main.game.cards.development;
 
 import java.util.*;
 
-import main.game.enums.CarteImpresa;
-
 /**
  * 
  */

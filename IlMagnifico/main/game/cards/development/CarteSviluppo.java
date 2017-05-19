@@ -1,4 +1,4 @@
-package main.game.enums;
+package main.game.cards.development;
 
 /**
  * Tipologie di Carte Sviluppo

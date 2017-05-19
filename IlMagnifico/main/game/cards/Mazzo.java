@@ -6,10 +6,10 @@ import main.game.cards.development.CartaEdificio;
 import main.game.cards.development.CartaImpresa;
 import main.game.cards.development.CartaPersonaggio;
 import main.game.cards.development.CartaTerritorio;
-import main.game.enums.CarteEdificio;
-import main.game.enums.CarteImpresa;
-import main.game.enums.CartePersonaggio;
-import main.game.enums.CarteTerritorio;
+import main.game.cards.development.CarteEdificio;
+import main.game.cards.development.CarteImpresa;
+import main.game.cards.development.CartePersonaggio;
+import main.game.cards.development.CarteTerritorio;
 
 
 /**

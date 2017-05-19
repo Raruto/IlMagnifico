@@ -1,4 +1,4 @@
-package main.game.enums;
+package main.game.cards.development;
 
 public enum CarteImpresa {
 	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "effetto_immediato", "effetto_permanente");

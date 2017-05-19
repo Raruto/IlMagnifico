@@ -1,6 +1,6 @@
-package main.game.enums;
+package main.game.cards.development;
 
-public enum CartePersonaggio {
+public enum CarteEdificio {
 	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "effetto_immediato", "effetto_permanente");
 	private String nomeCarta;
 	private int periodoCarta;
@@ -14,7 +14,7 @@ public enum CartePersonaggio {
 	private String effettoImmediato;
 	private String effettoPermanente;
 
-	private CartePersonaggio(String nome, int periodo, int legna, int pietra, int servitori, int monete, int PM, int PV,
+	private CarteEdificio(String nome, int periodo, int legna, int pietra, int servitori, int monete, int PM, int PV,
 			int PF, String effImm, String effPerm) {
 		this.nomeCarta = nome;
 		this.periodoCarta = periodo;
