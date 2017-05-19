@@ -1,4 +1,4 @@
-package main.game.spaces;
+package main.game.board.vatican;
 
 import java.util.*;
 

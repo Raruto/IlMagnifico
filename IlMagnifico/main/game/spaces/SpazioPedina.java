@@ -9,15 +9,15 @@ import main.game.players.Pedina;
  */
 public interface SpazioPedina extends Spazio {
 
-    /**
-     * @return
-     */
-    public Pedina visualizzaPedina();
+	/**
+	 * @return
+	 */
+	public Pedina visualizzaPedina();
 
-    /**
-     * @param pedina 
-     * @return
-     */
-    public void aggiungiPedina(Pedina pedina);
+	/**
+	 * @param pedina
+	 * @return
+	 */
+	public void aggiungiPedina(Pedina pedina);
 
 }

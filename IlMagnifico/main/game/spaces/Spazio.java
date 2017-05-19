@@ -9,14 +9,14 @@ import main.game.res.PuntiGiocatore;
  */
 public interface Spazio {
 
-    /**
-     * @return
-     */
-    public boolean spazioOccupato();
+	/**
+	 * @return
+	 */
+	public boolean spazioOccupato();
 
-    /**
-     * @return
-     */
-    public PuntiGiocatore puntiRichiesti();
+	/**
+	 * @return
+	 */
+	public PuntiGiocatore puntiRichiesti();
 
 }
