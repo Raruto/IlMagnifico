@@ -7,7 +7,7 @@ import main.game.players.Giocatore;
  */
 public enum Effetti {
 	// elenco dei vari tipi di effetti
-	AUMENTALEGNAUNO("aumenta_legna_uno", "nome_effetto_alternativo", 1, 0, 0, 0, 0, 0, 0);
+	AUMENTA_LEGNA_DI_UNO("aumenta_legna_uno", "nome_effetto_alternativo", 1, 0, 0, 0, 0, 0, 0);
 	private String nomeEffettoPrincipale;
 	private String nomeEffettoAlternativo;
 	private int deltaLegna;
