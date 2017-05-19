@@ -2,9 +2,9 @@ package main.game.players;
 
 import java.util.*;
 
-import main.game.spaces.dashboard.SpazioCartaImpresa;
-import main.game.spaces.dashboard.SpazioCartaPersonaggio;
-import main.game.spaces.dashboard.SpazioCartaTerritorio;
+import main.game.players.dashboard.SpazioCartaImpresa;
+import main.game.players.dashboard.SpazioCartaPersonaggio;
+import main.game.players.dashboard.SpazioCartaTerritorio;
 
 /**
  * 

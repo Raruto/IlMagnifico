@@ -1,4 +1,4 @@
-package main.game.spaces.dashboard;
+package main.game.players.dashboard;
 
 import java.util.*;
 
