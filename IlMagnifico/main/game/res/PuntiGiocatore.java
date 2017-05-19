@@ -10,7 +10,10 @@ public class PuntiGiocatore {
     /**
      * Default constructor
      */
-    public PuntiGiocatore() {
+    public PuntiGiocatore(int PV,int PM,int PF) {
+    	this.puntiVittoria=PV;
+    	this.puntiMilitari=PM;
+    	this.puntiFede=PF;
     }
 
     /**

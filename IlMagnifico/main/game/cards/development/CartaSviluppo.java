@@ -9,9 +9,10 @@ import main.game.activatable.Effetto;
  */
 public class CartaSviluppo {
 
-
-private CostoCartaSviluppo costo;
-private Effetto[] effetto;
+protected String nome;
+protected int periodo;
+protected CostoCartaSviluppo costo;
+protected ArrayList<Effetto> effetto;
 
 
 }

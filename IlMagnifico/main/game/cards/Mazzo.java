@@ -69,11 +69,13 @@ public class Mazzo {
     	int contatore;
     	Random random=new Random();
     	
+
     	//scorro l'enum in cerca delle carte che mi servono, del tipo e del periodo corrispondente
     	for(CarteTerritorio c : CarteTerritorio.values()){
     		if(c.getPeriodoCarta()==this.periodo)
     			this.carteTerritorio.add(0, new CartaTerritorio(c));
     	}
+    	
     	for(CartePersonaggio c : CartePersonaggio.values()){
     		if(c.getPeriodoCarta()==this.periodo)
     			this.cartePersonaggio.add(0, new CartaPersonaggio(c));
