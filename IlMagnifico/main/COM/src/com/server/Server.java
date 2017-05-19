@@ -61,12 +61,12 @@ public class Server {
 		startSocketServer(socketPort);
 	}
 
-	private void startRMIServer(int rmiPort) {
+	private void startRMIServer(int rmiPort) throws ServerException {
 		System.out.println("Starting RMI Server...");
 		rmiServer.startServer(rmiPort);
 	}
 
-	private void startSocketServer(int socketPort) {
+	private void startSocketServer(int socketPort) throws ServerException {
 		System.out.println("Starting Socket Server...");
 		socketServer.startServer(socketPort);
 	}

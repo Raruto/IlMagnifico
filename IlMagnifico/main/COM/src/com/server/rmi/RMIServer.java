@@ -24,10 +24,10 @@ public class RMIServer {
 	}
 
 	public void startServer(int rmiPort) {
-		RMI_PORT=rmiPort;
-		
+		RMI_PORT = rmiPort;
+
 		initializeRegistry();
-		publishRemoteObject();
+		publishRemoteServerObject();
 
 		// TODO: Aggiungere la possibilità  di terminare la connessione da parte
 		// del client inviando il messaggio "STOP".
@@ -41,10 +41,9 @@ public class RMIServer {
 		} catch (RemoteException e) {
 			System.out.println("Registry già  presente!");
 		}
-
 	}
 
-	private void publishRemoteObject() {
+	private void publishRemoteServerObject() {
 		try {
 			// Aggiungo al registry l'associazione dell'oggetto
 			// serverImplementation con "//localhost/Server".
@@ -57,6 +56,5 @@ public class RMIServer {
 		} catch (RemoteException e) {
 			System.err.println("Errore di connessione: " + e.getMessage() + "!");
 		}
-
 	}
 }

@@ -11,7 +11,8 @@ import com.client.rmi.ClientInterface;
 public class RMIServerImplementation extends UnicastRemoteObject implements RMIServerInterface {
 
 	private static final long serialVersionUID = -7098548671967083832L;
-	
+	private static final String SERVER_ID = "[SERVER]";
+
 	private ArrayList<ClientInterface> clients = new ArrayList<ClientInterface>();
 
 	protected RMIServerImplementation() throws RemoteException {
@@ -20,7 +21,7 @@ public class RMIServerImplementation extends UnicastRemoteObject implements RMIS
 
 	@Override
 	public void addClient(ClientInterface client) throws RemoteException {
-		send(client.getPlayerName());
+		send(client.getPlayerName() + " has joined.");
 		clients.add(client);
 	}
 
@@ -29,7 +30,7 @@ public class RMIServerImplementation extends UnicastRemoteObject implements RMIS
 		Iterator<ClientInterface> clientIterator = clients.iterator();
 		while (clientIterator.hasNext()) {
 			try {
-				clientIterator.next().notify(message);
+				clientIterator.next().notify(SERVER_ID + " " + message);
 			} catch (ConnectException e) {
 				clientIterator.remove();
 				System.out.println("Client rimosso!");

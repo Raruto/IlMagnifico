@@ -13,9 +13,13 @@ import com.client.IClient;
 import com.server.rmi.RMIServerInterface;
 
 public class RMIClient extends AbstractClient {
-	
+	private RMIServerInterface server;
+	private ClientImplementation client;
+	private ClientInterface remoteRef;
+
 	public RMIClient() {
-		// TODO Auto-generated constructor stub
+		// Creo l'oggetto client normalmente.
+		client = new ClientImplementation();
 	}
 
 	public static void main(String[] args) {
@@ -23,37 +27,24 @@ public class RMIClient extends AbstractClient {
 		client.connect();
 	}
 
-	/*@Override*/
+	/* @Override */
 	public void connect() {
-		RMIServerInterface server;
+
 		try {
 
-			// Ottengo il riferimento remoto associato alla stringa passata
-			// (contiene l'host target e l'identificativo dell'oggetto
-			// sull'host).
-			server = (RMIServerInterface) Naming.lookup("//localhost/Server");
+			getRemoteServerObject();
 
-			// Creo l'oggetto client normalmente.
-			ClientImplementation client = new ClientImplementation();
+			publishRemoteClientObject();
 
-			// Tuttavia, dato che ClientImplementation non estende la classe
-			// UnicastRemoteObject, devo creare un riferimento remoto
-			// all'oggetto col metodo UnicastRemoteObject.exportObject che
-			// prende come parametri l'oggetto da esportare e la porta da
-			// utilizzare per la connessione. Con 0 la porta viene scelta
-			// automaticamente.
-			// Altrimenti avrebbe tentato di serializzare l'oggetto e di
-			// passarlo come copia al server.
-			// In questo caso non devo associare un identificativo
-			// all'oggetto (in quanto il riferimento remoto verrà  passato
-			// al server).
-			ClientInterface remoteRef = (ClientInterface) UnicastRemoteObject.exportObject(client, 0);
-
-			server.addClient(remoteRef);
-			
 			System.out.println("RMI Connection established");
-			
+
 			Scanner scanner = new Scanner(System.in);
+
+			System.out.println("Insert Player Name:");
+			String name = scanner.nextLine();
+
+			loginPlayer(name);
+
 			boolean active = true;
 			while (active) {
 				System.out.println("Inserire un messaggio:");
@@ -68,26 +59,54 @@ public class RMIClient extends AbstractClient {
 			System.err.println("Errore di connessione: " + e.getMessage() + "!");
 		} catch (NotBoundException e) {
 			System.err.println("Il riferimento passato non è associato a nulla!");
+		} catch (NetworkException e) {
+			System.err.println("Errore di connessione: " + e.getMessage() + "!");
 		}
 
 	}
 
+	private void getRemoteServerObject() throws MalformedURLException, RemoteException, NotBoundException {
+		// Ottengo il riferimento remoto associato alla stringa passata
+		// (contiene l'host target e l'identificativo dell'oggetto
+		// sull'host).
+		server = (RMIServerInterface) Naming.lookup("//localhost/Server");
+	}
+
+	private void publishRemoteClientObject() throws RemoteException {
+		// Tuttavia, dato che ClientImplementation non estende la classe
+		// UnicastRemoteObject, devo creare un riferimento remoto
+		// all'oggetto col metodo UnicastRemoteObject.exportObject che
+		// prende come parametri l'oggetto da esportare e la porta da
+		// utilizzare per la connessione. Con 0 la porta viene scelta
+		// automaticamente.
+		// Altrimenti avrebbe tentato di serializzare l'oggetto e di
+		// passarlo come copia al server.
+		// In questo caso non devo associare un identificativo
+		// all'oggetto (in quanto il riferimento remoto verrà  passato
+		// al server).
+		remoteRef = (ClientInterface) UnicastRemoteObject.exportObject(client, 0);
+	}
+
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
-		// TODO Auto-generated method stub
-		
+		try {
+			client.setPlayerName(nickname);
+			server.addClient(remoteRef);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void joinFirstAvailableRoom() throws NetworkException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
