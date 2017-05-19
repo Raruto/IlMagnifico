@@ -2,10 +2,9 @@ package main.game.activatable;
 
 import java.util.ArrayList;
 
-import main.game.enums.Effetti;
 import main.game.players.Giocatore;
 
-public class Effetto extends Attivabili {
+public class Effetto extends Attivabile {
 	// vado a prendere dall'enumerazione degli effetti l'effetto corrispondente
 	private Effetti effetto;
 

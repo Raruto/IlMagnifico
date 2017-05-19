@@ -1,4 +1,4 @@
-package main.game.enums;
+package main.game.activatable;
 
 import main.game.players.Giocatore;
 

@@ -2,13 +2,12 @@ package main.game.activatable;
 
 import java.util.*;
 
-import main.game.enums.Azioni;
 import main.game.players.Giocatore;
 
 /**
  * 
  */
-public class Azione extends Attivabili {
+public class Azione extends Attivabile {
     /**
      * Default constructor
      */
