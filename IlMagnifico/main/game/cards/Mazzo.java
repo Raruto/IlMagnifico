@@ -129,10 +129,10 @@ public class Mazzo {
     }
 
     /**
-     * @return
+     * Esegue il POP della prima carta dalla lista delle Carte Edificio 
+     * @return CartaEdificio
      */
     public CartaEdificio getCartaEdificio() {
-        //prende la prima carta dalla lista delle carte edificio e la restituisce, eliminandola dalla lista d'origine
     	CartaEdificio cartaTemporanea=new CartaEdificio(null);
     	cartaTemporanea=this.carteEdificio.get(0);
     	this.carteEdificio.remove(0);
@@ -140,10 +140,10 @@ public class Mazzo {
     }
 
     /**
-     * @return
+     * Esegue il POP della prima carta dalla lista delle Carte Territorio 
+     * @return CartaTerritorio
      */
     public CartaTerritorio getCartaTerritorio() {
-        // stessa cosa del metodo sopra indicato ma con le carte territorio
     	CartaTerritorio cartaTemporanea=new CartaTerritorio(null);
     	cartaTemporanea=this.carteTerritorio.get(0);
     	this.carteTerritorio.remove(0);
@@ -151,10 +151,10 @@ public class Mazzo {
     }
 
     /**
-     * @return
+     * Esegue il POP della prima carta dalla lista delle Carte Personaggio 
+     * @return CartaPersonaggio
      */
     public CartaPersonaggio getCartaPersonaggio() {
-        //stessa cosa dl metodo sopra indicato ma con le carte personaggio
     	CartaPersonaggio cartaTemporanea=new CartaPersonaggio(null);
     	cartaTemporanea=this.cartePersonaggio.get(0);
     	this.cartePersonaggio.remove(0);
@@ -162,10 +162,10 @@ public class Mazzo {
     }
 
     /**
-     * @return
+     * Esegue il POP della prima carta dalla lista delle Carte Impresa 
+     * @return CartaImpresa
      */
     public CartaImpresa getCartaImpresa() {
-        // TODO implement here
     	CartaImpresa cartaTemporanea=new CartaImpresa(null);
     	cartaTemporanea=this.carteImpresa.get(0);
     	this.carteImpresa.remove(0);
