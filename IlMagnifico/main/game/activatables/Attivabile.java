@@ -9,7 +9,7 @@ public class Attivabile {
 
 	public void attiva(Giocatore giocatore) {
 		//TODO: if(attivabile?){
-		incrementaAttivazioni()
+		incrementaAttivazioni();
 		//}
 	}
 
