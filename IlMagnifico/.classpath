@@ -3,5 +3,6 @@
 	<classpathentry excluding="main/COM/src/" kind="src" path=""/>
 	<classpathentry kind="src" path="main/COM/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/IlMagnifico"/>
 	<classpathentry kind="output" path="main/COM/bin"/>
 </classpath>
