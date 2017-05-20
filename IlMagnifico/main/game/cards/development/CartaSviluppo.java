@@ -12,7 +12,8 @@ public class CartaSviluppo {
 protected String nome;
 protected int periodo;
 protected CostoCartaSviluppo costo;
-protected ArrayList<Effetto> effetto;
+protected ArrayList<Effetto> effettoImmediato;
+protected ArrayList<Effetto> effettoPermanente;
 
 
 }

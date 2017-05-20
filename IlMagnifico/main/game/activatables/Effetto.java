@@ -12,7 +12,8 @@ public class Effetto extends Attivabile {
 	 * 
 	 */
 
-	public Effetto() {
+	public Effetto(Effetti effetto) {
+		this.effetto=effetto;
 	}
 
 	public void attiva(Giocatore giocatore) {
