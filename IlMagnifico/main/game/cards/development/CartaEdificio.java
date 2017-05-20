@@ -12,15 +12,15 @@ public class CartaEdificio extends CartaSviluppo {
 
 	private CarteEdificio carta;
 
-	public CartaEdificio(CarteEdificio c) {
+	public CartaEdificio(CarteEdificio carta) {
 
-		super(c.getNomeCarta(), c.getPeriodoCarta(),
-				new RiservaGiocatore(new RisorseGiocatore(c.getLegna(), c.getMonete(), c.getPietra(), c.getServitori()),
-						new PuntiGiocatore(c.getPuntiFede(), c.getPuntiMilitari(), c.getPuntiVittoria())),
-				Effetto.nomeEffettoToArrayEffetti(c.getNomeEffettoImmediato()),
-				Effetto.nomeEffettoToArrayEffetti(c.getNomeEffettoPermanente()));
+		super(carta.getNomeCarta(), carta.getPeriodoCarta(),
+				new RiservaGiocatore(new RisorseGiocatore(carta.getLegna(), carta.getMonete(), carta.getPietra(), carta.getServitori()),
+						new PuntiGiocatore(carta.getPuntiFede(), carta.getPuntiMilitari(), carta.getPuntiVittoria())),
+				Effetto.nomeEffettoToArrayEffetti(carta.getNomeEffettoImmediato()),
+				Effetto.nomeEffettoToArrayEffetti(carta.getNomeEffettoPermanente()));
 
-		this.carta = c;
+		this.carta = carta;
 
 		/*
 		 * Guardo negli effetti quelli che hanno l'effetto principale indicato
