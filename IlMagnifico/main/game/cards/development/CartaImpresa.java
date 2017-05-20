@@ -6,7 +6,7 @@ import main.game.players.RiservaGiocatore;
 import main.game.players.RisorseGiocatore;
 
 /**
- * 
+ * Classe che implementa il concetto di CartaSviluppo di tipo Impresa
  */
 public class CartaImpresa extends CartaSviluppo {
 
