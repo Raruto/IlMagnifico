@@ -1,10 +1,12 @@
 package main.game.players.dashboard;
 
 import main.game.cards.development.CartaSviluppo;
+import main.game.players.PuntiGiocatore;
+import main.game.players.RisorseGiocatore;
 
 /**
  * Classe contenitore per una singola Carta Sviluppo all'interno della Plancia
- * Giocatore
+ * Giocatore, implementa SpazioCartaSviluppo
  */
 public class SpazioCartaPlancia implements SpazioCartaSviluppo {
 
@@ -19,12 +21,14 @@ public class SpazioCartaPlancia implements SpazioCartaSviluppo {
 	 */
 	private CartaSviluppo carta;
 
+	private PuntiGiocatore puntiGiocatoreRichiesti;
+	private RisorseGiocatore risorseGiocatoreRichieste;
+
 	/**
 	 * @return
 	 */
 	public CartaSviluppo visualizzaCarta() {
-		// TODO implement here
-		return null;
+		return this.carta;
 	}
 
 	/**
@@ -32,8 +36,25 @@ public class SpazioCartaPlancia implements SpazioCartaSviluppo {
 	 * @return
 	 */
 	public void aggiungiCarta(CartaSviluppo carta) {
-		// TODO implement here
-		return;
+		this.carta = carta;
+	}
+
+	@Override
+	public boolean spazioOccupato() {
+		if (this.carta == null)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	public PuntiGiocatore puntiGiocatoreRichiesti() {
+		return this.puntiGiocatoreRichiesti;
+	}
+
+	@Override
+	public RisorseGiocatore risorseGiocatoreRichieste() {
+		return this.risorseGiocatoreRichieste;
 	}
 
 }

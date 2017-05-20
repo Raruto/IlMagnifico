@@ -65,7 +65,6 @@ public class SpazioAzione implements SpazioPedina {
 	 */
 	@Override
 	public Pedina visualizzaPedina() {
-		// restituisce la pedina
 		return this.pedina;
 	}
 
@@ -86,12 +85,10 @@ public class SpazioAzione implements SpazioPedina {
 	 */
 	@Override
 	public boolean spazioOccupato() {
-		// guarda se c'e' una pedina nello spazio dell'azione. Restituisce vero
-		// se lo spazio e' occupato, falso altrimenti
 		if (this.pedina == null)
-			return true;
-		else
 			return false;
+		else
+			return true;
 	}
 
 	/**
@@ -101,7 +98,7 @@ public class SpazioAzione implements SpazioPedina {
 	 */
 	@Override
 	public PuntiGiocatore puntiGiocatoreRichiesti() {
-		return null;
+		return this.puntiGiocatoreRichiesti;
 	}
 
 	/**
@@ -111,8 +108,7 @@ public class SpazioAzione implements SpazioPedina {
 	 */
 	@Override
 	public RisorseGiocatore risorseGiocatoreRichieste() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.risorseGiocatoreRichieste;
 	}
 
 }
