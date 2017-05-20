@@ -9,12 +9,7 @@ import main.game.spaces.SpazioAzione;
 /**
  * 
  */
-public class PalazzoConsiglio extends ZonaTabellone{
-
-	/**
-	 * 
-	 */
-	private ArrayList<SpazioAzione> spazi;
+public class PalazzoConsiglio extends ZonaTabellone {
 
 	/**
 	 * Default constructor

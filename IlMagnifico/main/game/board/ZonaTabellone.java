@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import main.game.spaces.SpazioAzione;
 
 public class ZonaTabellone {
-private ArrayList<SpazioAzione> spazi;
+	private ArrayList<SpazioAzione> spazi;
 }
