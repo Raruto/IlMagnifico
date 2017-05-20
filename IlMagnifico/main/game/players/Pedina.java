@@ -24,18 +24,35 @@ public class Pedina {
 		this.possessore = possessore;
 	}
 
+	/**
+	 * Ritorna il giocatore associato alla pedina
+	 * 
+	 * @return Giocatore
+	 */
 	public Giocatore getGiocatore() {
 		return possessore;
 	}
 
-	public void setGiocatore(Giocatore possessore) {
-		this.possessore = possessore;
-	}
+	/* Lo toglierei, una pedina nasce vive e muore con un giocatore */
+	/*
+	 * public void setGiocatore(Giocatore possessore) { this.possessore =
+	 * possessore; }
+	 */
 
+	/**
+	 * Imposta il valore della Pedina
+	 * 
+	 * @param valore
+	 */
 	public void setValore(int valore) {
 		this.valore = valore;
 	}
 
+	/**
+	 * Ritorna il valore della pedina
+	 * 
+	 * @return int valore Pedina
+	 */
 	public int getValore() {
 		return this.valore;
 	}
