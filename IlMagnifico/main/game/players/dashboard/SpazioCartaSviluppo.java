@@ -11,7 +11,7 @@ public interface SpazioCartaSviluppo extends Spazio {
 	 * Riferimento alla Carta Sviluppo attualmente presente nello Spazio Carta
 	 * Sviluppo
 	 * 
-	 * @return CartaSviluppo
+	 * @return {@link CartaSviluppo}
 	 */
 	public CartaSviluppo visualizzaCarta();
 

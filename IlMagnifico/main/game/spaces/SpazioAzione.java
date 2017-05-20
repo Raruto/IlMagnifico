@@ -94,7 +94,7 @@ public class SpazioAzione implements SpazioPedina {
 	/**
 	 * Punti Giocatore richiesti per occupare lo Spazio Azione
 	 * 
-	 * @return PuntiGiocatore
+	 * @return {@link PuntiGiocatore}
 	 */
 	@Override
 	public PuntiGiocatore puntiGiocatoreRichiesti() {
@@ -104,7 +104,7 @@ public class SpazioAzione implements SpazioPedina {
 	/**
 	 * Risorse Giocatore richiesti per occupare lo Spazio Azione
 	 * 
-	 * @return RisorseGiocatore
+	 * @return {@link RisorseGiocatore}
 	 */
 	@Override
 	public RisorseGiocatore risorseGiocatoreRichieste() {
