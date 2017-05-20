@@ -1,7 +1,5 @@
 package main.game.players;
 
-import java.util.*;
-
 /**
  * Classe per la gestione del Giocatore, composto di: - PlanciaGiocatore -
  * PuntiGiocatore - RisorseGiocatore - FamigliaGiocatore

@@ -46,6 +46,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Ritorna il RIFERIMENTO all'oggetto PedinaArancione
+	 * 
+	 * @return {@link Pedina}
 	 */
 	public Pedina getPedinaArancione() {
 		return pedinaArancione;
@@ -53,6 +55,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Ritorna il riferimento all'oggetto PedinaBianca
+	 * 
+	 * @return {@link Pedina}
 	 */
 	public Pedina getPedinaBianca() {
 		return pedinaBianca;
@@ -60,6 +64,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Ritorna il RIFERIMENTO all'oggetto PedinaNera
+	 * 
+	 * @return {@link Pedina}
 	 */
 	public Pedina getPedinaNera() {
 		return pedinaNera;
@@ -67,6 +73,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Ritorna il RIFERIMENTO all'oggetto PedinaNeutrale
+	 * 
+	 * @return {@link Pedina}
 	 */
 	public Pedina getPedinaNeutrale() {
 		return pedinaNeutrale;
@@ -74,6 +82,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Imposta il VALORE dell'oggetto PedinaArancione
+	 * 
+	 * @param valoreArancione
 	 */
 	public void setValorePedinaArancione(int valoreArancione) {
 		this.pedinaArancione.setValore(valoreArancione);
@@ -81,6 +91,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Imposta il VALORE dell'oggetto PedinaBianca
+	 * 
+	 * @param valoreBianca
 	 */
 	public void setValorePedinaBianca(int valoreBianca) {
 		this.pedinaBianca.setValore(valoreBianca);
@@ -88,6 +100,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Imposta il VALORE dell'oggetto PedinaNera
+	 * 
+	 * @param valoreNera
 	 */
 	public void setValorePedinaNera(int valoreNera) {
 		this.pedinaNera.setValore(valoreNera);
@@ -95,6 +109,8 @@ public class FamigliaGiocatore {
 
 	/**
 	 * Imposta il VALORE dell'oggetto PedinaNeutrale
+	 * 
+	 * @param valoreNeutrale
 	 */
 	public void setValorePedinaNeutrale(int valoreNeutrale) {
 		this.pedinaNeutrale.setValore(valoreNeutrale);

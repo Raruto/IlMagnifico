@@ -1,7 +1,5 @@
 package main.game.players;
 
-import java.util.*;
-
 /**
  * 
  */
@@ -27,7 +25,7 @@ public class Pedina {
 	/**
 	 * Ritorna il giocatore associato alla pedina
 	 * 
-	 * @return Giocatore
+	 * @return {@link Giocatore}
 	 */
 	public Giocatore getGiocatore() {
 		return possessore;
@@ -51,7 +49,7 @@ public class Pedina {
 	/**
 	 * Ritorna il valore della pedina
 	 * 
-	 * @return int valore Pedina
+	 * @return {@link Integer} valore Pedina
 	 */
 	public int getValore() {
 		return this.valore;
