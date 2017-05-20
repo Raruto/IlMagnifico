@@ -20,6 +20,13 @@ public class Effetto extends Attivabile {
 		this.effetto.attiva(giocatore);
 	}
 
+	/**
+	 * Metodo d'appoggio per ottenere dal nome di un effetto composto una lista
+	 * di eventi semplici
+	 * 
+	 * @param nomeEffetto
+	 * @return ArrayList<Effetto>
+	 */
 	public static ArrayList<Effetto> nomeEffettoToArrayEffetti(String nomeEffetto) {
 		ArrayList<Effetto> effetti = new ArrayList<Effetto>();
 
@@ -47,7 +54,6 @@ public class Effetto extends Attivabile {
 		//
 		// PRIVILEGIO_DEL_CONSIGLIO_1("privilegio_del_consiglio_1",
 		// "aumenta_punti_fede_due", 0, 0, 0, 0, 2, 0, 0, false, 1);
-
 
 		for (Effetti e1 : Effetti.values()) {
 			// es: "privilegio_del_consiglio_1"
