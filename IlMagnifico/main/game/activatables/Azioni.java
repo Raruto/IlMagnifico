@@ -3,7 +3,7 @@ package main.game.activatables;
 import main.game.players.Giocatore;
 
 /**
- * 
+ * Elenco dei vari tipi di azioni
  */
 public enum Azioni {
 	ESEMPIO("nome_azione", 0, 0, 0, 0);

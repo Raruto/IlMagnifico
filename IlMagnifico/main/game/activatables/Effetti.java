@@ -3,10 +3,9 @@ package main.game.activatables;
 import main.game.players.Giocatore;
 
 /**
- * 
+ * Elenco dei vari tipi di effetti
  */
 public enum Effetti {
-	// elenco dei vari tipi di effetti
 	AUMENTA_LEGNA_DI_UNO("aumenta_legna_uno", "nome_effetto_alternativo", 1, 0, 0, 0, 0, 0, 0);
 	private String nomeEffettoPrincipale;
 	private String nomeEffettoAlternativo;
