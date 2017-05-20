@@ -1,4 +1,4 @@
-package main.game.dice;
+package main.game.dices;
 
 public enum Dadi {
 

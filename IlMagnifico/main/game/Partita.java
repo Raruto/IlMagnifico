@@ -6,7 +6,7 @@ import main.game.board.Tabellone;
 import main.game.board.tower.AreaTorre;
 import main.game.board.vatican.Vaticano;
 import main.game.cards.Mazzo;
-import main.game.dice.Dado;
+import main.game.dices.Dado;
 import main.game.handlers.GestorePartita;
 import main.game.players.Giocatore;
 
