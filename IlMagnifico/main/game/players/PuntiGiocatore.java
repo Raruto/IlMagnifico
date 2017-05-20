@@ -1,6 +1,5 @@
 package main.game.players;
 
-
 /**
  * Classe per la gestione dei Punti Giocatore
  */
@@ -28,10 +27,10 @@ public class PuntiGiocatore {
 	 * @param puntiMilitari
 	 * @param puntiFede
 	 */
-	public PuntiGiocatore(int puntiMilitari, int puntiVittoria, int puntiFede) {
+	public PuntiGiocatore(int puntiFede, int puntiMilitari, int puntiVittoria) {
+		this.puntiFede = puntiFede;
 		this.puntiVittoria = puntiVittoria;
 		this.puntiMilitari = puntiMilitari;
-		this.puntiFede = puntiFede;
 	}
 
 	public int getPuntiVittoria() {

@@ -1,32 +1,32 @@
 package main.game.cards.development;
 
 public enum CartePersonaggio {
-	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "effetto_immediato", "effetto_permanente");
+	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato", "nome_effetto_permanente");
 	private String nomeCarta;
 	private int periodoCarta;
 	private int legna;
+	private int monete;
 	private int pietra;
 	private int servitori;
-	private int monete;
-	private int PM;
-	private int PV;
-	private int PF;
-	private String effettoImmediato;
-	private String effettoPermanente;
+	private int puntiFede;
+	private int puntiMilitari;
+	private int puntiVittoria;
+	private String nomeEffettoImmediato;
+	private String nomeEffettoPermanente;
 
-	private CartePersonaggio(String nome, int periodo, int legna, int pietra, int servitori, int monete, int PM, int PV,
-			int PF, String effImm, String effPerm) {
+	private CartePersonaggio(String nome, int periodo, int legna, int monete, int pietra, int servitori, int puntiFede,
+			int puntiMilitari, int puntiVittoria, String nomeEffettoImmediato, String nomeEffettoPermanente) {
 		this.nomeCarta = nome;
 		this.periodoCarta = periodo;
 		this.legna = legna;
 		this.pietra = pietra;
 		this.servitori = servitori;
 		this.monete = monete;
-		this.PM = PM;
-		this.PV = PV;
-		this.PF = PF;
-		this.effettoImmediato = effImm;
-		this.effettoPermanente = effPerm;
+		this.puntiMilitari = puntiMilitari;
+		this.puntiVittoria = puntiVittoria;
+		this.puntiFede = puntiFede;
+		this.nomeEffettoImmediato = nomeEffettoImmediato;
+		this.nomeEffettoPermanente = nomeEffettoPermanente;
 	}
 
 	public String getNomeCarta() {
@@ -53,23 +53,35 @@ public enum CartePersonaggio {
 		return this.monete;
 	}
 
-	public int getPM() {
-		return this.PM;
+	public int getPuntiFede() {
+		return puntiFede;
 	}
 
-	public int getPV() {
-		return this.PV;
+	public void setPuntiFede(int puntiFede) {
+		this.puntiFede = puntiFede;
 	}
 
-	public int getPF() {
-		return this.PF;
+	public int getPuntiMilitari() {
+		return puntiMilitari;
 	}
 
-	public String getEffImm() {
-		return this.effettoImmediato;
+	public void setPuntiMilitari(int puntiMilitari) {
+		this.puntiMilitari = puntiMilitari;
 	}
 
-	public String getEffPerm() {
-		return this.effettoPermanente;
+	public int getPuntiVittoria() {
+		return puntiVittoria;
+	}
+
+	public void setPuntiVittoria(int pintiVittoria) {
+		this.puntiVittoria = pintiVittoria;
+	}
+
+	public String getNomeEffettoImmediato() {
+		return this.nomeEffettoImmediato;
+	}
+
+	public String getNomeEffettoPermanente() {
+		return this.nomeEffettoPermanente;
 	}
 }

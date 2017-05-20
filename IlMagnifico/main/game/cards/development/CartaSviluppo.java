@@ -45,11 +45,16 @@ public abstract class CartaSviluppo {
 	 * @param nome
 	 * @param periodo
 	 * @param costo
+	 * @param effettiImmediati
+	 * @param effettiPermanenti
 	 */
-	public CartaSviluppo(String nome, int periodo, RiservaGiocatore costo) {
+	public CartaSviluppo(String nome, int periodo, RiservaGiocatore costo, ArrayList<Effetto> effettiImmediati,
+			ArrayList<Effetto> effettiPermanenti) {
 		this.nome = nome;
 		this.periodo = periodo;
 		this.costo = costo;
+		this.effettiImmediati = effettiImmediati;
+		this.effettiPermanenti = effettiPermanenti;
 	}
 
 	/**

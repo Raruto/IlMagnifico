@@ -18,7 +18,9 @@ public class CartaPersonaggio extends CartaSviluppo {
 	public CartaPersonaggio(CartePersonaggio c) {
 		super(c.getNomeCarta(), c.getPeriodoCarta(),
 				new RiservaGiocatore(new RisorseGiocatore(c.getLegna(), c.getMonete(), c.getPietra(), c.getServitori()),
-						new PuntiGiocatore(c.getPM(), c.getPV(), c.getPF())));
+						new PuntiGiocatore(c.getPuntiFede(), c.getPuntiMilitari(), c.getPuntiVittoria())),
+				Effetto.nomeEffettoToArrayEffetti(c.getNomeEffettoImmediato()),
+				Effetto.nomeEffettoToArrayEffetti(c.getNomeEffettoPermanente()));
 
 		this.carta = c;
 
@@ -30,29 +32,33 @@ public class CartaPersonaggio extends CartaSviluppo {
 		 * gli effetti alternativi di PRIVILEGIO_DEL_CONSIGLIO). Ditemi se può
 		 * andare bene o se invece ho sbagliato qualcosa
 		 */
-		for (Effetti eTemp1 : Effetti.values()) {
-			if (c.getEffImm() == eTemp1.getEffettoPrincipale() && !(eTemp1.getEffettoAlternativo() == null)) {
-				for (Effetti eTemp2 : Effetti.values()) {
-					if (eTemp1.getEffettoAlternativo() == eTemp2.getEffettoPrincipale())
-						this.effettiImmediati.add(0, new Effetto(eTemp2));
-				}
-			}
-			if (c.getEffImm() == eTemp1.getEffettoPrincipale() && eTemp1.getEffettoAlternativo() == null)
-				this.effettiImmediati.add(0, new Effetto(eTemp1));
-		}
+		// for (Effetti eTemp1 : Effetti.values()) {
+		// if (c.getEffImm() == eTemp1.getEffettoPrincipale() &&
+		// !(eTemp1.getEffettoAlternativo() == null)) {
+		// for (Effetti eTemp2 : Effetti.values()) {
+		// if (eTemp1.getEffettoAlternativo() == eTemp2.getEffettoPrincipale())
+		// this.effettiImmediati.add(0, new Effetto(eTemp2));
+		// }
+		// }
+		// if (c.getEffImm() == eTemp1.getEffettoPrincipale() &&
+		// eTemp1.getEffettoAlternativo() == null)
+		// this.effettiImmediati.add(0, new Effetto(eTemp1));
+		// }
 		/*
 		 * Faccio la stessa cosa con gli effetti permanenti
 		 */
-		for (Effetti eTemp1 : Effetti.values()) {
-			if (c.getEffPerm() == eTemp1.getEffettoPrincipale() && !(eTemp1.getEffettoAlternativo() == null)) {
-				for (Effetti eTemp2 : Effetti.values()) {
-					if (eTemp1.getEffettoAlternativo() == eTemp2.getEffettoPrincipale())
-						this.effettiPermanenti.add(0, new Effetto(eTemp2));
-				}
-			}
-			if (c.getEffPerm() == eTemp1.getEffettoPrincipale() && eTemp1.getEffettoAlternativo() == null)
-				this.effettiPermanenti.add(0, new Effetto(eTemp1));
-		}
+		// for (Effetti eTemp1 : Effetti.values()) {
+		// if (c.getEffPerm() == eTemp1.getEffettoPrincipale() &&
+		// !(eTemp1.getEffettoAlternativo() == null)) {
+		// for (Effetti eTemp2 : Effetti.values()) {
+		// if (eTemp1.getEffettoAlternativo() == eTemp2.getEffettoPrincipale())
+		// this.effettiPermanenti.add(0, new Effetto(eTemp2));
+		// }
+		// }
+		// if (c.getEffPerm() == eTemp1.getEffettoPrincipale() &&
+		// eTemp1.getEffettoAlternativo() == null)
+		// this.effettiPermanenti.add(0, new Effetto(eTemp1));
+		// }
 	}
 
 	public CartePersonaggio getCarta() {
