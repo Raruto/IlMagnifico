@@ -13,9 +13,9 @@ public enum Effetti {
 	private int deltaPietra;
 	private int deltaServitori;
 	private int deltaMonete;
-	private int deltaPV;
-	private int deltaPM;
-	private int deltaPF;
+	private int deltaPuntiVittoria;
+	private int deltaPuntiMilitari;
+	private int deltaPuntiFede;
 
 	private Effetti(String nome, String effettoAlt, int legna, int pietra, int servitori, int monete, int pv, int pm,
 			int pf) {
@@ -25,9 +25,9 @@ public enum Effetti {
 		this.deltaPietra = pietra;
 		this.deltaServitori = servitori;
 		this.deltaMonete = monete;
-		this.deltaPV = pv;
-		this.deltaPM = pm;
-		this.deltaPF = pf;
+		this.deltaPuntiVittoria = pv;
+		this.deltaPuntiMilitari = pm;
+		this.deltaPuntiFede = pf;
 	}
 
 	public void attiva(Giocatore giocatore) {
@@ -45,6 +45,34 @@ public enum Effetti {
 
 	public String getEffettoAlternativo() {
 		return this.nomeEffettoAlternativo;
+	}
+
+	public int getDeltaLegna() {
+		return deltaLegna;
+	}
+
+	public int getDeltaPietra() {
+		return deltaPietra;
+	}
+
+	public int getDeltaServitori() {
+		return deltaServitori;
+	}
+
+	public int getDeltaMonete() {
+		return deltaMonete;
+	}
+
+	public int getDeltaPV() {
+		return deltaPuntiVittoria;
+	}
+
+	public int getDeltaPM() {
+		return deltaPuntiMilitari;
+	}
+
+	public int getDeltaPF() {
+		return deltaPuntiFede;
 	}
 
 }
