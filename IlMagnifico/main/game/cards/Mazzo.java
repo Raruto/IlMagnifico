@@ -118,64 +118,72 @@ public class Mazzo {
 	 * @return void
 	 */
 	public void mescolaMazzo() {
-		CartaTerritorio cartaTerritorioTemp1 = new CartaTerritorio(null);
-		CartaTerritorio cartaTerritorioTemp2 = new CartaTerritorio(null);
-		CartaPersonaggio cartaPersonaggioTemp1 = new CartaPersonaggio(null);
-		CartaPersonaggio cartaPersonaggioTemp2 = new CartaPersonaggio(null);
-		CartaEdificio cartaEdificioTemp1 = new CartaEdificio(null);
-		CartaEdificio cartaEdificioTemp2 = new CartaEdificio(null);
-		CartaImpresa cartaImpresaTemp1 = new CartaImpresa(null);
-		CartaImpresa cartaImpresaTemp2 = new CartaImpresa(null);
-		int index1;
-		int index2;
-		int contatore;
-		Random random = new Random();
+		
+		Collections.shuffle(mazzoCarteEdificio);
+		Collections.shuffle(mazzoCarteImpresa);
+		Collections.shuffle(mazzoCartePersonaggio);
+		Collections.shuffle(mazzoCarteTerritorio);
 
-		inizializzaMazzi();
-
-		// mischio i mazzetti dei tipi di carte prendendo sempre due oggetti
-		// dell'ArrayList e scambiandoli
-		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(this.mazzoCartePersonaggio.size());
-			index2 = random.nextInt(this.mazzoCartePersonaggio.size()); // anzichè
-																		// un
-																		// numero
-																		// generico
-																		// utilizzerei
-																		// la
-																		// dimensione
-																		// effettiva
-																		// dell'arraylist
-			cartaPersonaggioTemp1 = this.mazzoCartePersonaggio.get(index1);
-			cartaPersonaggioTemp2 = this.mazzoCartePersonaggio.get(index2);
-			this.mazzoCartePersonaggio.set(index2, cartaPersonaggioTemp1);
-			this.mazzoCartePersonaggio.set(index1, cartaPersonaggioTemp2);
-		}
-
-		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(this.mazzoCarteTerritorio.size());
-			index2 = random.nextInt(this.mazzoCarteTerritorio.size());
-			cartaTerritorioTemp1 = this.mazzoCarteTerritorio.get(index1);
-			cartaTerritorioTemp2 = this.mazzoCarteTerritorio.get(index2);
-			this.mazzoCarteTerritorio.set(index1, cartaTerritorioTemp2);
-			this.mazzoCarteTerritorio.set(index2, cartaTerritorioTemp1);
-		}
-		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(this.mazzoCarteEdificio.size());
-			index2 = random.nextInt(this.mazzoCarteEdificio.size());
-			cartaEdificioTemp1 = this.mazzoCarteEdificio.get(index1);
-			cartaEdificioTemp2 = this.mazzoCarteEdificio.get(index2);
-			this.mazzoCarteEdificio.set(index1, cartaEdificioTemp2);
-			this.mazzoCarteEdificio.set(index2, cartaEdificioTemp1);
-		}
-		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(this.mazzoCarteImpresa.size());
-			index2 = random.nextInt(this.mazzoCarteImpresa.size());
-			cartaImpresaTemp1 = this.mazzoCarteImpresa.get(index1);
-			cartaImpresaTemp2 = this.mazzoCarteImpresa.get(index2);
-			this.mazzoCarteImpresa.set(index2, cartaImpresaTemp1);
-			this.mazzoCarteImpresa.set(index1, cartaImpresaTemp2);
-		}
+		//TODO: controllare se equivalenti
+		
+//		CartaTerritorio cartaTerritorioTemp1 = new CartaTerritorio(null);
+//		CartaTerritorio cartaTerritorioTemp2 = new CartaTerritorio(null);
+//		CartaPersonaggio cartaPersonaggioTemp1 = new CartaPersonaggio(null);
+//		CartaPersonaggio cartaPersonaggioTemp2 = new CartaPersonaggio(null);
+//		CartaEdificio cartaEdificioTemp1 = new CartaEdificio(null);
+//		CartaEdificio cartaEdificioTemp2 = new CartaEdificio(null);
+//		CartaImpresa cartaImpresaTemp1 = new CartaImpresa(null);
+//		CartaImpresa cartaImpresaTemp2 = new CartaImpresa(null);
+//		int index1;
+//		int index2;
+//		int contatore;
+//		Random random = new Random();
+//
+//		inizializzaMazzi();
+//
+//		// mischio i mazzetti dei tipi di carte prendendo sempre due oggetti
+//		// dell'ArrayList e scambiandoli
+//		for (contatore = 0; contatore < 10; contatore++) {
+//			index1 = random.nextInt(this.mazzoCartePersonaggio.size());
+//			index2 = random.nextInt(this.mazzoCartePersonaggio.size()); // anzichè
+//																		// un
+//																		// numero
+//																		// generico
+//																		// utilizzerei
+//																		// la
+//																		// dimensione
+//																		// effettiva
+//																		// dell'arraylist
+//			cartaPersonaggioTemp1 = this.mazzoCartePersonaggio.get(index1);
+//			cartaPersonaggioTemp2 = this.mazzoCartePersonaggio.get(index2);
+//			this.mazzoCartePersonaggio.set(index2, cartaPersonaggioTemp1);
+//			this.mazzoCartePersonaggio.set(index1, cartaPersonaggioTemp2);
+//		}
+//
+//		for (contatore = 0; contatore < 10; contatore++) {
+//			index1 = random.nextInt(this.mazzoCarteTerritorio.size());
+//			index2 = random.nextInt(this.mazzoCarteTerritorio.size());
+//			cartaTerritorioTemp1 = this.mazzoCarteTerritorio.get(index1);
+//			cartaTerritorioTemp2 = this.mazzoCarteTerritorio.get(index2);
+//			this.mazzoCarteTerritorio.set(index1, cartaTerritorioTemp2);
+//			this.mazzoCarteTerritorio.set(index2, cartaTerritorioTemp1);
+//		}
+//		for (contatore = 0; contatore < 10; contatore++) {
+//			index1 = random.nextInt(this.mazzoCarteEdificio.size());
+//			index2 = random.nextInt(this.mazzoCarteEdificio.size());
+//			cartaEdificioTemp1 = this.mazzoCarteEdificio.get(index1);
+//			cartaEdificioTemp2 = this.mazzoCarteEdificio.get(index2);
+//			this.mazzoCarteEdificio.set(index1, cartaEdificioTemp2);
+//			this.mazzoCarteEdificio.set(index2, cartaEdificioTemp1);
+//		}
+//		for (contatore = 0; contatore < 10; contatore++) {
+//			index1 = random.nextInt(this.mazzoCarteImpresa.size());
+//			index2 = random.nextInt(this.mazzoCarteImpresa.size());
+//			cartaImpresaTemp1 = this.mazzoCarteImpresa.get(index1);
+//			cartaImpresaTemp2 = this.mazzoCarteImpresa.get(index2);
+//			this.mazzoCarteImpresa.set(index2, cartaImpresaTemp1);
+//			this.mazzoCarteImpresa.set(index1, cartaImpresaTemp2);
+//		}
 	}
 
 	/**
