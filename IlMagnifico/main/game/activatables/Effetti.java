@@ -6,32 +6,49 @@ import main.game.players.Giocatore;
  * Elenco dei vari tipi di effetti
  */
 public enum Effetti {
-	AUMENTA_LEGNA_DI_UNO("aumenta_legna_uno", "nome_effetto_alternativo", 1, 0, 0, 0, 0, 0, 0);
-	private String nomeEffettoPrincipale;
-	private String nomeEffettoAlternativo;
+	AUMENTA_LEGNA_DI_UNO("aumenta_legna_uno", "aumenta_legna_uno", 1, 0, 0, 0, 0, 0, 0, false, 1);
+	private String categoriaEffetto;
+	private String nomeEffetto;
 	private int deltaLegna;
+	private int deltaMonete;
 	private int deltaPietra;
 	private int deltaServitori;
-	private int deltaMonete;
-	private int deltaPuntiVittoria;
-	private int deltaPuntiMilitari;
 	private int deltaPuntiFede;
+	private int deltaPuntiMilitari;
+	private int deltaPuntiVittoria;
 
-	private Effetti(String nome, String effettoAlt, int legna, int pietra, int servitori, int monete, int pv, int pm,
-			int pf) {
-		this.nomeEffettoPrincipale = nome;
-		this.nomeEffettoAlternativo = effettoAlt;
+	// indica se è possibile attivare l'effetto insieme ad altri dello stesso
+	// tipo (es: PRIVILEGIO_DEL_CONSIGLIO_1&2 è un effetto che permetta di
+	// scegliere tra PRIVILEGIO_DEL_CONSIGLIO_1 e/o PRIVILEGIO_DEL_CONSIGLIO_2
+	// se cumulabile = true --> AND (posso attivarli entrambi!)
+	// se cumulabile = false --> XOR (posso attivarne solo uno!)
+	private boolean cumulabile;
+
+	// se cumulabile = false --> XOR (NON posso attivarli entrambi!)
+	// visto che salviamo effetti composti in un array di effetti bisogna potere
+	// discriminare su quale dei due attivare 
+	// se sottoGruppo=1 --> PRIVILEGIO_DEL_CONSIGLIO_1
+	// se sottoGruppo=2 --> PRIVILEGIO_DEL_CONSIGLIO_2
+	private int sottoGruppo;
+
+	private Effetti(String categoriaEffetto, String nomeEffetto, int legna, int monete, int pietra, int servitori,
+			int puntiFede, int puntiMilitari, int puntiVittoria, boolean cumulabile, int sottoGruppo) {
+		this.categoriaEffetto = categoriaEffetto;
+		this.nomeEffetto = nomeEffetto;
 		this.deltaLegna = legna;
 		this.deltaPietra = pietra;
 		this.deltaServitori = servitori;
 		this.deltaMonete = monete;
-		this.deltaPuntiVittoria = pv;
-		this.deltaPuntiMilitari = pm;
-		this.deltaPuntiFede = pf;
+		this.deltaPuntiVittoria = puntiVittoria;
+		this.deltaPuntiMilitari = puntiMilitari;
+		this.deltaPuntiFede = puntiFede;
+
+		this.cumulabile = cumulabile;
+		this.sottoGruppo = sottoGruppo;
 	}
 
 	public void attiva(Giocatore giocatore) {
-		if (this.nomeEffettoPrincipale.equals("aumenta_legna_uno"))
+		if (this.categoriaEffetto.equals("aumenta_legna_uno"))
 			aumentaLegnaUno(giocatore);
 	}
 
@@ -39,12 +56,12 @@ public enum Effetti {
 
 	}
 
-	public String getEffettoPrincipale() {
-		return this.nomeEffettoPrincipale;
+	public String getCategoriaEffetto() {
+		return this.categoriaEffetto;
 	}
 
-	public String getEffettoAlternativo() {
-		return this.nomeEffettoAlternativo;
+	public String getNomeEffetto() {
+		return this.nomeEffetto;
 	}
 
 	public int getDeltaLegna() {
@@ -73,6 +90,14 @@ public enum Effetti {
 
 	public int getDeltaPF() {
 		return deltaPuntiFede;
+	}
+
+	public boolean isCumulabile() {
+		return cumulabile;
+	}
+
+	public int getSottoGruppo() {
+		return sottoGruppo;
 	}
 
 }
