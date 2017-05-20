@@ -31,7 +31,7 @@ public class Mazzo {
 
 	/**
 	 * Periodo corrente di gioco (1,2,3) (ad ogni incremento del periodo di
-	 * gioco le liste dei mazzi vengono agggiornati con le carte del realtivo
+	 * gioco le liste dei mazzi vengono aggiornati con le carte del relativo
 	 * periodo)
 	 */
 	private int periodo;
@@ -102,8 +102,8 @@ public class Mazzo {
 		// mischio i mazzetti dei tipi di carte prendendo sempre due oggetti
 		// dell'ArrayList e scambiandoli
 		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(9);
-			index2 = random.nextInt(9);
+			index1 = random.nextInt(this.cartePersonaggio.size());
+			index2 = random.nextInt(this.cartePersonaggio.size()); //anzichè un numero generico utilizzerei la dimensione effettiva dell'arraylist
 			cartaPersonaggioTemp1 = this.cartePersonaggio.get(index1);
 			cartaPersonaggioTemp2 = this.cartePersonaggio.get(index2);
 			this.cartePersonaggio.set(index2, cartaPersonaggioTemp1);
@@ -111,24 +111,24 @@ public class Mazzo {
 		}
 
 		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(9);
-			index2 = random.nextInt(9);
+			index1 = random.nextInt(this.carteTerritorio.size());
+			index2 = random.nextInt(this.carteTerritorio.size());
 			cartaTerritorioTemp1 = this.carteTerritorio.get(index1);
 			cartaTerritorioTemp2 = this.carteTerritorio.get(index2);
 			this.carteTerritorio.set(index1, cartaTerritorioTemp2);
 			this.carteTerritorio.set(index2, cartaTerritorioTemp1);
 		}
 		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(9);
-			index2 = random.nextInt(9);
+			index1 = random.nextInt(this.carteEdificio.size());
+			index2 = random.nextInt(this.carteEdificio.size());
 			cartaEdificioTemp1 = this.carteEdificio.get(index1);
 			cartaEdificioTemp2 = this.carteEdificio.get(index2);
 			this.carteEdificio.set(index1, cartaEdificioTemp2);
 			this.carteEdificio.set(index2, cartaEdificioTemp1);
 		}
 		for (contatore = 0; contatore < 10; contatore++) {
-			index1 = random.nextInt(9);
-			index2 = random.nextInt(9);
+			index1 = random.nextInt(this.carteImpresa.size());
+			index2 = random.nextInt(this.carteImpresa.size());
 			cartaImpresaTemp1 = this.carteImpresa.get(index1);
 			cartaImpresaTemp2 = this.carteImpresa.get(index2);
 			this.carteImpresa.set(index2, cartaImpresaTemp1);
@@ -185,11 +185,11 @@ public class Mazzo {
 		return cartaTemporanea;
 	}
 
-	/* NB questo lo toglierei al suo posto usa: incrementaPerdio()*/
+	
 	/*
-	 * public void setPeriodo(int periodoNuovo) { this.periodo = periodoNuovo; }
+	 * Incrementa l'attributo periodo di 1
 	 */
-	public void incrementaPerdio() {
+	public void incrementaPeriodo() {
 		this.periodo++;
 	}
 
