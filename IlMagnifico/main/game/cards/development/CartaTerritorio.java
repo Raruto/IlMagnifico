@@ -29,23 +29,27 @@ public class CartaTerritorio extends CartaSviluppo {
 		 * Ditemi se può andare bene o se invece ho sbagliato qualcosa
 		 * */
 		for(Effetti eTemp1 : Effetti.values()){
-			if(c.getEffImm()==eTemp1.getEffettoPrincipale()){
+			if(c.getEffImm()==eTemp1.getEffettoPrincipale()&&!(eTemp1.getEffettoAlternativo()==null)){
 				for(Effetti eTemp2 : Effetti.values()){
 					if(eTemp1.getEffettoAlternativo()==eTemp2.getEffettoPrincipale())
 						this.effettoImmediato.add(0, new Effetto(eTemp2));
 				}
 			}
+			if(c.getEffImm()==eTemp1.getEffettoPrincipale()&&eTemp1.getEffettoAlternativo()==null)
+				this.effettoImmediato.add(0, new Effetto(eTemp1));
 		}
 		/*
 		 * Faccio la stessa cosa con gli effetti permanenti
 		 * */
 		for(Effetti eTemp1 : Effetti.values()){
-			if(c.getEffPerm()==eTemp1.getEffettoPrincipale()){
+			if(c.getEffPerm()==eTemp1.getEffettoPrincipale()&&!(eTemp1.getEffettoAlternativo()==null)){
 				for(Effetti eTemp2 : Effetti.values()){
 					if(eTemp1.getEffettoAlternativo()==eTemp2.getEffettoPrincipale())
 						this.effettoPermanente.add(0, new Effetto(eTemp2));
 				}
 			}
+			if(c.getEffPerm()==eTemp1.getEffettoPrincipale()&&eTemp1.getEffettoAlternativo()==null)
+				this.effettoPermanente.add(0, new Effetto(eTemp1));
 		}
 	}
 
