@@ -24,14 +24,6 @@ public class RiservaGiocatore {
 		this.punti = punti;
 	}
 
-	/* NB sette parametri sono tanti!!! */
-	/*
-	 * public CostoCartaSviluppo(int legna, int pietra, int servitori, int
-	 * monete, int PM, int PV, int PF) { this.risorse = new
-	 * RisorseGiocatore(legna, monete, pietra, servitori); this.punti = new
-	 * PuntiGiocatore(PM, PV, PF); }
-	 */
-
 	public RisorseGiocatore getRisorseGiocatore() {
 		return this.risorse;
 	}
