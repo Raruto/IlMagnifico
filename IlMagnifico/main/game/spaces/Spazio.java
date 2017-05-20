@@ -8,7 +8,8 @@ import main.game.players.PuntiGiocatore;
 public interface Spazio {
 
 	/**
-	 * @return true se lo spazio è occupato
+	 * Ritorna un valore booleano per determina se lo Spazio è occupato
+	 * @return true se occupato
 	 */
 	public boolean spazioOccupato();
 

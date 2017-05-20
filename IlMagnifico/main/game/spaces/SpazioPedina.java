@@ -1,7 +1,5 @@
 package main.game.spaces;
 
-import java.util.*;
-
 import main.game.players.Pedina;
 
 /**

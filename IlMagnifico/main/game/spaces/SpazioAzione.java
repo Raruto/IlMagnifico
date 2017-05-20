@@ -1,7 +1,5 @@
 package main.game.spaces;
 
-import java.util.*;
-
 import main.game.activatables.Azione;
 import main.game.players.Pedina;
 import main.game.players.PuntiGiocatore;
