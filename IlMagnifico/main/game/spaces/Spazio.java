@@ -1,6 +1,7 @@
 package main.game.spaces;
 
 import main.game.players.PuntiGiocatore;
+import main.game.players.RisorseGiocatore;
 
 /**
  * Interfaccia che definisce il concetto di Spazio all'interno del Gioco
@@ -8,7 +9,8 @@ import main.game.players.PuntiGiocatore;
 public interface Spazio {
 
 	/**
-	 * Ritorna un valore booleano per determina se lo Spazio è occupato
+	 * Ritorna un valore booleano per determinare se lo Spazio è occupato
+	 * 
 	 * @return true se occupato
 	 */
 	public boolean spazioOccupato();
@@ -18,6 +20,13 @@ public interface Spazio {
 	 * 
 	 * @return PuntiGiocatore
 	 */
-	public PuntiGiocatore puntiRichiesti();
+	public PuntiGiocatore puntiGiocatoreRichiesti();
+
+	/**
+	 * Risorse Giocatore richieste per occupare lo Spazio
+	 * 
+	 * @return RisorseGiocatore
+	 */
+	public RisorseGiocatore risorseGiocatoreRichieste();
 
 }

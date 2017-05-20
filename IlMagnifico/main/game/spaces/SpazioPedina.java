@@ -3,18 +3,22 @@ package main.game.spaces;
 import main.game.players.Pedina;
 
 /**
- * 
+ * Interfaccia che estende il concetto di Spazio per lo Spazio Pedina
+ * all'interno del Gioco
  */
 public interface SpazioPedina extends Spazio {
 
 	/**
-	 * @return
+	 * Riferimento alla Pedina attualmente presente nello Spazio Pedina
+	 * 
+	 * @return Pedina
 	 */
 	public Pedina visualizzaPedina();
 
 	/**
-	 * @param pedina
-	 * @return
+	 * Inserisce la Pedina nello Spazio Pedina
+	 * 
+	 * @param Pedina
 	 */
 	public void aggiungiPedina(Pedina pedina);
 

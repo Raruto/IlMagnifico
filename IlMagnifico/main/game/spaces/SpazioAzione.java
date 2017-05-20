@@ -3,23 +3,45 @@ package main.game.spaces;
 import main.game.activatables.Azione;
 import main.game.players.Pedina;
 import main.game.players.PuntiGiocatore;
+import main.game.players.RisorseGiocatore;
 
 /**
- * 
+ * Classe che implementa il concetto di Spazio Azione all'interno del Gioco
  */
 public class SpazioAzione implements SpazioPedina {
 
 	/**
-	 * Default constructor
+	 * Punti Giocatore richiesti per poter piazzare il familiare nello Spazio
+	 * Azione
 	 */
-	public SpazioAzione() {
-	}
+	private PuntiGiocatore puntiGiocatoreRichiesti;
+
+	/**
+	 * Risorse Giocatore richieste per potere piazzare il familiare nello Spazio
+	 * Azione
+	 */
+	private RisorseGiocatore risorseGiocatoreRichieste;
 
 	/**
 	 * 
 	 */
 	private Azione[] azione;
+
+	/**
+	 * Riferimento alla Pedina attualmente presente nello Spazio Azione
+	 */
 	private Pedina pedina;
+
+	/**
+	 * Default constructor
+	 * 
+	 * @param puntiGiocatoreRichiesti
+	 * @param risorseGiocatoreRichieste
+	 */
+	public SpazioAzione(PuntiGiocatore puntiGiocatoreRichiesti, RisorseGiocatore risorseGiocatoreRichieste) {
+		this.puntiGiocatoreRichiesti = puntiGiocatoreRichiesti;
+		this.risorseGiocatoreRichieste = risorseGiocatoreRichieste;
+	}
 
 	/**
 	 * @return
@@ -37,22 +59,31 @@ public class SpazioAzione implements SpazioPedina {
 	}
 
 	/**
-	 * @return
+	 * Riferimento alla Pedina attualmente presente nello Spazio Azione
+	 * 
+	 * @return Pedina
 	 */
+	@Override
 	public Pedina visualizzaPedina() {
 		// restituisce la pedina
 		return this.pedina;
 	}
 
 	/**
-	 * @param pedina
-	 * @return
+	 * Inserisce la Pedina nello Spazio Azione
+	 * 
+	 * @param Pedina
 	 */
+	@Override
 	public void aggiungiPedina(Pedina pedina) {
-		// mette una pedina nello spazio azione corrispondente
 		this.pedina = pedina;
 	}
 
+	/**
+	 * Ritorna un valore booleano per determinare se lo Spazio Azione è occupato
+	 * 
+	 * @return true se occupato
+	 */
 	@Override
 	public boolean spazioOccupato() {
 		// guarda se c'e' una pedina nello spazio dell'azione. Restituisce vero
@@ -63,10 +94,24 @@ public class SpazioAzione implements SpazioPedina {
 			return false;
 	}
 
+	/**
+	 * Punti Giocatore richiesti per occupare lo Spazio Azione
+	 * 
+	 * @return PuntiGiocatore
+	 */
 	@Override
-	public PuntiGiocatore puntiRichiesti() {
-		// punti richiesti da parte del giocatore per posizionare la pedina nel
-		// corrispondente spazio azione
+	public PuntiGiocatore puntiGiocatoreRichiesti() {
+		return null;
+	}
+
+	/**
+	 * Risorse Giocatore richiesti per occupare lo Spazio Azione
+	 * 
+	 * @return RisorseGiocatore
+	 */
+	@Override
+	public RisorseGiocatore risorseGiocatoreRichieste() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
