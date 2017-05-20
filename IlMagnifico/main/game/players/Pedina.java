@@ -7,21 +7,22 @@ import java.util.*;
  */
 public class Pedina {
 
-    /**
-     * Default constructor
-     */
-    public Pedina() {
-    }
+	/**
+	 * Valore attuale della pedina
+	 */
+	private int valore;
+	/**
+	 * Possessore della pedina
+	 */
+	private Giocatore possessore;
 
-    /**
-     * 
-     */
-    private int valore;
-
-    /**
-     * 
-     */
-    private Giocatore possessore;
+	/**
+	 * Default constructor
+	 */
+	public Pedina(int valore, Giocatore possessore) {
+		this.valore = valore;
+		this.possessore = possessore;
+	}
 
 	public Giocatore getGiocatore() {
 		return possessore;
@@ -31,11 +32,11 @@ public class Pedina {
 		this.possessore = possessore;
 	}
 
+	public void setValore(int valore) {
+		this.valore = valore;
+	}
 
-
-
-
-
-
-
+	public int getValore() {
+		return this.valore;
+	}
 }

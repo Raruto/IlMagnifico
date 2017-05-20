@@ -3,61 +3,63 @@ package main.game.players;
 import java.util.*;
 
 /**
- * 
+ * Classe per la gestione del Giocatore, composto di:
+ * - PlanciaGiocatore
+ * - PuntiGiocatore
+ * - RisorseGiocatore
+ * - FamigliaGiocatore
  */
 public class Giocatore {
 
-    /**
-     * Default constructor
-     */
-    public Giocatore() {
-    }
+	/**
+	 * Nome del Giocatore
+	 */
+	private String nome;
 
-    /**
-     * 
-     */
-    private String nome;
+	/**
+	 * Plancia per tenere traccia delle Carte Sviluppo associate al Giocatore
+	 */
+	private PlanciaGiocatore plancia;
 
-    /**
-     * 
-     */
-    private PlanciaGiocatore plancia;
+	/**
+	 * Punti vittoria e Punti Militari
+	 */
+	private PuntiGiocatore punti;
 
-    /**
-     * 
-     */
-    private PuntiGiocatore punti;
+	/**
+	 * Denari, Legno, Servitori, Pietre
+	 */
+	private RisorseGiocatore risorse;
 
-    /**
-     * 
-     */
-    private RisorseGiocatore risorse;
+	/**
+	 * Pedina Arancione, Bianca, Nera, Neutra
+	 */
+	private FamigliaGiocatore famiglia;
 
-    /**
-     * 
-     */
-    private FamigliaGiocatore famiglia;
+	/**
+	 * Default constructor
+	 */
+	public Giocatore() {
+		// TODO: decidere a quale valore inizializzare le pedine del giocatore
+		int dadoArancione = 0, dadoBianco = 0, dadoNero = 0, pedinaNeutrale = 0;
 
-	public void setValoriPedine(int dadoBianco, int dadoArancione, int dadoNero) {
-		
-		//Si potrebbe anche passare l'oggetto "Dado dado" e dopo:
-		
-		//dado.getDadoBianco();
-		//dado.getDadoArancione();
-		//dado.getDadoNero();
-		
-		//Dipende da come vogliamo suddividere gli ambiti
-
-		
+		famiglia = new FamigliaGiocatore(dadoArancione, dadoBianco, dadoNero, pedinaNeutrale, this);
 	}
 
+	public void setValoriPedine(int pedinaBianca, int pedinaArancione, int pedinaNera, int pedinaNeutrale) {
 
+		// Si potrebbe anche passare l'oggetto "Dado dado" e dopo:
 
+		// dado.getDadoBianco();
+		// dado.getDadoArancione();
+		// dado.getDadoNero();
 
+		// Dipende da come vogliamo suddividere gli ambiti
 
-
-
-
-
+		famiglia.setValorePedinaArancione(pedinaArancione);
+		famiglia.setValorePedinaBianca(pedinaBianca);
+		famiglia.setValorePedinaNera(pedinaNera);
+		famiglia.setValorePedinaNeutrale(pedinaNeutrale);
+	}
 
 }
