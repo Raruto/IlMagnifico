@@ -110,16 +110,21 @@ public class Partita {
 	}
 
 	/*
-	 * Calcolo dell'ordine dei giocatori per il turno successivo
+	 * Calcolo dell'ordine dei giocatori per il turno successivo. Tolgo dall'ordine corrente i giocatori presenti con una pedina
+	 * nel Palazzo del Consiglio e concateno i due ArrayList
 	 */
 	public void calcoloOrdineGiocatori() {
 		ArrayList<Giocatore> ordineTurniTemporaneo = new ArrayList<Giocatore>();
-		// calcolo l'ordine dei turni per il giro successivo
+		int contatore1,contatore2;
 		ordineTurniTemporaneo = this.tabellone.getPalazzoDelConsiglio().getOrdineTurnoSuccessivo();
-
-		// TODO: finire di implementare
-		// for(contatore=0;contatore<=this.tabellone.get(contatore))
-		// }
+		 for(contatore1=0;contatore1<ordineTurniTemporaneo.size();contatore1++){
+			 for(contatore2=0;contatore2<this.ordineTurno.size();contatore2++){
+				 if(ordineTurniTemporaneo.get(contatore1)==this.ordineTurno.get(contatore2))
+					 this.ordineTurno.remove(contatore2);
+			 }
+		}
+		 for(contatore1=0;contatore1<ordineTurniTemporaneo.size();contatore1++)
+			 this.ordineTurno.add(0, ordineTurniTemporaneo.get(contatore1));
 	}
 
 	public void giroDiTurni() {
