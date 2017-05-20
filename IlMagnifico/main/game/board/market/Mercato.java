@@ -14,10 +14,4 @@ public class Mercato extends ZonaTabellone{
     public Mercato() {
     }
 
-    /**
-     * 
-     */
-    private SpazioAzione[] spazi;
-
-
 }
