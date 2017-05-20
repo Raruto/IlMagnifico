@@ -2,6 +2,9 @@ package main.game.cards.development;
 
 import main.game.activatables.Effetti;
 import main.game.activatables.Effetto;
+import main.game.players.PuntiGiocatore;
+import main.game.players.RiservaGiocatore;
+import main.game.players.RisorseGiocatore;
 
 /**
  * 
@@ -10,11 +13,13 @@ public class CartaEdificio extends CartaSviluppo {
 	private CarteEdificio carta;
 
 	public CartaEdificio(CarteEdificio c) {
+		
+		super(c.getNomeCarta(),c.getPeriodoCarta(),new RiservaGiocatore(
+				new RisorseGiocatore(c.getLegna(), c.getMonete(), c.getPietra(), c.getServitori()),
+				new PuntiGiocatore(c.getPM(), c.getPV(), c.getPF())));
+		
 		this.carta = c;
-		this.nome = c.getNomeCarta();
-		this.periodo = c.getPeriodoCarta();
-		this.costo = new CostoCartaSviluppo(c.getLegna(), c.getPietra(), c.getServitori(), c.getMonete(), c.getPM(),
-				c.getPV(), c.getPF());
+		
 		/*
 		 * Guardo negli effetti quelli che hanno l'effetto principale indicato
 		 * nella carta e riempio l'arraylist degli effetti indicati nelle
@@ -27,11 +32,11 @@ public class CartaEdificio extends CartaSviluppo {
 			if (c.getEffImm() == eTemp1.getEffettoPrincipale() && !(eTemp1.getEffettoAlternativo() == null)) {
 				for (Effetti eTemp2 : Effetti.values()) {
 					if (eTemp1.getEffettoAlternativo() == eTemp2.getEffettoPrincipale())
-						this.effettoImmediato.add(0, new Effetto(eTemp2));
+						this.effettiImmediati.add(0, new Effetto(eTemp2));
 				}
 			}
 			if (c.getEffImm() == eTemp1.getEffettoPrincipale() && eTemp1.getEffettoAlternativo() == null)
-				this.effettoImmediato.add(0, new Effetto(eTemp1));
+				this.effettiImmediati.add(0, new Effetto(eTemp1));
 		}
 		/*
 		 * Faccio la stessa cosa con gli effetti permanenti
@@ -40,11 +45,11 @@ public class CartaEdificio extends CartaSviluppo {
 			if (c.getEffPerm() == eTemp1.getEffettoPrincipale() && !(eTemp1.getEffettoAlternativo() == null)) {
 				for (Effetti eTemp2 : Effetti.values()) {
 					if (eTemp1.getEffettoAlternativo() == eTemp2.getEffettoPrincipale())
-						this.effettoPermanente.add(0, new Effetto(eTemp2));
+						this.effettiPermanenti.add(0, new Effetto(eTemp2));
 				}
 			}
 			if (c.getEffPerm() == eTemp1.getEffettoPrincipale() && eTemp1.getEffettoAlternativo() == null)
-				this.effettoPermanente.add(0, new Effetto(eTemp1));
+				this.effettiPermanenti.add(0, new Effetto(eTemp1));
 		}
 	}
 
