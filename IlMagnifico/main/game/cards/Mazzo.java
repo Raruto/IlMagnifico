@@ -5,7 +5,11 @@ import java.util.*;
 import main.game.cards.development.*;
 
 /**
- * 
+ * Classe che implementa il concetto di Mazzo di gioco, composto di:
+ * - mazzoCarteEdificio
+ * - mazzoCarteImpresa
+ * - mazzoCarteTerritorio
+ * - mazzoCartePersonaggio
  */
 public class Mazzo {
 
