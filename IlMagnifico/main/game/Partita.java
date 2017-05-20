@@ -44,7 +44,7 @@ public class Partita {
 	 */
 	public void preparaPartita() {
 
-		// ipotizzo che siano già passati tutti i dati per la realizzazione
+		// ipotizzo che siano gia passati tutti i dati per la realizzazione
 		// della lista di giocatori
 		this.periodo = 1;
 		this.turno = 1;
@@ -60,12 +60,17 @@ public class Partita {
 		// si devono svolgere tutte le azioni svolte all'interno di un periodo:
 		// mescolo il mazzo secondo le carte che mi servono nel periodo
 		// corrispondente
-		this.periodo++;
-		this.mazzo.setPeriodo(this.periodo);
+		int contatore;
+		
 		this.mazzo.mescolaMazzo();
-		giroDiTurni();
-		giroDiTurni();
+		for(contatore=0;contatore<8;contatore++){
+			if(contatore==0|contatore==4)//al primo e al quinto giro di turni bisogna riorganizzare il tabellone
+				inizializzaGiroDiTurni();
+			giroDiTurni();
+		}
 		rapportoVaticano();
+		this.periodo++;
+		this.mazzo.incrementaPeriodo();
 	}
 
 	private void rapportoVaticano() {
@@ -73,13 +78,16 @@ public class Partita {
 
 	}
 
+	/*
+	 * All'inizio di ogni giro di turni si devono togliere tutti i familiari dal tabellone,
+	 *  mettere delle nuove carte nelle torri e lanciare i dadi
+	 * */
+	public void inizializzaGiroDiTurni(){}
+	
 	public void giroDiTurni() {
-		// devo far fare il turno ad ogni giocatore secondo l'ordine di turno e
-		// alla
-		// fine decidere l'ordine del turno successivo. Devo sempre prima
-		// prendere
-		// le carte dal mazzo e posizionarle nel tabellone e alla fine del giro
-		// di turni togliere dal tbellone quelle rimanenti
+		/*
+		 * 
+		 * */
 		int contatore;
 		int contatore2;
 		ArrayList<Giocatore> ordineTurniTemporaneo = new ArrayList<Giocatore>();
