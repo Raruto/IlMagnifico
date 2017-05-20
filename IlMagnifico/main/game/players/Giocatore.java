@@ -3,11 +3,8 @@ package main.game.players;
 import java.util.*;
 
 /**
- * Classe per la gestione del Giocatore, composto di:
- * - PlanciaGiocatore
- * - PuntiGiocatore
- * - RisorseGiocatore
- * - FamigliaGiocatore
+ * Classe per la gestione del Giocatore, composto di: - PlanciaGiocatore -
+ * PuntiGiocatore - RisorseGiocatore - FamigliaGiocatore
  */
 public class Giocatore {
 
@@ -46,6 +43,14 @@ public class Giocatore {
 		famiglia = new FamigliaGiocatore(dadoArancione, dadoBianco, dadoNero, pedinaNeutrale, this);
 	}
 
+	/**
+	 * Imposta il valore di tutte le Pedine associate al giocatore
+	 * 
+	 * @param pedinaBianca
+	 * @param pedinaArancione
+	 * @param pedinaNera
+	 * @param pedinaNeutrale
+	 */
 	public void setValoriPedine(int pedinaBianca, int pedinaArancione, int pedinaNera, int pedinaNeutrale) {
 
 		// Si potrebbe anche passare l'oggetto "Dado dado" e dopo:
