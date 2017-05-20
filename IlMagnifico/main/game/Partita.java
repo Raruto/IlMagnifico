@@ -67,6 +67,10 @@ public class Partita {
 			if(contatore==0|contatore==4)//al primo e al quinto giro di turni bisogna riorganizzare il tabellone
 				inizializzaGiroDiTurni();
 			giroDiTurni();
+			if(contatore==3)
+				calcoloOrdineGiocatori();
+			if(contatore==7&&!(this.periodo==3))
+				calcoloOrdineGiocatori();
 		}
 		rapportoVaticano();
 		this.periodo++;
@@ -82,16 +86,8 @@ public class Partita {
 	 * All'inizio di ogni giro di turni si devono togliere tutti i familiari dal tabellone,
 	 *  mettere delle nuove carte nelle torri e lanciare i dadi
 	 * */
-	public void inizializzaGiroDiTurni(){}
-	
-	public void giroDiTurni() {
-		/*
-		 * 
-		 * */
+	public void inizializzaGiroDiTurni(){
 		int contatore;
-		int contatore2;
-		ArrayList<Giocatore> ordineTurniTemporaneo = new ArrayList<Giocatore>();
-
 		AreaTorre torri = this.tabellone.getTorri();
 
 		// posiziono le carte sul tabellone
@@ -106,21 +102,37 @@ public class Partita {
 		// ad ogni giocatore metto i valori del dado alle corrispondenti pedine
 		for (contatore = 0; contatore <= this.giocatori.size(); contatore++) {
 			this.ordineTurno.get(contatore).setValoriPedine(this.dado.getDadoBianco(), this.dado.getDadoArancione(),
-					this.dado.getDadoNero());
+					this.dado.getDadoNero(),0);
 
 		}
+	}
+	
+	/*
+	 * Calcolo dell'ordine dei giocatori per il turno successivo
+	 * */
+	public void calcoloOrdineGiocatori(){
+		ArrayList<Giocatore> ordineTurniTemporaneo = new ArrayList<Giocatore>();
+		// calcolo l'ordine dei turni per il giro successivo
+				ordineTurniTemporaneo = this.tabellone.getPalazzoDelConsiglio().getOrdineTurnoSuccessivo();
+
+				// TODO: finire di implementare
+				// for(contatore=0;contatore<=this.tabellone.get(contatore))
+				// }
+	}
+	public void giroDiTurni() {
+		/*
+		 * 
+		 * */
+		int contatore;
+
+		
 		// faccio fare i turni ai giocatori
 		for (contatore = 0; contatore <= this.giocatori.size(); contatore++) {
 			turnoGiocatore(this.ordineTurno.get(contatore));
 
 		}
 
-		// calcolo l'ordine dei turni per il giro successivo
-		ordineTurniTemporaneo = this.tabellone.getPalazzoDelConsiglio().getOrdineTurnoSuccessivo();
-
-		// TODO: finire di implementare
-		// for(contatore=0;contatore<=this.tabellone.get(contatore))
-		// }
+		
 	}
 
 	private void turnoGiocatore(Giocatore giocatore) {
