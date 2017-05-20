@@ -1,7 +1,7 @@
 package main.game.players;
 
 /**
- * 
+ * Classe per la gestione delle Risorse Giocatore
  */
 public class RisorseGiocatore {
 	private int legno;

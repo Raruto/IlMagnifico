@@ -1,9 +1,8 @@
 package main.game.players;
 
-import java.util.*;
 
 /**
- * 
+ * Classe per la gestione dei Punti Giocatore
  */
 public class PuntiGiocatore {
 

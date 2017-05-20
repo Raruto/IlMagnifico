@@ -1,7 +1,5 @@
 package main.game.players;
 
-import java.util.*;
-
 import main.game.players.dashboard.SpazioCartaImpresa;
 import main.game.players.dashboard.SpazioCartaPersonaggio;
 import main.game.players.dashboard.SpazioCartaTerritorio;
