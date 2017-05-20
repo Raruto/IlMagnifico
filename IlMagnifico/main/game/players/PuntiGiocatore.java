@@ -8,24 +8,28 @@ import java.util.*;
 public class PuntiGiocatore {
 
 	/**
-	 * 
+	 * "Tracciato" Punti Vittoria associati al Giocatore
 	 */
 	private int puntiVittoria;
 
 	/**
-	 * 
+	 * "Tracciato" Punti Militari associati al Giocatore
 	 */
 	private int puntiMilitari;
 
 	/**
-	 * 
+	 * "Tracciato" Punti Fede associati al Giocatore
 	 */
 	private int puntiFede;
 
 	/**
 	 * Default constructor
+	 * 
+	 * @param puntiVittoria
+	 * @param puntiMilitari
+	 * @param puntiFede
 	 */
-	public PuntiGiocatore(int puntiVittoria, int puntiMilitari, int puntiFede) {
+	public PuntiGiocatore(int puntiMilitari, int puntiVittoria, int puntiFede) {
 		this.puntiVittoria = puntiVittoria;
 		this.puntiMilitari = puntiMilitari;
 		this.puntiFede = puntiFede;
