@@ -10,21 +10,20 @@ import main.game.spaces.SpazioAzione;
  */
 public class PalazzoConsiglio {
 
-    /**
-     * Default constructor
-     */
-    public PalazzoConsiglio() {
-    }
+	/**
+	 * 
+	 */
+	private ArrayList<SpazioAzione> spazi;
 
-    /**
-     * 
-     */
-    private ArrayList<SpazioAzione> spazi;
+	/**
+	 * Default constructor
+	 */
+	public PalazzoConsiglio() {
+	}
 
 	public ArrayList<Giocatore> getOrdineTurnoSuccessivo() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }
