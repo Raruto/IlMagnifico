@@ -7,41 +7,34 @@ import main.game.players.dashboard.SpazioCartaPersonaggio;
 import main.game.players.dashboard.SpazioCartaTerritorio;
 
 /**
- * 
+ * Classe per tenere traccia delle Carte Sviluppo associate al Giocatore
  */
 public class PlanciaGiocatore {
 
-    /**
-     * Default constructor
-     */
-    public PlanciaGiocatore() {
-    }
+	/**
+	 * 
+	 */
+	private SpazioCartaImpresa[] imprese;
 
-    /**
-     * 
-     */
-    private SpazioCartaImpresa[] imprese;
+	/**
+	 * 
+	 */
+	private SpazioCartaPersonaggio[] personaggio;
 
-    /**
-     * 
-     */
-    private SpazioCartaPersonaggio[] personaggio;
+	/**
+	 * 
+	 */
+	private SpazioCartaTerritorio[] territorio;
 
-    /**
-     * 
-     */
-    private SpazioCartaTerritorio[] territorio;
+	/**
+	 * 
+	 */
+	private SpazioCartaTerritorio[] spazio;
 
-    /**
-     * 
-     */
-    private SpazioCartaTerritorio[] spazio;
-
-
-
-
-
-
-
+	/**
+	 * Default constructor
+	 */
+	public PlanciaGiocatore() {
+	}
 
 }
