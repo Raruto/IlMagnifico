@@ -1,7 +1,5 @@
 package main.game.board.harvest;
 
-import java.util.*;
-
 import main.game.board.ZonaTabellone;
 
 /**

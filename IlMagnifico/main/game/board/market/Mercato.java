@@ -1,13 +1,12 @@
 package main.game.board.market;
 
-import java.util.*;
-
+import main.game.board.ZonaTabellone;
 import main.game.spaces.SpazioAzione;
 
 /**
  * 
  */
-public class Mercato {
+public class Mercato extends ZonaTabellone{
 
     /**
      * Default constructor
