@@ -11,7 +11,7 @@ import main.game.handlers.GestorePartita;
 import main.game.players.Giocatore;
 
 /**
- * 
+ * Classe che definisce una partita per il gioco: "Lorenzo Il Magnifico"
  */
 public class Partita {
 
@@ -61,15 +61,17 @@ public class Partita {
 		// mescolo il mazzo secondo le carte che mi servono nel periodo
 		// corrispondente
 		int contatore;
-		
+
 		this.mazzo.mescolaMazzo();
-		for(contatore=0;contatore<8;contatore++){
-			if(contatore==0|contatore==4)//al primo e al quinto giro di turni bisogna riorganizzare il tabellone
+		for (contatore = 0; contatore < 8; contatore++) {
+			if (contatore == 0 | contatore == 4)// al primo e al quinto giro di
+												// turni bisogna riorganizzare
+												// il tabellone
 				inizializzaGiroDiTurni();
 			giroDiTurni();
-			if(contatore==3)
+			if (contatore == 3)
 				calcoloOrdineGiocatori();
-			if(contatore==7&&!(this.periodo==3))
+			if (contatore == 7 && !(this.periodo == 3))
 				calcoloOrdineGiocatori();
 		}
 		rapportoVaticano();
@@ -83,10 +85,10 @@ public class Partita {
 	}
 
 	/*
-	 * All'inizio di ogni giro di turni si devono togliere tutti i familiari dal tabellone,
-	 *  mettere delle nuove carte nelle torri e lanciare i dadi
-	 * */
-	public void inizializzaGiroDiTurni(){
+	 * All'inizio di ogni giro di turni si devono togliere tutti i familiari dal
+	 * tabellone, mettere delle nuove carte nelle torri e lanciare i dadi
+	 */
+	public void inizializzaGiroDiTurni() {
 		int contatore;
 		AreaTorre torri = this.tabellone.getTorri();
 
@@ -102,37 +104,36 @@ public class Partita {
 		// ad ogni giocatore metto i valori del dado alle corrispondenti pedine
 		for (contatore = 0; contatore <= this.giocatori.size(); contatore++) {
 			this.ordineTurno.get(contatore).setValoriPedine(this.dado.getDadoBianco(), this.dado.getDadoArancione(),
-					this.dado.getDadoNero(),0);
+					this.dado.getDadoNero(), 0);
 
 		}
 	}
-	
+
 	/*
 	 * Calcolo dell'ordine dei giocatori per il turno successivo
-	 * */
-	public void calcoloOrdineGiocatori(){
+	 */
+	public void calcoloOrdineGiocatori() {
 		ArrayList<Giocatore> ordineTurniTemporaneo = new ArrayList<Giocatore>();
 		// calcolo l'ordine dei turni per il giro successivo
-				ordineTurniTemporaneo = this.tabellone.getPalazzoDelConsiglio().getOrdineTurnoSuccessivo();
+		ordineTurniTemporaneo = this.tabellone.getPalazzoDelConsiglio().getOrdineTurnoSuccessivo();
 
-				// TODO: finire di implementare
-				// for(contatore=0;contatore<=this.tabellone.get(contatore))
-				// }
+		// TODO: finire di implementare
+		// for(contatore=0;contatore<=this.tabellone.get(contatore))
+		// }
 	}
+
 	public void giroDiTurni() {
 		/*
 		 * 
 		 * */
 		int contatore;
 
-		
 		// faccio fare i turni ai giocatori
 		for (contatore = 0; contatore <= this.giocatori.size(); contatore++) {
 			turnoGiocatore(this.ordineTurno.get(contatore));
 
 		}
 
-		
 	}
 
 	private void turnoGiocatore(Giocatore giocatore) {
