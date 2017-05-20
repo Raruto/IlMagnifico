@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;ingSW_Cremona/prova&apos; to &apos;bin&apos;" description="Rename resource &apos;prova&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="prova" name="bin" stamp="1494361338912" updateReferences="true"/>
-</session>

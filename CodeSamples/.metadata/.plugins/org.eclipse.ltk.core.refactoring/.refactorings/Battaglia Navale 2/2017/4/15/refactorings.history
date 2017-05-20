@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy package &apos;clients&apos; to &apos;BattagliaNavale/src&apos;&#x0D;&#x0A;- Original project: &apos;Battaglia Navale 2&apos;&#x0D;&#x0A;- Destination element: &apos;BattagliaNavale/src&apos;&#x0D;&#x0A;- Original element: &apos;Battaglia Navale 2/BattagliaNavale/src/clients&apos;" description="Copy package" destination="=BattagliaNavale/src" element1="/BattagliaNavale\/src&lt;clients" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1492198693733" version="1.0"/>
-</session>

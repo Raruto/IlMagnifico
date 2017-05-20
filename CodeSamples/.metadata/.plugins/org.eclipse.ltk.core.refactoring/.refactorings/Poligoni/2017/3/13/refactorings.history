@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename package &apos;Poligoni&apos; to &apos;poligoni&apos;&#x0D;&#x0A;- Original project: &apos;Poligoni&apos;&#x0D;&#x0A;- Original element: &apos;Poligoni/src/Poligoni&apos;&#x0D;&#x0A;- Renamed element: &apos;Poligoni/src/poligoni&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;Poligoni&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;Poligoni" name="poligoni" qualified="false" references="true" stamp="1490815017841" textual="false" version="1.0"/>
-</session>
