@@ -1,5 +1,8 @@
 package main.game.cards.development;
 
+/**
+ * DB delle Carte Personaggio usabili nel gioco  
+ */
 public enum CartePersonaggio {
 	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato", "nome_effetto_permanente");
 	private String nomeCarta;

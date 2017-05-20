@@ -1,5 +1,8 @@
 package main.game.cards.development;
 
+/**
+ * DB delle Carte Impresa usabili nel gioco  
+ */
 public enum CarteImpresa {
 	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato", "nome_effetto_permanente");
 	private String nomeCarta;
