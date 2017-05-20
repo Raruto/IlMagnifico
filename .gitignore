@@ -1,4 +1,6 @@
 *.project
 *.class
 *.classpath
+.metadata
+.recommenders
 bin/
