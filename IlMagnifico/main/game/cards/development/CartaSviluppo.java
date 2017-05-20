@@ -77,4 +77,15 @@ public abstract class CartaSviluppo {
 		return this.effettiPermanenti;
 	}
 
+	/**
+	 * Ritorna un oggetto RiservaGiocatore contenete le informazioni relative al
+	 * Costo associato alla CartaSviluppo (il Giocatore che abbia intenzione di
+	 * prendere la carta dallo Spazio Torre deve prima assicurarsi di poter
+	 * sostenere il relativo costo)
+	 * 
+	 * @return {@link RiservaGiocatore}
+	 */
+	public RiservaGiocatore getCosto() {
+		return this.costo;
+	}
 }
