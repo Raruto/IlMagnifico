@@ -1,8 +1,5 @@
 package main.game.cards.development;
 
-import java.util.*;
-
-import main.game.activatables.Effetti;
 import main.game.activatables.Effetto;
 import main.game.players.PuntiGiocatore;
 import main.game.players.RiservaGiocatore;
