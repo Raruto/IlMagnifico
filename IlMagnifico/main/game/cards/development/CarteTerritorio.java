@@ -1,7 +1,7 @@
 package main.game.cards.development;
 
 public enum CarteTerritorio {
-	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato","nome_effetto_permanente");
+	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato", "nome_effetto_permanente");
 	private String nomeCarta;
 	private int periodoCarta;
 	private int legna;
@@ -13,8 +13,6 @@ public enum CarteTerritorio {
 	private int PF;
 	private String nomeEffettoImmediato;
 	private String nomeEffettoPermanente;
-
-	
 
 	private CarteTerritorio(String nome, int periodo, int legna, int pietra, int servitori, int monete, int PM, int PV,
 			int PF, String effImm, String effPerm) {
@@ -70,7 +68,6 @@ public enum CarteTerritorio {
 	public String getEffImm() {
 		return this.nomeEffettoImmediato;
 	}
-	
 
 	public String getEffPerm() {
 		return this.nomeEffettoPermanente;
