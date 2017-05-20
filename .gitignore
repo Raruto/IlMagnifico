@@ -3,4 +3,5 @@
 *.classpath
 .metadata
 .recommenders
+.settings
 bin/
