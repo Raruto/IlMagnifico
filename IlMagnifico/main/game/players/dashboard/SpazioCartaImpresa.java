@@ -1,16 +1,15 @@
 package main.game.players.dashboard;
 
-import java.util.*;
-
 /**
- * 
+ * Classe contenitore per una singola Carta Impresa all'interno della Plancia
+ * Giocatore, estende SpazioCartaPlancia
  */
 public class SpazioCartaImpresa extends SpazioCartaPlancia {
 
-    /**
-     * Default constructor
-     */
-    public SpazioCartaImpresa() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public SpazioCartaImpresa() {
+	}
 
 }

@@ -1,18 +1,15 @@
 package main.game.players.dashboard;
 
-import java.util.*;
-
-import main.game.spaces.SpazioAzione;
-
 /**
- * 
+ * Classe contenitore per una singola Carta Personaggio all'interno della
+ * Plancia Giocatore, estende SpazioCartaPlancia
  */
 public class SpazioCartaPersonaggio extends SpazioCartaPlancia {
 
-    /**
-     * Default constructor
-     */
-    public SpazioCartaPersonaggio() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public SpazioCartaPersonaggio() {
+	}
 
 }
