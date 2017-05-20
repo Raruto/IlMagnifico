@@ -56,24 +56,58 @@ public class Mazzo {
 	 * @return void
 	 */
 	private void inizializzaMazzi() {
-		for (CarteTerritorio c : CarteTerritorio.values()) {
-			if (c.getPeriodoCarta() == this.periodoCorrente)
-				this.mazzoCarteTerritorio.add(0, new CartaTerritorio(c));
-		}
+		inizializzaMazzoCarteEdificio(this.periodoCorrente);
+		inizializzaMazzoCarteImpresa(this.periodoCorrente);
+		inizializzaMazzoCartePersonaggio(this.periodoCorrente);
+		inizializzaMazzoCarteTerritorio(this.periodoCorrente);
+	}
 
-		for (CartePersonaggio c : CartePersonaggio.values()) {
-			if (c.getPeriodoCarta() == this.periodoCorrente)
-				this.mazzoCartePersonaggio.add(0, new CartaPersonaggio(c));
+	/**
+	 * Inizializza il mazzoCarteEdificio sulla base del periodo scelto
+	 * 
+	 * @param periodo
+	 */
+	private void inizializzaMazzoCarteEdificio(int periodo) {
+		for (CarteEdificio carta : CarteEdificio.values()) {
+			if (carta.getPeriodoCarta() == periodo)
+				this.mazzoCarteEdificio.add(new CartaEdificio(carta));
 		}
-		for (CarteEdificio c : CarteEdificio.values()) {
-			if (c.getPeriodoCarta() == this.periodoCorrente)
-				this.mazzoCarteEdificio.add(0, new CartaEdificio(c));
-		}
-		for (CarteImpresa c : CarteImpresa.values()) {
-			if (c.getPeriodoCarta() == this.periodoCorrente)
-				this.mazzoCarteImpresa.add(0, new CartaImpresa(c));
-		}
+	}
 
+	/**
+	 * Inizializza il mazzoCarteImpresa sulla base del periodo scelto
+	 * 
+	 * @param periodo
+	 */
+	private void inizializzaMazzoCarteImpresa(int periodo) {
+		for (CarteImpresa carta : CarteImpresa.values()) {
+			if (carta.getPeriodoCarta() == periodo)
+				this.mazzoCarteImpresa.add(new CartaImpresa(carta));
+		}
+	}
+
+	/**
+	 * Inizializza il mazzoCartePersonaggio sulla base del periodo scelto
+	 * 
+	 * @param periodo
+	 */
+	private void inizializzaMazzoCartePersonaggio(int periodo) {
+		for (CartePersonaggio carta : CartePersonaggio.values()) {
+			if (carta.getPeriodoCarta() == periodo)
+				this.mazzoCartePersonaggio.add(new CartaPersonaggio(carta));
+		}
+	}
+
+	/**
+	 * Inizializza il mazzoCarteTerritorio sulla base del periodo scelto
+	 * 
+	 * @param periodo
+	 */
+	private void inizializzaMazzoCarteTerritorio(int periodo) {
+		for (CarteTerritorio carta : CarteTerritorio.values()) {
+			if (carta.getPeriodoCarta() == periodo)
+				this.mazzoCarteTerritorio.add(new CartaTerritorio(carta));
+		}
 	}
 
 	/**
@@ -103,7 +137,15 @@ public class Mazzo {
 		// dell'ArrayList e scambiandoli
 		for (contatore = 0; contatore < 10; contatore++) {
 			index1 = random.nextInt(this.mazzoCartePersonaggio.size());
-			index2 = random.nextInt(this.mazzoCartePersonaggio.size()); //anzichè un numero generico utilizzerei la dimensione effettiva dell'arraylist
+			index2 = random.nextInt(this.mazzoCartePersonaggio.size()); // anzichè
+																		// un
+																		// numero
+																		// generico
+																		// utilizzerei
+																		// la
+																		// dimensione
+																		// effettiva
+																		// dell'arraylist
 			cartaPersonaggioTemp1 = this.mazzoCartePersonaggio.get(index1);
 			cartaPersonaggioTemp2 = this.mazzoCartePersonaggio.get(index2);
 			this.mazzoCartePersonaggio.set(index2, cartaPersonaggioTemp1);
@@ -134,7 +176,6 @@ public class Mazzo {
 			this.mazzoCarteImpresa.set(index2, cartaImpresaTemp1);
 			this.mazzoCarteImpresa.set(index1, cartaImpresaTemp2);
 		}
-		return;
 	}
 
 	/**
@@ -143,10 +184,10 @@ public class Mazzo {
 	 * @return CartaEdificio
 	 */
 	public CartaEdificio getCartaEdificio() {
-		CartaEdificio cartaTemporanea = new CartaEdificio(null);
-		cartaTemporanea = this.mazzoCarteEdificio.get(0);
+		CartaEdificio carta = new CartaEdificio(null);
+		carta = this.mazzoCarteEdificio.get(0);
 		this.mazzoCarteEdificio.remove(0);
-		return cartaTemporanea;
+		return carta;
 	}
 
 	/**
@@ -155,10 +196,9 @@ public class Mazzo {
 	 * @return CartaTerritorio
 	 */
 	public CartaTerritorio getCartaTerritorio() {
-		CartaTerritorio cartaTemporanea = new CartaTerritorio(null);
-		cartaTemporanea = this.mazzoCarteTerritorio.get(0);
+		CartaTerritorio carta = this.mazzoCarteTerritorio.get(0);
 		this.mazzoCarteTerritorio.remove(0);
-		return cartaTemporanea;
+		return carta;
 	}
 
 	/**
@@ -167,10 +207,9 @@ public class Mazzo {
 	 * @return CartaPersonaggio
 	 */
 	public CartaPersonaggio getCartaPersonaggio() {
-		CartaPersonaggio cartaTemporanea = new CartaPersonaggio(null);
-		cartaTemporanea = this.mazzoCartePersonaggio.get(0);
+		CartaPersonaggio carta = this.mazzoCartePersonaggio.get(0);
 		this.mazzoCartePersonaggio.remove(0);
-		return cartaTemporanea;
+		return carta;
 	}
 
 	/**
@@ -179,13 +218,11 @@ public class Mazzo {
 	 * @return CartaImpresa
 	 */
 	public CartaImpresa getCartaImpresa() {
-		CartaImpresa cartaTemporanea = new CartaImpresa(null);
-		cartaTemporanea = this.mazzoCarteImpresa.get(0);
+		CartaImpresa carta = this.mazzoCarteImpresa.get(0);
 		this.mazzoCarteImpresa.remove(0);
-		return cartaTemporanea;
+		return carta;
 	}
 
-	
 	/*
 	 * Incrementa l'attributo periodo di 1
 	 */
