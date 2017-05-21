@@ -27,7 +27,7 @@ public class Client {
 		Scanner scanner = new Scanner(System.in);
 		String inText;
 
-		System.out.println("Choose RMI or Socket:");
+		System.out.print("Choose RMI or Socket: ");
 		inText = scanner.nextLine().toUpperCase();
 
 		Client client = new Client();

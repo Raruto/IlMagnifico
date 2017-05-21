@@ -40,14 +40,14 @@ public class RMIClient extends AbstractClient {
 
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.println("Insert Player Name:");
+			System.out.print("Insert Player Name: ");
 			String name = scanner.nextLine();
 
 			loginPlayer(name);
 
 			boolean active = true;
 			while (active) {
-				System.out.println("Inserire un messaggio:");
+				System.out.print("Inserire un messaggio:");
 				String message = scanner.nextLine();
 				server.send(message);
 			}

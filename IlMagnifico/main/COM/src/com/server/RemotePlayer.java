@@ -13,4 +13,9 @@ public /* abstract */ class RemotePlayer {
 		return this.client;
 	}
 
+	public void setNickname(String nickname) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
