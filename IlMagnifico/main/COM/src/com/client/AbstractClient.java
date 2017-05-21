@@ -64,11 +64,11 @@ public abstract class AbstractClient {
      * Open a connection with the server.
      * @throws ClientConnectionException if server is not reachable or something went wrong.
      */
-    public abstract void connect() throws ClientException;
+    public abstract void startClient() throws ClientException;
 
     /**
      * Initialize client connection. Override this only if required.
-     * This is called immediately after {@link #connect()}.
+     * This is called immediately after {@link #startClient()}.
      */
     public void initializeConnection() {
 

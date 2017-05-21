@@ -54,7 +54,7 @@ public class SocketClient extends AbstractClient {
      * @throws ClientConnectionException if server is not reachable or something went wrong.
      */
     @Override
-    public void connect() throws ClientException {
+    public void startClient() throws ClientException {
         try {
             //socketStream = new Socket(getAddress(), getPort());
         	socketStream = new Socket("localhost", 1001);

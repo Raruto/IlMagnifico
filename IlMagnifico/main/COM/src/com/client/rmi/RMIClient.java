@@ -24,11 +24,11 @@ public class RMIClient extends AbstractClient {
 
 	public static void main(String[] args) {
 		RMIClient client = new RMIClient();
-		client.connect();
+		client.startClient();
 	}
 
 	/* @Override */
-	public void connect() {
+	public void startClient() {
 
 		try {
 
