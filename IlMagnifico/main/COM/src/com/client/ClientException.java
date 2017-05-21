@@ -7,11 +7,25 @@ import java.io.IOException;
  */
 public class ClientException extends IOException {
 
-    /**
-     * Base constructor.
-     * @param cause of the exception.
-     */
-    public ClientException(Throwable cause) {
-        super(cause);
-    }
+	/**
+	 * Base constructor.
+	 * 
+	 * @param cause
+	 *            of the exception.
+	 */
+	public ClientException(Throwable cause) {
+		super(cause);
+	}
+
+	/**
+	 * Base constructor.
+	 * 
+	 * @param message
+	 *            of the error.
+	 * @param cause
+	 *            of the error.
+	 */
+	public ClientException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

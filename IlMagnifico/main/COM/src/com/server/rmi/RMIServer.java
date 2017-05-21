@@ -1,14 +1,23 @@
 package com.server.rmi;
 
 import java.net.MalformedURLException;
+import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.client.rmi.RMIClient;
+import com.client.rmi.RMIClientInterface;
 import com.server.AbstractServer;
+import com.server.RemotePlayer;
 import com.server.Server;
 
+/**
+ * This class is built on top of {@link AbstractServer} and let Server to
+ * communicate whit RMIClients.
+ */
 public class RMIServer extends AbstractServer {
 	private RMIServerImplementation serverImplementation;
 

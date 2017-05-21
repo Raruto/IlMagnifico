@@ -64,9 +64,9 @@ public class Client {
 	 *             if some error occurs.
 	 */
 	public void startClient(String connectionType) throws ClientException {
-		if (connectionType.equals(ConnectionTypes.RMI)) {
+		if (connectionType.equals(ConnectionTypes.RMI.toString())) {
 			startRMIClient(RMI_PORT);
-		} else if (connectionType.equals(ConnectionTypes.SOCKET)) {
+		} else if (connectionType.equals(ConnectionTypes.SOCKET.toString())) {
 			startSocketClient(SOCKET_PORT);
 		} else {
 			throw new ClientException(new Throwable("Uknown Connection Type"));
