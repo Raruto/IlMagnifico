@@ -5,14 +5,14 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+import com.server.AbstractServer;
 import com.server.Server;
 
-public class RMIServer {
+public class RMIServer extends AbstractServer {
 	private RMIServerImplementation serverImplementation;
 	private int RMI_PORT;
 
-	public RMIServer(Server server) {
-
+	public RMIServer() {
 		// Creo l'oggetto da esportare normalmente
 		// (in quanto la classe ServerImplementation estende
 		// UnicastRemoteObject)
