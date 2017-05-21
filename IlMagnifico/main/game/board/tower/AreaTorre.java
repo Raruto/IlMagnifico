@@ -41,20 +41,36 @@ public class AreaTorre {
 	 */
 	private int periodoCorrente;
 
-	public CartaSviluppo getCartaTorreImpresa(int piano) {
+	public CartaSviluppo prendiCartaTorreImpresa(int piano) {
 		return torreImpresa.prendiCarta(piano);
 	}
 
-	public CartaSviluppo getCartaTorreTerritorio(int piano) {
+	public CartaSviluppo prendiCartaTorreTerritorio(int piano) {
 		return torreTerritorio.prendiCarta(piano);
 	}
 
-	public CartaSviluppo getCartaTorrePersonaggio(int piano) {
+	public CartaSviluppo prendiCartaTorrePersonaggio(int piano) {
 		return torrePersonaggio.prendiCarta(piano);
 	}
 
-	public CartaSviluppo getCartaTorreEdificio(int piano) {
+	public CartaSviluppo prendiCartaTorreEdificio(int piano) {
 		return torreEdificio.prendiCarta(piano);
+	}
+
+	public CartaSviluppo visualizzaCartaTorreImpresa(int piano) {
+		return torreImpresa.visualizzaCarta(piano);
+	}
+
+	public CartaSviluppo visualizzaCartaTorreTerritorio(int piano) {
+		return torreTerritorio.visualizzaCarta(piano);
+	}
+
+	public CartaSviluppo visualizzaCartaTorrePersonaggio(int piano) {
+		return torrePersonaggio.visualizzaCarta(piano);
+	}
+
+	public CartaSviluppo visualizzaCartaTorreEdificio(int piano) {
+		return torreEdificio.visualizzaCarta(piano);
 	}
 
 	/*

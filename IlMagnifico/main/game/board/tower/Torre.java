@@ -18,4 +18,8 @@ public class Torre {
 		return this.piani[piano].prendiCarta();
 	}
 
+	public CartaSviluppo visualizzaCarta(int piano) {
+		return this.piani[piano].visualizzaCarta();
+	}
+
 }
