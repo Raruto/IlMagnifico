@@ -16,16 +16,11 @@ public class Giocatore {
 	 */
 	private PlanciaGiocatore plancia;
 
-	/**
-	 * Punti vittoria e Punti Militari
+	/*
+	 * Riserva dei punti e delle risorse del giocatore
 	 */
-	private PuntiGiocatore punti;
-
-	/**
-	 * Denari, Legno, Servitori, Pietre
-	 */
-	private RisorseGiocatore risorse;
-
+	private RiservaGiocatore riserva;
+	
 	/**
 	 * Pedina Arancione, Bianca, Nera, Neutra
 	 */
