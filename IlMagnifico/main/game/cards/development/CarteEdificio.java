@@ -1,10 +1,10 @@
 package main.game.cards.development;
 
 /**
- * DB delle Carte Edificio usabili nel gioco  
+ * DB delle Carte Edificio usabili nel gioco
  */
 public enum CarteEdificio {
-	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato", "nome_effetto_permanente");
+	ESEMPIO("nome", 0, 0, 0, 0, 0, 0, 0, 0, 0, "nome_effetto_immediato", "nome_effetto_permanente");
 	private String nomeCarta;
 	private int periodoCarta;
 	private int legna;
@@ -14,17 +14,19 @@ public enum CarteEdificio {
 	private int puntiFede;
 	private int puntiMilitari;
 	private int puntiVittoria;
+	private int sogliaPuntiMilitari;
 	private String nomeEffettoImmediato;
 	private String nomeEffettoPermanente;
 
 	private CarteEdificio(String nome, int periodo, int legna, int monete, int pietra, int servitori, int puntiFede,
-			int puntiMilitari, int puntiVittoria, String nomeEffettoImmediato, String nomeEffettoPermanente) {
+			int puntiMilitari, int puntiVittoria,int sogliaPuntiMilitari, String nomeEffettoImmediato, String nomeEffettoPermanente) {
 		this.nomeCarta = nome;
 		this.periodoCarta = periodo;
 		this.legna = legna;
 		this.pietra = pietra;
 		this.servitori = servitori;
 		this.monete = monete;
+		this.sogliaPuntiMilitari=sogliaPuntiMilitari;
 		this.puntiMilitari = puntiMilitari;
 		this.puntiVittoria = puntiVittoria;
 		this.puntiFede = puntiFede;
@@ -54,6 +56,10 @@ public enum CarteEdificio {
 
 	public int getMonete() {
 		return this.monete;
+	}
+
+	public int getSogliaPuntiMilitari() {
+		return this.sogliaPuntiMilitari;
 	}
 
 	public int getPuntiFede() {

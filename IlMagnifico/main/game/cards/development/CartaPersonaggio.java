@@ -14,9 +14,11 @@ public class CartaPersonaggio extends CartaSviluppo {
 
 	public CartaPersonaggio(CartePersonaggio carta) {
 		super(carta.getNomeCarta(), carta.getPeriodoCarta(),
-				new RiservaGiocatore(new RisorseGiocatore(carta.getLegna(), carta.getMonete(), carta.getPietra(), carta.getServitori()),
+				new RiservaGiocatore(
+						new RisorseGiocatore(carta.getLegna(), carta.getMonete(), carta.getPietra(),
+								carta.getServitori()),
 						new PuntiGiocatore(carta.getPuntiFede(), carta.getPuntiMilitari(), carta.getPuntiVittoria())),
-				Effetto.nomeEffettoToArrayEffetti(carta.getNomeEffettoImmediato()),
+				carta.getSogliaPuntiMilitari(), Effetto.nomeEffettoToArrayEffetti(carta.getNomeEffettoImmediato()),
 				Effetto.nomeEffettoToArrayEffetti(carta.getNomeEffettoPermanente()));
 
 		this.carta = carta;
