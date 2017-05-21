@@ -17,14 +17,27 @@ public class RMIClient extends AbstractClient {
 	private RMIClientImplementation client;
 	private RMIClientInterface remoteRef;
 
-	public RMIClient() {
+	/**
+	 * Create a RMI client instance.
+	 * 
+	 * @param controller
+	 *            client controller.
+	 * @param address
+	 *            of the server.
+	 * @param port
+	 *            of the server.
+	 */
+	public RMIClient(IClient controller, String address, int port) {
+		super(controller, address, port);
 		client = new RMIClientImplementation();
 	}
-
+	
+    /*
 	public static void main(String[] args) {
 		RMIClient client = new RMIClient();
 		client.startClient();
 	}
+	*/
 
 	public void startClient() {
 

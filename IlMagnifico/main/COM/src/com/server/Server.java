@@ -78,6 +78,10 @@ public class Server implements IServer {
 		try {
 			Server server = new Server();
 			server.startServer(SOCKET_PORT, RMI_PORT);
+
+			System.out.print("\nServer listening at: ");
+			System.out.println("127.0.0.1" + " (rmi: " + RMI_PORT + ", socket: " + SOCKET_PORT + ")");
+			System.out.println();
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}

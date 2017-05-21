@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.client.rmi.RMIClient;
 import com.client.socket.SocketClient;
 
-public class Client {
+public class Client implements IClient {
 
 	/**
 	 * Available Connection Types to the Server
@@ -83,7 +83,7 @@ public class Client {
 	 */
 	private void startRMIClient(int rmiPort) throws ClientException {
 		System.out.println("Starting RMI Connection...");
-		client = new RMIClient();
+		client = new RMIClient(this, "127.0.0.1", RMI_PORT);
 		client.startClient();
 	}
 
@@ -97,8 +97,74 @@ public class Client {
 	 */
 	private void startSocketClient(int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
-		client = new SocketClient();
+		client = new SocketClient(this, "127.0.0.1", SOCKET_PORT);
 		client.startClient();
+	}
+
+	@Override
+	public void onTurnStarted(String nickname, int remainingTime) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarketSessionStarted() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarketSellTurnStarted(String nickname, int remainingTime) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarketBuyTurnStarted(String nickname, int remainingTime) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarketSessionFinished() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarketItemBought(String marketId, String buyer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTurnUpdateCountdown(int remainingTime) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onActionNotValid(int errorCode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onChatMessage(boolean privateMessage, String author, String message) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPlayerDisconnected(String nickname) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onLastTurnStarted(String nickname) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
