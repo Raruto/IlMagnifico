@@ -31,6 +31,20 @@ public class RisorseGiocatore {
 	public int getServitori() {
 		return servitori;
 	}
-	
-	
+
+	public void setLegni(int legni) {
+		this.legni = legni;
+	}
+
+	public void setMonete(int monete) {
+		this.monete = monete;
+	}
+
+	public void setPietre(int pietre) {
+		this.pietre = pietre;
+	}
+
+	public void setServitori(int servitori) {
+		this.servitori = servitori;
+	}
 }

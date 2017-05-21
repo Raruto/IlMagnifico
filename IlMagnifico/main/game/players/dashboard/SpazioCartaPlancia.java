@@ -20,7 +20,7 @@ public class SpazioCartaPlancia implements SpazioCartaSviluppo {
 	 * Riferimento alla Carta Sviluppo attualmente presente nello Spazio Carta
 	 * Plancia
 	 */
-	private CartaSviluppo carta;
+	protected CartaSviluppo carta;
 
 	/**
 	 * Punti Giocatore richiesti per poter aggiungere una carta nello Spazio
@@ -55,7 +55,7 @@ public class SpazioCartaPlancia implements SpazioCartaSviluppo {
 	}
 
 	/**
-	 * Ritorna un valore booleano per determinare se lo Spazio Carta Sviluppo è
+	 * Ritorna un valore booleano per determinare se lo Spazio Carta Sviluppo ï¿½
 	 * occupato
 	 * 
 	 * @return true se occupato

@@ -2328,7 +2328,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-spazio: SpazioCartaTerritorio[6]",
+											"text": "-edificio: SpazioCartaEdificio[6]",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -47899,12 +47899,12 @@
 							"_parent": {
 								"$ref": "AAAAAAFb7kaM2qIWjm8="
 							},
-							"name": "spazio",
+							"name": "edificio",
 							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": {
-								"$ref": "AAAAAAFb7knEhKKC5yw="
+								"$ref": "AAAAAAFb8WUUslpP82g="
 							},
 							"multiplicity": "6",
 							"isReadOnly": false,

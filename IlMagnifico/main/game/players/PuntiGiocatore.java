@@ -45,4 +45,19 @@ public class PuntiGiocatore {
 		return puntiFede;
 	}
 
+	/*
+	 * Setters per i punti, che possono essere modificati singolarmente durante
+	 * la partita
+	 */
+	public void setPuntiVittoria(int puntiVittoria) {
+		this.puntiVittoria = puntiVittoria;
+	}
+
+	public void setPuntiMilitari(int puntiMilitari) {
+		this.puntiMilitari = puntiMilitari;
+	}
+
+	public void setPuntiFede(int puntiFede) {
+		this.puntiFede = puntiFede;
+	}
 }
