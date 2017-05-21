@@ -8,7 +8,7 @@ import main.game.players.RiservaGiocatore;
 /**
  * Classe che definisce il concetto di CartaSviluppo
  */
-public abstract class CartaSviluppo {
+public class CartaSviluppo {
 
 	/**
 	 * Nome della Carta Sviluppo
