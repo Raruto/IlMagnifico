@@ -81,24 +81,14 @@ public class SpazioTorre implements SpazioPedina, SpazioCartaSviluppo {
 	}
 
 	public CartaSviluppo prendiCarta() {
-		CartaSviluppo carta = this.popCarta();
-		pushCarta();
-		return carta;
-	}
-
-	private CartaSviluppo popCarta() {
 		CartaSviluppo carta = this.carta;
 		this.carta = null;
 		return carta;
-
 	}
 
-	private void pushCarta() {
-		if (this != null) {
-			// TODO: implementare (giocatore prende una carta dalla torre,
-			// bisogna sostituire la carta dal piano solo se non c'è più nessuna
-			// carta sul piano...)
+	public void posizionaCarta(CartaSviluppo carta) {
+		if (this.carta == null) {
+			this.carta = carta;
 		}
 	}
-
 }
