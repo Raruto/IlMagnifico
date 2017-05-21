@@ -94,10 +94,10 @@ public class Partita {
 
 		// posiziono le carte sul tabellone
 		for (contatore = 0; contatore < 5; contatore++) {
-			torri.getTorreImpresa().setCartaPiano(this.mazzo.getCartaImpresa(), contatore);
-			torri.getTorreTerritorio().setCartaPiano(this.mazzo.getCartaTerritorio(), contatore);
-			torri.getTorrePersonaggio().setCartaPiano(this.mazzo.getCartaPersonaggio(), contatore);
-			torri.getTorreEdificio().setCartaPiano(this.mazzo.getCartaEdificio(), contatore);
+			torri.getCartaTorreImpresa().setCartaPiano(this.mazzo.getCartaImpresa(), contatore);
+			torri.getCartaTorreTerritorio().setCartaPiano(this.mazzo.getCartaTerritorio(), contatore);
+			torri.getCartaTorrePersonaggio().setCartaPiano(this.mazzo.getCartaPersonaggio(), contatore);
+			torri.getCartaTorreEdificio().setCartaPiano(this.mazzo.getCartaEdificio(), contatore);
 		}
 		// faccio lanciare i dadi
 		this.dado.lancia();

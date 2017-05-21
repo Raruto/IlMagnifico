@@ -1,9 +1,9 @@
 package main.game.board.tower;
 
-import java.util.*;
-
 /**
- * 
+ * Classe che definisce il concetto di Area delle Torri all'interno del
+ * Tabellone di gioco, composta di: {@link TorreEdificio}, {@link TorreImpresa},
+ * {@link TorrePersonaggio}, {@link TorreTerritorio}
  */
 public class AreaTorre {
 
@@ -14,38 +14,51 @@ public class AreaTorre {
 	}
 
 	/**
-	 * 
+	 * Torre delle Carte Edificio associate al periodo corrente
+	 */
+	private TorreEdificio torreEdificio;
+
+	/**
+	 * Torre delle Carte Impresa associate al periodo corrente
 	 */
 	private TorreImpresa torreImpresa;
 
 	/**
-	 * 
-	 */
-	private TorreTerritorio torreTerritorio;
-
-	/**
-	 * 
+	 * Torre delle Carte Personaggio associate al periodo corrente
 	 */
 	private TorrePersonaggio torrePersonaggio;
 
 	/**
-	 * 
+	 * Torre delle Carte Territorio associate al periodo corrente
 	 */
-	private TorreEdificio torreEdificio;
+	private TorreTerritorio torreTerritorio;
 
-	public TorreImpresa getTorreImpresa() {
+	/**
+	 * Periodo corrente di gioco (1,2,3) (ad ogni incremento del periodo di
+	 * gioco le torri vengono aggiornate con le carte del relativo periodo)
+	 */
+	private int periodoCorrente;
+
+	public CartaSviluppo getCartaTorreImpresa(int piano) {
 		return torreImpresa;
 	}
 
-	public TorreTerritorio getTorreTerritorio() {
+	public CartaSviluppo getCartaTorreTerritorio(int piano) {
 		return torreTerritorio;
 	}
 
-	public TorrePersonaggio getTorrePersonaggio() {
+	public CartaSviluppo getCartaTorrePersonaggio(int piano) {
 		return torrePersonaggio;
 	}
 
-	public TorreEdificio getTorreEdificio() {
+	public CartaSviluppo getCartaTorreEdificio(int piano) {
 		return torreEdificio;
+	}
+
+	/*
+	 * Incrementa l'attributo periodo di 1
+	 */
+	public void incrementaPeriodo() {
+		this.periodoCorrente++;
 	}
 }
