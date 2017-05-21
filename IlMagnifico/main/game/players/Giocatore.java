@@ -20,7 +20,7 @@ public class Giocatore {
 	 * Riserva dei punti e delle risorse del giocatore
 	 */
 	private RiservaGiocatore riserva;
-	
+
 	/**
 	 * Pedina Arancione, Bianca, Nera, Neutra
 	 */
@@ -58,6 +58,34 @@ public class Giocatore {
 		famiglia.setValorePedinaBianca(pedinaBianca);
 		famiglia.setValorePedinaNera(pedinaNera);
 		famiglia.setValorePedinaNeutrale(pedinaNeutrale);
+	}
+
+	/*
+	 * Ritorna il nome del giocatore
+	 */
+	public String getNomeGiocatore() {
+		return this.nome;
+	}
+
+	/*
+	 * Ritorna la plancia personale del giocatore
+	 */
+	public PlanciaGiocatore getPlanciaGiocatore() {
+		return this.plancia;
+	}
+
+	/*
+	 * Ritorna la riserva di punti e risorse del giocatore
+	 */
+	public RiservaGiocatore getRiservaGiocatore() {
+		return this.riserva;
+	}
+
+	/*
+	 * Ritorna la famiglia del giocatore
+	 */
+	public FamigliaGiocatore getFamigliaGiocatore() {
+		return this.famiglia;
 	}
 
 }
