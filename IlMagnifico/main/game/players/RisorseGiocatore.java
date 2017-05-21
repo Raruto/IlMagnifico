@@ -5,13 +5,13 @@ package main.game.players;
  */
 public class RisorseGiocatore {
 	private int legno;
-	private int denaro;
+	private int monete;
 	private int pietre;
 	private int servitori;
 
-	public RisorseGiocatore(int legno, int denaro, int pietre, int servitori) {
+	public RisorseGiocatore(int legno, int monete, int pietre, int servitori) {
 		this.legno = legno;
-		this.denaro = denaro;
+		this.monete = monete;
 		this.pietre = pietre;
 		this.servitori = servitori;
 	}
@@ -20,8 +20,8 @@ public class RisorseGiocatore {
 		return legno;
 	}
 
-	public int getDenaro() {
-		return denaro;
+	public int getMonete() {
+		return monete;
 	}
 
 	public int getPietre() {
