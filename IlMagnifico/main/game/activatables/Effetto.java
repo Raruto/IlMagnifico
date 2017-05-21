@@ -31,7 +31,7 @@ public class Effetto extends Attivabile {
 		ArrayList<Effetto> effetti = new ArrayList<Effetto>();
 
 		// DALLA DOCUMENTAZIONE:
-		// Il Privilegio del Consiglio è un bonus a scelta tra:
+		// Il Privilegio del Consiglio ï¿½ un bonus a scelta tra:
 		// 1 legno e 1 pietra / 2 servitori / 2 monete /
 		// 2 Punti Militari / 1 Punto Fede
 
@@ -61,10 +61,7 @@ public class Effetto extends Attivabile {
 				// es: "aumenta_legna_pietra_uno","aumenta_monete_due",
 				// "aumenta_servitori_due", "aumenta_punti_militari_due",
 				// "aumenta_punti_fede_due"
-				for (Effetti e2 : Effetti.values()) {
-					if ((e1.getCategoriaEffetto().equals(e2.getCategoriaEffetto())))
-						effetti.add(new Effetto(e2));
-				}
+				effetti.add(new Effetto(e1));
 			}
 		}
 		return effetti;
