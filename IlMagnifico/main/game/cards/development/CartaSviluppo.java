@@ -40,7 +40,7 @@ public class CartaSviluppo {
 	protected ArrayList<Effetto> effettiPermanenti;
 
 	/**
-	 * Abstract Class Constructor
+	 * Class Constructor
 	 * 
 	 * @param nome
 	 * @param periodo
