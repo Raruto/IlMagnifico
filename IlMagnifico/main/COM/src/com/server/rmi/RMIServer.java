@@ -24,9 +24,6 @@ public class RMIServer extends AbstractServer {
 	public void startServer(int rmiPort) {
 		initializeServerRegistry(rmiPort);
 		publishRemoteServerObject(serverImplementation);
-
-		// TODO: Aggiungere la possibilità  di terminare la connessione da parte
-		// del client inviando il messaggio "STOP".
 	}
 
 	private void initializeServerRegistry(int rmiPort) {
