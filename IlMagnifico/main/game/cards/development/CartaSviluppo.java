@@ -2,7 +2,9 @@ package main.game.cards.development;
 
 import java.util.*;
 
+import main.game.activatables.Azione;
 import main.game.activatables.Effetto;
+import main.game.players.Giocatore;
 import main.game.players.PuntiGiocatore;
 import main.game.players.RiservaGiocatore;
 import main.game.players.RisorseGiocatore;
@@ -55,12 +57,12 @@ public class CartaSviluppo {
 	 * @param effettiImmediati
 	 * @param effettiPermanenti
 	 */
-	public CartaSviluppo(String nome, int periodo, RiservaGiocatore costo, int sogliaPuntiMilitari, ArrayList<Effetto> effettiImmediati,
-			ArrayList<Effetto> effettiPermanenti) {
+	public CartaSviluppo(String nome, int periodo, RiservaGiocatore costo, int sogliaPuntiMilitari,
+			ArrayList<Effetto> effettiImmediati, ArrayList<Effetto> effettiPermanenti) {
 		this.nome = nome;
 		this.periodo = periodo;
 		this.costo = costo;
-		this.sogliaPuntiMilitari=sogliaPuntiMilitari;
+		this.sogliaPuntiMilitari = sogliaPuntiMilitari;
 		this.effettiImmediati = effettiImmediati;
 		this.effettiPermanenti = effettiPermanenti;
 	}
@@ -135,5 +137,19 @@ public class CartaSviluppo {
 		else
 			return false;
 
+	}
+
+	/*
+	 * Attivazione di un effetto nell'array degli effetti immediati
+	 */
+	public void attivaEffettoImmediato(Giocatore giocatore, int index, Azione azioneDelGiocatore) {
+		this.effettiImmediati.get(index).attiva(giocatore, azioneDelGiocatore);
+	}
+
+	/*
+	 * Attivazione di un effetto nell'array degli effetti immediati
+	 */
+	public void attivaEffettoPermanente(Giocatore giocatore, int index, Azione azioneDelGiocatore) {
+		this.effettiPermanenti.get(index).attiva(giocatore, azioneDelGiocatore);
 	}
 }
