@@ -5,14 +5,15 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+import com.client.rmi.RMIClient;
 import com.server.AbstractServer;
 import com.server.Server;
 
 public class RMIServer extends AbstractServer {
 	private RMIServerImplementation serverImplementation;
-	private int RMI_PORT;
 
-	public RMIServer() {
+	public RMIServer(Server server) {
+		super(server);
 		try {
 			serverImplementation = new RMIServerImplementation();
 		} catch (RemoteException e) {
@@ -21,33 +22,25 @@ public class RMIServer extends AbstractServer {
 	}
 
 	public void startServer(int rmiPort) {
-		RMI_PORT = rmiPort;
-
-		initializeRegistry();
-		publishRemoteServerObject();
+		initializeServerRegistry(rmiPort);
+		publishRemoteServerObject(serverImplementation);
 
 		// TODO: Aggiungere la possibilità  di terminare la connessione da parte
 		// del client inviando il messaggio "STOP".
 	}
 
-	private void initializeRegistry() {
+	private void initializeServerRegistry(int rmiPort) {
 		try {
-			// Creo un registry sulla porta "rmiPort".
-			LocateRegistry.createRegistry(RMI_PORT);
-
+			LocateRegistry.createRegistry(rmiPort);
 		} catch (RemoteException e) {
-			System.out.println("Registry già  presente!");
+			System.err.println("Registry già  presente!");
 		}
 	}
 
-	private void publishRemoteServerObject() {
+	private void publishRemoteServerObject(RMIServerImplementation serverImplementation) {
 		try {
-			// Aggiungo al registry l'associazione dell'oggetto
-			// serverImplementation con "//localhost/Server".
 			Naming.rebind("Server", serverImplementation);
-
 			System.out.println("[RMI Server] OK");
-
 		} catch (MalformedURLException e) {
 			System.err.println("Impossibile registrare l'oggetto indicato!");
 		} catch (RemoteException e) {

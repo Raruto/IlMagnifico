@@ -26,7 +26,6 @@ public class RMIClient extends AbstractClient {
 		client.startClient();
 	}
 
-	/* @Override */
 	public void startClient() {
 
 		try {
