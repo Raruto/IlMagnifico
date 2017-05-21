@@ -1,5 +1,7 @@
 package main.game.board.tower;
 
+import main.game.cards.development.CartaSviluppo;
+
 /**
  * Classe che definisce il concetto di Area delle Torri all'interno del
  * Tabellone di gioco, composta di: {@link TorreEdificio}, {@link TorreImpresa},
@@ -40,19 +42,19 @@ public class AreaTorre {
 	private int periodoCorrente;
 
 	public CartaSviluppo getCartaTorreImpresa(int piano) {
-		return torreImpresa;
+		return torreImpresa.prendiCarta(piano);
 	}
 
 	public CartaSviluppo getCartaTorreTerritorio(int piano) {
-		return torreTerritorio;
+		return torreTerritorio.prendiCarta(piano);
 	}
 
 	public CartaSviluppo getCartaTorrePersonaggio(int piano) {
-		return torrePersonaggio;
+		return torrePersonaggio.prendiCarta(piano);
 	}
 
 	public CartaSviluppo getCartaTorreEdificio(int piano) {
-		return torreEdificio;
+		return torreEdificio.prendiCarta(piano);
 	}
 
 	/*
