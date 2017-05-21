@@ -5,16 +5,13 @@ import java.rmi.RemoteException;
 
 import com.client.rmi.ClientInterface;
 
-/*
- * IMPORTANTE:
- * L'interfaccia che definisce la classe da esportare deve:
- * - Estendere l'interfaccia Remote
- * - Tutti i metodi devono essere pubblici e lanciare l'eccezione RemoteException
+/**
+ * Remote interface for RemoteMethodInvocation from client to server.
  */
-public interface RMIServerInterface extends Remote {	
-	
+public interface RMIServerInterface extends Remote {
+
 	public void addClient(ClientInterface client) throws RemoteException;
-	
+
 	public void send(String message) throws RemoteException;
 
 }
