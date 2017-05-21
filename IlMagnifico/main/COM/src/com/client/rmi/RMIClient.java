@@ -18,7 +18,6 @@ public class RMIClient extends AbstractClient {
 	private RMIClientInterface remoteRef;
 
 	public RMIClient() {
-		// Creo l'oggetto client normalmente.
 		client = new RMIClientImplementation();
 	}
 

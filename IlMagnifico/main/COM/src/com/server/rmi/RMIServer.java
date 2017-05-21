@@ -13,9 +13,6 @@ public class RMIServer extends AbstractServer {
 	private int RMI_PORT;
 
 	public RMIServer() {
-		// Creo l'oggetto da esportare normalmente
-		// (in quanto la classe ServerImplementation estende
-		// UnicastRemoteObject)
 		try {
 			serverImplementation = new RMIServerImplementation();
 		} catch (RemoteException e) {
