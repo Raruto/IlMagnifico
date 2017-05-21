@@ -2,7 +2,7 @@ package com.client.rmi;
 
 import java.rmi.RemoteException;
 
-public class ClientImplementation implements ClientInterface {
+public class RMIClientImplementation implements RMIClientInterface {
 	private String playerName;
 
 	@Override

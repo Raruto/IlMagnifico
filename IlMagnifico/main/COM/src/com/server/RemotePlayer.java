@@ -1,15 +1,15 @@
 package com.server;
 
-import com.client.rmi.ClientInterface;
+import com.client.rmi.RMIClientInterface;
 
 public /* abstract */ class RemotePlayer {
-	private ClientInterface client;
+	private RMIClientInterface client;
 
-	public RemotePlayer(ClientInterface client) {
+	public RemotePlayer(RMIClientInterface client) {
 		this.client = client;
 	}
 
-	public ClientInterface getClientInterface() {
+	public RMIClientInterface getClientInterface() {
 		return this.client;
 	}
 

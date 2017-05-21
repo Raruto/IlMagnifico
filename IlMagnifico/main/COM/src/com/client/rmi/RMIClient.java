@@ -14,12 +14,12 @@ import com.server.rmi.RMIServerInterface;
 
 public class RMIClient extends AbstractClient {
 	private RMIServerInterface server;
-	private ClientImplementation client;
-	private ClientInterface remoteRef;
+	private RMIClientImplementation client;
+	private RMIClientInterface remoteRef;
 
 	public RMIClient() {
 		// Creo l'oggetto client normalmente.
-		client = new ClientImplementation();
+		client = new RMIClientImplementation();
 	}
 
 	public static void main(String[] args) {
@@ -84,7 +84,7 @@ public class RMIClient extends AbstractClient {
 		// In questo caso non devo associare un identificativo
 		// all'oggetto (in quanto il riferimento remoto verrà  passato
 		// al server).
-		remoteRef = (ClientInterface) UnicastRemoteObject.exportObject(client, 0);
+		remoteRef = (RMIClientInterface) UnicastRemoteObject.exportObject(client, 0);
 	}
 
 	@Override

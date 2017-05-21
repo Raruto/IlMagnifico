@@ -6,7 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.client.rmi.ClientInterface;
+import com.client.rmi.RMIClientInterface;
 import com.server.RemotePlayer;
 
 public class RMIServerImplementation extends UnicastRemoteObject implements RMIServerInterface {
@@ -22,7 +22,7 @@ public class RMIServerImplementation extends UnicastRemoteObject implements RMIS
 	}
 
 	@Override
-	public void addClient(ClientInterface client) throws RemoteException {
+	public void addClient(RMIClientInterface client) throws RemoteException {
 		send(client.getPlayerName() + " has joined.");
 		players.add(new RemotePlayer(client));
 		//clients.add(client);
