@@ -7,17 +7,25 @@ import main.game.players.Giocatore;
 public class Effetto extends Attivabile {
 	// vado a prendere dall'enumerazione degli effetti l'effetto corrispondente
 	private Effetti effetto;
+	// condizione per il determinato effetto per potersi attivare
+	private Azione condizioneDiAttivazione;
 
 	/**
 	 * 
 	 */
 
-	public Effetto(Effetti effetto) {
+	public Effetto(Effetti effetto, Azione condizioneDiAttivazione) {
 		this.effetto = effetto;
+		this.condizioneDiAttivazione = condizioneDiAttivazione;
 	}
 
-	public void attiva(Giocatore giocatore) {
-		this.effetto.attiva(giocatore);
+	/*
+	 * Controlla se l'azione del giocatore attiva l'effetto ed in caso
+	 * affermativo procede all'attivazione
+	 */
+	public void attiva(Giocatore giocatore, Azione azioneDelGiocatore) {
+		if (azioneDelGiocatore == this.condizioneDiAttivazione)
+			this.effetto.attiva(giocatore);
 	}
 
 	/**
