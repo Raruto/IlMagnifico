@@ -3,6 +3,7 @@ package com.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
 import com.server.game.Room;
 import com.server.rmi.RMIServer;
@@ -161,5 +162,28 @@ public class Server implements IServer {
 	public RemotePlayer getPlayer(String nickname) {
 		return mPlayers.get(nickname);
 	}
+
+	
+
+    /**
+     * Join player to the first available room.
+     * @param remotePlayer that would join.
+     * @throws JoinRoomException if no available room has been found.
+     */
+    @Override
+    public void joinFirstAvailableRoom(RemotePlayer remotePlayer) /*throws JoinRoomException*/ {
+        synchronized (ROOMS_MUTEX) {
+        	/*
+            try {
+                joinLastRoom(remotePlayer);
+            } catch (RoomFullException e) {
+                throw new JoinRoomException(e);
+            }
+            */
+        }
+    }
+    
+    
+
 
 }

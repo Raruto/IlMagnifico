@@ -1,4 +1,4 @@
-package program;
+package CodeSamples.TestArray.src.program;
 
 public class Program {
 	public static void main(String[] args) {

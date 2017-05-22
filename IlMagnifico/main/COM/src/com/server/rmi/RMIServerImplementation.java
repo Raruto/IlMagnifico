@@ -1,12 +1,15 @@
 package com.server.rmi;
 
+import java.io.IOException;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.client.rmi.RMIClient;
 import com.client.rmi.RMIClientInterface;
+import com.exceptions.LoginException;
 import com.server.RemotePlayer;
 
 public class RMIServerImplementation extends UnicastRemoteObject implements RMIServerInterface {
@@ -52,6 +55,30 @@ public class RMIServerImplementation extends UnicastRemoteObject implements RMIS
 			}
 		}
 	*/
-	}	
+	}
 
+	@Override
+	public String loginPlayer(String nickname, RMIClientInterface player) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void joinFirstAvailableRoom(String sessionToken) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendChatMessage(String sessionToken, String receiver, String message) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+/*
+	@Override
+	public String loginPlayer(String nickname, RMIClient rmiClient) throws LoginException {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+*/
 }

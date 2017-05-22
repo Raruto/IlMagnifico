@@ -28,7 +28,7 @@ public interface IServer {
      * @param remotePlayer that would join.
      * @throws JoinRoomException if no available room has been found.
      */
-    //void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException;
+    void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException;
 
     /**
      * Create a new room on server.
