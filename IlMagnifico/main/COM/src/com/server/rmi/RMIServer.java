@@ -1,14 +1,12 @@
 package com.server.rmi;
 
 import java.io.IOException;
-import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.UUID;
 
 import com.client.rmi.RMIClientInterface;
@@ -134,10 +132,27 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		getController().joinFirstAvailableRoom(getPlayer(sessionToken));
 	}
 
+	/**
+	 * Remote method to send a chat message to all players or to a specific
+	 * player.
+	 * 
+	 * @param sessionToken
+	 *            of the player that is making the request.
+	 * @param receiver
+	 *            nickname of the player that should receive the message. If
+	 *            null the message will be dispatched to all players.
+	 * @param message
+	 *            to send.
+	 * @throws PlayerNotFound
+	 *             if the receiver is not null and not match any players in the
+	 *             room.
+	 * @throws RemoteException
+	 *             if server is not reachable.
+	 */
 	@Override
 	public void sendChatMessage(String sessionToken, String receiver, String message) throws IOException {
-		// TODO Auto-generated method stub
-
+		RemotePlayer remotePlayer = getPlayer(sessionToken);
+		remotePlayer.getRoom().sendChatMessage(remotePlayer, receiver, message);
 	}
 
 	private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();
@@ -159,10 +174,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		 * catch (ConnectException e) { itr.remove();
 		 * System.out.println("Client rimosso!"); } }
 		 */
-		
-		
-		
-		
+
 		/*
 		 * Iterator<ClientInterface> clientIterator = clients.iterator(); while
 		 * (clientIterator.hasNext()) { try {

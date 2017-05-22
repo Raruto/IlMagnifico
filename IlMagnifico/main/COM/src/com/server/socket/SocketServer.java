@@ -41,9 +41,7 @@ public class SocketServer extends AbstractServer {
 	public void startServer(int port) throws ServerException {
 		try {
 			mServerSocket = new ServerSocket(port);
-
 			System.out.println("[SOCKET Server] OK");
-
 			new RequestHandler().start();
 		} catch (IOException e) {
 			throw new ServerException("I/O exception occurs while starting Socket server", e);
@@ -63,6 +61,7 @@ public class SocketServer extends AbstractServer {
 			while (true) {
 				try {
 					Socket socket = mServerSocket.accept();
+					System.out.println("New socket request");
 					SocketPlayer socketPlayer = new SocketPlayer(getController(), socket);
 					new Thread(socketPlayer).start();
 				} catch (IOException e) {
