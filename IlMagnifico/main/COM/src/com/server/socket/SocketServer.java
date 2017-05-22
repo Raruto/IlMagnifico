@@ -63,9 +63,6 @@ public class SocketServer extends AbstractServer {
 			while (true) {
 				try {
 					Socket socket = mServerSocket.accept();
-
-					//System.out.println("[SOCKET Server] New socket request");
-
 					SocketPlayer socketPlayer = new SocketPlayer(getController(), socket);
 					new Thread(socketPlayer).start();
 				} catch (IOException e) {
