@@ -39,12 +39,12 @@ public class Server implements IServer {
 	/**
 	 * Players cache.
 	 */
-	private HashMap<String, RemotePlayer> mPlayers;
+	private HashMap<String, RemotePlayer> players;
 
 	/**
 	 * List of all server room.
 	 */
-	private ArrayList<Room> mRooms;
+	private ArrayList<Room> rooms;
 
 	/**
 	 * Socket server.
@@ -63,8 +63,8 @@ public class Server implements IServer {
 	 *             if some error occurs.
 	 */
 	private Server() throws ServerException {
-		mPlayers = new HashMap<>();
-		mRooms = new ArrayList<>();
+		players = new HashMap<>();
+		rooms = new ArrayList<>();
 		socketServer = new SocketServer(this);
 		rmiServer = new RMIServer(this);
 	}
@@ -142,8 +142,8 @@ public class Server implements IServer {
 	@Override
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
 		synchronized (PLAYERS_MUTEX) {
-			if (!mPlayers.containsKey(nickname)) {
-				mPlayers.put(nickname, player);
+			if (!players.containsKey(nickname)) {
+				players.put(nickname, player);
 				player.setNickname(nickname);
 			} else {
 				throw new LoginException();
@@ -160,7 +160,7 @@ public class Server implements IServer {
 	 */
 	@Override
 	public RemotePlayer getPlayer(String nickname) {
-		return mPlayers.get(nickname);
+		return players.get(nickname);
 	}
 
 	
