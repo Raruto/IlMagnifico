@@ -31,13 +31,11 @@ public class RMIClient extends AbstractClient {
 		super(controller, address, port);
 		client = new RMIClientImplementation();
 	}
-	
-    /*
-	public static void main(String[] args) {
-		RMIClient client = new RMIClient();
-		client.startClient();
-	}
-	*/
+
+	/*
+	 * public static void main(String[] args) { RMIClient client = new
+	 * RMIClient(); client.startClient(); }
+	 */
 
 	public void startClient() {
 
@@ -47,7 +45,7 @@ public class RMIClient extends AbstractClient {
 
 			publishRemoteClientObject();
 
-			System.out.println("RMI Connection established");
+			System.out.println("RMI Connection established (port: " + this.getPort() + ")");
 
 			Scanner scanner = new Scanner(System.in);
 

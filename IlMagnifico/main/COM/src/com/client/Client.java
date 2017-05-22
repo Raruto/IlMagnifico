@@ -83,7 +83,7 @@ public class Client implements IClient {
 	 */
 	private void startRMIClient(int rmiPort) throws ClientException {
 		System.out.println("Starting RMI Connection...");
-		client = new RMIClient(this, "127.0.0.1", RMI_PORT);
+		client = new RMIClient(this, "127.0.0.1", rmiPort);
 		client.startClient();
 	}
 
@@ -97,7 +97,7 @@ public class Client implements IClient {
 	 */
 	private void startSocketClient(int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
-		client = new SocketClient(this, "127.0.0.1", SOCKET_PORT);
+		client = new SocketClient(this, "127.0.0.1", socketPort);
 		client.startClient();
 	}
 

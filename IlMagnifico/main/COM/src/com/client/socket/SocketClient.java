@@ -61,7 +61,7 @@ public class SocketClient extends AbstractClient {
 		try {
 			mSocket = new Socket(getAddress(), getPort());
 
-			System.out.println("Socket Connection established");
+			System.out.println("Socket Connection established (port: " + this.getPort() + ")");
 
 			mOutput = new ObjectOutputStream(new BufferedOutputStream(mSocket.getOutputStream()));
 			mOutput.flush();
