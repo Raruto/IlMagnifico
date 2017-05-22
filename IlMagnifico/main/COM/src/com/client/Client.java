@@ -33,8 +33,9 @@ public class Client implements IClient {
 	 *             if some error occurs.
 	 */
 	public Client() throws ClientException {
-		// socketServer = new SocketServer(this);
-		// rmiServer = new RMIServer(this);
+		// Moved into StarClient()
+		//client = new RMIClient(this, "127.0.0.1", rmiPort);
+		//client = new SocketClient(this, "127.0.0.1", socketPort);
 	}
 
 	public static void main(String[] args) {
