@@ -1,15 +1,11 @@
 package com.client.rmi;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
-
 import com.NetworkException;
 import com.client.AbstractClient;
 import com.client.ClientException;
@@ -35,10 +31,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/**
 	 * Cached session token that uniquely identify the player on the RMIServer.
 	 */
-	private String mSessionToken;
-
-	// private RMIClientImplementation client;
-	// private RMIClientInterface remoteRef;
+	private String sessionToken;
 
 	/**
 	 * Create a RMI client instance.
@@ -52,7 +45,6 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	public RMIClient(IClient controller, String address, int port) {
 		super(controller, address, port);
-		// client = new RMIClientImplementation();
 	}
 
 	/**
@@ -104,38 +96,16 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		 */
 	}
 
-	/*
-	 * private void getRemoteServerObject() throws MalformedURLException,
-	 * RemoteException, NotBoundException { // Ottengo il riferimento remoto
-	 * associato alla stringa passata // (contiene l'host target e
-	 * l'identificativo dell'oggetto // sull'host). server =
-	 * (RMIServerInterface) Naming.lookup("//localhost/Server"); }
-	 * 
-	 * private void publishRemoteClientObject() throws RemoteException { //
-	 * Tuttavia, dato che ClientImplementation non estende la classe //
-	 * UnicastRemoteObject, devo creare un riferimento remoto // all'oggetto col
-	 * metodo UnicastRemoteObject.exportObject che // prende come parametri
-	 * l'oggetto da esportare e la porta da // utilizzare per la connessione.
-	 * Con 0 la porta viene scelta // automaticamente. // Altrimenti avrebbe
-	 * tentato di serializzare l'oggetto e di // passarlo come copia al server.
-	 * // In questo caso non devo associare un identificativo // all'oggetto (in
-	 * quanto il riferimento remoto verrà  passato // al server). remoteRef =
-	 * (RMIClientInterface) UnicastRemoteObject.exportObject(client, 0); }
-	 */
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
 
 		try {
-			mSessionToken = server.loginPlayer(nickname, this);
+			sessionToken = server.loginPlayer(nickname, this);
 		} catch (LoginException e) {
 			throw e;
 		} catch (IOException e) {
 			throw new NetworkException(e);
 		}
-		/*
-		 * try { client.setPlayerName(nickname); server.addClient(remoteRef); }
-		 * catch (RemoteException e) { e.printStackTrace(); }
-		 */
 	}
 
 	/**
@@ -149,7 +119,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	@Override
 	public void joinFirstAvailableRoom() throws NetworkException {
 		try {
-			server.joinFirstAvailableRoom(mSessionToken);
+			server.joinFirstAvailableRoom(sessionToken);
 		} catch (JoinRoomException e) {
 			throw e;
 		} catch (IOException e) {
@@ -171,7 +141,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
 		try {
-			server.sendChatMessage(mSessionToken, receiver, message);
+			server.sendChatMessage(sessionToken, receiver, message);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		} catch (PlayerNotFound e) {
@@ -181,22 +151,26 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		}
 	}
 
-	private String playerName;
+	/**
+	 * Notify player that a new chat message has been received.
+	 * 
+	 * @param author
+	 *            nickname of the player that sent the message.
+	 * @param message
+	 *            that the author has sent.
+	 * @param privateMessage
+	 *            if message is private, false if public.
+	 * @throws RemoteException
+	 *             if player is not reachable from the server.
+	 */
+	@Override
+	public void notifyNewChatMessage(String author, String message, boolean privateMessage) throws RemoteException {
+		getController().onChatMessage(privateMessage, author, message);
+	}
 
 	@Override
 	public void notify(String object) throws RemoteException {
-		// System.out.println("Ho ricevuto il messaggio: " + object);
 		System.out.println(object);
-	}
-
-	@Override
-	public String getPlayerName() throws RemoteException {
-		return playerName;
-	}
-
-	@Override
-	public void setPlayerName(String playerName) throws RemoteException {
-		this.playerName = playerName;
 	}
 
 }

@@ -1,9 +1,7 @@
 package com.server.rmi;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.ConnectException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -13,13 +11,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
-import com.client.rmi.RMIClient;
 import com.client.rmi.RMIClientInterface;
 import com.exceptions.LoginException;
 import com.server.AbstractServer;
 import com.server.IServer;
 import com.server.RemotePlayer;
-import com.server.Server;
 import com.server.ServerException;
 
 /**
@@ -33,9 +29,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 * that identify the single player. This is required in order to identify
 	 * the rmi player when he is making a new request to the server.
 	 */
-	private final HashMap<String, String> mSessionTokens;
-
-	// private RMIServerImplementation serverImplementation;
+	private final HashMap<String, String> sessionTokens;
 
 	/**
 	 * Public constructor.
@@ -45,40 +39,8 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 */
 	public RMIServer(IServer controller) {
 		super(controller);
-		mSessionTokens = new HashMap<>();
+		sessionTokens = new HashMap<>();
 	}
-
-	/*
-	 * public RMIServer(Server server) { super(server); try {
-	 * serverImplementation = new RMIServerImplementation(); } catch
-	 * (RemoteException e) { System.err.println("Errore di connessione: " +
-	 * e.getMessage() + "!"); } }
-	 */
-
-	// public void startServer(int rmiPort) {
-	// initializeServerRegistry(rmiPort);
-	// publishRemoteServerObject(serverImplementation);
-	// }
-	//
-	// private void initializeServerRegistry(int rmiPort) {
-	// try {
-	// LocateRegistry.createRegistry(rmiPort);
-	// } catch (RemoteException e) {
-	// System.err.println("Registry già  presente!");
-	// }
-	// }
-	//
-	// private void publishRemoteServerObject(RMIServerImplementation
-	// serverImplementation) {
-	// try {
-	// Naming.rebind("Server", serverImplementation);
-	// System.out.println("[RMI Server] OK");
-	// } catch (MalformedURLException e) {
-	// System.err.println("Impossibile registrare l'oggetto indicato!");
-	// } catch (RemoteException e) {
-	// System.err.println("Errore di connessione: " + e.getMessage() + "!");
-	// }
-	// }
 
 	/**
 	 * Start the RMIServer connection.
@@ -94,7 +56,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		try {
 			registry.rebind("Server", this);
 			UnicastRemoteObject.exportObject(this, port);
-			// Debug.verbose("Server successfully initialized");
+			System.out.println("[RMI Server] OK");
 		} catch (RemoteException e) {
 			throw new ServerException("Server interface not loaded", e);
 		}
@@ -113,12 +75,12 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		try {
 			return LocateRegistry.createRegistry(port);
 		} catch (RemoteException e) {
-			// Debug.debug("RMI Registry already exists", e);
+			System.err.println("RMI Registry already exists");
 		}
 		try {
 			return LocateRegistry.getRegistry(port);
 		} catch (RemoteException e) {
-			// Debug.debug("RMI Registry not found", e);
+			System.err.println("RMI Registry not found");
 		}
 		throw new ServerException("Cannot initialize RMI registry");
 	}
@@ -131,7 +93,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 * @return the remote player associated.
 	 */
 	private RemotePlayer getPlayer(String sessionToken) {
-		return getController().getPlayer(mSessionTokens.get(sessionToken));
+		return getController().getPlayer(sessionTokens.get(sessionToken));
 	}
 
 	/**
@@ -153,7 +115,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		getController().loginPlayer(nickname, new RMIPlayer(player));
 		// generate new unique session token
 		String sessionToken = UUID.randomUUID().toString();
-		mSessionTokens.put(sessionToken, nickname);
+		sessionTokens.put(sessionToken, nickname);
 		return sessionToken;
 	}
 
@@ -178,32 +140,29 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	}
 
-	private static final String SERVER_ID = "[SERVER]";
-
 	private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();
-	// private ArrayList<ClientInterface> clients = new
-	// ArrayList<ClientInterface>();
 
-	@Override
-	public void addClient(RMIClientInterface client) throws RemoteException {
-		send(client.getPlayerName() + " has joined.");
-		players.add(new RemotePlayer(client));
-		// clients.add(client);
-	}
+	// @Override
+	// public void addClient(RMIClientInterface client) throws RemoteException {
+	// send(client.getPlayerName() + " has joined.");
+	// players.add(new RemotePlayer(client));
+	// // clients.add(client);
+	// }
 
 	@Override
 	public void send(String message) throws RemoteException {
-		Iterator<RemotePlayer> itr = players.iterator();
-
-		while (itr.hasNext()) {
-			try {
-				itr.next().getClientInterface().notify(SERVER_ID + " " + message);
-			} catch (ConnectException e) {
-				itr.remove();
-				System.out.println("Client rimosso!");
-			}
-		}
-
+		/*
+		 * Iterator<RemotePlayer> itr = players.iterator();
+		 * 
+		 * while (itr.hasNext()) { try {
+		 * itr.next()getClientInterface().notify("[SERVER]" + " " + message); }
+		 * catch (ConnectException e) { itr.remove();
+		 * System.out.println("Client rimosso!"); } }
+		 */
+		
+		
+		
+		
 		/*
 		 * Iterator<ClientInterface> clientIterator = clients.iterator(); while
 		 * (clientIterator.hasNext()) { try {

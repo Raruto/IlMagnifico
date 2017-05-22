@@ -3,9 +3,6 @@ package com.server.rmi;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
-
-import com.client.rmi.RMIClient;
 import com.client.rmi.RMIClientInterface;
 import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
@@ -461,7 +458,7 @@ public interface RMIServerInterface extends Remote {
 	 */
 	void sendChatMessage(String sessionToken, String receiver, String message) throws IOException;
 
-	public void addClient(RMIClientInterface client) throws RemoteException;
+	//public void addClient(RMIClientInterface client) throws RemoteException;
 
 	public void send(String message) throws RemoteException;
 

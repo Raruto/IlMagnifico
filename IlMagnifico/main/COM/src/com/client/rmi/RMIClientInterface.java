@@ -224,19 +224,19 @@ public interface RMIClientInterface extends Remote {
 //	 */
 //	void notifyMarketSessionFinished() throws RemoteException;
 //
-//	/**
-//	 * Notify player that a new chat message has been received.
-//	 * 
-//	 * @param author
-//	 *            nickname of the player that sent the message.
-//	 * @param message
-//	 *            that the author has sent.
-//	 * @param privateMessage
-//	 *            if message is private, false if public.
-//	 * @throws RemoteException
-//	 *             if player is not reachable from the server.
-//	 */
-//	void notifyNewChatMessage(String author, String message, boolean privateMessage) throws RemoteException;
+	/**
+	 * Notify player that a new chat message has been received.
+	 * 
+	 * @param author
+	 *            nickname of the player that sent the message.
+	 * @param message
+	 *            that the author has sent.
+	 * @param privateMessage
+	 *            if message is private, false if public.
+	 * @throws RemoteException
+	 *             if player is not reachable from the server.
+	 */
+	void notifyNewChatMessage(String author, String message, boolean privateMessage) throws RemoteException;
 //
 //	/**
 //	 * Notify player that another player has disconnected.
@@ -274,8 +274,8 @@ public interface RMIClientInterface extends Remote {
 
 	public void notify(String object) throws RemoteException;
 
-	public String getPlayerName() throws RemoteException;
+	//public String getPlayerName() throws RemoteException;
 
-	public void setPlayerName(String name) throws RemoteException;
+	//public void setPlayerName(String name) throws RemoteException;
 
 }
