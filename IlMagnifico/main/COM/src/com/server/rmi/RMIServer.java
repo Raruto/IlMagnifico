@@ -35,7 +35,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 */
 	private final HashMap<String, String> mSessionTokens;
 
-	//private RMIServerImplementation serverImplementation;
+	// private RMIServerImplementation serverImplementation;
 
 	/**
 	 * Public constructor.
@@ -94,7 +94,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		try {
 			registry.rebind("Server", this);
 			UnicastRemoteObject.exportObject(this, port);
-			//Debug.verbose("Server successfully initialized");
+			// Debug.verbose("Server successfully initialized");
 		} catch (RemoteException e) {
 			throw new ServerException("Server interface not loaded", e);
 		}
@@ -113,12 +113,12 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		try {
 			return LocateRegistry.createRegistry(port);
 		} catch (RemoteException e) {
-			//Debug.debug("RMI Registry already exists", e);
+			// Debug.debug("RMI Registry already exists", e);
 		}
 		try {
 			return LocateRegistry.getRegistry(port);
 		} catch (RemoteException e) {
-			//Debug.debug("RMI Registry not found", e);
+			// Debug.debug("RMI Registry not found", e);
 		}
 		throw new ServerException("Cannot initialize RMI registry");
 	}
@@ -175,25 +175,26 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	@Override
 	public void sendChatMessage(String sessionToken, String receiver, String message) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private static final String SERVER_ID = "[SERVER]";
 
 	private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();
-	//private ArrayList<ClientInterface> clients = new ArrayList<ClientInterface>();
+	// private ArrayList<ClientInterface> clients = new
+	// ArrayList<ClientInterface>();
 
 	@Override
 	public void addClient(RMIClientInterface client) throws RemoteException {
 		send(client.getPlayerName() + " has joined.");
 		players.add(new RemotePlayer(client));
-		//clients.add(client);
+		// clients.add(client);
 	}
 
 	@Override
 	public void send(String message) throws RemoteException {
 		Iterator<RemotePlayer> itr = players.iterator();
-		
+
 		while (itr.hasNext()) {
 			try {
 				itr.next().getClientInterface().notify(SERVER_ID + " " + message);
@@ -204,18 +205,12 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		}
 
 		/*
-		Iterator<ClientInterface> clientIterator = clients.iterator();
-		while (clientIterator.hasNext()) {
-			try {
-				clientIterator.next().notify(SERVER_ID + " " + message);
-			} catch (ConnectException e) {
-				clientIterator.remove();
-				System.out.println("Client rimosso!");
-			}
-		}
-	*/
-	}	
-
-
+		 * Iterator<ClientInterface> clientIterator = clients.iterator(); while
+		 * (clientIterator.hasNext()) { try {
+		 * clientIterator.next().notify(SERVER_ID + " " + message); } catch
+		 * (ConnectException e) { clientIterator.remove();
+		 * System.out.println("Client rimosso!"); } }
+		 */
+	}
 
 }
