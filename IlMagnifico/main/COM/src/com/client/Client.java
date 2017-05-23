@@ -1,7 +1,5 @@
 package com.client;
 
-import java.util.Scanner;
-
 import com.NetworkException;
 import com.client.rmi.RMIClient;
 import com.client.socket.SocketClient;
@@ -74,6 +72,9 @@ public class Client implements IClient {
 
 	public boolean isLogged() {
 		return this.isLogged;
+	}
+	public String getNickname(){
+		return this.nickname;
 	}
 
 	/**
