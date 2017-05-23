@@ -56,4 +56,22 @@ public class FakeUI {
 		client.sendChatMessage(null, "hello!");
 
 	}
+
+	public static void infiniteLoop() {
+		Client client = getClient();
+
+		System.out.println("'q' to quit\n");
+		System.out.println("Send text messages: ");
+
+		while (true) {
+			System.out.println(">");
+			inText = scanner.nextLine();
+			if (!inText.toLowerCase().equals("q")) {
+				client.sendChatMessage(null, inText);
+			} else {
+				break;
+			}
+		}
+
+	}
 }

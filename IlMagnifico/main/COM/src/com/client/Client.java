@@ -64,6 +64,7 @@ public class Client implements IClient {
 			FakeUI.main();
 			FakeUI.login();
 			FakeUI.sayHelloToPlayers();
+			FakeUI.infiniteLoop();
 
 		} catch (Exception e) {
 			e.printStackTrace();
