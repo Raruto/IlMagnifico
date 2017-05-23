@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Remote interface for RemoteMethodInvocation from server to client.
+ * Interfaccia remota per eseguire Invocazione a Metodi Remoti da SERVER a CLIENT.
  */
 public interface RMIClientInterface extends Remote {
 
