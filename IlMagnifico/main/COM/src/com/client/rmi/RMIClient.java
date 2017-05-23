@@ -29,7 +29,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	private RMIServerInterface server;
 
 	/**
-	 * Session Token che identifica in modo univoco il giocatore sul RMIServer.
+	 * Token che identifica in modo univoco il giocatore sul RMIServer.
 	 */
 	private String sessionToken;
 
@@ -66,6 +66,14 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		}
 	}
 
+	/**
+	 * Esegue il login del giocatore al RMIServer con il nickname fornito.
+	 * 
+	 * @param nickname
+	 *            nome da utilizzare per identificarsi al server.
+	 * @throws NetworkException
+	 *             se il server non è raggiungibile.
+	 */
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
 
