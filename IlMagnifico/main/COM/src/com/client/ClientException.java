@@ -3,27 +3,28 @@ package com.client;
 import java.io.IOException;
 
 /**
- * This exception is thrown when an error occur while connecting to the server.
+ * Eccezione scatenata quando si verifica un errore durante la connessione
+ * con il server.
  */
 public class ClientException extends IOException {
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param cause
-	 *            of the exception.
+	 *            causa dell'eccezione.
 	 */
 	public ClientException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param message
-	 *            of the error.
+	 *            messaggio di errore.
 	 * @param cause
-	 *            of the error.
+	 *            causa dell'errore.
 	 */
 	public ClientException(String message, Throwable cause) {
 		super(message, cause);

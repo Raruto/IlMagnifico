@@ -3,76 +3,78 @@ package com.client;
 import com.NetworkException;
 
 /**
- * This class represent the abstraction of server communication. Extending this
- * class will let you implement whatever type of network connection you want.
- * The {@link IClient} interface works as client controller and callback
- * handler.
+ * 
+ * Classe che rappresenta l'astrazione necessaria per le comunicazioni col
+ * server. Estendendo questa classe è possibile utilizzare qualsiasi tipo di
+ * connessione (es. RMI o Socket). L'interfaccia {@link IClient} funziona come
+ * controller client e callback handler.
  */
 public abstract class AbstractClient {
 
 	/**
-	 * Client controller.
+	 * Controller client.
 	 */
-	private final IClient mController;
+	private final IClient controller;
 
 	/**
-	 * Address of the server.
+	 * Indirizzo del server.
 	 */
-	private final String mAddress;
+	private final String address;
 
 	/**
-	 * Port for communication.
+	 * Porta usata dal server per la comunicazione.
 	 */
-	private final int mPort;
+	private final int port;
 
 	/**
-	 * Abstract constructor.
+	 * Costruttore astratto.
 	 * 
 	 * @param controller
 	 *            client controller.
 	 * @param address
-	 *            of the server.
+	 *            indirizzo del server.
 	 * @param port
-	 *            of the server.
+	 *            porta del server.
 	 */
 	public AbstractClient(IClient controller, String address, int port) {
-		mController = controller;
-		mAddress = address;
-		mPort = port;
+		this.controller = controller;
+		this.address = address;
+		this.port = port;
 	}
 
 	/**
-	 * Get the server address.
+	 * Ritorna l'indirizzo del server.
 	 * 
-	 * @return the server address.
+	 * @return l'indirizzo del server.
 	 */
 	protected String getAddress() {
-		return mAddress;
+		return address;
 	}
 
 	/**
-	 * Get the port for communication.
+	 * Ritorna la porta usata dal server per la comunicazione.
 	 * 
-	 * @return the communication port.
+	 * @return porta del server.
 	 */
 	protected int getPort() {
-		return mPort;
+		return port;
 	}
 
 	/**
-	 * Get the client controller to write on central bus.
+	 * Ritorna il client controller per potere (scrivere/inviare) richieste sul
+	 * (canale di comunicazione/oggetto remoto).
 	 * 
-	 * @return the client controller.
+	 * @return client controller (es. {@link Client}).
 	 */
 	protected IClient getController() {
-		return mController;
+		return controller;
 	}
 
 	/**
-	 * Open a connection with the server.
+	 * Apre una connessione con il server.
 	 * 
 	 * @throws ClientConnectionException
-	 *             if server is not reachable or something went wrong.
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	public abstract void connect() throws ClientException;
 
@@ -85,14 +87,14 @@ public abstract class AbstractClient {
 	}
 
 	/**
-	 * Try to login a player on server with the provided nickname.
+	 * Provare ad effettuare un accesso al server con il nome fornito.
 	 * 
 	 * @param nickname
-	 *            to use for login.
+	 *            nome del giocatore da utilizzare per identificarsi sul server.
 	 * @throws LoginException
-	 *             if provided nickname is already in use.
+	 *             se il nome fornito è già in uso sul server.
 	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	public abstract void loginPlayer(String nickname) throws NetworkException;
 

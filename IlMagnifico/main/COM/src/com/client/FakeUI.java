@@ -2,6 +2,10 @@ package com.client;
 
 import java.util.Scanner;
 
+/**
+ * Classe di comodo per simulare l'interazione da parte del CLIENT verso il SERVER
+ *
+ */
 public class FakeUI {
 	public static Scanner scanner = new Scanner(System.in);
 	public static String inText;

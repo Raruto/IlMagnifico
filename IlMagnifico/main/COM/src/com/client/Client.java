@@ -40,7 +40,7 @@ public class Client implements IClient {
 	private AbstractClient client;
 
 	/**
-	 * Nickname del giocatore corrente.
+	 * Nome del giocatore corrente.
 	 */
 	private String nickname;
 
@@ -83,7 +83,7 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * "Nickname" scelto dal giocatore durante la fase di login e approvato dal
+	 * Nome scelto dal giocatore durante la fase di login e approvato dal
 	 * server
 	 * 
 	 * @return String nickname
