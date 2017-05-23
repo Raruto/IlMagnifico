@@ -142,10 +142,13 @@ public class Server implements IServer {
 	@Override
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
 		synchronized (PLAYERS_MUTEX) {
+			System.out.println("New login request: " + nickname);
 			if (!players.containsKey(nickname)) {
 				players.put(nickname, player);
 				player.setNickname(nickname);
+				System.out.println("[" + nickname.toUpperCase() + "]" + " Succesfully logged in!");
 			} else {
+				System.out.println("[" + nickname.toUpperCase() + "]" + " Already logged in!");
 				throw new LoginException();
 			}
 		}
@@ -163,27 +166,23 @@ public class Server implements IServer {
 		return players.get(nickname);
 	}
 
-	
-
-    /**
-     * Join player to the first available room.
-     * @param remotePlayer that would join.
-     * @throws JoinRoomException if no available room has been found.
-     */
-    @Override
-    public void joinFirstAvailableRoom(RemotePlayer remotePlayer) /*throws JoinRoomException*/ {
-        synchronized (ROOMS_MUTEX) {
-        	/*
-            try {
-                joinLastRoom(remotePlayer);
-            } catch (RoomFullException e) {
-                throw new JoinRoomException(e);
-            }
-            */
-        }
-    }
-    
-    
-
+	/**
+	 * Join player to the first available room.
+	 * 
+	 * @param remotePlayer
+	 *            that would join.
+	 * @throws JoinRoomException
+	 *             if no available room has been found.
+	 */
+	@Override
+	public void joinFirstAvailableRoom(
+			RemotePlayer remotePlayer) /* throws JoinRoomException */ {
+		synchronized (ROOMS_MUTEX) {
+			/*
+			 * try { joinLastRoom(remotePlayer); } catch (RoomFullException e) {
+			 * throw new JoinRoomException(e); }
+			 */
+		}
+	}
 
 }

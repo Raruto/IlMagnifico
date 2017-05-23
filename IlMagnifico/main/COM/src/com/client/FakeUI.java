@@ -8,12 +8,6 @@ public class FakeUI {
 
 	static Client client;
 
-	/**
-	 * Get the debugger instance. If it has not been initialized yet, it will be
-	 * auto-initialized with LEVEL_CRITICAL.
-	 * 
-	 * @return a not null debugger instance.
-	 */
 	public static Client getClient() {
 		if (client == null) {
 			try {
@@ -52,6 +46,8 @@ public class FakeUI {
 			client.loginPlayer(inText);
 
 		}
+
+		System.out.println();
 
 	}
 }

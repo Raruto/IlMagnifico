@@ -8,54 +8,47 @@ import com.exceptions.LoginException;
 public class Client implements IClient {
 
 	/**
-	 * Available Connection Types to the Server
+	 * Tipi di connessione disponibili al server.
 	 */
 	enum ConnectionTypes {
 		RMI, SOCKET;
 	}
 
 	/**
-	 * Available info about Connection Health
-	 */
-	enum ConnectionStatus {
-		OK, KO;
-	}
-
-	/**
-	 * Server Address where communications are open
+	 * Indirizzo Server sui cui le comunicazioni sono aperte.
 	 */
 	private static final String ADDRESS = "127.0.0.1";
 
 	/**
-	 * Port where socket communication is open.
+	 * Porta in cui è aperta la comunicazione Socket.
 	 */
 	private static final int SOCKET_PORT = 1098;
 
 	/**
-	 * Port where RMI communication is open.
+	 * Porta in cui è aperta la comunicazione RMI.
 	 */
 	private static final int RMI_PORT = 1099;
 
-	/** 
-	 * 
+	/**
+	 * Flag per determinare stato della connessione.
 	 */
 	private boolean isLogged;
 
 	/**
-	 * Abstract class that represent the selected client (RMI or Socket).
+	 * Classe astratta che rappresenta il client selezionato (RMI o Socket).
 	 */
 	private AbstractClient client;
 
 	/**
-	 * Current player's nickname.
+	 * Nickname del giocatore corrente.
 	 */
 	private String nickname;
 
 	/**
-	 * Create a new instance of the class.
+	 * Crea una nuova istanza della classe.
 	 * 
 	 * @throws ClientException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	public Client() throws ClientException {
 		nickname = "anonymous";
@@ -67,23 +60,41 @@ public class Client implements IClient {
 	}
 
 	public static void main(String[] args) {
-		FakeUI.main();
+		try {
+			FakeUI.main();
+			FakeUI.login();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * "True" se il giocatore ha portato a termine correttamente la fase di
+	 * login presso il server.
+	 * 
+	 * @return boolean isLogged
+	 */
 	public boolean isLogged() {
 		return this.isLogged;
 	}
-	public String getNickname(){
+
+	/**
+	 * "Nickname" scelto dal giocatore durante la fase di login e approvato dal
+	 * server
+	 * 
+	 * @return String nickname
+	 */
+	public String getNickname() {
 		return this.nickname;
 	}
 
 	/**
-	 * Start Client connections.
+	 * Avvia connessioni client.
 	 * 
 	 * @param connectionType
-	 *            string name of the choosed connection type
+	 *            nome del tipo di connessione scelta
 	 * @throws ClientException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	public void startClient(String connectionType) throws ClientException {
 		if (connectionType.equals(ConnectionTypes.RMI.toString())) {
@@ -93,37 +104,38 @@ public class Client implements IClient {
 		} else {
 			throw new ClientException(new Throwable("Uknown Connection Type"));
 		}
-
-		FakeUI.login();
-
 	}
 
 	/**
-	 * Start RMIClient connection.
+	 * Avvia la connessione RMI.
 	 * 
 	 * @param rmiPort
-	 *            port where start RMI connection.
+	 *            porta dove avviare la connessione.
 	 * @throws ClientException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private void startRMIClient(int rmiPort) throws ClientException {
 		System.out.println("Starting RMI Connection...");
 		client = new RMIClient(this, ADDRESS, rmiPort);
 		client.connect();
+
+		System.out.println();
 	}
 
 	/**
-	 * Start SocketClient connection.
+	 * Avvia la connessione Socket.
 	 * 
 	 * @param sockePort
-	 *            port where start Socket connection.
+	 *            porta dove avviare la connessione.
 	 * @throws ClientException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private void startSocketClient(int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
 		client = new SocketClient(this, ADDRESS, socketPort);
 		client.connect();
+
+		System.out.println();
 	}
 
 	/**
@@ -149,7 +161,7 @@ public class Client implements IClient {
 		if (success) {
 			this.nickname = nickname;
 			this.isLogged = true;
-			System.out.println("Succesfully logged in as: " + nickname);
+			System.out.println("Logged in as: " + nickname);
 		}
 	}
 
