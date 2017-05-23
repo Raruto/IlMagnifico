@@ -1,8 +1,10 @@
 package com.server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.NetworkException;
 import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
 import com.server.game.Room;
@@ -185,4 +187,15 @@ public class Server implements IServer {
 		}
 	}
 
+	public void sendChatMessage(String author, String message, boolean privateMessage) throws IOException {
+		players.entrySet().stream().filter(remotePlayer -> remotePlayer.getValue().getNickname() != author)
+				.forEach(remotePlayer -> {
+					try {
+						remotePlayer.getValue().onChatMessage(author, message, privateMessage);
+					} catch (NetworkException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+	}
 }

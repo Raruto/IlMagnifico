@@ -152,7 +152,22 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	@Override
 	public void sendChatMessage(String sessionToken, String receiver, String message) throws IOException {
 		RemotePlayer remotePlayer = getPlayer(sessionToken);
-		remotePlayer.getRoom().sendChatMessage(remotePlayer, receiver, message);
+
+		getController().sendChatMessage(remotePlayer.getNickname(), message, false);
+		// getController().sloginPlayer(nickname, new RMIPlayer(player));
+
+		// remotePlayer.getRoom().sendChatMessage(remotePlayer, receiver,
+		// message);
+
+		/*
+		 * Iterator<RemotePlayer> itr = players.iterator();
+		 * 
+		 * while (itr.hasNext()) { try {
+		 * itr.next().getClientInterface().notify("[SERVER]" + " " + message); }
+		 * catch (ConnectException e) { itr.remove();
+		 * System.out.println("Client rimosso!"); } }
+		 */
+
 	}
 
 	private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();

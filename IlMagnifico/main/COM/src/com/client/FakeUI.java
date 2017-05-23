@@ -50,4 +50,10 @@ public class FakeUI {
 		System.out.println();
 
 	}
+
+	public static void sayHelloToPlayers() {
+		Client client = getClient();
+		client.sendChatMessage(null, "hello!");
+
+	}
 }

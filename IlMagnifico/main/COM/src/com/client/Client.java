@@ -63,6 +63,8 @@ public class Client implements IClient {
 		try {
 			FakeUI.main();
 			FakeUI.login();
+			FakeUI.sayHelloToPlayers();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,6 +77,7 @@ public class Client implements IClient {
 	 * @return boolean isLogged
 	 */
 	public boolean isLogged() {
+
 		return this.isLogged;
 	}
 
@@ -165,6 +168,24 @@ public class Client implements IClient {
 		}
 	}
 
+	/**
+	 * Callback per inviare un messaggio sulla chat.
+	 * 
+	 * @param nickname
+	 *            del ricevitore del ricevitore se è un messaggio privato,
+	 *            altrimenti null.
+	 * @param messaggio
+	 *            da inviare.
+	 */
+	// @Override
+	public void sendChatMessage(String receiver, String message) {
+		try {
+			client.sendChatMessage(receiver, message);
+		} catch (NetworkException e) {
+			System.err.println("Cannot send chat message request");
+		}
+	}
+
 	@Override
 	public void onTurnStarted(String nickname, int remainingTime) {
 		// TODO Auto-generated method stub
@@ -213,10 +234,22 @@ public class Client implements IClient {
 
 	}
 
+	/**
+	 * Notifica che è arrivato un nuovo messaggio dalla chat.
+	 * 
+	 * @param privateMessage
+	 *            "True" se il messaggio è privato, "False" se pubblico.
+	 * @param author
+	 *            autore del messaggio.
+	 * @param message
+	 *            corpo del messaggio.
+	 */
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
-		// TODO Auto-generated method stub
-
+		// if (privateMessage) {
+		System.out.println("[" + author + "]" + " " + message);
+		// }
+		// mUi.showChatMessage(privateMessage, author, message);
 	}
 
 	@Override
