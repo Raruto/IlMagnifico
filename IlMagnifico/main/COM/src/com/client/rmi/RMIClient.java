@@ -17,41 +17,41 @@ import com.server.rmi.*;
 import model.exceptions.PlayerNotFound;
 
 /**
- * This class is the implementation of {@link AbstractClient} class. It manages
- * the network connection with RMI.
+ * Classe che gestisce la connessione di rete con RMI. Estende
+ * {@link AbstractClient}, implementa {@link RMIClientInterface}.
  */
 public class RMIClient extends AbstractClient implements RMIClientInterface {
 
 	/**
-	 * Remote interface of the client that will be cached by the server for
-	 * server to client communication.
+	 * Interfaccia remota del client che verrà memorizzata dal server per la
+	 * comunicazione SERVER-->CLIENT.
 	 */
 	private RMIServerInterface server;
 
 	/**
-	 * Cached session token that uniquely identify the player on the RMIServer.
+	 * Session Token che identifica in modo univoco il giocatore sul RMIServer.
 	 */
 	private String sessionToken;
 
 	/**
-	 * Create a RMI client instance.
+	 * Crea un'istanza RMIClient .
 	 * 
 	 * @param controller
-	 *            client controller.
+	 *            client controller (es. {@link Client}).
 	 * @param address
-	 *            of the server.
+	 *            indirizzo del the server.
 	 * @param port
-	 *            of the server.
+	 *            porta del server.
 	 */
 	public RMIClient(IClient controller, String address, int port) {
 		super(controller, address, port);
 	}
 
 	/**
-	 * Open a connection with {@link RMIServer}.
+	 * Apre una connessione con {@link RMIServer}.
 	 * 
 	 * @throws ClientException
-	 *             if server is not reachable or something went wrong.
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	public void connect() throws ClientException {
 		try {
@@ -64,36 +64,6 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		} catch (RemoteException | NotBoundException e) {
 			throw new ClientException(e);
 		}
-		/*
-		 * try {
-		 * 
-		 * getRemoteServerObject();
-		 * 
-		 * publishRemoteClientObject();
-		 * 
-		 * System.out.println("RMI Connection established (port: " +
-		 * this.getPort() + ")");
-		 * 
-		 * Scanner scanner = new Scanner(System.in);
-		 * 
-		 * System.out.print("Insert Player Name: "); String name =
-		 * scanner.nextLine();
-		 * 
-		 * loginPlayer(name);
-		 * 
-		 * boolean active = true; while (active) {
-		 * System.out.print("Inserire un messaggio:"); String message =
-		 * scanner.nextLine(); server.send(message); } scanner.close();
-		 * 
-		 * } catch (MalformedURLException e) {
-		 * System.err.println("URL non trovato!"); } catch (RemoteException e) {
-		 * System.err.println("Errore di connessione: " + e.getMessage() + "!");
-		 * } catch (NotBoundException e) {
-		 * System.err.println("Il riferimento passato non è associato a nulla!"
-		 * ); } catch (NetworkException e) {
-		 * System.err.println("Errore di connessione: " + e.getMessage() + "!");
-		 * }
-		 */
 	}
 
 	@Override
