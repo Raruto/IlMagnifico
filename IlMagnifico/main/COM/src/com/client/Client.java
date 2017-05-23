@@ -2,8 +2,10 @@ package com.client;
 
 import java.util.Scanner;
 
+import com.NetworkException;
 import com.client.rmi.RMIClient;
 import com.client.socket.SocketClient;
+import com.exceptions.LoginException;
 
 public class Client implements IClient {
 
@@ -15,6 +17,18 @@ public class Client implements IClient {
 	}
 
 	/**
+	 * Available info about Connection Health
+	 */
+	enum ConnectionStatus {
+		OK, KO;
+	}
+
+	/**
+	 * Server Address where communications are open
+	 */
+	private static final String ADDRESS = "127.0.0.1";
+
+	/**
 	 * Port where socket communication is open.
 	 */
 	private static final int SOCKET_PORT = 1098;
@@ -24,7 +38,20 @@ public class Client implements IClient {
 	 */
 	private static final int RMI_PORT = 1099;
 
+	/** 
+	 * 
+	 */
+	private boolean isLogged;
+
+	/**
+	 * Abstract class that represent the selected client (RMI or Socket).
+	 */
 	private AbstractClient client;
+
+	/**
+	 * Current player's nickname.
+	 */
+	private String nickname;
 
 	/**
 	 * Create a new instance of the class.
@@ -33,27 +60,20 @@ public class Client implements IClient {
 	 *             if some error occurs.
 	 */
 	public Client() throws ClientException {
+		nickname = "anonymous";
+		isLogged = false;
+
 		// Moved into StarClient()
-		//client = new RMIClient(this, "127.0.0.1", rmiPort);
-		//client = new SocketClient(this, "127.0.0.1", socketPort);
+		// client = new RMIClient(this, "127.0.0.1", rmiPort);
+		// client = new SocketClient(this, "127.0.0.1", socketPort);
 	}
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		String inText;
+		FakeUI.main();
+	}
 
-		System.out.print("Choose RMI or Socket: ");
-		inText = scanner.nextLine().toUpperCase();
-
-		try {
-			Client client = new Client();
-			client.startClient(inText);
-			scanner.close();
-
-		} catch (ClientException e) {
-			e.printStackTrace();
-			System.err.println("Exiting...");
-		}
+	public boolean isLogged() {
+		return this.isLogged;
 	}
 
 	/**
@@ -72,6 +92,9 @@ public class Client implements IClient {
 		} else {
 			throw new ClientException(new Throwable("Uknown Connection Type"));
 		}
+
+		FakeUI.login();
+
 	}
 
 	/**
@@ -84,7 +107,7 @@ public class Client implements IClient {
 	 */
 	private void startRMIClient(int rmiPort) throws ClientException {
 		System.out.println("Starting RMI Connection...");
-		client = new RMIClient(this, "127.0.0.1", rmiPort);
+		client = new RMIClient(this, ADDRESS, rmiPort);
 		client.connect();
 	}
 
@@ -98,8 +121,35 @@ public class Client implements IClient {
 	 */
 	private void startSocketClient(int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
-		client = new SocketClient(this, "127.0.0.1", socketPort);
+		client = new SocketClient(this, ADDRESS, socketPort);
 		client.connect();
+	}
+
+	/**
+	 * This method is triggered by {@link AbstractUi#showLoginMenu()}.
+	 * 
+	 * @param nickname
+	 *            to use for login session.
+	 */
+	public void loginPlayer(String nickname) {
+		boolean success = false;
+		try {
+			System.out.println("Try to login user with nickname: " + nickname);
+			client.loginPlayer(nickname);
+			success = true;
+			// joinFirstAvailableRoom();
+		} catch (LoginException e) {
+			System.out.println("Nickname is already in use on server");
+			// mUi.showLoginErrorMessage();
+		} catch (NetworkException e) {
+			System.out.println("Cannot send login request");
+		}
+
+		if (success) {
+			this.nickname = nickname;
+			this.isLogged = true;
+			System.out.println("Succesfully logged in as: " + nickname);
+		}
 	}
 
 	@Override
