@@ -14,23 +14,22 @@ import com.server.socket.SocketServer;
 import model.exceptions.PlayerNotFound;
 
 /**
- * This class represent the server of the game.
+ * Server del gioco "Lorenzo Il Magnifico" della "CranioCreations".
  */
 public class Server implements IServer {
 
 	/**
-	 * Port where socket communication is open.
+	 * Porta in cui è aperta la comunicazione Socket.
 	 */
 	private static final int SOCKET_PORT = 1098;
 
 	/**
-	 * Port where RMI communication is open.
+	 * Porta in cui è aperta la comunicazione RMI.
 	 */
 	private static final int RMI_PORT = 1099;
 
 	/**
-	 * This object works as mutex to avoid concurrency race between player
-	 * login.
+	 * MUTEX per evitare la concorrenza tra giocatori durante il login.
 	 */
 	private static final Object PLAYERS_MUTEX = new Object();
 
@@ -41,7 +40,7 @@ public class Server implements IServer {
 	private static final Object ROOMS_MUTEX = new Object();
 
 	/**
-	 * Players cache.
+	 * Giocatori connessi con il server <nickname, RemotePlayer>.
 	 */
 	private HashMap<String, RemotePlayer> players;
 
@@ -61,10 +60,10 @@ public class Server implements IServer {
 	private RMIServer rmiServer;
 
 	/**
-	 * Create a new instance of the class.
+	 * Crea una nuova istanza della classe.
 	 * 
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private Server() throws ServerException {
 		players = new HashMap<>();
@@ -74,10 +73,10 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Static method to execute the server.
+	 * Metodo statico per eseguire il server.
 	 * 
 	 * @param args
-	 *            to pass to the server.
+	 *            parametri per la connessione (DA IMPLEMENTARE).
 	 */
 	public static void main(String[] args) {
 		try {
@@ -93,14 +92,14 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Start server connections.
+	 * Avvia i server per le connessioni .
 	 * 
 	 * @param socketPort
-	 *            port where start Socket connection.
+	 *            porta su cui avviare il server per le connessioni Socket.
 	 * @param rmiPort
-	 *            port where start RMI connection.
+	 *            Porta in cui avviare il server per le connessioni RMI.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private void startServer(int socketPort, int rmiPort) throws ServerException {
 		startRMIServer(rmiPort);
@@ -108,12 +107,12 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Start RMIserver connection.
+	 * Avvia il server RMI.
 	 * 
 	 * @param rmiPort
-	 *            port where start RMI connection.
+	 *            porta su cui avviare il server per le connessioni RMI.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private void startRMIServer(int rmiPort) throws ServerException {
 		System.out.println("Starting RMI Server...");
@@ -121,12 +120,12 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Start SocketServer connection.
+	 * Avvia il server Socket.
 	 * 
 	 * @param socketPort
-	 *            port where start Socket connection.
+	 *            porta su cui avviare il server per le connessioni Socket.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private void startSocketServer(int socketPort) throws ServerException {
 		System.out.println("Starting Socket Server...");
@@ -134,25 +133,30 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Login player with nickname.
+	 * Login del giocatore tramite nickname.
 	 * 
 	 * @param nickname
-	 *            of the player that would login.
+	 *            nome con cui il giocatore vorrebbe essere identificato sul
+	 *            server.
 	 * @param player
-	 *            reference to the player that made the request.
+	 *            riferimento al giocatore che ha effettuato la richiesta (es.
+	 *            {@link RMIPlayer}, {@link SocketPlayer}).
 	 * @throws LoginException
-	 *             if a player with this nickname already exists.
+	 *             se esiste già un altro giocatore con il nome fornito.
 	 */
 	@Override
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
 		synchronized (PLAYERS_MUTEX) {
 			System.out.println("New login request: " + nickname);
+
+			String id = "[" + nickname.toUpperCase() + "]";
+
 			if (!players.containsKey(nickname)) {
 				players.put(nickname, player);
 				player.setNickname(nickname);
-				System.out.println("[" + nickname.toUpperCase() + "]" + " Succesfully logged in!");
+				System.out.println(id + " Succesfully logged in!");
 			} else {
-				System.out.println("[" + nickname.toUpperCase() + "]" + " Already logged in!");
+				System.out.println(id + " Already logged in!");
 				throw new LoginException();
 			}
 		}
@@ -190,50 +194,44 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Send a chat message to all players or to a specific player.
+	 * Invia un messaggio di chat a tutti i giocatori o un giocatore specifico.
 	 * 
 	 * @param player
-	 *            that is sending the message.
+	 *            MITTENTE del messaggio.
 	 * @param receiver
-	 *            nickname of the player that should receive the message. If
-	 *            null the message will be dispatched to all players.
+	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
+	 *            verrà inviato a tutti i giocatori.
 	 * @param message
-	 *            to send.
+	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             if the receiver is not null and not match any players in the
-	 *             room.
+	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             presente sul server.
 	 */
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
-
 		String author = player.getNickname();
 
 		System.out.println("[" + author.toUpperCase() + "]" + " " + message);
 
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players.values()) {
-				if (receiver.equals(remotePlayer.getNickname())) {
+				if (receiver.equals(author)) {
 					try {
 						remotePlayer.onChatMessage(author, message, true);
 					} catch (NetworkException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					//sendChatMessage(remotePlayer, player.getNickname(), message, true);
 					return;
 				}
 			}
 			throw new PlayerNotFound();
 		} else {
-			players.entrySet().stream().filter(remotePlayer -> remotePlayer != player)
-					.forEach(remotePlayer ->{
-						try {
-							remotePlayer.getValue().onChatMessage(author, message, true);
-						} catch (NetworkException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						//sendChatMessage(remotePlayer, player.getNickname(), message, false);
-					} );
+			players.entrySet().stream().filter(remotePlayer -> remotePlayer != player).forEach(remotePlayer -> {
+				try {
+					remotePlayer.getValue().onChatMessage(author, message, true);
+				} catch (NetworkException e) {
+					e.printStackTrace();
+				}
+			});
 		}
 	}
 

@@ -5,6 +5,11 @@ import com.client.rmi.RMIClient;
 import com.client.socket.SocketClient;
 import com.exceptions.LoginException;
 
+/**
+ * 
+ * Client del gioco "Lorenzo Il Magnifico" della "CranioCreations".
+ *
+ */
 public class Client implements IClient {
 
 	/**
@@ -59,6 +64,12 @@ public class Client implements IClient {
 		// client = new SocketClient(this, "127.0.0.1", socketPort);
 	}
 
+	/**
+	 * Metodo statico per eseguire il client.
+	 * 
+	 * @param args
+	 *            parametri per la connessione (DA IMPLEMENTARE).
+	 */
 	public static void main(String[] args) {
 		try {
 			FakeUI.main();
