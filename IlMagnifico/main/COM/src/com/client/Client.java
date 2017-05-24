@@ -58,10 +58,6 @@ public class Client implements IClient {
 	public Client() throws ClientException {
 		nickname = "anonymous";
 		isLogged = false;
-
-		// Moved into StarClient()
-		// client = new RMIClient(this, "127.0.0.1", rmiPort);
-		// client = new SocketClient(this, "127.0.0.1", socketPort);
 	}
 
 	/**
@@ -106,7 +102,6 @@ public class Client implements IClient {
 	 * @return boolean isLogged
 	 */
 	public boolean isLogged() {
-
 		return this.isLogged;
 	}
 
