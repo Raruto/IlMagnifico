@@ -1,14 +1,13 @@
 package com.server;
 
-import java.io.IOException;
-
 import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
 
 import model.exceptions.PlayerNotFound;
 
 /**
- * Server interface to send request to the server.
+ * Interfaccia usata come server controller in {@link AbstractServer} (invio di
+ * richieste al server da parte del client).
  */
 public interface IServer {
 

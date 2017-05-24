@@ -3,40 +3,48 @@ package com.exceptions;
 import com.NetworkException;
 
 /**
- * This exception is thrown when another player with the same nickname is already logged.
- * It is built on top of {@link NetworkException}.
+ * Eccezione scatenata quando un altro giocatore con lo stesso nome si è già
+ * identificato sul server (ha già eseguito il login con lo stesso nickname).
+ * Basat su {@link NetworkException}.
  */
 public class LoginException extends NetworkException {
 
-    /**
-     * Base constructor.
-     */
-    public LoginException() {
-        super();
-    }
+	/**
+	 * Base constructor.
+	 */
+	public LoginException() {
+		super();
+	}
 
-    /**
-     * Base constructor.
-     * @param message of the error.
-     */
-    public LoginException(String message) {
-        super(message);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param message
+	 *            messaggio di errore.
+	 */
+	public LoginException(String message) {
+		super(message);
+	}
 
-    /**
-     * Base constructor.
-     * @param message of the error.
-     * @param cause of the error.
-     */
-    public LoginException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param message
+	 *            messaggio di errore.
+	 * @param cause
+	 *            causa dell'eccezione.
+	 */
+	public LoginException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-    /**
-     * Base constructor.
-     * @param cause of the error.
-     */
-    public LoginException(Throwable cause) {
-        super(cause);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param cause
+	 *            causa dell'eccezione.
+	 */
+	public LoginException(Throwable cause) {
+		super(cause);
+	}
 }

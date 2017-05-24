@@ -12,7 +12,7 @@ import com.NetworkException;
 public abstract class AbstractClient {
 
 	/**
-	 * Controller client.
+	 * Interfaccia utilizzata per comunicare con il client.
 	 */
 	private final IClient controller;
 
@@ -71,7 +71,7 @@ public abstract class AbstractClient {
 	}
 
 	/**
-	 * Apre una connessione con il server.
+	 * Metodo astratto, apre una connessione con il server.
 	 * 
 	 * @throws ClientConnectionException
 	 *             se il server non è raggiungibile o qualcosa è andato storto.

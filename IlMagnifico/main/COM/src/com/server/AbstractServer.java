@@ -1,41 +1,45 @@
 package com.server;
 
 /**
- * This class is the abstraction of the module for server communication.
+ * Classe che rappresenta l'astrazione necessaria per le comunicazioni del
+ * server. Estendendo questa classe è possibile utilizzare qualsiasi tipo di
+ * connessione (es. RMI o Socket). L'interfaccia {@link IServer} funziona come
+ * controller server e callback handler.
  */
 public abstract class AbstractServer {
 
 	/**
-	 * Interface used to communicate directly with the server.
+	 * Interfaccia utilizzata per comunicare con il server.
 	 */
 	private final IServer controller;
 
 	/**
-	 * Abstract constructor.
+	 * Costruttore astratto.
 	 * 
 	 * @param controller
-	 *            server interface.
+	 *            server controller.
 	 */
 	public AbstractServer(IServer controller) {
 		this.controller = controller;
 	}
 
 	/**
-	 * Get the server interface passed during instantiation.
+	 * Ritorna il server controller per potere (scrivere/inviare) richieste sul
+	 * (canale di comunicazione/oggetto remoto).
 	 * 
-	 * @return the server interface.
+	 * @return server controller (es. {@link Server}).
 	 */
 	protected IServer getController() {
 		return this.controller;
 	}
 
 	/**
-	 * Abstract method to start the connection of this module.
+	 * Metodo astratto, avvia tutte le connessioni disponibili (es. RMI/Server).
 	 * 
 	 * @param port
-	 *            number of the port to use.
+	 *            numero di porta da usare.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	public abstract void startServer(int port) throws ServerException;
 }

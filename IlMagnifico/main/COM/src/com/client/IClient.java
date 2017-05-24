@@ -3,7 +3,8 @@ package com.client;
 import java.util.List;
 
 /**
- * Interfaccia usata come client controller in {@link AbstractClient}.
+ * Interfaccia usata come client controller in {@link AbstractClient} (notifiche
+ * dal server verso il client stesso).
  */
 public interface IClient {
 
