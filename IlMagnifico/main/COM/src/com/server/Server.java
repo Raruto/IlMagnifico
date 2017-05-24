@@ -234,17 +234,4 @@ public class Server implements IServer {
 			});
 		}
 	}
-
-	public void sendChatMessage(String author, String message, boolean privateMessage) throws IOException {
-
-		players.entrySet().stream().filter(remotePlayer -> remotePlayer.getValue().getNickname() != author)
-				.forEach(remotePlayer -> {
-					try {
-						remotePlayer.getValue().onChatMessage(author, message, privateMessage);
-					} catch (NetworkException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				});
-	}
 }
