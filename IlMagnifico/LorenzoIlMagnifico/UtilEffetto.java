@@ -24,8 +24,8 @@ public class UtilEffetto {
 		int puntiFede = (int) (o[8]);
 
 		int[] risorse = { monete, legno, pietre, servitori, puntiVittoria, puntiMilitari, puntiFede };
-		int[] risorseGiocatore = { giocatore.getRisorse().getMonete(), giocatore.getRisorse().getLegno,
-				giocatore.getRisorse().getPietre(), giocatore.getRisorse().getServitori,
+		int[] risorseGiocatore = { giocatore.getRisorse().getMonete(), giocatore.getRisorse().getLegno(),
+				giocatore.getRisorse().getPietre(), giocatore.getRisorse().getServitori(),
 				giocatore.getPunti().getPuntiVittoria(), giocatore.getPunti().getPuntiMilitari(),
 				giocatore.getPunti().getPuntiFede() };
 
@@ -125,5 +125,69 @@ public class UtilEffetto {
 			if(scelte[i]=="punti fede")
 				giocatore.getPunti().cambiaPuntiFede(1);
 		}
+	}
+
+	/**
+	 * Controlla se l'azione effetuata è sulla torre territorio ed in caso
+	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
+	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
+	 * pedina mossa
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void aumentaDiDueAzioneTerritorio(Object o[]) {
+		int posizioneTorre = (int) (o[1]);
+		Famigliare famigliare = (Famigliare) (o[2]);
+		if (posizioneTorre >= 0 && posizioneTorre <= 3)
+			famigliare.cambiaValore(2);
+	}
+
+	/**
+	 * Controlla se l'azione effetuata è sulla torre edificio ed in caso
+	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
+	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
+	 * pedina mossa
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void aumentaDiDueAzioneEdificio(Object o[]) {
+		int posizioneTorre = (int) (o[1]);
+		Famigliare famigliare = (Famigliare) (o[2]);
+		if (posizioneTorre >= 8 && posizioneTorre <= 11)
+			famigliare.cambiaValore(2);
+	}
+
+	/**
+	 * Controlla se l'azione effetuata è sulla torre personaggio ed in caso
+	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
+	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
+	 * pedina mossa
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void aumentaDiDueAzionePersonaggio(Object o[]) {
+		int posizioneTorre = (int) (o[1]);
+		Famigliare famigliare = (Famigliare) (o[2]);
+		if (posizioneTorre >= 4 && posizioneTorre <= 7)
+			famigliare.cambiaValore(2);
+	}
+
+	/**
+	 * Controlla se l'azione effetuata è sulla torre impresa ed in caso
+	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
+	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
+	 * pedina mossa
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void aumentaDiDueAzioneImpresa(Object o[]) {
+		int posizioneTorre = (int) (o[1]);
+		Famigliare famigliare = (Famigliare) (o[2]);
+		if (posizioneTorre >= 12 && posizioneTorre <= 15)
+			famigliare.cambiaValore(2);
 	}
 }
