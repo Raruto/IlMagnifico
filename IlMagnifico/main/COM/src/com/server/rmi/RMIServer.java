@@ -133,46 +133,30 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	/**
-	 * Remote method to send a chat message to all players or to a specific
-	 * player.
+	 * Metodo Remoto per inviare un messaggio di chat a tutti i giocatori o ad
+	 * uno specifico player.
 	 * 
 	 * @param sessionToken
-	 *            of the player that is making the request.
+	 *            token del giocatore che sta facendo la richiesta di invio
+	 *            (MITTENTE).
 	 * @param receiver
-	 *            nickname of the player that should receive the message. If
-	 *            null the message will be dispatched to all players.
+	 *            nome del giocatore che dovrebbe ricevere il messaggio
+	 *            (DESTINATARIO). Se null il messaggio verrà inviato a tutti i
+	 *            giocatori.
 	 * @param message
-	 *            to send.
+	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             if the receiver is not null and not match any players in the
-	 *             room.
+	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             presente sul server.
 	 * @throws RemoteException
-	 *             if server is not reachable.
+	 *             se il server non è raggiungibile.
 	 */
 	@Override
 	public void sendChatMessage(String sessionToken, String receiver, String message) throws IOException {
-		RemotePlayer remotePlayer = getPlayer(sessionToken);
-
-		// getController().sendChatMessage(remotePlayer.getNickname(), message,
-		// false);
-		getController().sendChatMessage(remotePlayer, receiver, message);
-		// getController().sloginPlayer(nickname, new RMIPlayer(player));
-
-		// remotePlayer.getRoom().sendChatMessage(remotePlayer, receiver,
-		// message);
-
-		/*
-		 * Iterator<RemotePlayer> itr = players.iterator();
-		 * 
-		 * while (itr.hasNext()) { try {
-		 * itr.next().getClientInterface().notify("[SERVER]" + " " + message); }
-		 * catch (ConnectException e) { itr.remove();
-		 * System.out.println("Client rimosso!"); } }
-		 */
-
+		getController().sendChatMessage(getPlayer(sessionToken), receiver, message);
 	}
 
-	private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();
+	// private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();
 
 	// @Override
 	// public void addClient(RMIClientInterface client) throws RemoteException {
@@ -183,14 +167,6 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	@Override
 	public void send(String message) throws RemoteException {
-
-		try {
-			getController().sendChatMessage(null, message, false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		/*
 		 * Iterator<RemotePlayer> itr = players.iterator();
 		 * 

@@ -71,6 +71,4 @@ public interface IServer {
 	// throws InvalidConfigurationException;
 
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
-
-	public void sendChatMessage(String author, String message, boolean privateMessage) throws IOException;
 }
