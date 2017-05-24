@@ -25,14 +25,14 @@ public class FakeUI {
 		return client;
 	}
 
-	public static void main() {
+	public static void main(String serverAddress, int socketPort, int rmiPort) {
 
 		System.out.print("Choose RMI or Socket: ");
 		inText = scanner.nextLine().toUpperCase();
 
 		try {
 			Client client = getClient();
-			client.startClient(inText);
+			client.startClient(inText, serverAddress, socketPort, rmiPort);
 
 			// scanner.close();
 

@@ -88,7 +88,7 @@ public class Client implements IClient {
 		// Debugging purpose
 		else {
 			try {
-				FakeUI.main();
+				FakeUI.main(serverAddress, socketPort, rmiPort);
 				FakeUI.login();
 				FakeUI.sayHelloToPlayers();
 				FakeUI.infiniteLoop();
@@ -124,14 +124,21 @@ public class Client implements IClient {
 	 * 
 	 * @param connectionType
 	 *            nome del tipo di connessione scelta
+	 * @param serverAddress
+	 *            indirizzo Server sui cui le comunicazioni sono aperte
+	 * @param socketPort
+	 *            porta in cui è aperta la comunicazione Socket.
+	 * @param rmiPort
+	 *            porta in cui è aperta la comunicazione RMI.
 	 * @throws ClientException
 	 *             se si verifica un errore.
 	 */
-	public void startClient(String connectionType) throws ClientException {
+	public void startClient(String connectionType, String serverAddress, int socketPort, int rmiPort)
+			throws ClientException {
 		if (connectionType.equals(ConnectionTypes.RMI.toString())) {
-			startRMIClient(SERVER_RMI_PORT);
+			startRMIClient(serverAddress, rmiPort);
 		} else if (connectionType.equals(ConnectionTypes.SOCKET.toString())) {
-			startSocketClient(SERVER_SOCKET_PORT);
+			startSocketClient(serverAddress, socketPort);
 		} else {
 			throw new ClientException(new Throwable("Uknown Connection Type"));
 		}
@@ -139,15 +146,18 @@ public class Client implements IClient {
 
 	/**
 	 * Avvia la connessione RMI.
-	 * 
+	 *
+	 * @param serverAddress
+	 *            indirizzo del Server su cui avviare la connessione.
 	 * @param rmiPort
-	 *            porta dove avviare la connessione.
+	 *            porta in cui è aperta la comunicazione RMI.
+	 * 
 	 * @throws ClientException
 	 *             se si verifica un errore.
 	 */
-	private void startRMIClient(int rmiPort) throws ClientException {
+	private void startRMIClient(String serverAddress, int rmiPort) throws ClientException {
 		System.out.println("Starting RMI Connection...");
-		client = new RMIClient(this, SERVER_ADDRESS, rmiPort);
+		client = new RMIClient(this, serverAddress, rmiPort);
 		client.connect();
 
 		System.out.println();
@@ -156,12 +166,14 @@ public class Client implements IClient {
 	/**
 	 * Avvia la connessione Socket.
 	 * 
+	 * @param serverAddress
+	 *            indirizzo del Server su cui avviare la connessione.
 	 * @param sockePort
 	 *            porta dove avviare la connessione.
 	 * @throws ClientException
 	 *             se si verifica un errore.
 	 */
-	private void startSocketClient(int socketPort) throws ClientException {
+	private void startSocketClient(String serverAddress, int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
 		client = new SocketClient(this, SERVER_ADDRESS, socketPort);
 		client.connect();
