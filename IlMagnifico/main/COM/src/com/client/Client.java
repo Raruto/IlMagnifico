@@ -22,17 +22,17 @@ public class Client implements IClient {
 	/**
 	 * Indirizzo Server sui cui le comunicazioni sono aperte.
 	 */
-	private static final String ADDRESS = "127.0.0.1";
+	private static final String SERVER_ADDRESS = "127.0.0.1";
 
 	/**
 	 * Porta in cui è aperta la comunicazione Socket.
 	 */
-	private static final int SOCKET_PORT = 1098;
+	private static final int SERVER_SOCKET_PORT = 1098;
 
 	/**
 	 * Porta in cui è aperta la comunicazione RMI.
 	 */
-	private static final int RMI_PORT = 1099;
+	private static final int SERVER_RMI_PORT = 1099;
 
 	/**
 	 * Flag per determinare stato della connessione.
@@ -68,17 +68,34 @@ public class Client implements IClient {
 	 * Metodo statico per eseguire il client.
 	 * 
 	 * @param args
-	 *            parametri per la connessione (DA IMPLEMENTARE).
+	 *            parametri per la connessione (TODO: FINIRE DI IMPLEMENTARE).
 	 */
 	public static void main(String[] args) {
-		try {
-			FakeUI.main();
-			FakeUI.login();
-			FakeUI.sayHelloToPlayers();
-			FakeUI.infiniteLoop();
+		String serverAddress = SERVER_ADDRESS;
+		int socketPort = SERVER_SOCKET_PORT, rmiPort = SERVER_RMI_PORT;
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		// Check if arguments were passed in
+		if (args.length != 0) {
+			try {
+				serverAddress = args[0];
+				socketPort = Integer.parseInt(args[1]);
+				rmiPort = Integer.parseInt(args[0]);
+			} catch (Exception e) {
+				System.out.println("Proper usage is: [\"serverAddress\" socketPort rmiPort]");
+				System.exit(0);
+			}
+		}
+		// Debugging purpose
+		else {
+			try {
+				FakeUI.main();
+				FakeUI.login();
+				FakeUI.sayHelloToPlayers();
+				FakeUI.infiniteLoop();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -94,8 +111,7 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Nome scelto dal giocatore durante la fase di login e approvato dal
-	 * server
+	 * Nome scelto dal giocatore durante la fase di login e approvato dal server
 	 * 
 	 * @return String nickname
 	 */
@@ -113,9 +129,9 @@ public class Client implements IClient {
 	 */
 	public void startClient(String connectionType) throws ClientException {
 		if (connectionType.equals(ConnectionTypes.RMI.toString())) {
-			startRMIClient(RMI_PORT);
+			startRMIClient(SERVER_RMI_PORT);
 		} else if (connectionType.equals(ConnectionTypes.SOCKET.toString())) {
-			startSocketClient(SOCKET_PORT);
+			startSocketClient(SERVER_SOCKET_PORT);
 		} else {
 			throw new ClientException(new Throwable("Uknown Connection Type"));
 		}
@@ -131,7 +147,7 @@ public class Client implements IClient {
 	 */
 	private void startRMIClient(int rmiPort) throws ClientException {
 		System.out.println("Starting RMI Connection...");
-		client = new RMIClient(this, ADDRESS, rmiPort);
+		client = new RMIClient(this, SERVER_ADDRESS, rmiPort);
 		client.connect();
 
 		System.out.println();
@@ -147,7 +163,7 @@ public class Client implements IClient {
 	 */
 	private void startSocketClient(int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
-		client = new SocketClient(this, ADDRESS, socketPort);
+		client = new SocketClient(this, SERVER_ADDRESS, socketPort);
 		client.connect();
 
 		System.out.println();

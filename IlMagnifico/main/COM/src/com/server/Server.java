@@ -21,12 +21,12 @@ public class Server implements IServer {
 	/**
 	 * Porta in cui è aperta la comunicazione Socket.
 	 */
-	private static final int SOCKET_PORT = 1098;
+	public static final int SOCKET_PORT = 1098;
 
 	/**
 	 * Porta in cui è aperta la comunicazione RMI.
 	 */
-	private static final int RMI_PORT = 1099;
+	public static final int RMI_PORT = 1099;
 
 	/**
 	 * MUTEX per evitare la concorrenza tra giocatori durante il login.
@@ -76,15 +76,28 @@ public class Server implements IServer {
 	 * Metodo statico per eseguire il server.
 	 * 
 	 * @param args
-	 *            parametri per la connessione (DA IMPLEMENTARE).
+	 *            parametri per la connessione (TODO: FINIRE DI IMPLEMENTARE, lato client).
 	 */
 	public static void main(String[] args) {
+		int socketPort = SOCKET_PORT, rmiPort = RMI_PORT;
+
+		// Check if arguments were passed in
+		if (args.length != 0) {
+			try {
+				socketPort = Integer.parseInt(args[0]);
+				rmiPort = Integer.parseInt(args[1]);
+			} catch (Exception e) {
+				System.out.println("Proper usage is: [socketPort rmiPort]");
+				System.exit(0);
+			}
+		}
+
 		try {
 			Server server = new Server();
-			server.startServer(SOCKET_PORT, RMI_PORT);
+			server.startServer(socketPort, rmiPort);
 
 			System.out.print("\nServer listening at: ");
-			System.out.println("127.0.0.1" + " (rmi: " + RMI_PORT + ", socket: " + SOCKET_PORT + ")");
+			System.out.println("127.0.0.1" + " (rmi: " + rmiPort + ", socket: " + socketPort + ")");
 			System.out.println();
 		} catch (ServerException e) {
 			e.printStackTrace();

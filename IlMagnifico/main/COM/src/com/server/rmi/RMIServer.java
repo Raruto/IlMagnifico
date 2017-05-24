@@ -167,14 +167,6 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	@Override
 	public void send(String message) throws RemoteException {
-
-		try {
-			getController().sendChatMessage(null, message, false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		/*
 		 * Iterator<RemotePlayer> itr = players.iterator();
 		 * 
