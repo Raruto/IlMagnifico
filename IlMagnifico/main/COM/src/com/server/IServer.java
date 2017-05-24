@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
 
+import model.exceptions.PlayerNotFound;
+
 /**
  * Server interface to send request to the server.
  */
@@ -67,6 +69,8 @@ public interface IServer {
 	 */
 	// void applyGameConfiguration(Room room, Configuration configuration)
 	// throws InvalidConfigurationException;
+
+	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
 
 	public void sendChatMessage(String author, String message, boolean privateMessage) throws IOException;
 }

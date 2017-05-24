@@ -14,7 +14,7 @@ import com.server.RemotePlayer;
 	/**
 	 * Remote interface to invoke method on {@link RMIClient}.
 	 */
-	private transient RMIClientInterface mPlayerInterface;
+	private transient RMIClientInterface clientInterface;
 
 	/**
 	 * Create a new instance of a RMIPlayer.
@@ -23,7 +23,7 @@ import com.server.RemotePlayer;
 	 *            remote interface to send response to client.
 	 */
 	/* package-local */ RMIPlayer(RMIClientInterface playerInterface) {
-		mPlayerInterface = playerInterface;
+		clientInterface = playerInterface;
 	}
 
 //	/**
@@ -404,7 +404,7 @@ import com.server.RemotePlayer;
 	@Override
 	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		try {
-			mPlayerInterface.notifyNewChatMessage(author, message, privateMessage);
+			clientInterface.notifyNewChatMessage(author, message, privateMessage);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		}

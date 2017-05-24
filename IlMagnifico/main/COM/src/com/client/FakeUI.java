@@ -3,7 +3,8 @@ package com.client;
 import java.util.Scanner;
 
 /**
- * Classe di comodo per simulare l'interazione da parte del CLIENT verso il SERVER
+ * Classe di comodo per simulare l'interazione da parte del CLIENT verso il
+ * SERVER
  *
  */
 public class FakeUI {
@@ -63,6 +64,7 @@ public class FakeUI {
 
 	public static void infiniteLoop() {
 		Client client = getClient();
+		String receiver = null;
 
 		System.out.println("'q' to quit\n");
 		System.out.println("Send text messages: ");
@@ -70,10 +72,16 @@ public class FakeUI {
 		while (true) {
 			System.out.println(">");
 			inText = scanner.nextLine();
-			if (!inText.toLowerCase().equals("q")) {
-				client.sendChatMessage(null, inText);
-			} else {
+			if (inText.toLowerCase().equals("q")) {
 				break;
+
+			} else {
+
+				System.out.println("to [playerName]: ");
+				receiver = scanner.nextLine();
+				if (receiver.length() == 0)
+					receiver = null;
+				client.sendChatMessage(receiver, inText);
 			}
 		}
 

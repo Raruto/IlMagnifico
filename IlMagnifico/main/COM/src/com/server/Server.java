@@ -11,6 +11,8 @@ import com.server.game.Room;
 import com.server.rmi.RMIServer;
 import com.server.socket.SocketServer;
 
+import model.exceptions.PlayerNotFound;
+
 /**
  * This class represent the server of the game.
  */
@@ -187,7 +189,56 @@ public class Server implements IServer {
 		}
 	}
 
+	/**
+	 * Send a chat message to all players or to a specific player.
+	 * 
+	 * @param player
+	 *            that is sending the message.
+	 * @param receiver
+	 *            nickname of the player that should receive the message. If
+	 *            null the message will be dispatched to all players.
+	 * @param message
+	 *            to send.
+	 * @throws PlayerNotFound
+	 *             if the receiver is not null and not match any players in the
+	 *             room.
+	 */
+	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
+
+		String author = player.getNickname();
+
+		System.out.println("[" + author.toUpperCase() + "]" + " " + message);
+
+		if (receiver != null) {
+			for (RemotePlayer remotePlayer : players.values()) {
+				if (receiver.equals(remotePlayer.getNickname())) {
+					try {
+						remotePlayer.onChatMessage(author, message, true);
+					} catch (NetworkException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//sendChatMessage(remotePlayer, player.getNickname(), message, true);
+					return;
+				}
+			}
+			throw new PlayerNotFound();
+		} else {
+			players.entrySet().stream().filter(remotePlayer -> remotePlayer != player)
+					.forEach(remotePlayer ->{
+						try {
+							remotePlayer.getValue().onChatMessage(author, message, true);
+						} catch (NetworkException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						//sendChatMessage(remotePlayer, player.getNickname(), message, false);
+					} );
+		}
+	}
+
 	public void sendChatMessage(String author, String message, boolean privateMessage) throws IOException {
+
 		players.entrySet().stream().filter(remotePlayer -> remotePlayer.getValue().getNickname() != author)
 				.forEach(remotePlayer -> {
 					try {
