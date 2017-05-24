@@ -2,8 +2,6 @@ package com.client.socket;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
-
 import com.NetworkException;
 import com.client.AbstractClient;
 import com.client.ClientException;
@@ -19,22 +17,22 @@ public class SocketClient extends AbstractClient {
 	/**
 	 * Socket endpoint of client.
 	 */
-	private Socket mSocket;
+	private Socket socketClient;
 
 	/**
 	 * Object input stream for receiving serialized objects from server socket.
 	 */
-	private ObjectInputStream mInput;
+	private ObjectInputStream inputStream;
 
 	/**
 	 * Object output stream for sending serialized objects to server socket.
 	 */
-	private ObjectOutputStream mOutput;
+	private ObjectOutputStream outputStream;
 
 	/**
 	 * Socket protocol used for communication between client and server.
 	 */
-	private ClientProtocol mSocketProtocol;
+	private ClientProtocol socketClientProtocol;
 
 	/**
 	 * Create a socket client instance.
@@ -59,13 +57,13 @@ public class SocketClient extends AbstractClient {
 	@Override
 	public void connect() throws ClientException {
 		try {
-			mSocket = new Socket(getAddress(), getPort());
+			socketClient = new Socket(getAddress(), getPort());
 
 			System.out.println("Socket Connection established (port: " + this.getPort() + ")");
 
-			mOutput = new ObjectOutputStream(new BufferedOutputStream(mSocket.getOutputStream()));
-			mOutput.flush();
-			mInput = new ObjectInputStream(new BufferedInputStream(mSocket.getInputStream()));
+			outputStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
+			outputStream.flush();
+			inputStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
 		} catch (IOException e) {
 			throw new ClientException(e);
 		}
@@ -76,7 +74,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void initializeConnection() {
-		mSocketProtocol = new ClientProtocol(mInput, mOutput, getController());
+		socketClientProtocol = new ClientProtocol(inputStream, outputStream, getController());
 	}
 
 	/**
@@ -91,7 +89,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
-		mSocketProtocol.loginPlayer(nickname);
+		socketClientProtocol.loginPlayer(nickname);
 	}
 
 	/**
@@ -104,7 +102,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void joinFirstAvailableRoom() throws NetworkException {
-		mSocketProtocol.joinFirstAvailableRoom();
+		socketClientProtocol.joinFirstAvailableRoom();
 		startNetworkMessageHandlerThread();
 	}
 
@@ -160,7 +158,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
-		mSocketProtocol.sendChatMessage(receiver, message);
+		socketClientProtocol.sendChatMessage(receiver, message);
 	}
 
 	/**
@@ -174,7 +172,7 @@ public class SocketClient extends AbstractClient {
 	}
 
 	/**
-	 * Internal thread that will listen on {@link #mInput inputStream} for
+	 * Internal thread that will listen on {@link #inputStream inputStream} for
 	 * server messages.
 	 */
 	private class ResponseHandler extends Thread {
@@ -184,8 +182,8 @@ public class SocketClient extends AbstractClient {
 			while (true) {
 				boolean quit = false;
 				try {
-					Object object = mInput.readObject();
-					mSocketProtocol.handleResponse(object);
+					Object object = inputStream.readObject();
+					socketClientProtocol.handleResponse(object);
 				} catch (ClassNotFoundException | IOException e) {
 					// Debug.critical("Cannot read server response", e);
 					quit = true;
@@ -194,9 +192,9 @@ public class SocketClient extends AbstractClient {
 					break;
 				}
 			}
-			closeSafely(mInput, "I/O error occurs when closing input stream");
-			closeSafely(mOutput, "I/O error occurs when closing output stream");
-			closeSafely(mSocket, "I/O error occurs when closing socket");
+			closeSafely(inputStream, "I/O error occurs when closing input stream");
+			closeSafely(outputStream, "I/O error occurs when closing output stream");
+			closeSafely(socketClient, "I/O error occurs when closing socket");
 		}
 
 		/**
