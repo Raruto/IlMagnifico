@@ -175,7 +175,7 @@ public class Client implements IClient {
 	 */
 	private void startSocketClient(String serverAddress, int socketPort) throws ClientException {
 		System.out.println("Starting Socket Connection...");
-		client = new SocketClient(this, SERVER_ADDRESS, socketPort);
+		client = new SocketClient(this, serverAddress, socketPort);
 		client.connect();
 
 		System.out.println();
