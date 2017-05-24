@@ -111,6 +111,20 @@ public class SpazioAzione {
 			return false;
 	}
 
+	/**
+	 * Ritorna true se la zona mercato alla posizione indicata in ingresso è
+	 * libera, false altrimenti
+	 * 
+	 * @param
+	 * @return boolean
+	 */
+	public boolean zonaMercatoLibera(int posizione) {
+		if (this.mercato[posizione] == null)
+			return true;
+		else
+			return false;
+	}
+
 	/**Effettua l'effetto conseguente sul giocatore a seconda della posizione in ingresso. Se la posizione non è valida il metodo non fa niente
 	 * 
 	 * @param Giocatore, int
