@@ -4,6 +4,7 @@ import com.NetworkException;
 import com.client.rmi.RMIClient;
 import com.client.socket.SocketClient;
 import com.exceptions.LoginException;
+import com.protocol.ConnectionTypes;
 
 /**
  * 
@@ -11,14 +12,6 @@ import com.exceptions.LoginException;
  *
  */
 public class Client implements IClient {
-
-	/**
-	 * Tipi di connessione disponibili al server.
-	 */
-	enum ConnectionTypes {
-		RMI, SOCKET;
-	}
-
 	/**
 	 * Indirizzo Server sui cui le comunicazioni sono aperte.
 	 */

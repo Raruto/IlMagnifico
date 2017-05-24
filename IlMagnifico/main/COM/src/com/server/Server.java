@@ -1,6 +1,5 @@
 package com.server;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,7 +75,8 @@ public class Server implements IServer {
 	 * Metodo statico per eseguire il server.
 	 * 
 	 * @param args
-	 *            parametri per la connessione (TODO: FINIRE DI IMPLEMENTARE, lato client).
+	 *            parametri per la connessione (TODO: FINIRE DI IMPLEMENTARE,
+	 *            lato client).
 	 */
 	public static void main(String[] args) {
 		int socketPort = SOCKET_PORT, rmiPort = RMI_PORT;
