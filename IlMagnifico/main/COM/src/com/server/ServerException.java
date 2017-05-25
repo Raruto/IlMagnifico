@@ -3,28 +3,28 @@ package com.server;
 import java.io.IOException;
 
 /**
- * This exception is thrown when there is some error during the initialization
- * of the server.
+ * Eccezione scatenata quando si verifica un errore durante l'inizializzazione
+ * del server.
  */
 public class ServerException extends IOException {
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param message
-	 *            of the error.
+	 *            messaggio di errore.
 	 */
 	public ServerException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param message
-	 *            of the error.
+	 *            messaggio di errore.
 	 * @param cause
-	 *            of the error.
+	 *            causa dell'errore.
 	 */
 	public ServerException(String message, Throwable cause) {
 		super(message, cause);

@@ -3,39 +3,47 @@ package com;
 import java.io.IOException;
 
 /**
- * This exception is thrown when there is a communication's error between client and server.
+ * Eccezione scatenata quando sussiste un errore di comunicazione tra client e
+ * server.
  */
 public class NetworkException extends IOException {
 
-    /**
-     * Base constructor.
-     */
-    public NetworkException() {
-        super();
-    }
+	/**
+	 * Costruttore.
+	 */
+	public NetworkException() {
+		super();
+	}
 
-    /**
-     * Base constructor.
-     * @param message of the error.
-     */
-    public NetworkException(String message) {
-        super(message);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param message
+	 *            messaggio di errore.
+	 */
+	public NetworkException(String message) {
+		super(message);
+	}
 
-    /**
-     * Base constructor.
-     * @param message of the error.
-     * @param cause of the error.
-     */
-    public NetworkException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param message
+	 *            messaggio di errore.
+	 * @param cause
+	 *            causa dell'errore.
+	 */
+	public NetworkException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-    /**
-     * Base constructor.
-     * @param cause of the error.
-     */
-    public NetworkException(Throwable cause) {
-        super(cause);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param cause
+	 *            causa dell'errore.
+	 */
+	public NetworkException(Throwable cause) {
+		super(cause);
+	}
 }
