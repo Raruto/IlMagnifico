@@ -76,8 +76,7 @@ public class FakeUI {
 				break;
 
 			} else {
-
-				System.out.print("to [playerName]: ");
+				System.out.println("to [playerName]: ");
 				receiver = scanner.nextLine().trim();
 				if (receiver.length() == 0)
 					receiver = null;
