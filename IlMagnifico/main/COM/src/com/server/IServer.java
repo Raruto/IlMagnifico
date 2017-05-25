@@ -13,14 +13,16 @@ import model.exceptions.PlayerNotFound;
 public interface IServer {
 
 	/**
-	 * Login player with nickname.
+	 * Login del giocatore tramite nickname.
 	 * 
 	 * @param nickname
-	 *            of the player that would login.
-	 * @param remotePlayer
-	 *            reference to the player that made the request.
+	 *            nome con cui il giocatore vorrebbe essere identificato sul
+	 *            server.
+	 * @param player
+	 *            riferimento al giocatore che ha effettuato la richiesta (es.
+	 *            {@link RMIPlayer}, {@link SocketPlayer}).
 	 * @throws LoginException
-	 *             if a player with this nickname already exists.
+	 *             se esiste già un altro giocatore con il nome fornito.
 	 */
 	void loginPlayer(String nickname, RemotePlayer remotePlayer) throws LoginException;
 
@@ -69,5 +71,19 @@ public interface IServer {
 	// void applyGameConfiguration(Room room, Configuration configuration)
 	// throws InvalidConfigurationException;
 
+	/**
+	 * Invia un messaggio di chat a tutti i giocatori o un giocatore specifico.
+	 * 
+	 * @param player
+	 *            MITTENTE del messaggio.
+	 * @param receiver
+	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
+	 *            verrà inviato a tutti i giocatori.
+	 * @param message
+	 *            messaggio da inviare.
+	 * @throws PlayerNotFound
+	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             presente sul server.
+	 */
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
 }
