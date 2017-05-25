@@ -5,7 +5,7 @@ import com.NetworkException;
 /**
  * Eccezione scatenata quando un altro giocatore con lo stesso nome si è già
  * identificato sul server (ha già eseguito il login con lo stesso nickname).
- * Basat su {@link NetworkException}.
+ * Basata su {@link NetworkException}.
  */
 public class LoginException extends NetworkException {
 

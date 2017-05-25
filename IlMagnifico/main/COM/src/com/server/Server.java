@@ -168,8 +168,8 @@ public class Server implements IServer {
 			String id = "[" + nickname.toUpperCase() + "]";
 
 			if (!players.containsKey(nickname)) {
-				players.put(nickname, player);
 				player.setNickname(nickname);
+				players.put(nickname, player);
 				System.out.println(id + " Succesfully logged in!");
 				try {
 					System.out.println("Trying joining it to a room...");
@@ -295,7 +295,7 @@ public class Server implements IServer {
 		String author = player.getNickname();
 		System.out.println("[" + author.toUpperCase() + "]" + " " + message);
 
-		/* UNICAST message */
+		/* Send a BROADCAST message */
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players.values()) {
 				if (receiver.equals(remotePlayer.getNickname())) {
@@ -310,7 +310,7 @@ public class Server implements IServer {
 			throw new PlayerNotFound();
 
 		}
-		/* BROADCAST message */
+		/* Send a BROADCAST message */
 		else {
 			players.entrySet().stream().filter(remotePlayer -> remotePlayer.getValue() != player)
 					.forEach(remotePlayer -> {
