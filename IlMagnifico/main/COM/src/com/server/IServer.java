@@ -1,5 +1,6 @@
 package com.server;
 
+import com.exceptions.CreateRoomException;
 import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
 
@@ -53,8 +54,7 @@ public interface IServer {
 	 *             if another player has created a new room in the meanwhile.
 	 * @return configuration bundle that contains all default configurations.
 	 */
-	// Configuration createNewRoom(RemotePlayer remotePlayer, int maxPlayers)
-	// throws CreateRoomException;
+	/* Configuration */ void createNewRoom(RemotePlayer remotePlayer, int maxPlayers) throws CreateRoomException;
 
 	/**
 	 * Check and apply the provided configuration into the player's room.

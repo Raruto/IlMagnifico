@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.NetworkException;
+import com.exceptions.CreateRoomException;
 import com.exceptions.JoinRoomException;
 import com.exceptions.LoginException;
 import com.server.game.Room;
+import com.server.game.RoomFullException;
 import com.server.rmi.RMIServer;
 import com.server.socket.SocketServer;
 
@@ -26,6 +28,8 @@ public class Server implements IServer {
 	 * Porta in cui è aperta la comunicazione RMI.
 	 */
 	public static final int RMI_PORT = 1099;
+
+	public static final int MAX_ROOM_PLAYERS = 4;
 
 	/**
 	 * MUTEX per evitare la concorrenza tra giocatori durante il login.
@@ -167,6 +171,15 @@ public class Server implements IServer {
 				players.put(nickname, player);
 				player.setNickname(nickname);
 				System.out.println(id + " Succesfully logged in!");
+				try {
+					System.out.println("Trying joining it to a room...");
+
+					joinFirstAvailableRoom(player);
+
+					System.out.println("Succesfully joined it to a room!");
+				} catch (JoinRoomException e) {
+					// e.printStackTrace();
+				}
 			} else {
 				System.out.println(id + " Already logged in!");
 				throw new LoginException();
@@ -189,19 +202,77 @@ public class Server implements IServer {
 	/**
 	 * Join player to the first available room.
 	 * 
+	 * @param player
+	 *            reference to the player that made the request.
+	 * @throws RoomFullException
+	 *             if no room is available for the join request.
+	 */
+	private void joinLastRoom(RemotePlayer player) throws RoomFullException {
+		Room lastRoom = rooms.isEmpty() ? null : rooms.get(rooms.size() - 1);
+		if (lastRoom != null) {
+			lastRoom.joinPlayer(player);
+			player.setRoom(lastRoom);
+		} else {
+			throw new RoomFullException("No available room found!");
+		}
+	}
+
+	/**
+	 * Join player to the first available room.
+	 * 
 	 * @param remotePlayer
 	 *            that would join.
 	 * @throws JoinRoomException
 	 *             if no available room has been found.
 	 */
 	@Override
-	public void joinFirstAvailableRoom(
-			RemotePlayer remotePlayer) /* throws JoinRoomException */ {
+	public void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException {
 		synchronized (ROOMS_MUTEX) {
-			/*
-			 * try { joinLastRoom(remotePlayer); } catch (RoomFullException e) {
-			 * throw new JoinRoomException(e); }
-			 */
+			try {
+				joinLastRoom(remotePlayer);
+			} catch (RoomFullException e) {
+				try {
+					createNewRoom(remotePlayer, MAX_ROOM_PLAYERS);
+					System.out.println("Succesfully created a room!");
+				} catch (CreateRoomException e1) {
+					e1.printStackTrace();
+				}
+				throw new JoinRoomException(e);
+			}
+
+		}
+	}
+
+	/**
+	 * Create a new room on server.
+	 * 
+	 * @param remotePlayer
+	 *            that made the request.
+	 * @param maxPlayers
+	 *            that player would like to add in the room.
+	 * @throws CreateRoomException
+	 *             if another player has created a new room in the meanwhile.
+	 * @return configuration bundle that contains all default configurations.
+	 */
+	@Override
+	public void /* Configuration */ createNewRoom(RemotePlayer remotePlayer, int maxPlayers)
+			throws CreateRoomException {
+		synchronized (ROOMS_MUTEX) {
+			boolean hasJoinRoom = false;
+			try {
+				joinLastRoom(remotePlayer);
+				hasJoinRoom = true;
+			} catch (RoomFullException e) {
+				System.err.println("No room has been created in the meanwhile, Player is going to create his room");
+			}
+			if (!hasJoinRoom) {
+				Room room = new Room(maxPlayers, remotePlayer);
+				rooms.add(room);
+				remotePlayer.setRoom(room);
+				return /* Configurator.getConfigurationBundle() */;
+			} else {
+				throw new CreateRoomException();
+			}
 		}
 	}
 
