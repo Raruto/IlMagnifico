@@ -161,7 +161,6 @@ public class Server implements IServer {
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
 		synchronized (PLAYERS_MUTEX) {
 			System.out.println("New login request: " + nickname);
-
 			String id = "[" + nickname.toUpperCase() + "]";
 
 			if (!players.containsKey(nickname)) {
