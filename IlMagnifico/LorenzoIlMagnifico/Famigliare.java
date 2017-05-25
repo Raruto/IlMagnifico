@@ -31,8 +31,7 @@ public class Famigliare {
 	 * @param int
 	 * @return
 	 */
-	public void cambiaValore(int variazione) {
-		this.valore = this.valore + variazione;
+	public void cambiaValore() {
 	}
 
 	/**
