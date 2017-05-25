@@ -250,4 +250,44 @@ public class UtilEffetto {
 										// caso verrà chiamato il metodo che
 										// gestisce la produzione del giocatore
 	}
+
+	/**
+	 * Metodo per effetti immediati dove si ricevono risorse e si effettua una
+	 * azione di raccolto. I parametri passati sono rispettivamente: giocatore,
+	 * unità di monete, legno, pietre, servitori, punti vittoria, punti
+	 * militari, punti fede ed il valore dell'azione raccolto che si va a
+	 * svolgere
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void aggiungiRisorseEEseguiRaccolto(Object o[]) {
+		boolean controllo;
+		Object[] parametri = new Object[3];
+		controllo = aggiungiRisorse(o);
+		if (controllo == true) {
+			parametri[1] = o[1];
+			parametri[2] = o[9];
+			eseguiEffettoImmediatoRaccolto(parametri);
+		}
+	}
+
+	/** Metodo per effetti immediati dove si ricevono risorse e si effettua una
+	 * azione di produzione. I parametri passati sono rispettivamente: giocatore,
+	 * unità di monete, legno, pietre, servitori, punti vittoria, punti
+	 * militari, punti fede ed il valore dell'azione produzione che si va a
+	 * svolgere
+	 * 
+	 * @param
+	 * @return
+	 * */
+	public void aggiungiRisorseEEseguiProduzione(Object o[]){
+		boolean controllo;
+		Object[] parametri = new Object[3];
+		controllo = aggiungiRisorse(o);
+		if (controllo == true) {
+			parametri[1] = o[1];
+			parametri[2] = o[9];
+			eseguiEffettoImmediatoProduzione(parametri);
+	}
 }
