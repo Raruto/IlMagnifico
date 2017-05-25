@@ -14,7 +14,7 @@ import network.exceptions.*;
 import network.protocol.ErrorCodes;
 import network.server.rmi.*;
 
-import model.exceptions.PlayerNotFound;
+import network.model.exceptions.PlayerNotFound;
 
 /**
  * Classe che gestisce la connessione di rete con RMI. Estende

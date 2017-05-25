@@ -3,7 +3,7 @@ package network.server;
 import network.NetworkException;
 import network.server.game.Room;
 
-import model.Player;
+import network.model.Player;
 
 /**
  * Abstract extension of {@link Player}. This implementation can communicate to his referenced client.
