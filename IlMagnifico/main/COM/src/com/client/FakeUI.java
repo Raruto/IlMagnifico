@@ -77,8 +77,8 @@ public class FakeUI {
 
 			} else {
 
-				System.out.println("to [playerName]: ");
-				receiver = scanner.nextLine();
+				System.out.print("to [playerName]: ");
+				receiver = scanner.nextLine().trim();
 				if (receiver.length() == 0)
 					receiver = null;
 				client.sendChatMessage(receiver, inText);

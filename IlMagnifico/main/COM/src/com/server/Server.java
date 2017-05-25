@@ -221,13 +221,14 @@ public class Server implements IServer {
 	 *             presente sul server.
 	 */
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
-		String author = player.getNickname();
 
+		String author = player.getNickname();
 		System.out.println("[" + author.toUpperCase() + "]" + " " + message);
 
+		/* UNICAST message */
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players.values()) {
-				if (receiver.equals(author)) {
+				if (receiver.equals(remotePlayer.getNickname())) {
 					try {
 						remotePlayer.onChatMessage(author, message, true);
 					} catch (NetworkException e) {
@@ -237,14 +238,18 @@ public class Server implements IServer {
 				}
 			}
 			throw new PlayerNotFound();
-		} else {
-			players.entrySet().stream().filter(remotePlayer -> remotePlayer != player).forEach(remotePlayer -> {
-				try {
-					remotePlayer.getValue().onChatMessage(author, message, true);
-				} catch (NetworkException e) {
-					e.printStackTrace();
-				}
-			});
+
+		}
+		/* BROADCAST message */
+		else {
+			players.entrySet().stream().filter(remotePlayer -> remotePlayer.getValue() != player)
+					.forEach(remotePlayer -> {
+						try {
+							remotePlayer.getValue().onChatMessage(author, message, false);
+						} catch (NetworkException e) {
+							e.printStackTrace();
+						}
+					});
 		}
 	}
 }
