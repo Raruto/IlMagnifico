@@ -91,7 +91,7 @@ public class UtilEffetto {
 	 *  Tramite l'array in ingresso è possibile indicare quanti privilegi del consiglio effettuare
 	 *   ed il metodo procede da solo al controllo sulle scelte. Quando è richiesta l'interazione dell'utente è segnalato con un commento
 	 * */
-	public void eseguiPrivilegioDelConsiglio(Object o[]){
+	public void eseguiPrivilegioDelConsiglio(Object o[]){//metodo numero 3
 		Giocatore giocatore=(Giocatore) (o[1]);
 		int numeroIterazioni=(int) (o[2]);
 		String[] scelte=new String[numeroIterazioni];
@@ -136,7 +136,7 @@ public class UtilEffetto {
 	 * @param
 	 * @return
 	 */
-	public void aumentaDiDueAzioneTerritorio(Object o[]) {
+	public void aumentaDiDueAzioneTerritorio(Object o[]) {// metodo numero 4
 		int posizioneTorre = (int) (o[1]);
 		Famigliare famigliare = (Famigliare) (o[2]);
 		if (posizioneTorre >= 0 && posizioneTorre <= 3)
@@ -152,7 +152,7 @@ public class UtilEffetto {
 	 * @param
 	 * @return
 	 */
-	public void aumentaDiDueAzioneEdificio(Object o[]) {
+	public void aumentaDiDueAzioneEdificio(Object o[]) {// metodo numero 5
 		int posizioneTorre = (int) (o[1]);
 		Famigliare famigliare = (Famigliare) (o[2]);
 		if (posizioneTorre >= 8 && posizioneTorre <= 11)
@@ -168,7 +168,7 @@ public class UtilEffetto {
 	 * @param
 	 * @return
 	 */
-	public void aumentaDiDueAzionePersonaggio(Object o[]) {
+	public void aumentaDiDueAzionePersonaggio(Object o[]) {// metodo numero 6
 		int posizioneTorre = (int) (o[1]);
 		Famigliare famigliare = (Famigliare) (o[2]);
 		if (posizioneTorre >= 4 && posizioneTorre <= 7)
@@ -184,10 +184,70 @@ public class UtilEffetto {
 	 * @param
 	 * @return
 	 */
-	public void aumentaDiDueAzioneImpresa(Object o[]) {
+	public void aumentaDiDueAzioneImpresa(Object o[]) {// metodo numero 7
 		int posizioneTorre = (int) (o[1]);
 		Famigliare famigliare = (Famigliare) (o[2]);
 		if (posizioneTorre >= 12 && posizioneTorre <= 15)
 			famigliare.cambiaValore(2);
+	}
+
+	/**
+	 * Metodo per gli effetti in cui si riceve o spende risorse e si riceve uno
+	 * o più privilegi del consiglio. I parametri in ingresso sono il giocatore,
+	 * unità di monete, legna, pietre, servitori, punti vittoria, punti militari
+	 * , punti fede ed il numero di privilegi del consiglio. Se i parametri sono
+	 * negativi si procede al controllo se il giocatore può pagare le risorse.
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void aggiungiRisorseEPrivilegioDelConsiglio(Object o[]) {// metodo
+																	// numero 8
+		boolean controllo;
+		Object[] parametri = new Object[3];
+		controllo = aggiungiRisorse(o);
+		if (controllo == true) {
+			parametri[1] = o[1];
+			parametri[9] = o[9];
+			eseguiPrivilegioDelConsiglio(parametri);
+		}
+	}
+
+	/**
+	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
+	 * Raccolto. I parametri passati in ingresso sono il giocatore e il valore
+	 * della azioneraccolto che si va a fare. NB:al momento della scrittura non
+	 * è ancora stato implementato il metodo che gestisce il raccolto, per cui
+	 * tale metodo viene ipotizzato
+	 * 
+	 * @param
+	 * @return
+	 * 
+	 */
+	public void eseguiEffettoImmediatoRaccolto(Object o[]) {
+		Giocatore giocatore = (Giocatore) (o[1]);
+		int valore = (int) (o[2]);
+		giocatore.raccolto(valore);// metodo non ancora implementato. In ogni
+									// caso verrà chiamato il metodo che
+									// gestisce la raccolta del giocatore
+	}
+
+	/**
+	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
+	 * Produzione. I parametri passati in ingresso sono il giocatore e il valore
+	 * della azione produzione che si va a fare. NB:al momento della scrittura
+	 * non è ancora stato implementato il metodo che gestisce la produzione, per
+	 * cui tale metodo viene ipotizzato
+	 * 
+	 * @param
+	 * @return
+	 * 
+	 */
+	public void eseguiEffettoImmediatoProduzione(Object o[]) {
+		Giocatore giocatore = (Giocatore) (o[1]);
+		int valore = (int) (o[2]);
+		giocatore.produzione(valore);// metodo non ancora implementato. In ogni
+										// caso verrà chiamato il metodo che
+										// gestisce la produzione del giocatore
 	}
 }
