@@ -175,8 +175,6 @@ public class Server implements IServer {
 					System.out.println("Trying joining it to a room...");
 
 					joinFirstAvailableRoom(player);
-
-					System.out.println("Succesfully joined it to a room!");
 				} catch (JoinRoomException e) {
 					// e.printStackTrace();
 				}
@@ -239,7 +237,6 @@ public class Server implements IServer {
 				}
 				throw new JoinRoomException(e);
 			}
-
 		}
 	}
 

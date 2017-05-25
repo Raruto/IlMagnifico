@@ -72,6 +72,8 @@ public class Room {
 	 */
 	private CountDownLatch mStartLatch;
 
+	private static int roomNumber = 0;
+
 	/**
 	 * Current game turn.
 	 */
@@ -92,11 +94,16 @@ public class Room {
 	 *            reference to player that created this room (ADMIN).
 	 */
 	public Room(int maxPlayers, RemotePlayer player) {
+		roomNumber++;
 		mMaxPlayers = maxPlayers;
 		mPlayers = new ArrayList<>();
 		mPlayers.add(player);
 		mCanJoin = true;
 		mStartLatch = new CountDownLatch(1);
+	}
+
+	public int getRoomNumber() {
+		return roomNumber;
 	}
 
 	/**
@@ -112,6 +119,9 @@ public class Room {
 		synchronized (ROOM_MUTEX) {
 			if (mCanJoin) {
 				mPlayers.add(player);
+
+				System.out.println("Succesfully joined " + player.getNickname() + " to room #" + getRoomNumber() + "!");
+
 				if (mPlayers.size() == mMaxPlayers) {
 					mCanJoin = false;
 					cancelTimer();
@@ -913,8 +923,8 @@ public class Room {
 		public void run() {
 			notifyAllPlayers("Game started!");
 
-			// Debug.verbose("[ROOM] Starting room thread, closing room");
-			// closeRoomSafely();
+			System.out.println("[ROOM] Starting room thread, closing room");
+			closeRoomSafely();
 			// Debug.verbose("[ROOM] Creating game session");
 			// createGameSession();
 			// Debug.verbose("[ROOM] Room closed, %d players", mPlayers.size());
@@ -934,16 +944,17 @@ public class Room {
 			// handleEndOfTheMatch();
 			// Debug.verbose("[ROOM] Room game finished.");
 		}
+
 		//
-		// /**
-		// * Close the room avoiding to block in deadlock the other players that
-		// * are trying to join at this time.
-		// */
-		// private void closeRoomSafely() {
-		// synchronized (ROOM_MUTEX) {
-		// mCanJoin = false;
-		// }
-		// }
+		/**
+		 * Close the room avoiding to block in deadlock the other players that
+		 * are trying to join at this time.
+		 */
+		private void closeRoomSafely() {
+			synchronized (ROOM_MUTEX) {
+				mCanJoin = false;
+			}
+		}
 		//
 		// /**
 		// * Create game session from configuration.
