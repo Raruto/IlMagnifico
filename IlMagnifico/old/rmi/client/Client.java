@@ -8,8 +8,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
 import old.rmi.server.ServerInterface;
-import rmi.client.ClientImplementation;
-import rmi.client.ClientInterface;
+import old.rmi.client.ClientImplementation;
+import old.rmi.client.ClientInterface;
 
 public class Client {
 

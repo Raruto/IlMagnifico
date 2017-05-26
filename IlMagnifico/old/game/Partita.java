@@ -96,8 +96,8 @@ public class Partita {
 		for (contatore = 0; contatore < 5; contatore++) {
 			torri.getCartaTorreImpresa().setCartaPiano(this.mazzo.getCartaImpresa(), contatore);
 			torri.getCartaTorreTerritorio().setCartaPiano(this.mazzo.getCartaTerritorio(), contatore);
-			torri.getCartaTorrePersonaggio().setCartaPiano(this.mazzo.getCartaPersonaggio(), contatore);
-			torri.getCartaTorreEdificio().setCartaPiano(this.mazzo.getCartaEdificio(), contatore);
+			torri.getCartaTorreImpresa().setCartaPiano(this.mazzo.getCartaPersonaggio(), contatore);
+			torri.getCartaTorreTerritorio().setCartaPiano(this.mazzo.getCartaEdificio(), contatore);
 		}
 		// faccio lanciare i dadi
 		this.dado.lancia();

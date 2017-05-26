@@ -79,4 +79,12 @@ public class AreaTorre {
 	public void incrementaPeriodo() {
 		this.periodoCorrente++;
 	}
+
+	public TorreImpresa getCartaTorreImpresa() {
+		return this.torreImpresa;
+	}
+
+	public TorreTerritorio getCartaTorreTerritorio() {
+		return this.torreTerritorio;
+	}
 }

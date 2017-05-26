@@ -69,7 +69,7 @@ public class Effetto extends Attivabile {
 				// es: "aumenta_legna_pietra_uno","aumenta_monete_due",
 				// "aumenta_servitori_due", "aumenta_punti_militari_due",
 				// "aumenta_punti_fede_due"
-				effetti.add(new Effetto(e1));
+				effetti.add(new Effetto(e1, null));
 			}
 		}
 		return effetti;

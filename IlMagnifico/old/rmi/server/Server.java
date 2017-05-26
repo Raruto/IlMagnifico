@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
-import rmi.server.ServerImplementation;
+import old.rmi.server.ServerImplementation;
 
 public class Server {
 	
