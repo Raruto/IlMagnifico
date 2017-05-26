@@ -142,4 +142,14 @@ public class Giocatore implements Serializable {
 	public Punti getPunti() {
 		return this.punti;
 	}
+
+	public void raccolto(int valore) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void produzione(int valore) {
+		// TODO Auto-generated method stub
+
+	}
 }

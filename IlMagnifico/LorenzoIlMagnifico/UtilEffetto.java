@@ -87,42 +87,51 @@ public class UtilEffetto {
 			return false;
 	}
 
-	/**Proposta primitiva del metodo per l'esecuzione del privilegio del consiglio.
-	 *  Tramite l'array in ingresso è possibile indicare quanti privilegi del consiglio effettuare
-	 *   ed il metodo procede da solo al controllo sulle scelte. Quando è richiesta l'interazione dell'utente è segnalato con un commento
-	 * */
-	public void eseguiPrivilegioDelConsiglio(Object o[]){//metodo numero 3
-		Giocatore giocatore=(Giocatore) (o[1]);
-		int numeroIterazioni=(int) (o[2]);
-		String[] scelte=new String[numeroIterazioni];
-		String scelta=new String();
-		boolean controllo=false;
-		for(int i=0;i<numeroIterazioni;i++){
-			scelta=//richiesto che il giocatore inserisca una stringa tra le possibili 
-					//scelte standard del privilegio del consiglio
-		for(int j=0;j<i;j++){ //controllo sulle scelte precedenti
-			if(scelta==scelte[j])
-				controllo=true;
+	/**
+	 * Proposta primitiva del metodo per l'esecuzione del privilegio del
+	 * consiglio. Tramite l'array in ingresso è possibile indicare quanti
+	 * privilegi del consiglio effettuare ed il metodo procede da solo al
+	 * controllo sulle scelte. Quando è richiesta l'interazione dell'utente è
+	 * segnalato con un commento
+	 */
+	public void eseguiPrivilegioDelConsiglio(Object o[]) {// metodo numero 3
+		Giocatore giocatore = (Giocatore) (o[1]);
+		int numeroIterazioni = (int) (o[2]);
+		String[] scelte = new String[numeroIterazioni];
+		String scelta = new String();
+		boolean controllo = false;
+		for (int i = 0; i < numeroIterazioni; i++) {
+			// TODO: finire di implementare
+			/* scelta= */
+			// richiesto che il giocatore inserisca una stringa tra le possibili
+			// scelte standard del privilegio del consiglio
+
+			for (int j = 0; j < i; j++) { // controllo sulle scelte precedenti
+				if (scelta == scelte[j])
+					controllo = true;
+			}
+			if (controllo = true) {
+				// viene notificato all'utente che la scelta non è valida
+				controllo = false;
+				i--;// ripeto la iterazione
+			} else
+				scelte[i] = scelta;
 		}
-		if(controllo=true){
-			//viene notificato all'utente che la scelta non è valida
-			controllo=false;
-			i--;//ripeto la iterazione
-		}
-		else scelte[i]=scelta;	
-		}
-		for(int i=0;i<numeroIterazioni;i++){//anzichè chiamare i metodi cambia è possibile chiamare il metodo 0 di UtilEffetto
-			if(scelte[i]=="monete")
+		for (int i = 0; i < numeroIterazioni; i++) {// anzichè chiamare i
+													// metodi cambia è
+													// possibile chiamare il
+													// metodo 0 di UtilEffetto
+			if (scelte[i] == "monete")
 				giocatore.getRisorse().cambiaMonete(2);
-			if(scelte[i]=="legno&pietra"){
+			if (scelte[i] == "legno&pietra") {
 				giocatore.getRisorse().cambiaLegno(1);
 				giocatore.getRisorse().cambiaPietre(1);
 			}
-			if(scelte[i]=="servitori")
+			if (scelte[i] == "servitori")
 				giocatore.getRisorse().cambiaServitori(2);
-			if(scelte[i]=="punti militari")
+			if (scelte[i] == "punti militari")
 				giocatore.getPunti().cambiaPuntiMilitari(2);
-			if(scelte[i]=="punti fede")
+			if (scelte[i] == "punti fede")
 				giocatore.getPunti().cambiaPuntiFede(1);
 		}
 	}
@@ -193,10 +202,11 @@ public class UtilEffetto {
 
 	/**
 	 * Metodo per gli effetti in cui si riceve o spende risorse e si riceve uno
-	 * o più privilegi del consiglio. I parametri in ingresso sono il giocatore,
-	 * unità di monete, legna, pietre, servitori, punti vittoria, punti militari
-	 * , punti fede ed il numero di privilegi del consiglio. Se i parametri sono
-	 * negativi si procede al controllo se il giocatore può pagare le risorse.
+	 * o più privilegi del consiglio. I parametri in ingresso sono il
+	 * giocatore, unità di monete, legna, pietre, servitori, punti vittoria,
+	 * punti militari , punti fede ed il numero di privilegi del consiglio. Se i
+	 * parametri sono negativi si procede al controllo se il giocatore può
+	 * pagare le risorse.
 	 * 
 	 * @param
 	 * @return
@@ -236,8 +246,8 @@ public class UtilEffetto {
 	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
 	 * Produzione. I parametri passati in ingresso sono il giocatore e il valore
 	 * della azione produzione che si va a fare. NB:al momento della scrittura
-	 * non è ancora stato implementato il metodo che gestisce la produzione, per
-	 * cui tale metodo viene ipotizzato
+	 * non è ancora stato implementato il metodo che gestisce la produzione,
+	 * per cui tale metodo viene ipotizzato
 	 * 
 	 * @param
 	 * @return
