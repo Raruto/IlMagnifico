@@ -224,7 +224,7 @@ public class UtilEffetto {
 	 * @return
 	 * 
 	 */
-	public void eseguiEffettoImmediatoRaccolto(Object o[]) {
+	public void eseguiEffettoImmediatoRaccolto(Object o[]) {// metodo numero 9
 		Giocatore giocatore = (Giocatore) (o[1]);
 		int valore = (int) (o[2]);
 		giocatore.raccolto(valore);// metodo non ancora implementato. In ogni
@@ -243,7 +243,8 @@ public class UtilEffetto {
 	 * @return
 	 * 
 	 */
-	public void eseguiEffettoImmediatoProduzione(Object o[]) {
+	public void eseguiEffettoImmediatoProduzione(Object o[]) {// metodo numero
+																// 10
 		Giocatore giocatore = (Giocatore) (o[1]);
 		int valore = (int) (o[2]);
 		giocatore.produzione(valore);// metodo non ancora implementato. In ogni
@@ -261,7 +262,7 @@ public class UtilEffetto {
 	 * @param
 	 * @return
 	 */
-	public void aggiungiRisorseEEseguiRaccolto(Object o[]) {
+	public void aggiungiRisorseEEseguiRaccolto(Object o[]) {// metodo numero 11
 		boolean controllo;
 		Object[] parametri = new Object[3];
 		controllo = aggiungiRisorse(o);
@@ -272,16 +273,18 @@ public class UtilEffetto {
 		}
 	}
 
-	/** Metodo per effetti immediati dove si ricevono risorse e si effettua una
-	 * azione di produzione. I parametri passati sono rispettivamente: giocatore,
-	 * unità di monete, legno, pietre, servitori, punti vittoria, punti
-	 * militari, punti fede ed il valore dell'azione produzione che si va a
-	 * svolgere
+	/**
+	 * Metodo per effetti immediati dove si ricevono risorse e si effettua una
+	 * azione di produzione. I parametri passati sono rispettivamente:
+	 * giocatore, unità di monete, legno, pietre, servitori, punti vittoria,
+	 * punti militari, punti fede ed il valore dell'azione produzione che si va
+	 * a svolgere
 	 * 
 	 * @param
 	 * @return
-	 * */
-	public void aggiungiRisorseEEseguiProduzione(Object o[]){
+	 */
+	public void aggiungiRisorseEEseguiProduzione(Object o[]) {// metodo numero
+																// 12
 		boolean controllo;
 		Object[] parametri = new Object[3];
 		controllo = aggiungiRisorse(o);
@@ -289,5 +292,7 @@ public class UtilEffetto {
 			parametri[1] = o[1];
 			parametri[2] = o[9];
 			eseguiEffettoImmediatoProduzione(parametri);
+		}
 	}
+
 }
