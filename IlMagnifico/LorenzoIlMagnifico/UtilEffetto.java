@@ -57,7 +57,7 @@ public class UtilEffetto {
 	 * @param
 	 * @return boolean
 	 */
-	public boolean cartaAquisibileRisorse(Object o[]) {// metodo numero 1
+	public boolean cartaAcquisibileRisorse(Object o[]) {// metodo numero 1
 		Giocatore giocatore = (Giocatore) (o[1]);
 		int monete = (int) (o[2]);
 		int legno = (int) (o[3]);
@@ -78,7 +78,7 @@ public class UtilEffetto {
 	 * @param
 	 * @return boolean
 	 */
-	public boolean cartaAquisibilePunti(Object o[]) {// metodo numero 2
+	public boolean cartaAcquisibilePunti(Object o[]) {// metodo numero 2
 		Giocatore giocatore = (Giocatore) (o[1]);
 		int puntiMilitari = (int) (o[2]);
 		if (giocatore.getPunti().getPuntiMilitari() >= puntiMilitari)

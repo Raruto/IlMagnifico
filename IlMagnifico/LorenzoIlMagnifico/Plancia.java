@@ -42,7 +42,7 @@ public class Plancia {
 	 * @return
 	 */
 	public void aggiungiPersonaggio(Personaggio nuovoPersonaggio) {
-		personaggio.add(nuovoPersonaggio);
+		personaggi.add(nuovoPersonaggio);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Plancia {
 	 * @param Impresa
 	 * @return
 	 */
-	public void aggiungiImpresa(void nuovaImpresa) {
+	public void aggiungiImpresa(Impresa nuovaImpresa) {
 		imprese.add(nuovaImpresa);
 	}
 

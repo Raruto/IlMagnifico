@@ -10,10 +10,10 @@ public abstract class Carta {
 	/**
 	 * Default constructor
 	 */
-	public Carta(String nome, ArrayList<Object[]> aquisizione, ArrayList<Object[]> effettoImmediato,
+	public Carta(String nome, ArrayList<Object[]> acquisizione, ArrayList<Object[]> effettoImmediato,
 			ArrayList<Object[]> effettoPermanente) {
 		this.nome = nome;
-		this.acquisizione = aquisizione;
+		this.acquisizione = acquisizione;
 		this.effettoImmediato = effettoImmediato;
 		this.effettoPermanente = effettoPermanente;
 	}
@@ -51,10 +51,10 @@ public abstract class Carta {
 		for (int i = 0; i < acquisizione.size(); i++) {
 			acquisizione.get(i)[1] = giocatore;
 			if ((int) acquisizione.get(i)[0] == 1)
-				if (!utilEffetto.cartaAquisibileRisorse(acquisizione.get(i)))
+				if (!utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i)))
 					return false;
 				else if ((int) acquisizione.get(i)[0] == 2)
-					if (!utilEffetto.cartaAquisibilePunti(acquisizione.get(i)))
+					if (!utilEffetto.cartaAcquisibilePunti(acquisizione.get(i)))
 						return false;
 		}
 		return true;
