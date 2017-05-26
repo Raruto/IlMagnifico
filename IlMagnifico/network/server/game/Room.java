@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import network.NetworkException;
 import network.server.RemotePlayer;
 
-import network.model.exceptions.PlayerNotFound;
+import network.exceptions.PlayerNotFound;
 
 /**
  * This class represent the room object that server will manage. Every single

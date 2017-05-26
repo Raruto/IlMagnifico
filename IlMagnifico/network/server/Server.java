@@ -12,7 +12,7 @@ import network.server.game.RoomFullException;
 import network.server.rmi.RMIServer;
 import network.server.socket.SocketServer;
 
-import network.model.exceptions.PlayerNotFound;
+import network.exceptions.PlayerNotFound;
 
 /**
  * Server del gioco "Lorenzo Il Magnifico" della "CranioCreations".

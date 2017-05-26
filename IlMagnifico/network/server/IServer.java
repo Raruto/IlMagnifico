@@ -4,7 +4,7 @@ import network.exceptions.CreateRoomException;
 import network.exceptions.JoinRoomException;
 import network.exceptions.LoginException;
 
-import network.model.exceptions.PlayerNotFound;
+import network.exceptions.PlayerNotFound;
 
 /**
  * Interfaccia usata come server controller in {@link AbstractServer} (invio di

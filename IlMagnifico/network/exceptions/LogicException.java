@@ -1,4 +1,4 @@
-package network.model.exceptions;
+package network.exceptions;
 
 import java.io.IOException;
 
