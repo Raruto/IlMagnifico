@@ -1,14 +1,14 @@
 package network.server;
 
+import LorenzoIlMagnifico.Giocatore;
 import network.NetworkException;
 import network.server.game.Room;
 
-import network.model.Player;
 
 /**
  * Abstract extension of {@link Player}. This implementation can communicate to his referenced client.
  */
-public abstract class RemotePlayer extends Player {
+public abstract class RemotePlayer extends Giocatore {
 
     /**
      * Reference to room where player is joined.

@@ -13,7 +13,7 @@ public class Player {
 	/**
 	 * Colore del giocatore.
 	 */
-	private Color color;
+	private PlayerColors color;
 
 	/**
 	 * Flag che indica se il giocatore è online
@@ -46,7 +46,7 @@ public class Player {
 	 * @param color
 	 *            colore da assegnare al giocatore.
 	 */
-	public void setColor(Color color) {
+	public void setColor(PlayerColors color) {
 		this.color = color;
 	}
 
@@ -55,7 +55,7 @@ public class Player {
 	 * 
 	 * @return {@link PlayerColors} colore del giocatore.
 	 */
-	public Color getColor() {
+	public PlayerColors getColor() {
 		return this.color;
 	}
 
