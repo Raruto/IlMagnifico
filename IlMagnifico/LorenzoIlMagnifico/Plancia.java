@@ -7,70 +7,66 @@ import java.util.*;
  */
 public class Plancia {
 
-    /**
-     * Default constructor
-     */
-    public Plancia() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public Plancia() {
+		personaggi = new ArrayList<Personaggio>();
+		territori = new ArrayList<Territorio>();
+		edifici = new ArrayList<Edificio>();
+		imprese = new ArrayList<Impresa>();
+	}
 
-    /**
-     * 
-     */
-    private ArrayList<Personaggio> personaggi;
+	/**
+	 * 
+	 */
+	private ArrayList<Personaggio> personaggi;
 
-    /**
-     * 
-     */
-    private ArrayList<Territorio> territori;
+	/**
+	 * 
+	 */
+	private ArrayList<Territorio> territori;
 
-    /**
-     * 
-     */
-    private ArrayList<Edificio> edifici;
+	/**
+	 * 
+	 */
+	private ArrayList<Edificio> edifici;
 
-    /**
-     * 
-     */
-    private ArrayList<Impresa> imprese;
+	/**
+	 * 
+	 */
+	private ArrayList<Impresa> imprese;
 
+	/**
+	 * @param Personaggio
+	 * @return
+	 */
+	public void aggiungiPersonaggio(Personaggio nuovoPersonaggio) {
+		personaggio.add(nuovoPersonaggio);
+	}
 
+	/**
+	 * @param Territorio
+	 * @return
+	 */
+	public void aggiungiTerritorio(Territorio nuovoTerritorio) {
+		territori.add(nuovoTerritorio);
+	}
 
+	/**
+	 * @param Edificio
+	 * @return
+	 */
+	public void aggiungiEdificio(Edificio nuovoEdificio) {
+		edifici.add(nuovoEdificio);
+	}
 
-
-    /**
-     * @param Personaggio 
-     * @return
-     */
-    public void aggiungiPersonaggio(void Personaggio) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param Territorio 
-     * @return
-     */
-    public void aggiungiTerritorio(void Territorio) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param Edificio 
-     * @return
-     */
-    public void aggiungiEdificio(void Edificio) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param Impresa 
-     * @return
-     */
-    public void aggiungiImpresa(void Impresa) {
-        // TODO implement here
-        return null;
-    }
+	/**
+	 * @param Impresa
+	 * @return
+	 */
+	public void aggiungiImpresa(void nuovaImpresa) {
+		imprese.add(nuovaImpresa);
+	}
 
 }
