@@ -142,8 +142,9 @@ public class SpazioAzione {
 					giocatore.getRisorse().cambiaMonete(2);
 					giocatore.getPunti().cambiaPuntiMilitari(3);
 				}
-				else if(posizione==3)
+				else if(posizione==3){
 					//qua ci vuole il metodo che permette al giocatore di ottenere un doppio privilegio del consiglio
+				}
 		        
 	}
 
@@ -159,7 +160,7 @@ public class SpazioAzione {
 	public void eseguiEffettoPalazzoConsiglio(Giocatore giocatore) {
 		// metodo per fare scegliere al giocatore l'effetto del privilegio del
 		// consiglio
-		return null;
+		return;
 	}
 
 	/**
