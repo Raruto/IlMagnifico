@@ -92,15 +92,18 @@ public class Partita {
 			this.giocatori.get(i).getRisorse().cambiaServitori(3);
 			this.giocatori.get(i).getRisorse().cambiaMonete(contatoreMonete + 1);
 		}
+
 	}
 
 	/**
 	 * @return
 	 */
 	public void scegliOrdine() {
+
 		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
 		// dall'arraylist dei giocatori, poi concateno
 		this.spazioAzione.eliminaRicorrenzePalazzoDelConsiglio();//ancora da finire
+
 	}
 
 	/**
@@ -108,7 +111,7 @@ public class Partita {
 	 */
 	public void posizionaCarteSuTorre() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -116,7 +119,7 @@ public class Partita {
 	 */
 	public void turnoGiocatore() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -124,7 +127,7 @@ public class Partita {
 	 */
 	public void eseguiRapportoVaticano() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -132,7 +135,7 @@ public class Partita {
 	 */
 	public void resetPerNuovoTurno() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -148,6 +151,6 @@ public class Partita {
 	 */
 	public void lanciaDadi() {
 		// TODO implement here
-		return null;
+		return;
 	}
 }

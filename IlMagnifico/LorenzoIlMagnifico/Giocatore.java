@@ -53,7 +53,7 @@ public class Giocatore {
 	 */
 	public void eseguiEffettoScomunica() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class Giocatore {
 	 */
 	public void pagaServitore() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	public Risorsa getRisorse() {
