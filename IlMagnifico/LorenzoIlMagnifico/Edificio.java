@@ -7,10 +7,9 @@ import java.util.*;
  */
 public class Edificio extends Carta {
 
-    /**
-     * Default constructor
-     */
-    public Edificio() {
-    }
+	public Edificio(String nome, ArrayList<Object> aquisizione, ArrayList<Object[]> effettoImmediato,
+			ArrayList<Object[]> effettoPermanente) {
+		super(nome, acquisizione, effettoImmediato, effettoPermanente);
+	}
 
 }
