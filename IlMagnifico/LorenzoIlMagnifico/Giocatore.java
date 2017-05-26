@@ -46,15 +46,7 @@ public class Giocatore {
 	/**
 	 * 
 	 */
-	private Scomunica[] Scomuniche;
-
-	/**
-	 * @return
-	 */
-	public void lanciaDadi() {
-		// TODO implement here
-		return null;
-	}
+	private Scomunica[] scomuniche;
 
 	/**
 	 * @return

@@ -129,4 +129,11 @@ public class Partita {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
+	public void lanciaDadi() {
+		// TODO implement here
+		return null;
+	}
 }
