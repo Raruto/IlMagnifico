@@ -10,10 +10,10 @@ public abstract class Carta {
 	/**
 	 * Default constructor
 	 */
-	public Carta(String nome, ArrayList<Object> aquisizione, ArrayList<Object[]> effettoImmediato,
+	public Carta(String nome, ArrayList<Object[]> aquisizione, ArrayList<Object[]> effettoImmediato,
 			ArrayList<Object[]> effettoPermanente) {
 		this.nome = nome;
-		this.acquisizione = acquisizione;
+		this.acquisizione = aquisizione;
 		this.effettoImmediato = effettoImmediato;
 		this.effettoPermanente = effettoPermanente;
 	}
@@ -24,19 +24,23 @@ public abstract class Carta {
 	protected String nome;
 
 	/**
+	 * attributo aggiunto per fare funzionare i metodi
+	 */
+	private UtilEffetto utilEffetto = new UtilEffetto();
+	/**
 	 * 
 	 */
-	protected ArrayList<Object> acquisizione;
+	protected ArrayList<Object[]> acquisizione;
 
 	/**
 	 * 
 	 */
-	protected ArrayList<Object> effettoImmediato;
+	protected ArrayList<Object[]> effettoImmediato;
 
 	/**
 	 * 
 	 */
-	protected ArrayList<Object> effettoPermanente;
+	protected ArrayList<Object[]> effettoPermanente;
 
 	/**
 	 * @param oggetto
@@ -47,10 +51,10 @@ public abstract class Carta {
 		for (int i = 0; i < acquisizione.size(); i++) {
 			acquisizione.get(i)[1] = giocatore;
 			if ((int) acquisizione.get(i)[0] == 1)
-				if (!UtilEffetto.cartaAcquisibileRisorse(acquisizione.get(i)))
+				if (!utilEffetto.cartaAquisibileRisorse(acquisizione.get(i)))
 					return false;
 				else if ((int) acquisizione.get(i)[0] == 2)
-					if (!UtilEffetto.cartaAcquisibilePunti(acquisizione.get(i)))
+					if (!utilEffetto.cartaAquisibilePunti(acquisizione.get(i)))
 						return false;
 		}
 		return true;
@@ -64,9 +68,9 @@ public abstract class Carta {
 		for (int i = 0; i < effettoImmediato.size(); i++) {
 			effettoImmediato.get(i)[1] = giocatore;
 			if ((int) effettoImmediato.get(i)[0] == 0)
-				UtilEffetto.aggiungiRisorse(effettoImmediato.get(i));
+				utilEffetto.aggiungiRisorse(effettoImmediato.get(i));
 			else if ((int) effettoImmediato.get(i)[0] == 3)
-				UtilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
+				utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
 		}
 	}
 
@@ -78,9 +82,9 @@ public abstract class Carta {
 		for (int i = 0; i < effettoPermanente.size(); i++) {
 			effettoPermanente.get(i)[1] = giocatore;
 			if ((int) effettoPermanente.get(i)[0] == 0)
-				UtilEffetto.aggiungiRisorse(effettoPermanente.get(i));
+				utilEffetto.aggiungiRisorse(effettoPermanente.get(i));
 			else if ((int) effettoPermanente.get(i)[0] == 3)
-				UtilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
+				utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
 		}
 	}
 
