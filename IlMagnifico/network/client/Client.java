@@ -5,6 +5,7 @@ import network.client.rmi.RMIClient;
 import network.client.socket.SocketClient;
 import network.exceptions.LoginException;
 import network.protocol.ConnectionTypes;
+import util.FakeUI;
 
 /**
  * 
