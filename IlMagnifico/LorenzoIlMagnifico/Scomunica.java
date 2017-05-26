@@ -30,7 +30,7 @@ public class Scomunica {
      */
     public void eseguiEffettoScomunica(Giocatore giocatore) {
         // TODO implement here
-        return null;
+        return;
     }
 
 }
