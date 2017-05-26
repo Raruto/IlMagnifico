@@ -369,4 +369,28 @@ public class SpazioAzione {
 	public void setPalazzoDelConsiglio(Famigliare famigliare) {
 		this.palazzoDelConsiglio.add(famigliare);
 	}
+
+	/**
+	 * Metodo che toglie i famigliari che appartengono ad uno stesso giocatore
+	 * dal palazzo del consiglio
+	 */
+	public void eliminaRicorrenzePalazzoDelConsiglio() {
+		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
+		// dall'arraylist dei giocatori, poi concateno
+		Famigliare famigliare = new Famigliare(null, 0, false);
+		int j = 0;
+		for (int i = 0; i < this.palazzoDelConsiglio.size(); i++) {
+			// con tale metodo in teoria
+			// si tolgono le ricorrenze
+			// di famigliari dello stesso giocatore nel palazzo del consiglio
+			j = i + 1;
+			famigliare = this.palazzoDelConsiglio.get(i);
+			while ((this.palazzoDelConsiglio.get(j).getGiocatore() != famigliare.getGiocatore())
+					&& (j < this.palazzoDelConsiglio.size()))
+				j++;
+			this.palazzoDelConsiglio.remove(j);
+			eliminaRicorrenzePalazzoDelConsiglio();
+			break;
+		}
+	}
 }

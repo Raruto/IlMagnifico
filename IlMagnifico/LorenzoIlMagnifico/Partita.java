@@ -77,16 +77,33 @@ public class Partita {
 	 * @return
 	 */
 	public void inizializzaGiocatori() {
-		// TODO implement here
-		return;
+		int contatoreMonete = 4;
+		// ci vuole un modo per riempire l'array dei giocatori con le
+		// informazioni reperite dalla parte di comunicazione
+		Collections.shuffle(giocatori);// generazione casuale dell'ordine del
+										// turno di gioco, ipotizzando che
+										// l'array sia già riempito
+
+		for (int i = 0; i < this.giocatori.size(); i++) {// inizializzo le
+															// riserve dei
+															// giocatori
+			this.giocatori.get(i).getRisorse().cambiaLegno(2);
+			this.giocatori.get(i).getRisorse().cambiaPietre(2);
+			this.giocatori.get(i).getRisorse().cambiaServitori(3);
+			this.giocatori.get(i).getRisorse().cambiaMonete(contatoreMonete + 1);
+		}
+
 	}
 
 	/**
 	 * @return
 	 */
 	public void scegliOrdine() {
-		// TODO implement here
-		return;
+
+		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
+		// dall'arraylist dei giocatori, poi concateno
+		this.spazioAzione.eliminaRicorrenzePalazzoDelConsiglio();//ancora da finire
+
 	}
 
 	/**

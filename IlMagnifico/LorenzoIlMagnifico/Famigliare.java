@@ -41,6 +41,14 @@ public class Famigliare {
 	}
 
 	/**
+	 * @param
+	 * @return
+	 */
+	public Giocatore getGiocatore() {
+		return this.giocatoreAppartenenza;
+	}
+
+	/**
 	 * 
 	 * @return
 	 */
