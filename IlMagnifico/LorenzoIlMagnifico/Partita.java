@@ -78,7 +78,7 @@ public class Partita {
 	 */
 	public void inizializzaGiocatori() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Partita {
 	 */
 	public void scegliOrdine() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class Partita {
 	 */
 	public void posizionaCarteSuTorre() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class Partita {
 	 */
 	public void turnoGiocatore() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Partita {
 	 */
 	public void eseguiRapportoVaticano() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class Partita {
 	 */
 	public void resetPerNuovoTurno() {
 		// TODO implement here
-		return null;
+		return;
 	}
 
 	/**
@@ -134,6 +134,6 @@ public class Partita {
 	 */
 	public void lanciaDadi() {
 		// TODO implement here
-		return null;
+		return;
 	}
 }
