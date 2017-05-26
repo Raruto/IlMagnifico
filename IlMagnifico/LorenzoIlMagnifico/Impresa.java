@@ -7,10 +7,8 @@ import java.util.*;
  */
 public class Impresa extends Carta {
 
-    /**
-     * Default constructor
-     */
-    public Impresa() {
-    }
-
+	public Impresa(String nome, ArrayList<Object> aquisizione, ArrayList<Object[]> effettoImmediato,
+			ArrayList<Object[]> effettoPermanente) {
+		super(nome, acquisizione, effettoImmediato, effettoPermanente);
+	}
 }
