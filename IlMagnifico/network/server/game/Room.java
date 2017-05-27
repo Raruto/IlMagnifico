@@ -63,9 +63,14 @@ public class Room {
 	private final ArrayList<RemotePlayer> players;
 
 	/**
-	 * Timer utilizzato per i countdown.
+	 * Timer utilizzato per il countdown di inizio partita.
 	 */
-	private Timer timer;
+	private Timer gameTimer;
+
+	/**
+	 * Timer utilizzato per i countdown (notifica ai giocatori).
+	 */
+	private Timer countDownTimer;
 
 	/**
 	 * Flag usato per indicare quando una Stanza è ancora aperta (True) o chiusa
@@ -76,7 +81,7 @@ public class Room {
 	/**
 	 * Stato completo della partita.
 	 */
-	private ServerGame game;
+	private Game game;
 
 	/**
 	 * ID usato per identificare la stanza nelle comunicazioni
@@ -89,7 +94,6 @@ public class Room {
 	 * @param player
 	 *            riferimento al giocatore che ha creato questa stanza (vedi
 	 *            {@link RemotePlayer}).
-	 * 
 	 * @param maxPlayers
 	 *            numero massimo di giocatori per questa stanza.
 	 * @param minPlayers
@@ -143,7 +147,7 @@ public class Room {
 
 				if (players.size() == maxPlayers) {
 					canJoin = false;
-					resetTimer();
+					resetTimers();
 					startCountDownTimer(START_IMMEDIATELY);
 				} else if (players.size() == minPlayers) {
 					startCountDownTimer(ROOM_WAITING_TIME);
@@ -158,11 +162,16 @@ public class Room {
 	/**
 	 * Resetta il timer se programmato.
 	 */
-	private void resetTimer() {
-		if (timer != null) {
-			timer.cancel();
-			timer.purge();
+	private void resetTimers() {
+		if (countDownTimer != null) {
+			countDownTimer.cancel();
+			countDownTimer.purge();
 		}
+		if (gameTimer != null) {
+			gameTimer.cancel();
+			gameTimer.purge();
+		}
+
 	}
 
 	/**
@@ -178,11 +187,13 @@ public class Room {
 		logToAllPlayers("Game will start in " + countDownInterval + "sec...");
 
 		// Gestore Partita
-		timer = new Timer();
-		timer.schedule(new RoomGameHandler(), waitingTime);
+		gameTimer = new Timer();
+		gameTimer.schedule(new RoomGameHandler(this, game), waitingTime);
 
+		countDownTimer = new Timer();
 		// Gestore notifica Countdown
-		timer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval), countDownDelay, countDownPeriod);
+		countDownTimer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval), countDownDelay,
+				countDownPeriod);
 	}
 
 	private void logToPlayer(RemotePlayer player, String message, boolean privateMessage) {
@@ -258,13 +269,30 @@ public class Room {
 	 */
 	private class RoomGameHandler extends TimerTask {
 
-		private final String id = "ROOM#" + roomNumber;
+		private final String ID = "ROOM#" + roomNumber;
+		private final boolean LOG_ENABLED = true;
+
+		private Room room;
+		private Game game;
+
+		public RoomGameHandler(Room room, Game game) {
+			this.room = room;
+			this.game = game;
+		}
 
 		/**
 		 * Called by Timer when time is expired.
 		 */
 		@Override
 		public void run() {
+			initializeRoomHandler();
+
+			game.waitGameEnd();
+
+			cleanRoomHandler();
+		}
+
+		private void initializeRoomHandler() {
 			logToAllPlayers("Game started!");
 
 			log("Starting room thread, closing room");
@@ -274,26 +302,14 @@ public class Room {
 			createGameSession();
 
 			log("Room closed, " + players.size() + " players in");
-
-			// dispatchGameSession();
-			// Debug.verbose("[ROOM] Game dispatched. Starting with logic.");
-			while (true) {
-				// RemotePlayer player = startGameSession();
-				// if (player == null) {
-				// startMarketSession();
-				// } else {
-				// doLastTurnSession(player);
-				// break;
-				// }
-			}
-			// Debug.verbose("[ROOM] Game is finished, handling the end of the
-			// match.");
-			// handleEndOfTheMatch();
-			// Debug.verbose("[ROOM] Room game finished.");
 		}
 
-		private void log(String message) {
-			System.out.println("[" + id + "] " + message);
+		private void cleanRoomHandler() {
+			log("Deleting game session");
+			cleanGameSession();
+
+			log("Ending room thread, opening room");
+			openRoomSafely();
 		}
 
 		/**
@@ -307,10 +323,20 @@ public class Room {
 		}
 
 		/**
+		 * Open the room avoiding to block in deadlock the other players that
+		 * are trying to join at this time.
+		 */
+		private void openRoomSafely() {
+			synchronized (ROOM_MUTEX) {
+				canJoin = true;
+			}
+		}
+
+		/**
 		 * Create game session from configuration.
 		 */
 		private void createGameSession() {
-			game = new ServerGame();
+			game = new Game();
 			/*
 			 * try { mStartLatch.await(); } catch (InterruptedException e) {
 			 * Thread.currentThread().interrupt(); Debug.critical(e); } mGame =
@@ -318,6 +344,16 @@ public class Room {
 			 */
 
 		}
+
+		private void cleanGameSession() {
+			game = null;
+		}
+
+		private void log(String message) {
+			if (LOG_ENABLED)
+				System.out.println("[" + ID + "] " + message);
+		}
+
 		//
 		// /**
 		// * Wait until the admin has finished to setup the game session, than
@@ -575,7 +611,7 @@ public class Room {
 
 		private final int setInterval() {
 			if (interval == 1)
-				timer.cancel();
+				countDownTimer.cancel();
 			return --interval;
 		}
 
