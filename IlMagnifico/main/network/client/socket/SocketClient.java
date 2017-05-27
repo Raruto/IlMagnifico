@@ -188,7 +188,7 @@ public class SocketClient extends AbstractClient {
 					Object object = inputStream.readObject();
 					socketClientProtocol.handleResponse(object);
 				} catch (ClassNotFoundException | IOException e) {
-					// Debug.critical("Cannot read server response", e);
+					System.err.println("Cannot read server response");
 					quit = true;
 				}
 				if (quit) {
@@ -212,7 +212,7 @@ public class SocketClient extends AbstractClient {
 			try {
 				closeable.close();
 			} catch (IOException e) {
-				// Debug.error(message, e);
+				System.err.println(message);
 			}
 		}
 	}

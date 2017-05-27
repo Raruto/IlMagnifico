@@ -64,13 +64,18 @@ public class FakeUI {
 
 	public static void mainClient(String serverAddress, int socketPort, int rmiPort) {
 
-		System.out.print("[RMI] or [Socket]? (Default: [RMI]): ");
+		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
 		inText = scanner.nextLine().toUpperCase();
 
-		// Dafult: RMI
-		if (!inText.equals(ConnectionTypes.RMI.toString()) && !inText.equals(ConnectionTypes.SOCKET.toString())) {
-			System.out.println("Connecting with RMI..");
+		if (inText.equals("S")) {
+			inText = ConnectionTypes.SOCKET.toString();
+		} else if (inText.equals("R")) {
 			inText = ConnectionTypes.RMI.toString();
+		}
+		// Default: RMI
+		else {
+			inText = ConnectionTypes.RMI.toString();
+			System.out.println("Connecting with RMI..");
 		}
 
 		try {
