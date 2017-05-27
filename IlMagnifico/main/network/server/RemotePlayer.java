@@ -1,6 +1,6 @@
 package main.network.server;
 
-import main.LorenzoIlMagnifico.Giocatore;
+import main.model.Giocatore;
 import main.network.NetworkException;
 import main.network.server.game.Room;
 

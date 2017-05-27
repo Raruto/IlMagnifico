@@ -2,7 +2,7 @@ package main.network.server.game;
 
 import java.util.*;
 
-import main.LorenzoIlMagnifico.Partita;
+import main.model.Partita;
 import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.RemotePlayer;
