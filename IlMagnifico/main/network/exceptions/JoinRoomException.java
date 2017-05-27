@@ -9,6 +9,11 @@ import main.network.NetworkException;
 public class JoinRoomException extends NetworkException {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8674697838871392712L;
+
+	/**
      * Base constructor.
      */
     public JoinRoomException() {

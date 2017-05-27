@@ -10,6 +10,11 @@ import main.network.NetworkException;
 public class LoginException extends NetworkException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3289587206631280854L;
+
+	/**
 	 * Base constructor.
 	 */
 	public LoginException() {

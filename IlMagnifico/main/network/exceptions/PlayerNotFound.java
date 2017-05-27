@@ -8,6 +8,11 @@ import main.network.exceptions.LogicException;
 public class PlayerNotFound extends LogicException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 526510107978150087L;
+
+	/**
 	 * Base constructor.
 	 */
 	public PlayerNotFound() {

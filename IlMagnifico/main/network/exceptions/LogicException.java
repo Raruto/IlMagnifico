@@ -8,6 +8,11 @@ import java.io.IOException;
 public class LogicException extends IOException {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 682103833853624348L;
+
+	/**
      * Base constructor.
      */
     public LogicException() {
