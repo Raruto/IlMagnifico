@@ -29,6 +29,8 @@ public class Server implements IServer {
 	 */
 	public static final int RMI_PORT = 1099;
 
+	public static final int MIN_ROOM_PLAYERS = 2;
+
 	public static final int MAX_ROOM_PLAYERS = 4;
 
 	/**
@@ -230,7 +232,7 @@ public class Server implements IServer {
 				joinLastRoom(remotePlayer);
 			} catch (RoomFullException e) {
 				try {
-					createNewRoom(remotePlayer, MAX_ROOM_PLAYERS);
+					createNewRoom(remotePlayer, MAX_ROOM_PLAYERS, MIN_ROOM_PLAYERS);
 					System.out.println("Succesfully created a room!");
 				} catch (CreateRoomException e1) {
 					e1.printStackTrace();
@@ -252,7 +254,7 @@ public class Server implements IServer {
 	 * @return configuration bundle that contains all default configurations.
 	 */
 	@Override
-	public void /* Configuration */ createNewRoom(RemotePlayer remotePlayer, int maxPlayers)
+	public void /* Configuration */ createNewRoom(RemotePlayer remotePlayer, int maxPlayers, int minPlayers)
 			throws CreateRoomException {
 		synchronized (ROOMS_MUTEX) {
 			boolean hasJoinRoom = false;
@@ -263,9 +265,17 @@ public class Server implements IServer {
 				System.err.println("No room has been created in the meanwhile, Player is going to create his room");
 			}
 			if (!hasJoinRoom) {
-				Room room = new Room(maxPlayers, remotePlayer);
+				Room room = new Room(remotePlayer, maxPlayers, minPlayers);
 				rooms.add(room);
 				remotePlayer.setRoom(room);
+
+				try {
+					remotePlayer.onChatMessage("SERVER",
+							"You have succesfully created and joined to room #" + room.getRoomNumber() + "!", true);
+				} catch (NetworkException e) {
+					e.printStackTrace();
+				}
+
 				return /* Configurator.getConfigurationBundle() */;
 			} else {
 				throw new CreateRoomException();

@@ -75,17 +75,15 @@ public class Client implements IClient {
 				System.exit(0);
 			}
 		}
-		// Debugging purpose
-		else {
-			try {
-				FakeUI.main(serverAddress, socketPort, rmiPort);
-				FakeUI.login();
-				FakeUI.sayHelloToPlayers();
-				FakeUI.infiniteLoop();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		// Debugging purpose
+		try {
+			FakeUI.main(serverAddress, socketPort, rmiPort);
+			FakeUI.login();
+			FakeUI.sayHelloToPlayers();
+			FakeUI.infiniteLoop();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

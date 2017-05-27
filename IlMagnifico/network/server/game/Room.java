@@ -9,11 +9,16 @@ import network.server.RemotePlayer;
 import network.exceptions.PlayerNotFound;
 
 /**
- * This class represent the room object that server will manage. Every single
- * room contains his match state and the list of players that are joined and it
- * has his own logic handler.
+ * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
+ * una partita e un insieme di giocatori associati ad essa.
  */
 public class Room {
+
+	/**
+	 * Numero identificatore della singola stanza (incrementato ogni volta che
+	 * viene creata una nuova Stanza)
+	 */
+	private static int roomNumber = 0;
 
 	/**
 	 * Debug constants.
@@ -21,36 +26,50 @@ public class Room {
 	private static final String DEBUG_PLAYER_DISCONNECTED = "[room] player disconnected";
 
 	/**
-	 * Game specific parameters.
+	 * Numero minimo di giocatori affinchè possa partire una partita.
 	 */
-	private static final int MIN_PLAYERS = 2;
+	private int minPlayers = 2;
+
+	/**
+	 * Numero massimo di giocatori gestibili da una partita.
+	 */
+	private int maxPlayers = 4;
+
+	/**
+	 * Tempo di attesa di altri giocatori all'interno della Stanza prima che una
+	 * nuova partita inizi automaticamente.
+	 */
 	private static final long ROOM_WAITING_TIME = 20 * 1000L;
+
+	/**
+	 * Costante associata ad un tempo di attesa nullo (usata per far iniziare
+	 * una nuova partita automaticamente quando si raggiunge il numero massimo
+	 * di giocatori gestibili).
+	 */
 	private static final long START_IMMEDIATELY = 0L;
 
 	/**
-	 * Internal object used as mutex for manage concurrent access to this room.
+	 * MUTEX per evitare la concorrenza tra giocatori durante l'accesso alla
+	 * Stanza.
 	 */
 	private static final Object ROOM_MUTEX = new Object();
 
 	/**
-	 * Number of max players in this room.
+	 * Lista di giocatori che sono stati aggiunti alla Stanza (vedi
+	 * {@link RemotePlayer}).
 	 */
-	private final int mMaxPlayers;
+	private final ArrayList<RemotePlayer> players;
 
 	/**
-	 * List of RemotePlayer joined in this room.
+	 * Timer utilizzato per i countdown.
 	 */
-	private final ArrayList<RemotePlayer> mPlayers;
+	private Timer timer;
 
 	/**
-	 * Timer instance used for scheduling internal timeout.
+	 * Flag usato per indicare quando una Stanza è ancora aperta (True) o chiusa
+	 * (False) all'aggiunta di nuovi giocatori.
 	 */
-	private Timer mMainTimer;
-
-	/**
-	 * This boolean is a flag to indicate when a room is closed or open.
-	 */
-	private boolean mCanJoin;
+	private boolean canJoin;
 
 	/**
 	 * Time to wait for player's move.
@@ -72,8 +91,6 @@ public class Room {
 	 */
 	private CountDownLatch mStartLatch;
 
-	private static int roomNumber = 0;
-
 	/**
 	 * Current game turn.
 	 */
@@ -86,47 +103,72 @@ public class Room {
 	// private MarketSession mMarketSession;
 
 	/**
-	 * Create a new instance of a room.
+	 * Costruttore.
+	 * 
+	 * @param player
+	 *            riferimento al giocatore che ha creato questa stanza (vedi
+	 *            {@link RemotePlayer}).
 	 * 
 	 * @param maxPlayers
-	 *            max number of players in this room.
-	 * @param player
-	 *            reference to player that created this room (ADMIN).
+	 *            numero massimo di giocatori per questa stanza.
+	 * @param minPlayers
+	 *            numero minimo di giocatori per questa stanza.
 	 */
-	public Room(int maxPlayers, RemotePlayer player) {
+	public Room(RemotePlayer player, int maxPlayers, int minPlayers) {
+
 		roomNumber++;
-		mMaxPlayers = maxPlayers;
-		mPlayers = new ArrayList<>();
-		mPlayers.add(player);
-		mCanJoin = true;
+
+		if (maxPlayers < this.maxPlayers)
+			this.maxPlayers = maxPlayers;
+		if (this.minPlayers > minPlayers)
+			this.minPlayers = minPlayers;
+
+		players = new ArrayList<>();
+		players.add(player);
+
+		canJoin = true;
+
 		mStartLatch = new CountDownLatch(1);
+
 	}
 
+	/**
+	 * Ritorna il numero identificatore della singola Stanza
+	 * 
+	 * @return roomNumber
+	 */
 	public int getRoomNumber() {
 		return roomNumber;
 	}
 
 	/**
-	 * Join a player in this room. It will manage concurrent access.
+	 * Aggiunge un giocatore alla Stanza .
 	 * 
 	 * @param player
-	 *            reference to the player that would join the room.
+	 *            riferimento al giocatore che da aggiugere alla Stanza (vedi
+	 *            {@link RemotePlayer}).
 	 * @throws RoomFullException
-	 *             if room is closed and no other players can join.
+	 *             se la stanza è chiusa e nessun altro giocatore può
+	 *             partecipare.
 	 */
 	public void joinPlayer(RemotePlayer player) throws RoomFullException {
-
 		synchronized (ROOM_MUTEX) {
-			if (mCanJoin) {
-				mPlayers.add(player);
+			if (canJoin) {
+				players.add(player);
 
-				System.out.println("Succesfully joined " + player.getNome() + " to room #" + getRoomNumber() + "!");
+				String message = "Succesfully joined " + player.getNome() + " to room #" + getRoomNumber() + "!";
+				try {
+					player.onChatMessage("ROOM", message, true);
+				} catch (NetworkException e) {
+					e.printStackTrace();
+				}
+				System.out.println(message);
 
-				if (mPlayers.size() == mMaxPlayers) {
-					mCanJoin = false;
+				if (players.size() == maxPlayers) {
+					canJoin = false;
 					cancelTimer();
 					startCountDownTimer(START_IMMEDIATELY);
-				} else if (mPlayers.size() == MIN_PLAYERS) {
+				} else if (players.size() == minPlayers) {
 					startCountDownTimer(ROOM_WAITING_TIME);
 				}
 			} else {
@@ -140,9 +182,9 @@ public class Room {
 	 * Cancel scheduled timer if set.
 	 */
 	private void cancelTimer() {
-		if (mMainTimer != null) {
-			mMainTimer.cancel();
-			mMainTimer.purge();
+		if (timer != null) {
+			timer.cancel();
+			timer.purge();
 		}
 	}
 
@@ -153,16 +195,15 @@ public class Room {
 	 *            time to wait until the start of the game.
 	 */
 	private void startCountDownTimer(long waitingTime) {
-		mMainTimer = new Timer();
-		mMainTimer.schedule(new RoomGameHandler(), waitingTime);
+		timer = new Timer();
+		timer.schedule(new RoomGameHandler(), waitingTime);
 
 		int delay = 1000, period = 1000;
 		interval = (int) waitingTime / 1000;
 
-		notifyAllPlayers("Game will start soon...");
-		notifyAllPlayers(String.valueOf(interval));
+		notifyAllPlayers("Game will start in " + interval + "sec ...");
 
-		mMainTimer.scheduleAtFixedRate(new TimerTask() {
+		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				notifyAllPlayers(String.valueOf(setInterval()));
 			}
@@ -171,7 +212,7 @@ public class Room {
 	}
 
 	private void notifyAllPlayers(String message) {
-		mPlayers.stream().forEach(remotePlayer -> {
+		players.stream().forEach(remotePlayer -> {
 			try {
 				remotePlayer.onChatMessage("ROOM", message, false);
 			} catch (NetworkException e) {
@@ -184,7 +225,7 @@ public class Room {
 
 	private final int setInterval() {
 		if (interval == 1)
-			mMainTimer.cancel();
+			timer.cancel();
 		return --interval;
 	}
 
@@ -876,7 +917,7 @@ public class Room {
 	 */
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
 		if (receiver != null) {
-			for (RemotePlayer remotePlayer : mPlayers) {
+			for (RemotePlayer remotePlayer : players) {
 				if (receiver.equals(remotePlayer.getNome())) {
 					sendChatMessage(remotePlayer, player.getNome(), message, true);
 					return;
@@ -884,7 +925,7 @@ public class Room {
 			}
 			throw new PlayerNotFound();
 		} else {
-			mPlayers.stream().filter(remotePlayer -> remotePlayer != player)
+			players.stream().filter(remotePlayer -> remotePlayer != player)
 					.forEach(remotePlayer -> sendChatMessage(remotePlayer, player.getNome(), message, false));
 		}
 	}
@@ -952,7 +993,7 @@ public class Room {
 		 */
 		private void closeRoomSafely() {
 			synchronized (ROOM_MUTEX) {
-				mCanJoin = false;
+				canJoin = false;
 			}
 		}
 		//
