@@ -15,19 +15,19 @@ public class Giocatore implements Serializable {
 	private static final long serialVersionUID = 3225605065408244944L;
 
 	/**
-	 * Nickname del giocatore.
+	 * Nome del giocatore.
 	 */
 	private String nome;
 
 	/**
 	 * Colore del giocatore.
 	 */
-	private PlayerColors color;
+	private PlayerColors colore;
 
 	/**
 	 * Flag che indica se il giocatore è online
 	 */
-	private boolean online;
+	private boolean isOnline;
 
 	/**
 	 * 
@@ -61,33 +61,33 @@ public class Giocatore implements Serializable {
 	}
 
 	/**
-	 * Imposta il nickname del giocatore (utilizzato per identificare
+	 * Imposta il nome del giocatore (utilizzato per identificare
 	 * univocamente il giocatore all'interno del gioco).
 	 * 
-	 * @param nickname
+	 * @param nome
 	 *            nickname da assegnare al giocatore.
 	 */
-	public void setNickname(String nickname) {
-		this.nome = nickname;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	/**
-	 * Ritorna il nickname del giocatore.
+	 * Ritorna il nome del giocatore.
 	 * 
-	 * @return nickname del giocatore.
+	 * @return nome del giocatore.
 	 */
-	public String getNickname() {
+	public String getNome() {
 		return nome;
 	}
 
 	/**
 	 * Imposta il colore del giocatore.
 	 * 
-	 * @param color
+	 * @param colore
 	 *            colore da assegnare al giocatore.
 	 */
-	public void setColor(PlayerColors color) {
-		this.color = color;
+	public void setColore(PlayerColors colore) {
+		this.colore = colore;
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class Giocatore implements Serializable {
 	 * 
 	 * @return {@link PlayerColors} colore del giocatore.
 	 */
-	public PlayerColors getColor() {
-		return this.color;
+	public PlayerColors getColore() {
+		return this.colore;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Giocatore implements Serializable {
 	 *            "True" imposta lo stato del giocatore come presente (online).
 	 */
 	public void setOnline(boolean online) {
-		this.online = online;
+		this.isOnline = online;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Giocatore implements Serializable {
 	 * @return "True" se il giocatore è online.
 	 */
 	public boolean isOnline() {
-		return this.online;
+		return this.isOnline;
 	}
 
 	/**

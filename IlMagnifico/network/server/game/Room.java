@@ -120,7 +120,7 @@ public class Room {
 			if (mCanJoin) {
 				mPlayers.add(player);
 
-				System.out.println("Succesfully joined " + player.getNickname() + " to room #" + getRoomNumber() + "!");
+				System.out.println("Succesfully joined " + player.getNome() + " to room #" + getRoomNumber() + "!");
 
 				if (mPlayers.size() == mMaxPlayers) {
 					mCanJoin = false;
@@ -877,15 +877,15 @@ public class Room {
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : mPlayers) {
-				if (receiver.equals(remotePlayer.getNickname())) {
-					sendChatMessage(remotePlayer, player.getNickname(), message, true);
+				if (receiver.equals(remotePlayer.getNome())) {
+					sendChatMessage(remotePlayer, player.getNome(), message, true);
 					return;
 				}
 			}
 			throw new PlayerNotFound();
 		} else {
 			mPlayers.stream().filter(remotePlayer -> remotePlayer != player)
-					.forEach(remotePlayer -> sendChatMessage(remotePlayer, player.getNickname(), message, false));
+					.forEach(remotePlayer -> sendChatMessage(remotePlayer, player.getNome(), message, false));
 		}
 	}
 

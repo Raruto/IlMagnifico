@@ -168,7 +168,7 @@ public class Server implements IServer {
 			String id = "[" + nickname.toUpperCase() + "]";
 
 			if (!players.containsKey(nickname)) {
-				player.setNickname(nickname);
+				player.setNome(nickname);
 				players.put(nickname, player);
 				System.out.println(id + " Succesfully logged in!");
 				try {
@@ -287,15 +287,16 @@ public class Server implements IServer {
 	 *             se il ricevitore non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 */
+	@Override
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
 
-		String author = player.getNickname();
+		String author = player.getNome();
 		System.out.println("[" + author.toUpperCase() + "]" + " " + message);
 
 		/* Send a UNICAST message */
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players.values()) {
-				if (receiver.equals(remotePlayer.getNickname())) {
+				if (receiver.equals(remotePlayer.getNome())) {
 					try {
 						remotePlayer.onChatMessage(author, message, true);
 					} catch (NetworkException e) {

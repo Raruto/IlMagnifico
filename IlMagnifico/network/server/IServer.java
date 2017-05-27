@@ -85,5 +85,5 @@ public interface IServer {
 	 *             se il ricevitore non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 */
-	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
+	void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
 }
