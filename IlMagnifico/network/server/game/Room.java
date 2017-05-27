@@ -3,10 +3,12 @@ package network.server.game;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
+import LorenzoIlMagnifico.Partita;
 import network.NetworkException;
 import network.server.RemotePlayer;
 
 import network.exceptions.PlayerNotFound;
+import network.protocol.PlayerColors;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
@@ -72,35 +74,14 @@ public class Room {
 	private boolean canJoin;
 
 	/**
-	 * Time to wait for player's move.
+	 * Stato completo della partita.
 	 */
-	private int mWaitingTime;
+	private ServerGame game;
 
 	/**
-	 * Instance of admin configuration.
+	 * ID usato per identificare la stanza nelle comunicazioni
 	 */
-	// private Configuration mConfiguration;
-
-	/**
-	 * Complete match state.
-	 */
-	// private ServerGame mGame;
-
-	/**
-	 * Semaphore used to wait main thread for game configuration.
-	 */
-	private CountDownLatch mStartLatch;
-
-	/**
-	 * Current game turn.
-	 */
-	// private Turn mTurn;
-
-	/**
-	 * Market session that contains everything about item's that every player is
-	 * selling or buying.
-	 */
-	// private MarketSession mMarketSession;
+	private static final String ID = "ROOM";
 
 	/**
 	 * Costruttore.
@@ -128,7 +109,7 @@ public class Room {
 
 		canJoin = true;
 
-		mStartLatch = new CountDownLatch(1);
+		// mStartLatch = new CountDownLatch(1);
 
 	}
 
@@ -156,17 +137,13 @@ public class Room {
 			if (canJoin) {
 				players.add(player);
 
-				String message = "Succesfully joined " + player.getNome() + " to room #" + getRoomNumber() + "!";
-				try {
-					player.onChatMessage("ROOM", message, true);
-				} catch (NetworkException e) {
-					e.printStackTrace();
-				}
+				String message = "Succesfully joined " + player.getNome() + " to room #" + roomNumber + "!";
+				logToPlayer(player, message);
 				System.out.println(message);
 
 				if (players.size() == maxPlayers) {
 					canJoin = false;
-					cancelTimer();
+					resetTimer();
 					startCountDownTimer(START_IMMEDIATELY);
 				} else if (players.size() == minPlayers) {
 					startCountDownTimer(ROOM_WAITING_TIME);
@@ -179,9 +156,9 @@ public class Room {
 	}
 
 	/**
-	 * Cancel scheduled timer if set.
+	 * Resetta il timer se programmato.
 	 */
-	private void cancelTimer() {
+	private void resetTimer() {
 		if (timer != null) {
 			timer.cancel();
 			timer.purge();
@@ -189,717 +166,42 @@ public class Room {
 	}
 
 	/**
-	 * Start the count down timer.
+	 * Fa partire il timer di conteggio per l'inizio della partita.
 	 *
 	 * @param waitingTime
-	 *            time to wait until the start of the game.
+	 *            tempo da attendere prima dell'inizio del gioco.
 	 */
 	private void startCountDownTimer(long waitingTime) {
+		int countDownDelay = 1000, countDownPeriod = 1000;
+		int countDownInterval = (int) waitingTime / 1000;
+
+		logToAllPlayers("Game will start in " + countDownInterval + "sec...");
+
+		// Gestore Partita
 		timer = new Timer();
 		timer.schedule(new RoomGameHandler(), waitingTime);
 
-		int delay = 1000, period = 1000;
-		interval = (int) waitingTime / 1000;
-
-		notifyAllPlayers("Game will start in " + interval + "sec ...");
-
-		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				notifyAllPlayers(String.valueOf(setInterval()));
-			}
-		}, delay, period);
-
+		// Gestore notifica Countdown
+		timer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval), countDownDelay, countDownPeriod);
 	}
 
-	private void notifyAllPlayers(String message) {
+	private void logToPlayer(RemotePlayer player, String message, boolean privateMessage) {
+		try {
+			player.onChatMessage(ID, message, privateMessage);
+		} catch (NetworkException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void logToPlayer(RemotePlayer player, String message) {
+		logToPlayer(player, message, true);
+	}
+
+	private void logToAllPlayers(String message) {
 		players.stream().forEach(remotePlayer -> {
-			try {
-				remotePlayer.onChatMessage("ROOM", message, false);
-			} catch (NetworkException e) {
-				e.printStackTrace();
-			}
+			logToPlayer(remotePlayer, message, false);
 		});
 	}
-
-	static int interval;
-
-	private final int setInterval() {
-		if (interval == 1)
-			timer.cancel();
-		return --interval;
-	}
-
-	/**
-	 * // * Configure internal game state. This method is called by the admin
-	 * during // * a client to server request. // * // * @param configuration //
-	 * * bundle with all configured data from admin player. //
-	 */
-	// public void configureGame(Configuration configuration) {
-	// mWaitingTime = configuration.getWaitingTime();
-	// mConfiguration = configuration;
-	// Debug.debug("[ROOM] configuration ready");
-	// mStartLatch.countDown();
-	// }
-	//
-	// /**
-	// * [GAME ACTION #1] Draw politic card.
-	// *
-	// * @param player
-	// * that would draw the card.
-	// * @throws PoliticCardAlreadyDrawn
-	// * if politic card has been already drawn in this turn.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void drawPoliticCard(RemotePlayer player) throws LogicException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)) {
-	// if (!((GameTurn) mTurn).getActionList().isPoliticCardDrawn()) {
-	// UpdateState updateState = mGame.drawPoliticCard(player);
-	// ((GameTurn) mTurn).setPoliticCardDrawn();
-	// mPlayers.forEach(p -> notifyPlayerPoliticCardDrawn(p, updateState));
-	// return;
-	// }
-	// throw new PoliticCardAlreadyDrawn();
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Notify player that a politic card has been drawn by someone.
-	// *
-	// * @param player
-	// * that should be notified of the action.
-	// * @param updateState
-	// * to send to the player that should be notified.
-	// */
-	// private void notifyPlayerPoliticCardDrawn(RemotePlayer player,
-	// UpdateState updateState) {
-	// try {
-	// player.onPoliticCardDrawn(updateState);
-	// } catch (NetworkException e) {
-	// Debug.error("Player is disconnected", e);
-	// }
-	// }
-	//
-	// /**
-	// * Retrieve a list of all available actions that the player can do.
-	// *
-	// * @param player
-	// * that would get the action list.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void sendActionList(RemotePlayer player) throws
-	// NotYourTurnException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)) {
-	// try {
-	// player.onActionList(((GameTurn) mTurn).getActionList());
-	// } catch (NetworkException e) {
-	// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Check if player can make a main action.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws MainActionNotAvailable
-	// * if player has no main action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// private void checkIfPlayerCanMakeMainAction(RemotePlayer player) throws
-	// LogicException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)) {
-	// ActionList actionList = ((GameTurn) mTurn).getActionList();
-	// if (actionList.isPoliticCardDrawn()) {
-	// if (actionList.getMainActionCount() > 0) {
-	// return;
-	// }
-	// throw new MainActionNotAvailable();
-	// }
-	// throw new PoliticCardNotYetDrawn();
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Check if player can make a fast action.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws FastActionNotAvailable
-	// * if player has no fast action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// private void checkIfPlayerCanMakeFastAction(RemotePlayer player) throws
-	// LogicException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)) {
-	// ActionList actionList = ((GameTurn) mTurn).getActionList();
-	// if (actionList.isPoliticCardDrawn()) {
-	// if (actionList.getFastActionCount() > 0) {
-	// return;
-	// }
-	// throw new FastActionNotAvailable();
-	// }
-	// throw new PoliticCardNotYetDrawn();
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * [MAIN ACTION #1] Elect a councillor.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @param councilor
-	// * to add to the region balcony.
-	// * @param region
-	// * where the balcony to satisfy is located.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws MainActionNotAvailable
-	// * if player has no main action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void electCouncillor(RemotePlayer player, Councilor councilor,
-	// String region) throws LogicException {
-	// checkIfPlayerCanMakeMainAction(player);
-	// UpdateState updateState = mGame.electCouncillor(player, councilor,
-	// region, true);
-	// ((GameTurn) mTurn).onMainActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onCouncillorElected(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [MAIN ACTION #2] Acquire a business permit tile.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @param politicCards
-	// * list of politic cards to use to satisfy the balcony.
-	// * @param region
-	// * where the balcony to satisfy is placed.
-	// * @param permitTileIndex
-	// * index of the permit tile to acquire.
-	// * @throws BalconyUnsatisfiable
-	// * if none of the given politic cards can satisfy this balcony.
-	// * @throws NotEnoughCoins
-	// * if player has no enough coins to satisfy this balcony.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws MainActionNotAvailable
-	// * if player has no main action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void acquireBusinessPermitTiles(RemotePlayer player,
-	// List<PoliticCard> politicCards, String region,
-	// int permitTileIndex) throws LogicException {
-	// checkIfPlayerCanMakeMainAction(player);
-	// UpdateState updateState = mGame.acquireBusinessPermitTile(player,
-	// (GameTurn) mTurn, politicCards, region,
-	// permitTileIndex);
-	// ((GameTurn) mTurn).onMainActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onBusinessPermitTileAcquired(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [MAIN ACTION #3] Build an emporium with given business permit tile on
-	// * provided city.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @param businessPermitTile
-	// * to use to build the emporium.
-	// * @param city
-	// * where the emporium should be built.
-	// * @throws CityNotFound
-	// * if city is not found.
-	// * @throws CityNotValid
-	// * if provided business permit tile cannot be used to build an
-	// * emporium on this city.
-	// * @throws EmporiumAlreadyBuilt
-	// * if player has already built an emporium on this city.
-	// * @throws NotEnoughAssistants
-	// * if player has no enough assistants for building this
-	// * emporium.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws MainActionNotAvailable
-	// * if player has no main action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void buildEmporiumWithBusinessPermitTile(RemotePlayer player,
-	// BusinessPermitTile businessPermitTile,
-	// String city) throws LogicException {
-	// checkIfPlayerCanMakeMainAction(player);
-	// UpdateState updateState = mGame.buildEmporium(player, (GameTurn) mTurn,
-	// businessPermitTile, city);
-	// ((GameTurn) mTurn).onMainActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onEmporiumBuiltWithPermitTile(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [MAIN ACTION #4] Build an emporium with the help of the king.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @param politicCards
-	// * list of politic cards to use to satisfy the king's balcony.
-	// * @param kingMoves
-	// * list of linked cities which represent the king's movements.
-	// * @throws BalconyUnsatisfiable
-	// * if none of the given politic cards can satisfy this balcony.
-	// * @throws NotEnoughCoins
-	// * if player has no enough coins to satisfy this balcony and
-	// * move the king.
-	// * @throws NotEnoughAssistants
-	// * if player has no enough assistants for building this
-	// * emporium.
-	// * @throws CityNotFound
-	// * if a city is not recognized or cannot find current king city.
-	// * @throws RouteNotValid
-	// * is provided route is not valid or king is not in initial
-	// * city.
-	// * @throws EmporiumAlreadyBuilt
-	// * if player has already built an emporium on this city.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws MainActionNotAvailable
-	// * if player has no main action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void buildEmporiumWithKingHelp(RemotePlayer player,
-	// List<PoliticCard> politicCards, List<String> kingMoves)
-	// throws LogicException {
-	// checkIfPlayerCanMakeMainAction(player);
-	// UpdateState updateState = mGame.buildEmporium(player, (GameTurn) mTurn,
-	// politicCards, kingMoves);
-	// ((GameTurn) mTurn).onMainActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onEmporiumBuiltWithKingHelp(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [FAST ACTION #1] Engage an assistant.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @throws NotEnoughCoins
-	// * if player has no enough coins to engage the assistant.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws FastActionNotAvailable
-	// * if player has no fast action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void engageAssistant(RemotePlayer player) throws LogicException {
-	// checkIfPlayerCanMakeFastAction(player);
-	// UpdateState updateState = mGame.engageAssistant(player);
-	// ((GameTurn) mTurn).onFastActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onAssistantEngaged(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [FAST ACTION #2] Change business permit tiles.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @param region
-	// * where the business permit tiles should be changed.
-	// * @throws NotEnoughAssistants
-	// * if player has no enough assistants.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws FastActionNotAvailable
-	// * if player has no fast action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void changeBusinessPermitTiles(RemotePlayer player, String region)
-	// throws LogicException {
-	// checkIfPlayerCanMakeFastAction(player);
-	// UpdateState updateState = mGame.changeBusinessPermitTiles(player,
-	// region);
-	// ((GameTurn) mTurn).onFastActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onBusinessPermitTilesChanged(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [FAST ACTION #3] Send assistant to elect a councillor.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @param councilor
-	// * that should be elected.
-	// * @param region
-	// * where the councillor should be added.
-	// * @throws NotEnoughAssistants
-	// * if player has no enough assistants.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws FastActionNotAvailable
-	// * if player has no fast action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void sendAssistantToElectCouncillor(RemotePlayer player, Councilor
-	// councilor, String region)
-	// throws LogicException {
-	// checkIfPlayerCanMakeFastAction(player);
-	// UpdateState updateState = mGame.sendAssistantToElectCouncillor(player,
-	// councilor, region);
-	// ((GameTurn) mTurn).onFastActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onAssistantSentToElectCouncillor(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * [FAST ACTION #4] Perform an additional main action.
-	// *
-	// * @param player
-	// * that has made the request.
-	// * @throws NotEnoughAssistants
-	// * if player has no enough assistants.
-	// * @throws PoliticCardNotYetDrawn
-	// * if player should draw a politic card before.
-	// * @throws FastActionNotAvailable
-	// * if player has no fast action available.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void performAdditionalMainAction(RemotePlayer player) throws
-	// LogicException {
-	// checkIfPlayerCanMakeFastAction(player);
-	// UpdateState updateState = mGame.performAdditionalMainAction(player);
-	// ((GameTurn) mTurn).addAdditionalMainAction();
-	// ((GameTurn) mTurn).onFastActionDone();
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onAdditionalMainActionGranted(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// }
-	//
-	// /**
-	// * Special reward 1: "Obtain the bonus of a reward token from a city where
-	// * you have an emporium. You cannot choose one of the tokens which advance
-	// * you along the nobility track".
-	// *
-	// * @param player
-	// * that want to earn a special reward.
-	// * @param cities
-	// * where the reward token are placed.
-	// * @throws CityNotFound
-	// * if one of the provided city is not found on the game state.
-	// * @throws CityNotValid
-	// * if a city is provided more than one time, if the player has
-	// * no emporium in one city or if the reward of that city let
-	// * player to move along the nobility track.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void earnFirstSpecialRewards(RemotePlayer player, List<String>
-	// cities) throws LogicException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)
-	// && ((GameTurn) mTurn).getFirstSpecialBonusCount() > 0) {
-	// UpdateState updateState = mGame.earnFirstSpecialRewards(player,
-	// (GameTurn) mTurn, cities);
-	// ((GameTurn) mTurn).decrementFirstSpecialRewards(cities.size());
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onFirstSpecialRewardsEarned(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Special reward 2: "You can take a face up building permit tile without
-	// * paying the cost".
-	// *
-	// * @param player
-	// * that want to earn a special reward.
-	// * @param regions
-	// * where the player want to take a business permit tile.
-	// * @param indices
-	// * related to the same index region that identify the permit tile
-	// * that the player wants.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void earnSecondSpecialRewards(RemotePlayer player, List<String>
-	// regions, List<Integer> indices)
-	// throws NotYourTurnException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)
-	// && ((GameTurn) mTurn).getSecondSpecialBonusCount() > 0) {
-	// UpdateState updateState = mGame.earnSecondSpecialRewards(player,
-	// (GameTurn) mTurn, regions, indices);
-	// ((GameTurn) mTurn).decrementSecondSpecialRewards(regions.size());
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onSecondSpecialRewardsEarned(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Special reward 3: "You receive the bonus of one of the business permit
-	// * tiles which you previously bought (also a face down tile)".
-	// *
-	// * @param player
-	// * that want to earn a special reward.
-	// * @param businessPermitTiles
-	// * list of player business permit tiles that he want to re use to
-	// * get the related reward.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// */
-	// public void earnThirdSpecialRewards(RemotePlayer player,
-	// List<BusinessPermitTile> businessPermitTiles)
-	// throws NotYourTurnException {
-	// if (mTurn instanceof GameTurn && mTurn.isCurrentPlayer(player)
-	// && ((GameTurn) mTurn).getThirdSpecialBonusCount() > 0) {
-	// UpdateState updateState = mGame.earnThirdSpecialRewards(player,
-	// (GameTurn) mTurn, businessPermitTiles);
-	// ((GameTurn)
-	// mTurn).decrementThirdSpecialRewards(businessPermitTiles.size());
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onThirdSpecialRewardsEarned(updateState);
-	// } catch (NetworkException e) {
-	// Debug.debug(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Force stop current player turn.
-	// *
-	// * @param player
-	// * that is making the request.
-	// * @throws NotYourTurnException
-	// * if the player that is making the request is not the current
-	// * player.
-	// */
-	// public void endTurn(RemotePlayer player) throws NotYourTurnException {
-	// if (mTurn.isCurrentPlayer(player)) {
-	// mTurn.stopCountDown();
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Sell a politic card over the market.
-	// *
-	// * @param player
-	// * that is selling the card.
-	// * @param politicCard
-	// * that should be sold.
-	// * @param coins
-	// * that the player would get to sell the card.
-	// * @throws ItemNotFound
-	// * if the provided item is not found on player repository.
-	// * @throws ItemAlreadyOnSale
-	// * if the provided item is already on sale.
-	// * @throws NotYourTurnException
-	// * if the player that is making the request is not the current
-	// * player.
-	// */
-	// public void sellPoliticCard(RemotePlayer player, PoliticCard politicCard,
-	// int coins) throws LogicException {
-	// if (mTurn instanceof MarketTurn && ((MarketTurn) mTurn).getMode() ==
-	// MarketTurn.Mode.SELL
-	// && mTurn.isCurrentPlayer(player)) {
-	// Item item = mMarketSession.sellPoliticCard(player, politicCard, coins);
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onMarketItemAddedOnSale(item);
-	// } catch (NetworkException e) {
-	// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Sell a business permit tile over the market.
-	// *
-	// * @param player
-	// * that is selling the card.
-	// * @param permitTile
-	// * that should be sold.
-	// * @param coins
-	// * that the player would get to sell the card.
-	// * @throws ItemNotFound
-	// * if the provided item is not found on player repository.
-	// * @throws ItemAlreadyOnSale
-	// * if the provided item is already on sale.
-	// * @throws NotYourTurnException
-	// * if the player that is making the request is not the current
-	// * player.
-	// */
-	// public void sellBusinessPermitTile(RemotePlayer player,
-	// BusinessPermitTile permitTile, int coins)
-	// throws LogicException {
-	// if (mTurn instanceof MarketTurn && ((MarketTurn) mTurn).getMode() ==
-	// MarketTurn.Mode.SELL
-	// && mTurn.isCurrentPlayer(player)) {
-	// Item item = mMarketSession.sellBusinessPermitTile(player, permitTile,
-	// coins);
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onMarketItemAddedOnSale(item);
-	// } catch (NetworkException e) {
-	// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Sell an assistant over the market.
-	// *
-	// * @param player
-	// * that is selling the assistant.
-	// * @param coins
-	// * that the player would get to sell the assistant.
-	// * @throws ItemNotFound
-	// * if the provided item is not found on player repository.
-	// * @throws ItemAlreadyOnSale
-	// * if the provided item is already on sale.
-	// * @throws NotYourTurnException
-	// * if the player that is making the request is not the current
-	// * player.
-	// */
-	// public void sellAssistant(RemotePlayer player, int coins) throws
-	// LogicException {
-	// if (mTurn instanceof MarketTurn && ((MarketTurn) mTurn).getMode() ==
-	// MarketTurn.Mode.SELL
-	// && mTurn.isCurrentPlayer(player)) {
-	// Item item = mMarketSession.sellAssistant(player, coins);
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onMarketItemAddedOnSale(item);
-	// } catch (NetworkException e) {
-	// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
-	//
-	// /**
-	// * Buy a market item.
-	// *
-	// * @param player
-	// * that is buying the item.
-	// * @param marketId
-	// * id of the item the player would buy.
-	// * @throws ItemNotFound
-	// * if the player that is making the request is not the current
-	// * player.
-	// * @throws ItemAlreadySold
-	// * if the player that is making the request is not the current
-	// * player.
-	// * @throws NotEnoughCoins
-	// * if the player that is making the request is not the current
-	// * player.
-	// * @throws NotYourTurnException
-	// * if the player that is making the request is not the current
-	// * player.
-	// */
-	// public void buyItem(RemotePlayer player, String marketId) throws
-	// LogicException {
-	// if (mTurn instanceof MarketTurn && ((MarketTurn) mTurn).getMode() ==
-	// MarketTurn.Mode.BUY
-	// && mTurn.isCurrentPlayer(player)) {
-	// mMarketSession.buyItem(player, marketId, mGame);
-	// for (RemotePlayer remotePlayer : mPlayers) {
-	// try {
-	// remotePlayer.onMarketItemBought(player.getNickname(), marketId);
-	// } catch (NetworkException e) {
-	// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-	// }
-	// }
-	// return;
-	// }
-	// throw new NotYourTurnException();
-	// }
 
 	/**
 	 * Send a chat message to all players or to a specific player.
@@ -954,21 +256,25 @@ public class Room {
 	/**
 	 * This class represent the game logic to execute during a match.
 	 */
-	private class RoomGameHandler
-			extends TimerTask /* implements Turn.TurnCallback */ {
+	private class RoomGameHandler extends TimerTask {
+
+		private final String id = "ROOM#" + roomNumber;
 
 		/**
 		 * Called by Timer when time is expired.
 		 */
 		@Override
 		public void run() {
-			notifyAllPlayers("Game started!");
+			logToAllPlayers("Game started!");
 
-			System.out.println("[ROOM] Starting room thread, closing room");
+			log("Starting room thread, closing room");
 			closeRoomSafely();
-			// Debug.verbose("[ROOM] Creating game session");
-			// createGameSession();
-			// Debug.verbose("[ROOM] Room closed, %d players", mPlayers.size());
+
+			log("Creating game session");
+			createGameSession();
+
+			log("Room closed, " + players.size() + " players in");
+
 			// dispatchGameSession();
 			// Debug.verbose("[ROOM] Game dispatched. Starting with logic.");
 			while (true) {
@@ -986,7 +292,10 @@ public class Room {
 			// Debug.verbose("[ROOM] Room game finished.");
 		}
 
-		//
+		private void log(String message) {
+			System.out.println("[" + id + "] " + message);
+		}
+
 		/**
 		 * Close the room avoiding to block in deadlock the other players that
 		 * are trying to join at this time.
@@ -996,19 +305,19 @@ public class Room {
 				canJoin = false;
 			}
 		}
-		//
-		// /**
-		// * Create game session from configuration.
-		// */
-		// private void createGameSession() {
-		// try {
-		// mStartLatch.await();
-		// } catch (InterruptedException e) {
-		// Thread.currentThread().interrupt();
-		// Debug.critical(e);
-		// }
-		// mGame = Configurator.getGameInstance(mPlayers, mConfiguration);
-		// }
+
+		/**
+		 * Create game session from configuration.
+		 */
+		private void createGameSession() {
+			game = new ServerGame();
+			/*
+			 * try { mStartLatch.await(); } catch (InterruptedException e) {
+			 * Thread.currentThread().interrupt(); Debug.critical(e); } mGame =
+			 * Configurator.getGameInstance(mPlayers, mConfiguration);
+			 */
+
+		}
 		//
 		// /**
 		// * Wait until the admin has finished to setup the game session, than
@@ -1246,5 +555,29 @@ public class Room {
 		// }
 		// });
 		// }
+	}
+
+	/**
+	 * Classe per la gestione di countdown e relativa notifica ai giocatori
+	 */
+	private class RoomCountDownHandler extends TimerTask {
+
+		private int interval = 0;
+
+		public RoomCountDownHandler(int interval) {
+			this.interval = interval;
+		}
+
+		@Override
+		public void run() {
+			logToAllPlayers(String.valueOf(setInterval()));
+		}
+
+		private final int setInterval() {
+			if (interval == 1)
+				timer.cancel();
+			return --interval;
+		}
+
 	}
 }

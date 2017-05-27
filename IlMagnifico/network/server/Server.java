@@ -65,6 +65,11 @@ public class Server implements IServer {
 	private RMIServer rmiServer;
 
 	/**
+	 * ID usato per identificare il server nelle comunicazioni
+	 */
+	private static final String ID = "SERVER";
+
+	/**
 	 * Crea una nuova istanza della classe.
 	 * 
 	 * @throws ServerException
@@ -254,8 +259,7 @@ public class Server implements IServer {
 	 * @return configuration bundle that contains all default configurations.
 	 */
 	@Override
-	public void /* Configuration */ createNewRoom(RemotePlayer remotePlayer, int maxPlayers, int minPlayers)
-			throws CreateRoomException {
+	public void createNewRoom(RemotePlayer remotePlayer, int maxPlayers, int minPlayers) throws CreateRoomException {
 		synchronized (ROOMS_MUTEX) {
 			boolean hasJoinRoom = false;
 			try {
@@ -270,7 +274,7 @@ public class Server implements IServer {
 				remotePlayer.setRoom(room);
 
 				try {
-					remotePlayer.onChatMessage("SERVER",
+					remotePlayer.onChatMessage(ID,
 							"You have succesfully created and joined to room #" + room.getRoomNumber() + "!", true);
 				} catch (NetworkException e) {
 					e.printStackTrace();
