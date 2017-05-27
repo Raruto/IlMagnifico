@@ -1,4 +1,4 @@
-package main.launcher;
+package main.util.launcher;
 
 import main.network.client.*;
 
