@@ -9,6 +9,11 @@ import java.io.IOException;
 public class ServerException extends IOException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3462339504063019202L;
+
+	/**
 	 * Costruttore.
 	 * 
 	 * @param message

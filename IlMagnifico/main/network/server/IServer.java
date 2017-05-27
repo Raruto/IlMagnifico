@@ -58,19 +58,6 @@ public interface IServer {
 	void createNewRoom(RemotePlayer remotePlayer, int maxPlayers, int minPlayers) throws CreateRoomException;
 
 	/**
-	 * Check and apply the provided configuration into the player's room.
-	 * 
-	 * @param room
-	 *            where should be applied the configuration.
-	 * @param configuration
-	 *            that should be validated and applied.
-	 * @throws InvalidConfigurationException
-	 *             if provided configuration is not valid.
-	 */
-	// void applyGameConfiguration(Room room, Configuration configuration)
-	// throws InvalidConfigurationException;
-
-	/**
 	 * Invia un messaggio di chat a tutti i giocatori o un giocatore specifico.
 	 * 
 	 * @param player

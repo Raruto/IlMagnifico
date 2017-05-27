@@ -9,6 +9,11 @@ import java.io.IOException;
 public class NetworkException extends IOException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3569320576419655791L;
+
+	/**
 	 * Costruttore.
 	 */
 	public NetworkException() {
