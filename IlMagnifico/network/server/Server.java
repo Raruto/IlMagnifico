@@ -292,7 +292,7 @@ public class Server implements IServer {
 		String author = player.getNickname();
 		System.out.println("[" + author.toUpperCase() + "]" + " " + message);
 
-		/* Send a BROADCAST message */
+		/* Send a UNICAST message */
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players.values()) {
 				if (receiver.equals(remotePlayer.getNickname())) {

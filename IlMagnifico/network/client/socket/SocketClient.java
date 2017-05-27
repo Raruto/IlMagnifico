@@ -67,6 +67,8 @@ public class SocketClient extends AbstractClient {
 		} catch (IOException e) {
 			throw new ClientException(e);
 		}
+
+		initializeConnection();
 	}
 
 	/**

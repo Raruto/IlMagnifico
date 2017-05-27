@@ -3,13 +3,9 @@ package network.protocol.socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-
 import network.NetworkException;
 import network.client.IClient;
-import network.exceptions.CreateRoomException;
 import network.exceptions.JoinRoomException;
 import network.exceptions.LoginException;
 
@@ -66,7 +62,61 @@ public class ClientProtocol {
 		mOutput = output;
 		mCallback = callback;
 		mResponseMap = new HashMap<>();
-		// loadResponses();
+		loadResponses();
+	}
+
+	/**
+	 * Load all possible responses and associate an handler.
+	 */
+	private void loadResponses() {
+		// mResponseMap.put(ProtocolConstants.ACTION_NOT_VALID,
+		// this::actionNotValid);
+		// mResponseMap.put(ProtocolConstants.GAME_STARTED, this::gameStarted);
+		// mResponseMap.put(ProtocolConstants.GAME_TURN_STARTED,
+		// this::gameTurnStarted);
+		// mResponseMap.put(ProtocolConstants.COUNTDOWN_UPDATED,
+		// this::countdownUpdated);
+		// mResponseMap.put(ProtocolConstants.POLITIC_CARD_DRAWN,
+		// this::politicCardDrawn);
+		// mResponseMap.put(ProtocolConstants.ACTION_LIST, this::actionList);
+		// mResponseMap.put(ProtocolConstants.COUNCILLOR_ELECTED,
+		// this::councillorElected);
+		// mResponseMap.put(ProtocolConstants.BUSINESS_PERMIT_TILE_ACQUIRED,
+		// this::businessPermitTileAcquired);
+		// mResponseMap.put(ProtocolConstants.EMPORIUM_BUILT_WITH_BUSINESS_PERMIT_TILE,
+		// this::emporiumBuiltWithBusinessPermitTile);
+		// mResponseMap.put(ProtocolConstants.EMPORIUM_BUILT_WITH_KING_HELP,
+		// this::emporiumBuiltWithKingHelp);
+		// mResponseMap.put(ProtocolConstants.ASSISTANT_ENGAGED,
+		// this::assistantEngaged);
+		// mResponseMap.put(ProtocolConstants.BUSINESS_PERMIT_TILES_CHANGED,
+		// this::businessPermitTilesChanged);
+		// mResponseMap.put(ProtocolConstants.ASSISTANT_SENT_TO_ELECT_COUNCILLOR,
+		// this::assistantSentToElectCouncillor);
+		// mResponseMap.put(ProtocolConstants.ADDITIONAL_MAIN_ACTION_GRANTED,
+		// this::additionalMainActionGranted);
+		// mResponseMap.put(ProtocolConstants.FIRST_SPECIAL_REWARD_EARNED,
+		// this::firstSpecialRewardsEarned);
+		// mResponseMap.put(ProtocolConstants.SECOND_SPECIAL_REWARD_EARNED,
+		// this::secondSpecialRewardsEarned);
+		// mResponseMap.put(ProtocolConstants.THIRD_SPECIAL_REWARD_EARNED,
+		// this::thirdSpecialRewardsEarned);
+		// mResponseMap.put(ProtocolConstants.MARKET_SESSION_STARTED,
+		// this::marketSessionStarted);
+		// mResponseMap.put(ProtocolConstants.MARKET_TURN_STARTED,
+		// this::marketTurnStarted);
+		// mResponseMap.put(ProtocolConstants.MARKET_ITEM_ADDED_ON_SALE,
+		// this::marketItemAddedOnSale);
+		// mResponseMap.put(ProtocolConstants.MARKET_ITEM_BOUGHT,
+		// this::marketItemBought);
+		// mResponseMap.put(ProtocolConstants.MARKET_SESSION_FINISHED,
+		// this::marketSessionFinished);
+		mResponseMap.put(ProtocolConstants.CHAT_MESSAGE, this::onChatMessage);
+		// mResponseMap.put(ProtocolConstants.PLAYER_DISCONNECTED,
+		// this::onPlayerDisconnected);
+		// mResponseMap.put(ProtocolConstants.LAST_TURN_STARTED,
+		// this::onLastTurnStarted);
+		// mResponseMap.put(ProtocolConstants.GAME_ENDED, this::onGameEnded);
 	}
 
 	/**
@@ -168,6 +218,17 @@ public class ClientProtocol {
 			} catch (IOException e) {
 				throw new NetworkException(e);
 			}
+		}
+	}
+
+	private void onChatMessage() {
+		try {
+			String author = (String) mInput.readObject();
+			String message = (String) mInput.readObject();
+			boolean privateMessage = (boolean) mInput.readObject();
+			mCallback.onChatMessage(privateMessage, author, message);
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println(DEBUG_PROTOCOL_EXCEPTION);
 		}
 	}
 
