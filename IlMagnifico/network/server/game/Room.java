@@ -1,14 +1,10 @@
 package network.server.game;
 
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-
-import LorenzoIlMagnifico.Partita;
 import network.NetworkException;
 import network.server.RemotePlayer;
 
 import network.exceptions.PlayerNotFound;
-import network.protocol.PlayerColors;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
@@ -21,11 +17,6 @@ public class Room {
 	 * viene creata una nuova Stanza)
 	 */
 	private static int roomNumber = 0;
-
-	/**
-	 * Debug constants.
-	 */
-	private static final String DEBUG_PLAYER_DISCONNECTED = "[room] player disconnected";
 
 	/**
 	 * Numero minimo di giocatori affinchè possa partire una partita.
@@ -112,9 +103,6 @@ public class Room {
 		players.add(player);
 
 		canJoin = true;
-
-		// mStartLatch = new CountDownLatch(1);
-
 	}
 
 	/**
@@ -156,7 +144,6 @@ public class Room {
 				throw new RoomFullException();
 			}
 		}
-
 	}
 
 	/**
@@ -171,7 +158,6 @@ public class Room {
 			gameTimer.cancel();
 			gameTimer.purge();
 		}
-
 	}
 
 	/**
@@ -260,7 +246,6 @@ public class Room {
 			player.onChatMessage(author, message, privateMessage);
 		} catch (NetworkException e) {
 			System.err.println("PLAYER_DISCONNECTED");
-			// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
 		}
 	}
 
@@ -269,19 +254,40 @@ public class Room {
 	 */
 	private class RoomGameHandler extends TimerTask {
 
+		/**
+		 * ID usato per identificare la stanza nei log del Server.
+		 */
 		private final String ID = "ROOM#" + roomNumber;
+
+		/**
+		 * Flag usato per abilitare il Log sul Server.
+		 */
 		private final boolean LOG_ENABLED = true;
 
+		/**
+		 * Riferimento alla Stanza.
+		 */
 		private Room room;
+		/**
+		 * Riferiemnto alla Partita.
+		 */
 		private Game game;
 
+		/**
+		 * Costruttore.
+		 * 
+		 * @param room
+		 *            riferimento alla Stanza.
+		 * @param game
+		 *            riferimento alla Partita.
+		 */
 		public RoomGameHandler(Room room, Game game) {
 			this.room = room;
 			this.game = game;
 		}
 
 		/**
-		 * Called by Timer when time is expired.
+		 * Metodo chiamato dal {@link TimerTask} quando scade il timer.
 		 */
 		@Override
 		public void run() {
@@ -292,305 +298,48 @@ public class Room {
 			cleanRoomHandler();
 		}
 
+		/**
+		 * Inizializza una nuova Partita chiudendo l'accesso alla Stanza a nuovi
+		 * Client.
+		 */
 		private void initializeRoomHandler() {
 			logToAllPlayers("Game started!");
 
 			log("Starting room thread, closing room");
-			closeRoomSafely();
+			synchronized (ROOM_MUTEX) {
+				canJoin = false;
+			}
 
 			log("Creating game session");
-			createGameSession();
+			game = new Game();
 
 			log("Room closed, " + players.size() + " players in");
 		}
 
+		/**
+		 * Rimuove la Partita associata alla Stanza riaprendo l'accesso alla
+		 * Stanza a nuovi Client.
+		 */
 		private void cleanRoomHandler() {
 			log("Deleting game session");
-			cleanGameSession();
+			game = null;
 
 			log("Ending room thread, opening room");
-			openRoomSafely();
-		}
-
-		/**
-		 * Close the room avoiding to block in deadlock the other players that
-		 * are trying to join at this time.
-		 */
-		private void closeRoomSafely() {
-			synchronized (ROOM_MUTEX) {
-				canJoin = false;
-			}
-		}
-
-		/**
-		 * Open the room avoiding to block in deadlock the other players that
-		 * are trying to join at this time.
-		 */
-		private void openRoomSafely() {
 			synchronized (ROOM_MUTEX) {
 				canJoin = true;
 			}
 		}
 
 		/**
-		 * Create game session from configuration.
+		 * Metodo interno usato per il Log sul Server (abilitato da:
+		 * LOG_ENABLED)
+		 * 
+		 * @param message
 		 */
-		private void createGameSession() {
-			game = new Game();
-			/*
-			 * try { mStartLatch.await(); } catch (InterruptedException e) {
-			 * Thread.currentThread().interrupt(); Debug.critical(e); } mGame =
-			 * Configurator.getGameInstance(mPlayers, mConfiguration);
-			 */
-
-		}
-
-		private void cleanGameSession() {
-			game = null;
-		}
-
 		private void log(String message) {
 			if (LOG_ENABLED)
 				System.out.println("[" + ID + "] " + message);
 		}
-
-		//
-		// /**
-		// * Wait until the admin has finished to setup the game session, than
-		// it
-		// * will dispatch a small copy of it to all players of the room. This
-		// * copy will not contain cards information that should stay only on
-		// the
-		// * server for security reasons.
-		// */
-		// private void dispatchGameSession() {
-		// Debug.verbose("[ROOM] Game ready, dispatching base game to all
-		// players");
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.dispatchGameSession(mGame);
-		// } catch (NetworkException e) {
-		// Debug.debug("Player has disconnected", e);
-		// }
-		// }
-		// }
-		//
-		// /**
-		// * Start standard turn of every player.
-		// *
-		// * @return a player reference is one of the players has finished his
-		// * emporiums after the turn.
-		// */
-		// private RemotePlayer startGameSession() {
-		// Debug.verbose("[ROOM] Stating game session");
-		// for (RemotePlayer player : mPlayers) {
-		// if (player.isOnline()) {
-		// Debug.verbose("[ROOM] Stating %s game turn", player.getNickname());
-		// startPlayerTurnSession(player);
-		// if (player.getEmporiums() == 0) {
-		// Debug.verbose("[ROOM] Player %s has finished his emporiums!",
-		// player.getNickname());
-		// return player;
-		// }
-		// } else {
-		// Debug.verbose("[ROOM] Skipping game turn of offline player %s",
-		// player.getNickname());
-		// }
-		// }
-		// return null;
-		// }
-		//
-		// /**
-		// * Iterate all players that not matches with the provided one and
-		// start
-		// * their last turn.
-		// *
-		// * @param skipPlayer
-		// * player that finished his emporiums and should not be
-		// * called.
-		// */
-		// private void doLastTurnSession(RemotePlayer skipPlayer) {
-		// Debug.verbose("[ROOM] Starting last turn session");
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.onLastTurn(skipPlayer.getNickname());
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// }
-		// }
-		// int skipIndex = mPlayers.indexOf(skipPlayer);
-		// for (int i = 1; i < mPlayers.size(); i++) {
-		// if (i != skipIndex) {
-		// int fixedIndex = (i + skipIndex) % mPlayers.size();
-		// startPlayerTurnSession(mPlayers.get(fixedIndex));
-		// }
-		// }
-		// }
-		//
-		// /**
-		// * Start market turn of every player.
-		// */
-		// private void startMarketSession() {
-		// Debug.verbose("[ROOM] Stating market session");
-		// mMarketSession = new MarketSession();
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.onMarketSessionStarted();
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// }
-		// }
-		// for (RemotePlayer player : mPlayers) {
-		// Debug.verbose("[ROOM] Stating %s market selling turn",
-		// player.getNickname());
-		// startPlayerMarketSession(player, MarketTurn.Mode.SELL);
-		// }
-		// List<Integer> playerIndices = generateRandomPlayerIndices();
-		// for (int playerIndex : playerIndices) {
-		// if (!mMarketSession.isMarketFinished()) {
-		// RemotePlayer player = mPlayers.get(playerIndex);
-		// Debug.verbose("[ROOM] Stating %s market buying turn",
-		// player.getNickname());
-		// startPlayerMarketSession(player, MarketTurn.Mode.BUY);
-		// } else {
-		// break;
-		// }
-		// }
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.onMarketSessionFinished();
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// }
-		// }
-		// }
-		//
-		// /**
-		// * Generate random player indices.
-		// *
-		// * @return a list composed by random player indices.
-		// */
-		// private List<Integer> generateRandomPlayerIndices() {
-		// List<Integer> indices = new ArrayList<>();
-		// for (int i = 0; i < mPlayers.size(); i++) {
-		// indices.add(i);
-		// }
-		// Collections.shuffle(indices);
-		// return indices;
-		// }
-		//
-		// /**
-		// * Send a notification to the player to start the turn and block the
-		// * thread until the turn ends.
-		// *
-		// * @param player
-		// * that should start his turn.
-		// */
-		// private void startPlayerTurnSession(RemotePlayer player) {
-		// mTurn = new GameTurn(player, this);
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.onGameTurnStarted(player.getNickname(), mWaitingTime);
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// }
-		// }
-		// mTurn.startCountDown(mWaitingTime);
-		// }
-		//
-		// /**
-		// * Send a notification to the player to start the market turn and
-		// block
-		// * the thread until the turn ends.
-		// *
-		// * @param player
-		// * that should start his turn.
-		// * @param marketMode
-		// * mode of the market turn.
-		// */
-		// private void startPlayerMarketSession(RemotePlayer player,
-		// MarketTurn.Mode marketMode) {
-		// if (!player.isOnline()) {
-		// Debug.verbose("[ROOM] Skipping market turn of offline player %s",
-		// player.getNickname());
-		// return;
-		// }
-		// mTurn = new MarketTurn(player, marketMode, this);
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.onMarketTurnStarted(player.getNickname(), mWaitingTime,
-		// marketMode);
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// }
-		// }
-		// mTurn.startCountDown(mWaitingTime);
-		// }
-		//
-		// /**
-		// * Apply bonus of every player, calculate the ranking and dispatch it
-		// to
-		// * all players.
-		// */
-		// private void handleEndOfTheMatch() {
-		// UpdateState[] updateStates = mGame.applyEndGameBonus();
-		// List<String> nicknames = mGame.generateRanking();
-		// for (RemotePlayer remotePlayer : mPlayers) {
-		// try {
-		// remotePlayer.onGameEnd(updateStates, nicknames);
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// }
-		// }
-		// }
-		//
-		// /**
-		// * Callback method of the turn class. This should send a notification
-		// to
-		// * the provided player to notify that the countdown is changed.
-		// *
-		// * @param player
-		// * that is playing the turn.
-		// * @param remainingTime
-		// * remaining time to wait in seconds.
-		// */
-		// @Override
-		// public void onUpdateCountdown(RemotePlayer player, int remainingTime)
-		// {
-		// try {
-		// player.onUpdateTurnCountdown(remainingTime);
-		// player.setOnline(true);
-		// } catch (NetworkException e) {
-		// Debug.error(DEBUG_PLAYER_DISCONNECTED, e);
-		// player.setOnline(false);
-		// }
-		// if (remainingTime <= 0 && !player.isOnline()) {
-		// Debug.debug("[room] notifying all players that player %s is offline",
-		// player.getNickname());
-		// notifyPlayerDisconnected(player.getNickname());
-		// }
-		// }
-		//
-		// /**
-		// * Notify all players that player has disconnected.
-		// *
-		// * @param nickname
-		// * of the player that has disconnected.
-		// */
-		// private void notifyPlayerDisconnected(String nickname) {
-		// mPlayers.stream().filter(remotePlayer ->
-		// !remotePlayer.getNickname().equals(nickname))
-		// .forEach(remotePlayer -> {
-		// try {
-		// remotePlayer.onPlayerDisconnected(nickname);
-		// } catch (NetworkException e) {
-		// Debug.debug(String.format("[ROOM] Cannot notify player that player %s
-		// is
-		// disconnected",
-		// nickname), e);
-		// }
-		// });
-		// }
 	}
 
 	/**
@@ -598,22 +347,38 @@ public class Room {
 	 */
 	private class RoomCountDownHandler extends TimerTask {
 
-		private int interval = 0;
+		/**
+		 * Valore attuale del countdown.
+		 */
+		private int interval;
 
+		/**
+		 * Costruttore.
+		 * 
+		 * @param interval
+		 *            valore a cui inizializzare il countdown.
+		 */
 		public RoomCountDownHandler(int interval) {
 			this.interval = interval;
 		}
 
+		/*
+		 * Metodo chiamato dal {@link TimerTask}.
+		 */
 		@Override
 		public void run() {
 			logToAllPlayers(String.valueOf(setInterval()));
 		}
 
+		/**
+		 * Decrementa il contatore.
+		 * 
+		 * @return interval valore attuale del countdown
+		 */
 		private final int setInterval() {
 			if (interval == 1)
 				countDownTimer.cancel();
 			return --interval;
 		}
-
 	}
 }
