@@ -1,11 +1,11 @@
 package main.network.client;
 
-import main.network.Costants;
 import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
 import main.network.client.socket.SocketClient;
 import main.network.exceptions.LoginException;
 import main.network.protocol.ConnectionTypes;
+import main.util.Costants;
 import main.util.FakeUI;
 
 /**

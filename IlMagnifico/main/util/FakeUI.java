@@ -2,7 +2,6 @@ package main.util;
 
 import java.util.Scanner;
 
-import main.network.Costants;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;

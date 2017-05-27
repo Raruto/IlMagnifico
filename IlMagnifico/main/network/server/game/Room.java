@@ -2,10 +2,10 @@ package main.network.server.game;
 
 import java.util.*;
 
-import main.network.Costants;
 import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.RemotePlayer;
+import main.util.Costants;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce

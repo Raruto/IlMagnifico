@@ -1,4 +1,4 @@
-package main.network;
+package main.util;
 
 /**
  * Classe che definisce alcune costanti del il gioco e parametri per la

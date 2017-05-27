@@ -3,7 +3,6 @@ package main.network.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import main.network.Costants;
 import main.network.NetworkException;
 import main.network.exceptions.CreateRoomException;
 import main.network.exceptions.JoinRoomException;
@@ -13,6 +12,7 @@ import main.network.server.game.Room;
 import main.network.server.game.RoomFullException;
 import main.network.server.rmi.RMIServer;
 import main.network.server.socket.SocketServer;
+import main.util.Costants;
 
 /**
  * Server del gioco "Lorenzo Il Magnifico" della "CranioCreations".
