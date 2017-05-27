@@ -2,6 +2,7 @@ package main.network.server.game;
 
 import java.util.*;
 
+import main.LorenzoIlMagnifico.Partita;
 import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.RemotePlayer;
@@ -22,18 +23,18 @@ public class Room {
 	/**
 	 * Numero minimo di giocatori affinchè possa partire una partita.
 	 */
-	private int minPlayers = 2;
+	private int minPlayers = Costants.ROOM_MIN_PLAYERS;
 
 	/**
 	 * Numero massimo di giocatori gestibili da una partita.
 	 */
-	private int maxPlayers = 4;
+	private int maxPlayers = Costants.ROOM_MAX_PLAYERS;
 
 	/**
 	 * Tempo di attesa di altri giocatori all'interno della Stanza prima che una
 	 * nuova partita inizi automaticamente.
 	 */
-	private static final long ROOM_WAITING_TIME = 20 * 1000L;
+	private static final long ROOM_WAITING_TIME = Costants.ROOM_WAITING_TIME * 1000L;
 
 	/**
 	 * Costante associata ad un tempo di attesa nullo (usata per far iniziare
@@ -73,7 +74,7 @@ public class Room {
 	/**
 	 * Stato completo della partita.
 	 */
-	private Game game;
+	private Partita game;
 
 	/**
 	 * ID usato per identificare la stanza nelle comunicazioni
@@ -263,7 +264,7 @@ public class Room {
 		/**
 		 * Flag usato per abilitare il Log sul Server.
 		 */
-		private final boolean LOG_ENABLED = Costants.ENABLE_ROOM_LOG;
+		private final boolean LOG_ENABLED = Costants.ROOM_ENABLE_LOG;
 
 		/**
 		 * Riferimento alla Stanza.
@@ -272,7 +273,7 @@ public class Room {
 		/**
 		 * Riferiemnto alla Partita.
 		 */
-		private Game game;
+		private Partita game;
 
 		/**
 		 * Costruttore.
@@ -282,7 +283,7 @@ public class Room {
 		 * @param game
 		 *            riferimento alla Partita.
 		 */
-		public RoomGameHandler(Room room, Game game) {
+		public RoomGameHandler(Room room, Partita game) {
 			this.room = room;
 			this.game = game;
 		}
@@ -312,7 +313,7 @@ public class Room {
 			}
 
 			log("Creating game session");
-			game = new Game();
+			game = new Partita();
 
 			log("Room closed, " + players.size() + " players in");
 		}

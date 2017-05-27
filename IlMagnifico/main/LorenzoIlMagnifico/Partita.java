@@ -2,16 +2,12 @@ package main.LorenzoIlMagnifico;
 
 import java.util.*;
 
+import main.network.server.game.Room;
+
 /**
  * 
  */
 public class Partita {
-
-	/**
-	 * Default constructor
-	 */
-	public Partita() {
-	}
 
 	/**
 	 * 
@@ -37,6 +33,44 @@ public class Partita {
 	 * 
 	 */
 	private int turno;
+
+	/**
+	 * Flag usato in {@link Room} per determinare se la partita è in corso.
+	 */
+	private boolean end;
+
+	/**
+	 * Costruttore.
+	 */
+	public Partita() {
+		end = false;
+	}
+
+	/**
+	 * Blocca il Thread chiamante fintanto che la Partita è ancora in corso
+	 * (usato in {@link Room})
+	 */
+	public synchronized void waitGameEnd() {
+		// Wait until game is end.
+		while (!end) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+
+	/**
+	 * Sblocca i Thread che si sono messi in attesa della fine della Partita
+	 * (usato in {@link Room})
+	 */
+	public synchronized void endGame() {
+		// Toggle game status.
+		end = true;
+
+		// Notify all about game end status.
+		notifyAll();
+	}
 
 	/**
 	 * Metodo che mischia il mazzo senza distinguere le carte per periodo e per
@@ -102,7 +136,8 @@ public class Partita {
 
 		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
 		// dall'arraylist dei giocatori, poi concateno
-		this.spazioAzione.eliminaRicorrenzePalazzoDelConsiglio();//ancora da finire
+		this.spazioAzione.eliminaRicorrenzePalazzoDelConsiglio();// ancora da
+																	// finire
 
 	}
 

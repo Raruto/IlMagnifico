@@ -32,12 +32,12 @@ public class Server implements IServer {
 	/**
 	 * Numero minimo di giocatori necessari per creare una Partita.
 	 */
-	public static final int MIN_ROOM_PLAYERS = Costants.MIN_ROOM_PLAYERS;
+	public static final int MIN_ROOM_PLAYERS = Costants.ROOM_MIN_PLAYERS;
 
 	/**
 	 * Numero massimo di giocatori gestibili da una Partita.
 	 */
-	public static final int MAX_ROOM_PLAYERS = Costants.MAX_ROOM_PLAYERS;
+	public static final int MAX_ROOM_PLAYERS = Costants.ROOM_MAX_PLAYERS;
 
 	/**
 	 * MUTEX per evitare la concorrenza tra giocatori durante il login.

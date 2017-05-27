@@ -5,14 +5,16 @@ package main.util;
  * comunicazione con il server.
  */
 public class Costants {
-
+	// Connessione
 	public static final String SERVER_ADDRESS = "127.0.0.1";
 	public static final int SOCKET_PORT = 1098;
 	public static final int RMI_PORT = 1099;
-	public static final int MIN_ROOM_PLAYERS = 2;
-	public static final int MAX_ROOM_PLAYERS = 4;
-
-	public static final boolean ENABLE_ROOM_LOG = true;
+	
+	// Stanza
+	public static final int ROOM_MIN_PLAYERS = 2;
+	public static final int ROOM_MAX_PLAYERS = 4;
+	public static final int ROOM_WAITING_TIME = 10;
+	public static final boolean ROOM_ENABLE_LOG = true;
 
 	/**
 	 * Costruttore privato.
