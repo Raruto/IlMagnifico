@@ -25,13 +25,6 @@ import main.util.EAzioniGiocatore;
 public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	/**
-	 * Internal cache that maps all logged used with an unique session token
-	 * that identify the single player. This is required in order to identify
-	 * the rmi player when he is making a new request to the server.
-	 */
-	private final HashMap<String, String> sessionTokens;
-
-	/**
 	 * Public constructor.
 	 * 
 	 * @param controller
@@ -39,7 +32,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 */
 	public RMIServer(IServer controller) {
 		super(controller);
-		sessionTokens = new HashMap<>();
+
 	}
 
 	/**
@@ -85,16 +78,9 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		throw new ServerException("Cannot initialize RMI registry");
 	}
 
-	/**
-	 * Get the remote player associated to provided session token.
-	 * 
-	 * @param sessionToken
-	 *            provided with the request.
-	 * @return the remote player associated.
-	 */
-	private RemotePlayer getPlayer(String sessionToken) {
-		return getController().getPlayer(sessionTokens.get(sessionToken));
-	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati dal Client (vedi RMIServerInterface)
+	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Remote method to login a new player to the server.

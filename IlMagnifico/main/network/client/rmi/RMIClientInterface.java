@@ -12,14 +12,6 @@ import main.network.server.game.UpdateStats;
 public interface RMIClientInterface extends Remote {
 
 	/**
-	 * Metodo per il "debug"
-	 * 
-	 * @param object
-	 * @throws RemoteException
-	 */
-	public void notify(Object object) throws RemoteException;
-
-	/**
 	 * Notify player that a new chat message has been received.
 	 * 
 	 * @param author
@@ -31,7 +23,7 @@ public interface RMIClientInterface extends Remote {
 	 * @throws RemoteException
 	 *             if player is not reachable from the server.
 	 */
-	void notifyNewChatMessage(String author, String message, boolean privateMessage) throws RemoteException;
+	void notifyChatMessage(String author, String message, boolean privateMessage) throws RemoteException;
 
 	/**
 	 * Notifica aggiornamento stato partita
@@ -40,4 +32,12 @@ public interface RMIClientInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	void notifyGameUpdate(UpdateStats update) throws RemoteException;
+
+	/**
+	 * Metodo per il "debug"
+	 * 
+	 * @param object
+	 * @throws RemoteException
+	 */
+	public void notify(Object object) throws RemoteException;
 }

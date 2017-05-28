@@ -13,6 +13,11 @@ import main.util.EAzioniGiocatore;
 public abstract class AbstractClient {
 
 	/**
+	 * Token che identifica in modo univoco il giocatore sul Server.
+	 */
+	protected String sessionToken;
+
+	/**
 	 * Interfaccia utilizzata per comunicare con il client.
 	 */
 	private final IClient controller;

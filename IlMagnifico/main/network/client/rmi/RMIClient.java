@@ -30,11 +30,6 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	private RMIServerInterface server;
 
 	/**
-	 * Token che identifica in modo univoco il giocatore sul RMIServer.
-	 */
-	private String sessionToken;
-
-	/**
 	 * Crea un'istanza RMIClient .
 	 * 
 	 * @param controller
@@ -67,6 +62,10 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati dal Client (GUI) (vedi AbstractClient)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Esegue il login del giocatore al RMIServer con il nickname fornito.
 	 * 
@@ -77,7 +76,6 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
-
 		try {
 			sessionToken = server.loginPlayer(nickname, this);
 		} catch (LoginException e) {
@@ -139,6 +137,10 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati dal Server (vedi RMIClientInterface)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Notify player that a new chat message has been received.
 	 * 
@@ -152,7 +154,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 *             if player is not reachable from the server.
 	 */
 	@Override
-	public void notifyNewChatMessage(String author, String message, boolean privateMessage) throws RemoteException {
+	public void notifyChatMessage(String author, String message, boolean privateMessage) throws RemoteException {
 		getController().onChatMessage(privateMessage, author, message);
 	}
 

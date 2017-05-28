@@ -19,6 +19,11 @@ public class FakeUI {
 
 	static Client client;
 
+	/**
+	 * Get Singleton Client
+	 * 
+	 * @return {@link Client}
+	 */
 	public static Client getClient() {
 		if (client == null) {
 			try {
@@ -31,6 +36,11 @@ public class FakeUI {
 		return client;
 	}
 
+	/**
+	 * Start as Client or Server.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		String serverAddress = Costants.SERVER_ADDRESS;
 		int socketPort = Costants.SOCKET_PORT, rmiPort = Costants.RMI_PORT;
@@ -62,6 +72,13 @@ public class FakeUI {
 		}
 	}
 
+	/**
+	 * Start Client (RMI or Socket).
+	 * 
+	 * @param serverAddress
+	 * @param socketPort
+	 * @param rmiPort
+	 */
 	public static void mainClient(String serverAddress, int socketPort, int rmiPort) {
 
 		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
@@ -92,6 +109,12 @@ public class FakeUI {
 		FakeUI.infiniteLoop();
 	}
 
+	/**
+	 * Start Server (Client and Server).
+	 * 
+	 * @param socketPort
+	 * @param rmiPort
+	 */
 	private static void mainServer(int socketPort, int rmiPort) {
 		try {
 			Server server = new Server();
@@ -108,6 +131,9 @@ public class FakeUI {
 		}
 	}
 
+	/**
+	 * Login Client to Server.
+	 */
 	public static void login() {
 		Client client = getClient();
 		while (!client.isLogged()) {
@@ -120,11 +146,17 @@ public class FakeUI {
 		System.out.println();
 	}
 
+	/**
+	 * Hello World! to other players.
+	 */
 	public static void sayHelloToPlayers() {
 		Client client = getClient();
 		client.sendChatMessage(null, "hello!");
 	}
 
+	/**
+	 * Client commmand chooser.
+	 */
 	public static void infiniteLoop() {
 		boolean quit = false;
 
@@ -153,6 +185,9 @@ public class FakeUI {
 		}
 	}
 
+	/**
+	 * Client command: Game Action chooser.
+	 */
 	public static void performGameAction() {
 		Client client = getClient();
 
@@ -182,6 +217,9 @@ public class FakeUI {
 
 	}
 
+	/**
+	 * Client command: send chat messages.
+	 */
 	public static void sendChatMessages() {
 		Client client = getClient();
 		String receiver = null;

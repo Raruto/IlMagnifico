@@ -42,6 +42,35 @@ public interface RMIServerInterface extends Remote {
 	 */
 	void joinFirstAvailableRoom(String sessionToken) throws IOException;
 
+	/**
+	 * Remote method to send a chat message to all players or to a specific
+	 * player.
+	 * 
+	 * @param sessionToken
+	 *            of the player that is making the request.
+	 * @param receiver
+	 *            nickname of the player that should receive the message. If
+	 *            null the message will be dispatched to all players.
+	 * @param message
+	 *            to send.
+	 * @throws PlayerNotFound
+	 *             if the receiver is not null and not match any players in the
+	 *             room.
+	 * @throws RemoteException
+	 *             if server is not reachable.
+	 */
+	void sendChatMessage(String sessionToken, String receiver, String message) throws IOException;
+
+	void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException;
+
+	/**
+	 * Metodo per il "debug"
+	 * 
+	 * @param object
+	 * @throws RemoteException
+	 */
+	public void send(Object object) throws RemoteException;
+
 	// /**
 	// * Remote method to draw a politic card from the deck.
 	// *
@@ -81,33 +110,4 @@ public interface RMIServerInterface extends Remote {
 	// * if server is not reachable.
 	// */
 	// void endTurn(String sessionToken) throws IOException;
-
-	/**
-	 * Remote method to send a chat message to all players or to a specific
-	 * player.
-	 * 
-	 * @param sessionToken
-	 *            of the player that is making the request.
-	 * @param receiver
-	 *            nickname of the player that should receive the message. If
-	 *            null the message will be dispatched to all players.
-	 * @param message
-	 *            to send.
-	 * @throws PlayerNotFound
-	 *             if the receiver is not null and not match any players in the
-	 *             room.
-	 * @throws RemoteException
-	 *             if server is not reachable.
-	 */
-	void sendChatMessage(String sessionToken, String receiver, String message) throws IOException;
-
-	void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException;
-
-	/**
-	 * Metodo per il "debug"
-	 * 
-	 * @param object
-	 * @throws RemoteException
-	 */
-	public void send(Object object) throws RemoteException;
 }

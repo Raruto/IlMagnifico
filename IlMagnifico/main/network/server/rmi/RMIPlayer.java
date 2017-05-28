@@ -52,7 +52,7 @@ import main.network.server.game.UpdateStats;
 	@Override
 	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		try {
-			clientInterface.notifyNewChatMessage(author, message, privateMessage);
+			clientInterface.notifyChatMessage(author, message, privateMessage);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		}
