@@ -109,33 +109,19 @@ public class Famigliare {
 	 */
 	public void eseguiSpostamentoRaccoltoRotondo() {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!spazioAzione.getZonaRaccoltoRotondaLibera())
+		if (!(spazioAzione.zonaRaccoltoRotondaLibera()))
 			return;
 		if (valore < 1)
 			return;
-		for (int i = 0; i < spazioAzione.getZonaRaccoltoOvale().size(); i++) {
-			if (spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatoreAppartenenza() == giocatoreAppartenenza)
-				return;
-		}
 
-		// per attivare le carte territorio ?Enecessario oltre ai punti militari
-		// anche un certo valore del dado del famigliare sullo spazio azione. Si
-		// potrebbe creare un metodo public boolean attivabile(Famigliare
-		// famigliare) all'interno di Territorio
-		int puntiMilitari = giocatoreAppartenenza.getPunti().getPuntiMilitari();
+		// Per attivare gli effetti permanenti dei territori NON e necessario
+		// avere dei punti militari, bisogna solo avere il valore dall'azione
+		// che arriva ad un certo punteggio. Il controllo si può affidare o ai
+		// singoli metodi degli effetti oppure si può inserire un int nei
+		// territori che permetta di sapere di quale valore si ha bisogno. In
+		// alternativa si può mettere appunto un metodo attivabile in territori.
 		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			if (i == 0)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoPermanente(giocatoreAppartenenza);
-			if (i == 1)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(1).effettoPermanente(giocatoreAppartenenza);
-			if (i == 2 && puntiMilitari >= 3)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(2).effettoPermanente(giocatoreAppartenenza);
-			if (i == 3 && puntiMilitari >= 7)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(3).effettoPermanente(giocatoreAppartenenza);
-			if (i == 4 && puntiMilitari >= 12)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(4).effettoPermanente(giocatoreAppartenenza);
-			if (i == 5 && puntiMilitari >= 18)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(5).effettoPermanente(giocatoreAppartenenza);
+			this.giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
 		}
 		spazioAzione.setZonaRaccoltoRotonda(this);
 	}
