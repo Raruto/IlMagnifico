@@ -261,7 +261,7 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
-		System.out.println("[" + update.getNomeGiocatore() + "]" + " UPDATE: " + update.getAzioneGiocatore().toString());
+		System.out.println("[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
 	}
 
 	@Override

@@ -75,7 +75,7 @@ public class Room {
 	/**
 	 * Stato completo della partita.
 	 */
-	private Partita game;
+	private Game game;
 
 	/**
 	 * ID usato per identificare la stanza nelle comunicazioni
@@ -177,7 +177,7 @@ public class Room {
 
 		// Gestore Partita
 		gameTimer = new Timer();
-		gameTimer.schedule(new RoomGameHandler(this, game), waitingTime);
+		gameTimer.schedule(new RoomGameHandler(), waitingTime);
 
 		countDownTimer = new Timer();
 		// Gestore notifica Countdown
@@ -280,28 +280,6 @@ public class Room {
 		private final boolean LOG_ENABLED = Costants.ROOM_ENABLE_LOG;
 
 		/**
-		 * Riferimento alla Stanza.
-		 */
-		private Room room;
-		/**
-		 * Riferiemnto alla Partita.
-		 */
-		private Partita game;
-
-		/**
-		 * Costruttore.
-		 * 
-		 * @param room
-		 *            riferimento alla Stanza.
-		 * @param game
-		 *            riferimento alla Partita.
-		 */
-		public RoomGameHandler(Room room, Partita game) {
-			this.room = room;
-			this.game = game;
-		}
-
-		/**
 		 * Metodo chiamato dal {@link TimerTask} quando scade il timer.
 		 */
 		@Override
@@ -326,7 +304,7 @@ public class Room {
 			}
 
 			log("Creating game session");
-			Room.this.game = new Partita();
+			Room.this.game = new Game(Room.this.players);
 
 			log("Room closed, " + players.size() + " players in");
 		}

@@ -130,7 +130,7 @@ public class FakeUI {
 		boolean quit = false;
 
 		while (!quit) {
-			System.out.println("'q' to quit\n");
+			System.out.println("'q' to exit\n");
 			System.out.println("Available commands: [chat], [action]");
 
 			System.out.println(">");
@@ -145,7 +145,7 @@ public class FakeUI {
 				break;
 
 			case "action":
-				FakeUI.performAction();
+				FakeUI.performGameAction();
 				break;
 
 			default:
@@ -154,12 +154,13 @@ public class FakeUI {
 		}
 	}
 
-	public static void performAction() {
+	public static void performGameAction() {
 		Client client = getClient();
 
 		boolean ok = false;
 
 		while (!ok) {
+			System.out.println("'q' to quit\n");
 			System.out.println("Available actions: ");
 			for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
 				System.out.print("[" + act.toString() + "] ");
@@ -168,11 +169,13 @@ public class FakeUI {
 
 			inText = scanner.nextLine().toLowerCase();
 
-			for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
-				if (inText.equals(act.toString().toLowerCase())) {
-					ok = true;
-					
-					client.performGameAction(act);
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
+					if (inText.equals(act.toString().toLowerCase())) {
+						client.performGameAction(act);
+					}
 				}
 			}
 
@@ -194,7 +197,6 @@ public class FakeUI {
 			inText = scanner.nextLine();
 			if (inText.toLowerCase().equals("q")) {
 				quit = true;
-
 			} else {
 				System.out.println("to [playerName]: ");
 				receiver = scanner.nextLine().trim();

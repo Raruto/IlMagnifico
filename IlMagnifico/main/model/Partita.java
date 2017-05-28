@@ -15,77 +15,33 @@ public class Partita {
 	/**
 	 * 
 	 */
-	private ArrayList<Carta> mazzo;
+	protected ArrayList<Carta> mazzo;
 
 	/**
 	 * 
 	 */
-	private ArrayList<Giocatore> giocatori;
+	protected ArrayList<Giocatore> giocatori;
 
 	/**
 	 * 
 	 */
-	private SpazioAzione spazioAzione;
+	protected SpazioAzione spazioAzione;
 
 	/**
 	 * 
 	 */
-	private Scomunica[] scomuniche;
+	protected Scomunica[] scomuniche;
 
 	/**
 	 * 
 	 */
-	private int turno;
-
-	/**
-	 * Flag usato in {@link Room} per determinare se la partita è in corso.
-	 */
-	private boolean end;
+	protected int turno;
 
 	/**
 	 * Costruttore.
 	 */
 	public Partita() {
-		end = false;
-	}
-
-	/**
-	 * Blocca il Thread chiamante fintanto che la Partita è ancora in corso
-	 * (usato in {@link Room})
-	 */
-	public synchronized void waitGameEnd() {
-		// Wait until game is end.
-		while (!end) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-			}
-		}
-	}
-
-	/**
-	 * Sblocca i Thread che si sono messi in attesa della fine della Partita
-	 * (usato in {@link Room})
-	 */
-	public synchronized void endGame() {
-		// Toggle game status.
-		end = true;
-
-		// Notify all about game end status.
-		notifyAll();
-	}
-
-	/**
-	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
-	 * gioco
-	 * 
-	 * @param remotePlayer
-	 * @param action
-	 * @return {@link UpdateStats}
-	 */
-	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) {
-		UpdateStats updateStats = new UpdateStats(remotePlayer, action);
-		return updateStats;
+		giocatori = new ArrayList<Giocatore>();
 	}
 
 	/**

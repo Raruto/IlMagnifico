@@ -13,7 +13,7 @@ public class Costants {
 	// Stanza
 	public static final int ROOM_MIN_PLAYERS = 2;
 	public static final int ROOM_MAX_PLAYERS = 4;
-	public static final int ROOM_WAITING_TIME = 10;
+	public static final int ROOM_WAITING_TIME = 5;
 	public static final boolean ROOM_ENABLE_LOG = true;
 
 	/**
