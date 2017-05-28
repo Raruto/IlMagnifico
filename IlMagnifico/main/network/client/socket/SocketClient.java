@@ -8,6 +8,7 @@ import main.network.client.AbstractClient;
 import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.protocol.socket.ClientProtocol;
+import main.util.EAzioniGiocatore;
 
 /**
  * This class is the implementation of {@link AbstractClient} class. It manages
@@ -132,23 +133,6 @@ public class SocketClient extends AbstractClient {
 	// }
 
 	/**
-	 * Try to apply game configuration to the player room.
-	 * 
-	 * @param configuration
-	 *            that should be applied to the room.
-	 * @throws InvalidConfigurationException
-	 *             if configuration is not valid.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	// @Override
-	// public void applyGameConfiguration(Configuration configuration) throws
-	// NetworkException {
-	// mSocketProtocol.applyConfiguration(configuration);
-	// startNetworkMessageHandlerThread();
-	// }
-
-	/**
 	 * Send a chat message to other players or a specified player.
 	 * 
 	 * @param receiver
@@ -215,5 +199,11 @@ public class SocketClient extends AbstractClient {
 				System.err.println(message);
 			}
 		}
+	}
+
+	@Override
+	public void performGameAction(EAzioniGiocatore act) throws NetworkException {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -18,6 +18,7 @@ import main.network.protocol.socket.ServerProtocol;
 import main.network.protocol.socket.ServerSocketProtocolInt;
 import main.network.server.IServer;
 import main.network.server.RemotePlayer;
+import main.network.server.game.UpdateStats;
 
 /**
  * Extension of {@link RemotePlayer}. This implementation can communicate to his
@@ -165,74 +166,86 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 			getRoom().sendChatMessage(this, receiver, message);
 		} catch (PlayerNotFound e) {
 			System.err.println("[socket player] cannot dispatch message to a player that cannot be found");
-			//mSocketProtocol.actionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
+			// mSocketProtocol.actionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
 		}
 	}
 
 	@Override
 	public void joinRoom() throws JoinRoomException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void drawPoliticCard() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void sendActionList() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void engageAssistant() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void changeBusinessPermitTiles(String region) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void performAdditionalMainAction() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void earnFirstSpecialRewards(List<String> cities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void earnSecondSpecialRewards(List<String> regions, List<Integer> indices) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void sellAssistant(int price) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void buyItem(String marketId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void endTurn() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void onGameUpdate(UpdateStats update) throws NetworkException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void send(Object object) throws NetworkException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

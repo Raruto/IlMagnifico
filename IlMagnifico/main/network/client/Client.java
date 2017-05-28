@@ -1,11 +1,15 @@
 package main.network.client;
 
+import java.rmi.RemoteException;
+
 import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
 import main.network.client.socket.SocketClient;
 import main.network.exceptions.LoginException;
 import main.network.protocol.ConnectionTypes;
+import main.network.server.game.UpdateStats;
 import main.util.Costants;
+import main.util.EAzioniGiocatore;
 import main.util.FakeUI;
 
 /**
@@ -211,38 +215,16 @@ public class Client implements IClient {
 		}
 	}
 
+	public void performGameAction(EAzioniGiocatore act) {
+		try {
+			client.performGameAction(act);
+		} catch (NetworkException e) {
+			System.err.println("Cannot perform action request");
+		}
+	}
+
 	@Override
 	public void onTurnStarted(String nickname, int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMarketSessionStarted() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMarketSellTurnStarted(String nickname, int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMarketBuyTurnStarted(String nickname, int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMarketSessionFinished() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMarketItemBought(String marketId, String buyer) {
 		// TODO Auto-generated method stub
 
 	}
@@ -278,6 +260,11 @@ public class Client implements IClient {
 	}
 
 	@Override
+	public void onGameUpdate(UpdateStats update) {
+		System.out.println("[" + update.getNomeGiocatore() + "]" + " UPDATE: " + update.getAzioneGiocatore().toString());
+	}
+
+	@Override
 	public void onPlayerDisconnected(String nickname) {
 		// TODO Auto-generated method stub
 
@@ -287,6 +274,14 @@ public class Client implements IClient {
 	public void onLastTurnStarted(String nickname) {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * Metodo per il "debug"
+	 */
+	@Override
+	public void onNotify(Object object) throws RemoteException {
+		System.out.println(object.toString());
 	}
 
 }

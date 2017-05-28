@@ -118,7 +118,6 @@ public class FakeUI {
 		}
 
 		System.out.println();
-
 	}
 
 	public static void sayHelloToPlayers() {
@@ -128,17 +127,73 @@ public class FakeUI {
 	}
 
 	public static void infiniteLoop() {
+		boolean quit = false;
+
+		while (!quit) {
+			System.out.println("'q' to quit\n");
+			System.out.println("Available commands: [chat], [action]");
+
+			System.out.println(">");
+			inText = scanner.nextLine();
+
+			switch (inText.toLowerCase()) {
+			case "q":
+				quit = true;
+				break;
+			case "chat":
+				FakeUI.sendChatMessages();
+				break;
+
+			case "action":
+				FakeUI.performAction();
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
+
+	public static void performAction() {
+		Client client = getClient();
+
+		boolean ok = false;
+
+		while (!ok) {
+			System.out.println("Available actions: ");
+			for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
+				System.out.print("[" + act.toString() + "] ");
+			}
+			System.out.println();
+
+			inText = scanner.nextLine().toLowerCase();
+
+			for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
+				if (inText.equals(act.toString().toLowerCase())) {
+					ok = true;
+					
+					client.performGameAction(act);
+				}
+			}
+
+		}
+
+	}
+
+	public static void sendChatMessages() {
 		Client client = getClient();
 		String receiver = null;
 
 		System.out.println("'q' to quit\n");
 		System.out.println("Send text messages: ");
 
-		while (true) {
+		boolean quit = false;
+
+		while (!quit) {
 			System.out.println(">");
 			inText = scanner.nextLine();
 			if (inText.toLowerCase().equals("q")) {
-				break;
+				quit = true;
 
 			} else {
 				System.out.println("to [playerName]: ");

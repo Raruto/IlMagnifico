@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import main.network.NetworkException;
 import main.network.client.rmi.RMIClientInterface;
 import main.network.exceptions.LoginException;
 import main.network.server.AbstractServer;
 import main.network.server.IServer;
 import main.network.server.RemotePlayer;
 import main.network.server.ServerException;
+import main.util.EAzioniGiocatore;
 
 /**
  * This class is built on top of {@link AbstractServer} and let Server to
@@ -156,33 +158,18 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		getController().sendChatMessage(getPlayer(sessionToken), receiver, message);
 	}
 
-	// private ArrayList<RemotePlayer> players = new ArrayList<RemotePlayer>();
-
-	// @Override
-	// public void addClient(RMIClientInterface client) throws RemoteException {
-	// send(client.getPlayerName() + " has joined.");
-	// players.add(new RemotePlayer(client));
-	// // clients.add(client);
-	// }
-
 	@Override
-	public void send(String message) throws RemoteException {
-		/*
-		 * Iterator<RemotePlayer> itr = players.iterator();
-		 * 
-		 * while (itr.hasNext()) { try {
-		 * itr.next()getClientInterface().notify("[SERVER]" + " " + message); }
-		 * catch (ConnectException e) { itr.remove();
-		 * System.out.println("Client rimosso!"); } }
-		 */
+	public void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException {
+		RemotePlayer remotePlayer = getPlayer(sessionToken);
+		remotePlayer.getRoom().performGameAction(remotePlayer, act);
+	}
 
-		/*
-		 * Iterator<ClientInterface> clientIterator = clients.iterator(); while
-		 * (clientIterator.hasNext()) { try {
-		 * clientIterator.next().notify(SERVER_ID + " " + message); } catch
-		 * (ConnectException e) { clientIterator.remove();
-		 * System.out.println("Client rimosso!"); } }
-		 */
+	/**
+	 * Metodo per il "debug"
+	 */
+	@Override
+	public void send(Object object) throws RemoteException {
+		// TODO Auto-generated catch block
 	}
 
 }

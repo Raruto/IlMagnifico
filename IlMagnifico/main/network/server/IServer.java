@@ -1,5 +1,6 @@
 package main.network.server;
 
+import main.network.NetworkException;
 import main.network.exceptions.CreateRoomException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
@@ -72,4 +73,6 @@ public interface IServer {
 	 *             presente sul server.
 	 */
 	void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
+
+	void send(Object object) throws NetworkException;
 }

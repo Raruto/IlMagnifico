@@ -13,7 +13,9 @@ import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.exceptions.*;
 import main.network.protocol.ErrorCodes;
+import main.network.server.game.UpdateStats;
 import main.network.server.rmi.*;
+import main.util.EAzioniGiocatore;
 
 /**
  * Classe che gestisce la connessione di rete con RMI. Estende
@@ -128,6 +130,15 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		}
 	}
 
+	@Override
+	public void performGameAction(EAzioniGiocatore act) throws NetworkException {
+		try {
+			server.performGameAction(sessionToken, act);
+		} catch (RemoteException e) {
+			throw new NetworkException(e);
+		}
+	}
+
 	/**
 	 * Notify player that a new chat message has been received.
 	 * 
@@ -146,8 +157,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	}
 
 	@Override
-	public void notify(String object) throws RemoteException {
-		System.out.println(object);
+	public void notifyGameUpdate(UpdateStats update) throws RemoteException {
+		getController().onGameUpdate(update);
+	}
+
+	@Override
+	public void notify(Object object) throws RemoteException {
+		getController().onNotify(object);
 	}
 
 }

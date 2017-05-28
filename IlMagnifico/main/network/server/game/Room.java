@@ -7,6 +7,7 @@ import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.RemotePlayer;
 import main.util.Costants;
+import main.util.EAzioniGiocatore;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
@@ -251,6 +252,18 @@ public class Room {
 		}
 	}
 
+	public void performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore act) {
+		UpdateStats updateState = game.performGameAction(remotePlayer, act);
+		players.stream().forEach(p -> {
+			try {
+				p.onGameUpdate(updateState);
+			} catch (NetworkException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+
 	/**
 	 * This class represent the game logic to execute during a match.
 	 */
@@ -295,7 +308,7 @@ public class Room {
 		public void run() {
 			initializeRoomHandler();
 
-			game.waitGameEnd();
+			Room.this.game.waitGameEnd();
 
 			cleanRoomHandler();
 		}
@@ -313,7 +326,7 @@ public class Room {
 			}
 
 			log("Creating game session");
-			game = new Partita();
+			Room.this.game = new Partita();
 
 			log("Room closed, " + players.size() + " players in");
 		}
@@ -324,7 +337,7 @@ public class Room {
 		 */
 		private void cleanRoomHandler() {
 			log("Deleting game session");
-			game = null;
+			Room.this.game = null;
 
 			log("Ending room thread, opening room");
 			synchronized (ROOM_MUTEX) {
@@ -383,4 +396,5 @@ public class Room {
 			return --interval;
 		}
 	}
+
 }

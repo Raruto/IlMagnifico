@@ -1,5 +1,6 @@
 package main.network.server;
 
+import java.rmi.RemoteException;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import main.model.Territorio;
 import main.network.NetworkException;
 import main.network.protocol.PlayerColors;
 import main.network.server.game.Room;
+import main.network.server.game.UpdateStats;
 import main.util.ECarte;
 import main.util.EPunti;
 import main.util.ERisorse;
@@ -303,6 +305,10 @@ public abstract class RemotePlayer extends Giocatore {
 	 *             if client is not reachable.
 	 */
 	public abstract void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException;
+
+	public abstract void onGameUpdate(UpdateStats update) throws NetworkException;
+
+	public abstract void send(Object object) throws NetworkException;
 
 	// /**
 	// * Notify player that another player has disconnected.

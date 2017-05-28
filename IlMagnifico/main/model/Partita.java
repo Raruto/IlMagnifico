@@ -2,7 +2,10 @@ package main.model;
 
 import java.util.*;
 
+import main.network.server.RemotePlayer;
 import main.network.server.game.Room;
+import main.network.server.game.UpdateStats;
+import main.util.EAzioniGiocatore;
 
 /**
  * 
@@ -70,6 +73,19 @@ public class Partita {
 
 		// Notify all about game end status.
 		notifyAll();
+	}
+
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco
+	 * 
+	 * @param remotePlayer
+	 * @param action
+	 * @return {@link UpdateStats}
+	 */
+	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) {
+		UpdateStats updateStats = new UpdateStats(remotePlayer, action);
+		return updateStats;
 	}
 
 	/**
