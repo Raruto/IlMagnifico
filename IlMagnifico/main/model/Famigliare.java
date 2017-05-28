@@ -140,37 +140,32 @@ public class Famigliare {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		if (valore - 3 < 1)
 			return;
-		if (!spazioAzione.zonaRaccoltoRotondaLibera()) {
-			if (spazioAzione.getZonaRaccoltoRotonda().getGiocatoreAppartenenza() == giocatoreAppartenenza)
-				return;
-		}
+
 		for (int i = 0; i < spazioAzione.getZonaRaccoltoOvale().size(); i++) {
-			if (spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatoreAppartenenza() == giocatoreAppartenenza)
+			if ((spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatore() == giocatoreAppartenenza)
+					&& (spazioAzione.getZonaRaccoltoOvale().get(i).getNeutralita() == false)) // devo
+																								// controllare
+																								// che
+																								// non
+																								// sia
+																								// neutro,
+																								// perchè
+																								// altrimenti
+																								// posso
+																								// piazzare
+																								// il
+																								// famigliare
 				return;
 		}
 
 		valore -= 3;
 
-		// per attivare le carte territorio ?Enecessario oltre ai punti militari
-		// anche un certo valore del dado del famigliare sullo spazio azione. Si
-		// potrebbe creare un metodo public boolean attivabile(Famigliare
-		// famigliare) all'interno di Territorio
+		// Stesso discorso che con la zona rotonda
 		int puntiMilitari = giocatoreAppartenenza.getPunti().getPuntiMilitari();
 		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			if (i == 0)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoPermanente(giocatoreAppartenenza);
-			if (i == 1)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(1).effettoPermanente(giocatoreAppartenenza);
-			if (i == 2 && puntiMilitari >= 3)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(2).effettoPermanente(giocatoreAppartenenza);
-			if (i == 3 && puntiMilitari >= 7)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(3).effettoPermanente(giocatoreAppartenenza);
-			if (i == 4 && puntiMilitari >= 12)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(4).effettoPermanente(giocatoreAppartenenza);
-			if (i == 5 && puntiMilitari >= 18)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(5).effettoPermanente(giocatoreAppartenenza);
+			giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
 		}
-		spazioAzione.setZonaRaccoltoOvale.add(this);
+		spazioAzione.getZonaRaccoltoOvale().add(this);
 
 	}
 
@@ -225,4 +220,7 @@ public class Famigliare {
 		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza);
 	}
 
+	public boolean getNeutralita() {
+		return this.neutro;
+	}
 }
