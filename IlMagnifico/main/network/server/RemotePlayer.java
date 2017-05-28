@@ -26,12 +26,11 @@ public abstract class RemotePlayer extends Giocatore {
 	 * 
 	 */
 	private static final long serialVersionUID = -7157051737050661369L;
-	
+
 	/**
 	 * Flag che indica se il giocatore � online
 	 */
 	private boolean isOnline;
-
 
 	/**
 	 * Riferimento al giocatore associato al giocatore remoto.
@@ -77,45 +76,7 @@ public abstract class RemotePlayer extends Giocatore {
 		return mRoom;
 	}
 
-	public HashMap<EPunti, Integer> getPuntiGiocatore() {
-		HashMap<EPunti, Integer> punti = new HashMap<EPunti, Integer>();
-		Punti p = player.getPunti();
-		punti.put(EPunti.Fede, p.getPuntiFede());
-		punti.put(EPunti.Militare, p.getPuntiMilitari());
-		punti.put(EPunti.Vittoria, p.getPuntiVittoria());
-		return punti;
-	}
 
-	public HashMap<ERisorse, Integer> getRisorseGiocatore() {
-		HashMap<ERisorse, Integer> risorse = new HashMap<ERisorse, Integer>();
-		Risorsa r = player.getRisorse();
-		risorse.put(ERisorse.Legno, r.getLegno());
-		risorse.put(ERisorse.Moneta, r.getMonete());
-		risorse.put(ERisorse.Pietra, r.getPietre());
-		risorse.put(ERisorse.Servitore, r.getServitori());
-		return risorse;
-	}
-
-	public ArrayList<Edificio> getEdificiGiocatore() {
-		return player.getPlancia().getEdifici();
-	}
-
-	public ArrayList<Impresa> getImpreseGiocatore() {
-		return player.getPlancia().getImprese();
-	}
-
-	public ArrayList<Personaggio> getPersonaggiGiocatore() {
-		return player.getPlancia().getPersonaggi();
-	}
-
-	public ArrayList<Territorio> getTerritoriGiocatore() {
-		return player.getPlancia().getTerritori();
-	}
-
-	public PlayerColors getColore() {
-		return player.getColore();
-	}
-	
 	/**
 	 * Imposta il flag online usato per determinare lo stato della connessione
 	 * con il client associato al giocatore.
@@ -135,7 +96,6 @@ public abstract class RemotePlayer extends Giocatore {
 	public boolean isOnline() {
 		return this.isOnline;
 	}
-
 
 	// /**
 	// * Notify player that a new game turn is started.

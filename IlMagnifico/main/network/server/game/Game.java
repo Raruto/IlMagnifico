@@ -54,7 +54,7 @@ public class Game extends Partita {
 	 * @return {@link UpdateStats}
 	 */
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) {
-		UpdateStats updateStats = new UpdateStats(remotePlayer, action);
+		UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
 		return updateStats;
 	}
 
