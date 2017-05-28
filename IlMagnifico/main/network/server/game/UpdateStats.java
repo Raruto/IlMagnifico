@@ -39,17 +39,23 @@ public class UpdateStats implements Serializable {
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
 	 */
-	private Punti puntiGiocatore;
+	private HashMap<EPunti, Integer> puntiGiocatore;
+	// private Punti puntiGiocatore;
 
 	/**
 	 * {@link Risorsa} del giocatore che ha eseguito l'azione
 	 */
-	private Risorsa risorseGiocatore;
+	private HashMap<ERisorse, Integer> risorseGiocatore;
+	// private Risorsa risorseGiocatore;
 
 	/**
 	 * {@link Plancia} del giocatore che ha eseguito l'azione.
 	 */
-	private Plancia planciaGiocatore;
+	// private Plancia planciaGiocatore;
+	private ArrayList<Edificio> edifici;
+	private ArrayList<Impresa> imprese;
+	private ArrayList<Personaggio> personaggi;
+	private ArrayList<Territorio> territori;
 
 	/**
 	 * Fase di gioco eseguita dal server (vedi {@link EFasiDiGioco}).
@@ -77,9 +83,28 @@ public class UpdateStats implements Serializable {
 	public UpdateStats(Giocatore giocatore, EAzioniGiocatore azione, SpazioAzione spazioAzione) {
 		this.azioneGiocatore = azione;
 		this.nomeGiocatore = giocatore.getNome();
-		this.puntiGiocatore = giocatore.getPunti();
-		this.risorseGiocatore = giocatore.getRisorse();
-		this.planciaGiocatore = giocatore.getPlancia();
+
+		// this.puntiGiocatore = giocatore.getPunti();
+		this.puntiGiocatore = new HashMap<EPunti, Integer>();
+		Punti p = giocatore.getPunti();
+		this.puntiGiocatore.put(EPunti.Fede, p.getPuntiFede());
+		this.puntiGiocatore.put(EPunti.Militare, p.getPuntiMilitari());
+		this.puntiGiocatore.put(EPunti.Vittoria, p.getPuntiVittoria());
+
+		// this.risorseGiocatore = giocatore.getRisorse();
+		this.risorseGiocatore = new HashMap<ERisorse, Integer>();
+		Risorsa r = giocatore.getRisorse();
+		this.risorseGiocatore.put(ERisorse.Legno, r.getLegno());
+		this.risorseGiocatore.put(ERisorse.Moneta, r.getMonete());
+		this.risorseGiocatore.put(ERisorse.Pietra, r.getPietre());
+		this.risorseGiocatore.put(ERisorse.Servitore, r.getServitori());
+
+		// this.planciaGiocatore = giocatore.getPlancia();
+		this.edifici = giocatore.getPlancia().getEdifici();
+		this.imprese = giocatore.getPlancia().getImprese();
+		this.personaggi = giocatore.getPlancia().getPersonaggi();
+		this.territori = giocatore.getPlancia().getTerritori();
+
 		this.spazioAzione = spazioAzione;
 	}
 
@@ -111,29 +136,26 @@ public class UpdateStats implements Serializable {
 		this.nomeGiocatore = nomeGiocatore;
 	}
 
-	public Punti getPuntiGiocatore() {
-		return puntiGiocatore;
-	}
+	/*
+	 * public Punti getPuntiGiocatore() { return puntiGiocatore; }
+	 * 
+	 * public void setPuntiGiocatore(Punti punti) { this.puntiGiocatore = punti;
+	 * }
+	 */
 
-	public void setPuntiGiocatore(Punti punti) {
-		this.puntiGiocatore = punti;
-	}
+	/*
+	 * public Risorsa getRisorseGiocatore() { return risorseGiocatore; }
+	 * 
+	 * public void setRisorseGiocatore(Risorsa risorse) { this.risorseGiocatore
+	 * = risorse; }
+	 */
 
-	public Risorsa getRisorseGiocatore() {
-		return risorseGiocatore;
-	}
-
-	public void setRisorseGiocatore(Risorsa risorse) {
-		this.risorseGiocatore = risorse;
-	}
-
-	public Plancia getPlanciaGiocatore() {
-		return planciaGiocatore;
-	}
-
-	public void setPlanciaGiocatore(Plancia plancia) {
-		this.planciaGiocatore = plancia;
-	}
+	/*
+	 * public Plancia getPlanciaGiocatore() { return planciaGiocatore; }
+	 * 
+	 * public void setPlanciaGiocatore(Plancia plancia) { this.planciaGiocatore
+	 * = plancia; }
+	 */
 
 	public SpazioAzione getSpazioAzione() {
 		return spazioAzione;
@@ -151,32 +173,30 @@ public class UpdateStats implements Serializable {
 		this.faseDiGioco = azioneServer;
 	}
 
+	public HashMap<EPunti, Integer> getPuntiGiocatore() {
+		return puntiGiocatore;
+	}
+
+	public HashMap<ERisorse, Integer> getRisorseGiocatore() {
+		return risorseGiocatore;
+	}
+
+	public ArrayList<Edificio> getEdificiGiocatore() {
+		return edifici;
+	}
+
+	public ArrayList<Impresa> getImpreseGiocatore() {
+		return imprese;
+	}
+
+	public ArrayList<Personaggio> getPersonaggiGiocatore() {
+		return personaggi;
+	}
+
+	public ArrayList<Territorio> getTerritoriGiocatore() {
+		return territori;
+	}
 	/*
-	 * public HashMap<EPunti, Integer> getPuntiGiocatore() { HashMap<EPunti,
-	 * Integer> punti = new HashMap<EPunti, Integer>(); Punti p =
-	 * player.getPunti(); punti.put(EPunti.Fede, p.getPuntiFede());
-	 * punti.put(EPunti.Militare, p.getPuntiMilitari());
-	 * punti.put(EPunti.Vittoria, p.getPuntiVittoria()); return punti; }
-	 * 
-	 * public HashMap<ERisorse, Integer> getRisorseGiocatore() {
-	 * HashMap<ERisorse, Integer> risorse = new HashMap<ERisorse, Integer>();
-	 * Risorsa r = player.getRisorse(); risorse.put(ERisorse.Legno,
-	 * r.getLegno()); risorse.put(ERisorse.Moneta, r.getMonete());
-	 * risorse.put(ERisorse.Pietra, r.getPietre());
-	 * risorse.put(ERisorse.Servitore, r.getServitori()); return risorse; }
-	 * 
-	 * public ArrayList<Edificio> getEdificiGiocatore() { return
-	 * player.getPlancia().getEdifici(); }
-	 * 
-	 * public ArrayList<Impresa> getImpreseGiocatore() { return
-	 * player.getPlancia().getImprese(); }
-	 * 
-	 * public ArrayList<Personaggio> getPersonaggiGiocatore() { return
-	 * player.getPlancia().getPersonaggi(); }
-	 * 
-	 * public ArrayList<Territorio> getTerritoriGiocatore() { return
-	 * player.getPlancia().getTerritori(); }
-	 * 
 	 * public PlayerColors getColore() { return player.getColore(); }
 	 */
 
