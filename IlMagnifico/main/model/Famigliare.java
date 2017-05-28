@@ -161,7 +161,6 @@ public class Famigliare {
 		valore -= 3;
 
 		// Stesso discorso che con la zona rotonda
-		int puntiMilitari = giocatoreAppartenenza.getPunti().getPuntiMilitari();
 		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
 			giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
 		}
@@ -173,16 +172,52 @@ public class Famigliare {
 	 * @return
 	 */
 	public void eseguiSpostamentoProduzioneRotondo() {
-		// TODO implement here
-		return null;
+		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+		if (!(spazioAzione.zonaProduzioneRotondaLibera()))
+			return;
+		if (valore < 1)
+			return;
+
+		// Similmente alla zona di raccolto
+		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		}
+		spazioAzione.setZonaProduzioneRotonda(this);
 	}
 
 	/**
 	 * @return
 	 */
 	public void eseguiSpostamentoProduzioneOvale() {
-		// TODO implement here
-		return null;
+		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+		if (valore - 3 < 1)
+			return;
+
+		for (int i = 0; i < spazioAzione.getZonaProduzioneOvale().size(); i++) {
+			if ((spazioAzione.getZonaProduzioneOvale().get(i).getGiocatore() == giocatoreAppartenenza)
+					&& (spazioAzione.getZonaProduzioneOvale().get(i).getNeutralita() == false)) // devo
+																								// controllare
+																								// che
+																								// non
+																								// sia
+																								// neutro,
+																								// perchè
+																								// altrimenti
+																								// posso
+																								// piazzare
+																								// il
+																								// famigliare
+				return;
+		}
+
+		valore -= 3;
+
+		// Stesso discorso che con la zona rotonda
+		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
+			giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		}
+		spazioAzione.getZonaProduzioneOvale().add(this);
+
 	}
 
 	/**
@@ -193,16 +228,16 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoMercato(int i) {
-		if (i < 0 || i > 3)
+	public void eseguiSpostamentoMercato(int posizione) {
+		if (posizione < 0 || posizione > 3)
 			return;
 		if (valore < 1)
 			return;
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!spazioAzione.zonaMercatoLibera(i))
+		if (!spazioAzione.zonaMercatoLibera(posizione))
 			return;
-		spazioAzione.getMercato()[i] = this;
-		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, i);
+		spazioAzione.getMercato()[posizione] = this;
+		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, posizione);
 	}
 
 	/**
@@ -216,7 +251,7 @@ public class Famigliare {
 		if (valore < 1)
 			return;
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		spazioAzione.getPalazzoDelConsiglio().add(this);
+		spazioAzione.setPalazzoDelConsiglio(this);
 		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza);
 	}
 
