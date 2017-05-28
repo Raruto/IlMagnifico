@@ -15,6 +15,11 @@ import main.util.EAzioniGiocatore;
 public class Room {
 
 	/**
+	 * Flag usato per abilitare il Log sul Server.
+	 */
+	private final boolean LOG_ENABLED = Costants.ROOM_ENABLE_LOG;
+
+	/**
 	 * Numero identificatore della singola stanza (incrementato ogni volta che
 	 * viene creata una nuova Stanza)
 	 */
@@ -166,8 +171,8 @@ public class Room {
 		logToAllPlayers("Game will start in " + countDownInterval + "sec...");
 
 		timer = new Timer();
-		timer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval, new RoomGameHandler()), countDownDelay,
-				countDownPeriod);
+		timer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval, new RoomGameHandler(), null),
+				countDownDelay, countDownPeriod);
 	}
 
 	private void logToPlayer(RemotePlayer player, String message, boolean privateMessage) {
@@ -186,6 +191,7 @@ public class Room {
 		players.stream().forEach(remotePlayer -> {
 			logToPlayer(remotePlayer, message, false);
 		});
+		log(message);
 	}
 
 	/**
@@ -250,21 +256,20 @@ public class Room {
 	}
 
 	/**
+	 * Metodo interno usato per il Log sul Server (abilitato da: LOG_ENABLED)
+	 * 
+	 * @param message
+	 */
+	private void log(String message) {
+		if (LOG_ENABLED)
+			System.out.println("[" + ID + "#" + roomNumber + "] " + message);
+	}
+
+	/**
 	 * Classe per la gestione in "mutua esclusione" della Partita all'interno
 	 * della Stanza (una Partita alla volta per Stanza).
 	 */
 	private class RoomGameHandler implements Runnable {
-
-		/**
-		 * ID usato per identificare la stanza nei log del Server.
-		 */
-		private final String ID = "ROOM#" + roomNumber;
-
-		/**
-		 * Flag usato per abilitare il Log sul Server.
-		 */
-		private final boolean LOG_ENABLED = Costants.ROOM_ENABLE_LOG;
-
 		/**
 		 * Metodo chiamato dal {@link TimerTask} quando scade il timer.
 		 */
@@ -308,17 +313,6 @@ public class Room {
 				canJoin = true;
 			}
 		}
-
-		/**
-		 * Metodo interno usato per il Log sul Server (abilitato da:
-		 * LOG_ENABLED)
-		 * 
-		 * @param message
-		 */
-		private void log(String message) {
-			if (LOG_ENABLED)
-				System.out.println("[" + ID + "] " + message);
-		}
 	}
 
 	/**
@@ -337,15 +331,26 @@ public class Room {
 		private int interval;
 
 		/**
+		 * Giocatore a cui notificare il countdown (se null verrà notificato a
+		 * tutti i giocatori della Stanza).
+		 */
+		private RemotePlayer player;
+
+		/**
 		 * Costruttore.
 		 * 
 		 * @param interval
 		 *            valore a cui inizializzare il countdown.
-		 * @param
+		 * @param runnable
+		 *            thread da eseguire allo scadere del countdown.
+		 * @param player
+		 *            {@link RemotePlayer} a cui notificare il countdown (se
+		 *            null verrà notificato a tutti i giocatori della Stanza).
 		 */
-		public RoomCountDownHandler(int interval, Runnable runnable) {
+		public RoomCountDownHandler(int interval, Runnable runnable, RemotePlayer player) {
 			this.interval = interval;
 			this.task = runnable;
+			this.player = player;
 		}
 
 		/*
@@ -354,7 +359,11 @@ public class Room {
 		@Override
 		public void run() {
 			int interval = setInterval();
-			logToAllPlayers(String.valueOf(interval));
+			if (this.player == null) {
+				logToAllPlayers(String.valueOf(interval));
+			} else {
+				logToPlayer(this.player, String.valueOf(interval));
+			}
 
 			if (this.interval == 0) {
 				Thread t = new Thread(task);
