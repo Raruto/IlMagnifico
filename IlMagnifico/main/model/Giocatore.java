@@ -61,8 +61,8 @@ public class Giocatore implements Serializable {
 	}
 
 	/**
-	 * Imposta il nome del giocatore (utilizzato per identificare
-	 * univocamente il giocatore all'interno del gioco).
+	 * Imposta il nome del giocatore (utilizzato per identificare univocamente
+	 * il giocatore all'interno del gioco).
 	 * 
 	 * @param nome
 	 *            nickname da assegnare al giocatore.
@@ -141,6 +141,10 @@ public class Giocatore implements Serializable {
 
 	public Punti getPunti() {
 		return this.punti;
+	}
+
+	public Plancia getPlancia() {
+		return this.plancia;
 	}
 
 	public void raccolto(int valore) {

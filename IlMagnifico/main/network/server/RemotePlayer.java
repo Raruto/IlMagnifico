@@ -1,8 +1,27 @@
 package main.network.server;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.sun.security.jgss.ExtendedGSSContext;
+
+import main.model.Carta;
+import main.model.Edificio;
 import main.model.Giocatore;
+import main.model.Impresa;
+import main.model.Personaggio;
+import main.model.Plancia;
+import main.model.Punti;
+import main.model.Risorsa;
+import main.model.Territorio;
 import main.network.NetworkException;
+import main.network.protocol.PlayerColors;
 import main.network.server.game.Room;
+import main.util.ECarte;
+import main.util.EPunti;
+import main.util.ERisorse;
 
 /**
  * Abstract extension of {@link Player}. This implementation can communicate to
@@ -16,6 +35,11 @@ public abstract class RemotePlayer extends Giocatore {
 	private static final long serialVersionUID = -7157051737050661369L;
 
 	/**
+	 * Riferimento al giocatore associato al giocatore remoto.
+	 */
+	private Giocatore player;
+
+	/**
 	 * Reference to room where player is joined.
 	 */
 	private transient Room mRoom;
@@ -25,6 +49,14 @@ public abstract class RemotePlayer extends Giocatore {
 	 */
 	protected RemotePlayer() {
 
+	}
+
+	public Giocatore getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Giocatore player) {
+		this.player = player;
 	}
 
 	/**
@@ -44,6 +76,45 @@ public abstract class RemotePlayer extends Giocatore {
 	 */
 	public Room getRoom() {
 		return mRoom;
+	}
+
+	public HashMap<EPunti, Integer> getPuntiGiocatore() {
+		HashMap<EPunti, Integer> punti = new HashMap<EPunti, Integer>();
+		Punti p = player.getPunti();
+		punti.put(EPunti.Fede, p.getPuntiFede());
+		punti.put(EPunti.Militare, p.getPuntiMilitari());
+		punti.put(EPunti.Vittoria, p.getPuntiVittoria());
+		return punti;
+	}
+
+	public HashMap<ERisorse, Integer> getRisorseGiocatore() {
+		HashMap<ERisorse, Integer> risorse = new HashMap<ERisorse, Integer>();
+		Risorsa r = player.getRisorse();
+		risorse.put(ERisorse.Legno, r.getLegno());
+		risorse.put(ERisorse.Moneta, r.getMonete());
+		risorse.put(ERisorse.Pietra, r.getPietre());
+		risorse.put(ERisorse.Servitore, r.getServitori());
+		return risorse;
+	}
+
+	public ArrayList<Edificio> getEdificiGiocatore() {
+		return player.getPlancia().getEdifici();
+	}
+
+	public ArrayList<Impresa> getImpreseGiocatore() {
+		return player.getPlancia().getImprese();
+	}
+
+	public ArrayList<Personaggio> getPersonaggiGiocatore() {
+		return player.getPlancia().getPersonaggi();
+	}
+
+	public ArrayList<Territorio> getTerritoriGiocatore() {
+		return player.getPlancia().getTerritori();
+	}
+
+	public PlayerColors getColore() {
+		return player.getColore();
 	}
 
 	// /**

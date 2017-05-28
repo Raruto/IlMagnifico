@@ -69,4 +69,20 @@ public class Plancia {
 		imprese.add(nuovaImpresa);
 	}
 
+	public ArrayList<Personaggio> getPersonaggi() {
+		return personaggi;
+	}
+
+	public ArrayList<Territorio> getTerritori() {
+		return territori;
+	}
+
+	public ArrayList<Edificio> getEdifici() {
+		return edifici;
+	}
+
+	public ArrayList<Impresa> getImprese() {
+		return imprese;
+	}
+
 }

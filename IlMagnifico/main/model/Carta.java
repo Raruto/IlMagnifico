@@ -2,6 +2,8 @@ package main.model;
 
 import java.util.*;
 
+import main.util.ICarta;
+
 /**
  * 
  */
