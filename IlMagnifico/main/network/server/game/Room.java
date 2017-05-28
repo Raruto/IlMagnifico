@@ -35,14 +35,14 @@ public class Room {
 	 * Tempo di attesa di altri giocatori all'interno della Stanza prima che una
 	 * nuova partita inizi automaticamente.
 	 */
-	private static final long ROOM_WAITING_TIME = Costants.ROOM_WAITING_TIME * 1000L;
+	private static final int ROOM_WAITING_TIME = Costants.ROOM_WAITING_TIME;
 
 	/**
 	 * Costante associata ad un tempo di attesa nullo (usata per far iniziare
 	 * una nuova partita automaticamente quando si raggiunge il numero massimo
 	 * di giocatori gestibili).
 	 */
-	private static final long START_IMMEDIATELY = 0L;
+	private static final int START_IMMEDIATELY = 0;
 
 	/**
 	 * MUTEX per evitare la concorrenza tra giocatori durante l'accesso alla
@@ -57,14 +57,9 @@ public class Room {
 	private final ArrayList<RemotePlayer> players;
 
 	/**
-	 * Timer utilizzato per il countdown di inizio partita.
+	 * Timer utilizzato per i countdown all'interno della Stanza.
 	 */
-	private Timer gameTimer;
-
-	/**
-	 * Timer utilizzato per i countdown (notifica ai giocatori).
-	 */
-	private Timer countDownTimer;
+	private Timer timer;
 
 	/**
 	 * Flag usato per indicare quando una Stanza è ancora aperta (True) o chiusa
@@ -138,7 +133,7 @@ public class Room {
 
 				if (players.size() == maxPlayers) {
 					canJoin = false;
-					resetTimers();
+					resetTimer();
 					startCountDownTimer(START_IMMEDIATELY);
 				} else if (players.size() == minPlayers) {
 					startCountDownTimer(ROOM_WAITING_TIME);
@@ -152,14 +147,10 @@ public class Room {
 	/**
 	 * Resetta il timer se programmato.
 	 */
-	private void resetTimers() {
-		if (countDownTimer != null) {
-			countDownTimer.cancel();
-			countDownTimer.purge();
-		}
-		if (gameTimer != null) {
-			gameTimer.cancel();
-			gameTimer.purge();
+	private void resetTimer() {
+		if (timer != null) {
+			timer.cancel();
+			timer.purge();
 		}
 	}
 
@@ -169,19 +160,14 @@ public class Room {
 	 * @param waitingTime
 	 *            tempo da attendere prima dell'inizio del gioco.
 	 */
-	private void startCountDownTimer(long waitingTime) {
+	private void startCountDownTimer(int waitingTime) {
 		int countDownDelay = 1000, countDownPeriod = 1000;
-		int countDownInterval = (int) waitingTime / 1000;
+		int countDownInterval = waitingTime;
 
 		logToAllPlayers("Game will start in " + countDownInterval + "sec...");
 
-		// Gestore Partita
-		gameTimer = new Timer();
-		gameTimer.schedule(new RoomGameHandler(), waitingTime);
-
-		countDownTimer = new Timer();
-		// Gestore notifica Countdown
-		countDownTimer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval), countDownDelay,
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new RoomCountDownHandler(countDownInterval, new RoomGameHandler()), countDownDelay,
 				countDownPeriod);
 	}
 
@@ -265,9 +251,10 @@ public class Room {
 	}
 
 	/**
-	 * This class represent the game logic to execute during a match.
+	 * Classe per la gestione in "mutua esclusione" della Partita all'interno
+	 * della Stanza (una Partita alla volta per Stanza).
 	 */
-	private class RoomGameHandler extends TimerTask {
+	private class RoomGameHandler implements Runnable {
 
 		/**
 		 * ID usato per identificare la stanza nei log del Server.
@@ -341,6 +328,11 @@ public class Room {
 	private class RoomCountDownHandler extends TimerTask {
 
 		/**
+		 * Thread da eseguire allo scadere del countdown.
+		 */
+		private Runnable task;
+
+		/**
 		 * Valore attuale del countdown.
 		 */
 		private int interval;
@@ -350,9 +342,11 @@ public class Room {
 		 * 
 		 * @param interval
 		 *            valore a cui inizializzare il countdown.
+		 * @param
 		 */
-		public RoomCountDownHandler(int interval) {
+		public RoomCountDownHandler(int interval, Runnable runnable) {
 			this.interval = interval;
+			this.task = runnable;
 		}
 
 		/*
@@ -360,7 +354,13 @@ public class Room {
 		 */
 		@Override
 		public void run() {
-			logToAllPlayers(String.valueOf(setInterval()));
+			int interval = setInterval();
+			logToAllPlayers(String.valueOf(interval));
+
+			if (this.interval == 0) {
+				Thread t = new Thread(task);
+				t.start();
+			}
 		}
 
 		/**
@@ -370,7 +370,7 @@ public class Room {
 		 */
 		private final int setInterval() {
 			if (interval == 1)
-				countDownTimer.cancel();
+				timer.cancel();
 			return --interval;
 		}
 	}
