@@ -145,10 +145,6 @@ public class Giocatore implements Serializable {
 		return this.punti;
 	}
 
-	public Plancia getPlancia() {
-		return this.plancia;
-	}
-
 	public void raccolto(int valore) {
 		// TODO Auto-generated method stub
 
