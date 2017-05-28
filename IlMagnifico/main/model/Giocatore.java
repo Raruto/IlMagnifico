@@ -10,11 +10,6 @@ import main.network.protocol.PlayerColors;
 public class Giocatore implements Serializable {
 
 	/**
-	 * Generato automaticamente: "serialVersionUID" (vedi {@link Serializable})
-	 */
-	private static final long serialVersionUID = 3225605065408244944L;
-
-	/**
 	 * Nome del giocatore.
 	 */
 	private String nome;
