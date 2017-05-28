@@ -54,7 +54,7 @@ public class Famigliare {
 	 */
 	public void eseguiSpostamentoTorre(int posizione) {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!spazioAzione.torreLibera(i))
+		if (!(spazioAzione.torreLibera(i)))
 			return;
 
 		if (i % 4 == 0 && valore < 1)
@@ -91,15 +91,6 @@ public class Famigliare {
 			giocatoreAppartenenza.getPlancia().getImprese().add((Impresa) cartaTorre);
 
 		cartaTorre.effettoImmediato(giocatoreAppartenenza);
-		cartaTorre.effettoPermanente(giocatoreAppartenenza); // ?Egiusto che
-																// venga
-																// eseguito qui
-																// l'effetto
-																// permanente?
-																// (cio?Esubito
-																// dopo
-																// l'acquisizione
-																// della carta?)
 
 		spazioAzione.getPianoDellaTorre()[i].setFamigliare(this);
 	}
@@ -213,10 +204,10 @@ public class Famigliare {
 	}
 
 	/**
-	 * se il valore ?Einferiore ad 1 oppure se quella posizione del mercato ?Egi?E
-	 * occupata, allora non ?Epossibile effettuare lo spostamento. In caso
-	 * contrario effettuo lo spostamento ed eseguo sul giocatore l'effetto del
-	 * mercato
+	 * se il valore ?Einferiore ad 1 oppure se quella posizione del mercato
+	 * ?Egi?E occupata, allora non ?Epossibile effettuare lo spostamento. In
+	 * caso contrario effettuo lo spostamento ed eseguo sul giocatore l'effetto
+	 * del mercato
 	 * 
 	 * @return
 	 */

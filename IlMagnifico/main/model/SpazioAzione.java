@@ -68,7 +68,7 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Restituisce true se il piano della torre indicato dalla posizione è
+	 * Restituisce true se il piano della torre indicato dalla posizione ﾃｨ
 	 * libero, false altrimenti
 	 * 
 	 * @param int
@@ -84,7 +84,7 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Restituisce true se la zona Raccolto rotonda è libera, false altrimenti
+	 * Restituisce true se la zona Raccolto rotonda ﾃｨ libera, false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -99,7 +99,7 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Restituisce true se la zona Produzione rotonda è libera, false altrimenti
+	 * Restituisce true se la zona Produzione rotonda ﾃｨ libera, false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -113,7 +113,7 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Ritorna true se la zona mercato alla posizione indicata in ingresso è
+	 * Ritorna true se la zona mercato alla posizione indicata in ingresso ﾃｨ
 	 * libera, false altrimenti
 	 * 
 	 * @param
@@ -126,7 +126,7 @@ public class SpazioAzione {
 			return false;
 	}
 
-	/**Effettua l'effetto conseguente sul giocatore a seconda della posizione in ingresso. Se la posizione non è valida il metodo non fa niente
+	/**Effettua l'effetto conseguente sul giocatore a seconda della posizione in ingresso. Se la posizione non ﾃｨ valida il metodo non fa niente
 	 * 
 	 * @param Giocatore, int
 	 * @return
@@ -318,7 +318,7 @@ public class SpazioAzione {
 
 	/**
 	 * Aggiunge nella zona di raccolto ovale un famigliare (il famigliare
-	 * aggiunto sarà nell'ultima posizione dell'ArrayList
+	 * aggiunto sarﾃ� nell'ultima posizione dell'ArrayList
 	 * 
 	 * @param
 	 * @return
