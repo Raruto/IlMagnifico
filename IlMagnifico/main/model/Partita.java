@@ -2,11 +2,6 @@ package main.model;
 
 import java.util.*;
 
-import main.network.server.RemotePlayer;
-import main.network.server.game.Room;
-import main.network.server.game.UpdateStats;
-import main.util.EAzioniGiocatore;
-
 /**
  * 
  */

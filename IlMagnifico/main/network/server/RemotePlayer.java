@@ -1,19 +1,11 @@
 package main.network.server;
 
-import java.rmi.RemoteException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import com.sun.security.jgss.ExtendedGSSContext;
-
-import main.model.Carta;
 import main.model.Edificio;
 import main.model.Giocatore;
 import main.model.Impresa;
 import main.model.Personaggio;
-import main.model.Plancia;
 import main.model.Punti;
 import main.model.Risorsa;
 import main.model.Territorio;
@@ -21,7 +13,6 @@ import main.network.NetworkException;
 import main.network.protocol.PlayerColors;
 import main.network.server.game.Room;
 import main.network.server.game.UpdateStats;
-import main.util.ECarte;
 import main.util.EPunti;
 import main.util.ERisorse;
 
@@ -35,6 +26,12 @@ public abstract class RemotePlayer extends Giocatore {
 	 * 
 	 */
 	private static final long serialVersionUID = -7157051737050661369L;
+	
+	/**
+	 * Flag che indica se il giocatore � online
+	 */
+	private boolean isOnline;
+
 
 	/**
 	 * Riferimento al giocatore associato al giocatore remoto.
@@ -118,6 +115,27 @@ public abstract class RemotePlayer extends Giocatore {
 	public PlayerColors getColore() {
 		return player.getColore();
 	}
+	
+	/**
+	 * Imposta il flag online usato per determinare lo stato della connessione
+	 * con il client associato al giocatore.
+	 * 
+	 * @param online
+	 *            "True" imposta lo stato del giocatore come presente (online).
+	 */
+	public void setOnline(boolean online) {
+		this.isOnline = online;
+	}
+
+	/**
+	 * Ritorna lo stato della connessione con il client associato al giocatore
+	 * 
+	 * @return "True" se il giocatore � online.
+	 */
+	public boolean isOnline() {
+		return this.isOnline;
+	}
+
 
 	// /**
 	// * Notify player that a new game turn is started.

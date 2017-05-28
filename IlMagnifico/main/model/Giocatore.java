@@ -24,10 +24,6 @@ public class Giocatore implements Serializable {
 	 */
 	private PlayerColors colore;
 
-	/**
-	 * Flag che indica se il giocatore � online
-	 */
-	private boolean isOnline;
 
 	/**
 	 * 
@@ -99,26 +95,6 @@ public class Giocatore implements Serializable {
 	 */
 	public PlayerColors getColore() {
 		return this.colore;
-	}
-
-	/**
-	 * Imposta il flag online usato per determinare lo stato della connessione
-	 * con il client associato al giocatore.
-	 * 
-	 * @param online
-	 *            "True" imposta lo stato del giocatore come presente (online).
-	 */
-	public void setOnline(boolean online) {
-		this.isOnline = online;
-	}
-
-	/**
-	 * Ritorna lo stato della connessione con il client associato al giocatore
-	 * 
-	 * @return "True" se il giocatore � online.
-	 */
-	public boolean isOnline() {
-		return this.isOnline;
 	}
 
 	/**
