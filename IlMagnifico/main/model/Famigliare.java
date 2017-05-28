@@ -54,19 +54,19 @@ public class Famigliare {
 	 */
 	public void eseguiSpostamentoTorre(int posizione) {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!(spazioAzione.torreLibera(i)))
+		if (!(spazioAzione.torreLibera(posizione)))
 			return;
 
-		if (i % 4 == 0 && valore < 1)
+		if (posizione % 4 == 0 && valore < 1)
 			return;
-		else if ((i - 1) % 4 == 0 && valore < 3)
+		else if ((posizione - 1) % 4 == 0 && valore < 3)
 			return;
-		else if ((i - 2) % 4 == 0 && valore < 5)
+		else if ((posizione - 2) % 4 == 0 && valore < 5)
 			return;
-		else if ((i - 3) % 4 == 0 && valore < 7)
+		else if ((posizione - 3) % 4 == 0 && valore < 7)
 			return;
 
-		Carta cartaTorre = spazioAzione.getPianoDellaTorre()[i].getCarta();
+		Carta cartaTorre = spazioAzione.getCartaTorre(posizione);
 		if (!cartaTorre.acquisibile(giocatoreAppartenenza))
 			return;
 		else {
@@ -92,7 +92,8 @@ public class Famigliare {
 
 		cartaTorre.effettoImmediato(giocatoreAppartenenza);
 
-		spazioAzione.getPianoDellaTorre()[i].setFamigliare(this);
+		spazioAzione.setFamigliareTorre(this, posizione);
+
 	}
 
 	/**
