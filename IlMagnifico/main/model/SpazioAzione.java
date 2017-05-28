@@ -12,9 +12,9 @@ public class SpazioAzione {
 	 */
 	public SpazioAzione() {
 		this.pianoDellaTorre = new Torre[16];
-		this.zonaRaccoltoRotonda = new Famigliare();
+		this.zonaRaccoltoRotonda = null;
 		this.zonaRaccoltoOvale = new ArrayList<Famigliare>();
-		this.zonaProduzioneRotonda = new Famigliare();
+		this.zonaProduzioneRotonda = null;
 		this.zonaProduzioneOvale = new ArrayList<Famigliare>();
 		this.mercato = new Famigliare[4];
 		this.palazzoDelConsiglio = new ArrayList<Famigliare>();
@@ -68,7 +68,7 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Restituisce true se il piano della torre indicato dalla posizione ﾃｨ
+	 * Restituisce true se il piano della torre indicato dalla posizione �ｾ�ｽｨ
 	 * libero, false altrimenti
 	 * 
 	 * @param int
@@ -84,7 +84,8 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Restituisce true se la zona Raccolto rotonda ﾃｨ libera, false altrimenti
+	 * Restituisce true se la zona Raccolto rotonda �ｾ�ｽｨ libera, false
+	 * altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -99,7 +100,8 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Restituisce true se la zona Produzione rotonda ﾃｨ libera, false altrimenti
+	 * Restituisce true se la zona Produzione rotonda �ｾ�ｽｨ libera, false
+	 * altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -113,7 +115,7 @@ public class SpazioAzione {
 	}
 
 	/**
-	 * Ritorna true se la zona mercato alla posizione indicata in ingresso ﾃｨ
+	 * Ritorna true se la zona mercato alla posizione indicata in ingresso �ｾ�ｽｨ
 	 * libera, false altrimenti
 	 * 
 	 * @param
@@ -126,26 +128,29 @@ public class SpazioAzione {
 			return false;
 	}
 
-	/**Effettua l'effetto conseguente sul giocatore a seconda della posizione in ingresso. Se la posizione non ﾃｨ valida il metodo non fa niente
+	/**
+	 * Effettua l'effetto conseguente sul giocatore a seconda della posizione in
+	 * ingresso. Se la posizione non �ｾ�ｽｨ valida il metodo non fa niente
 	 * 
-	 * @param Giocatore, int
+	 * @param Giocatore,
+	 *            int
 	 * @return
 	 * 
 	 * 
 	 */
-	public void eseguiEffettoMercato(Giocatore giocatore,int posizione) {
-				if(posizione==0)
-					giocatore.getRisorse().cambiaMonete(5);
-				else if(posizione==1)
-					giocatore.getRisorse().cambiaServitori(5);
-				else if(posizione==2){
-					giocatore.getRisorse().cambiaMonete(2);
-					giocatore.getPunti().cambiaPuntiMilitari(3);
-				}
-				else if(posizione==3){
-					//qua ci vuole il metodo che permette al giocatore di ottenere un doppio privilegio del consiglio
-				}
-		        
+	public void eseguiEffettoMercato(Giocatore giocatore, int posizione) {
+		if (posizione == 0)
+			giocatore.getRisorse().cambiaMonete(5);
+		else if (posizione == 1)
+			giocatore.getRisorse().cambiaServitori(5);
+		else if (posizione == 2) {
+			giocatore.getRisorse().cambiaMonete(2);
+			giocatore.getPunti().cambiaPuntiMilitari(3);
+		} else if (posizione == 3) {
+			// qua ci vuole il metodo che permette al giocatore di ottenere un
+			// doppio privilegio del consiglio
+		}
+
 	}
 
 	/**
@@ -318,7 +323,7 @@ public class SpazioAzione {
 
 	/**
 	 * Aggiunge nella zona di raccolto ovale un famigliare (il famigliare
-	 * aggiunto sarﾃ� nell'ultima posizione dell'ArrayList
+	 * aggiunto sar�ｾ�ｿｽ nell'ultima posizione dell'ArrayList
 	 * 
 	 * @param
 	 * @return
