@@ -11,11 +11,12 @@ public abstract class Carta {
 	 * Default constructor
 	 */
 	public Carta(String nome, ArrayList<Object[]> acquisizione, ArrayList<Object[]> effettoImmediato,
-			ArrayList<Object[]> effettoPermanente) {
+			ArrayList<Object[]> effettoPermanente, int valoreNecessario) {
 		this.nome = nome;
 		this.acquisizione = acquisizione;
 		this.effettoImmediato = effettoImmediato;
 		this.effettoPermanente = effettoPermanente;
+		this.valoreNecessarioEffettoPermanente = valoreNecessario;
 	}
 
 	/**
@@ -36,6 +37,11 @@ public abstract class Carta {
 	 * 
 	 */
 	protected ArrayList<Object[]> effettoImmediato;
+
+	/**
+	 * 
+	 * */
+	protected int valoreNecessarioEffettoPermanente;
 
 	/**
 	 * 
@@ -86,6 +92,18 @@ public abstract class Carta {
 			else if ((int) effettoPermanente.get(i)[0] == 3)
 				utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
 		}
+	}
+
+	public boolean Attivabile(int valoreAzione) { // gli passo un valore, non il
+													// famigliare, perchè devo
+													// potere variare il valore
+													// a seconda dei bonus e
+													// malus ricevuti con
+													// effetti vari
+		if (valoreAzione >= this.valoreNecessarioEffettoPermanente)
+			return true;
+		else
+			return false;
 	}
 
 }
