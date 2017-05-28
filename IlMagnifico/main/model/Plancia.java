@@ -82,7 +82,7 @@ public class Plancia {
 	}
 
 	public ArrayList<Impresa> getImprese() {
-		return imprese;
+		return this.imprese;
 	}
 
 }

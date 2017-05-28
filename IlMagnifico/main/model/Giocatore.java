@@ -25,7 +25,7 @@ public class Giocatore implements Serializable {
 	private PlayerColors colore;
 
 	/**
-	 * Flag che indica se il giocatore è online
+	 * Flag che indica se il giocatore ï¿½ online
 	 */
 	private boolean isOnline;
 
@@ -48,6 +48,8 @@ public class Giocatore implements Serializable {
 	 * 
 	 */
 	private Punti punti;
+
+	private SpazioAzione spazioAzione;
 
 	/**
 	 * 
@@ -113,7 +115,7 @@ public class Giocatore implements Serializable {
 	/**
 	 * Ritorna lo stato della connessione con il client associato al giocatore
 	 * 
-	 * @return "True" se il giocatore è online.
+	 * @return "True" se il giocatore ï¿½ online.
 	 */
 	public boolean isOnline() {
 		return this.isOnline;
@@ -155,5 +157,13 @@ public class Giocatore implements Serializable {
 	public void produzione(int valore) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public SpazioAzione getSpazioAzione() {
+		return this.spazioAzione;
+	}
+
+	public Plancia getPlancia() {
+		return this.plancia;
 	}
 }

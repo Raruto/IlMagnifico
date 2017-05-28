@@ -54,19 +54,19 @@ public class Famigliare {
 	 */
 	public void eseguiSpostamentoTorre(int posizione) {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!(spazioAzione.torreLibera(i)))
+		if (!(spazioAzione.torreLibera(posizione)))
 			return;
 
-		if (i % 4 == 0 && valore < 1)
+		if (posizione % 4 == 0 && valore < 1)
 			return;
-		else if ((i - 1) % 4 == 0 && valore < 3)
+		else if ((posizione - 1) % 4 == 0 && valore < 3)
 			return;
-		else if ((i - 2) % 4 == 0 && valore < 5)
+		else if ((posizione - 2) % 4 == 0 && valore < 5)
 			return;
-		else if ((i - 3) % 4 == 0 && valore < 7)
+		else if ((posizione - 3) % 4 == 0 && valore < 7)
 			return;
 
-		Carta cartaTorre = spazioAzione.getPianoDellaTorre()[i].getCarta();
+		Carta cartaTorre = spazioAzione.getCartaTorre(posizione);
 		if (!cartaTorre.acquisibile(giocatoreAppartenenza))
 			return;
 		else {
@@ -92,7 +92,8 @@ public class Famigliare {
 
 		cartaTorre.effettoImmediato(giocatoreAppartenenza);
 
-		spazioAzione.getPianoDellaTorre()[i].setFamigliare(this);
+		spazioAzione.setFamigliareTorre(this, posizione);
+
 	}
 
 	/**
@@ -108,33 +109,19 @@ public class Famigliare {
 	 */
 	public void eseguiSpostamentoRaccoltoRotondo() {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!spazioAzione.getZonaRaccoltoRotondaLibera())
+		if (!(spazioAzione.zonaRaccoltoRotondaLibera()))
 			return;
 		if (valore < 1)
 			return;
-		for (int i = 0; i < spazioAzione.getZonaRaccoltoOvale().size(); i++) {
-			if (spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatoreAppartenenza() == giocatoreAppartenenza)
-				return;
-		}
 
-		// per attivare le carte territorio ?Enecessario oltre ai punti militari
-		// anche un certo valore del dado del famigliare sullo spazio azione. Si
-		// potrebbe creare un metodo public boolean attivabile(Famigliare
-		// famigliare) all'interno di Territorio
-		int puntiMilitari = giocatoreAppartenenza.getPunti().getPuntiMilitari();
+		// Per attivare gli effetti permanenti dei territori NON e necessario
+		// avere dei punti militari, bisogna solo avere il valore dall'azione
+		// che arriva ad un certo punteggio. Il controllo si può affidare o ai
+		// singoli metodi degli effetti oppure si può inserire un int nei
+		// territori che permetta di sapere di quale valore si ha bisogno. In
+		// alternativa si può mettere appunto un metodo attivabile in territori.
 		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			if (i == 0)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoPermanente(giocatoreAppartenenza);
-			if (i == 1)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(1).effettoPermanente(giocatoreAppartenenza);
-			if (i == 2 && puntiMilitari >= 3)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(2).effettoPermanente(giocatoreAppartenenza);
-			if (i == 3 && puntiMilitari >= 7)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(3).effettoPermanente(giocatoreAppartenenza);
-			if (i == 4 && puntiMilitari >= 12)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(4).effettoPermanente(giocatoreAppartenenza);
-			if (i == 5 && puntiMilitari >= 18)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(5).effettoPermanente(giocatoreAppartenenza);
+			this.giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
 		}
 		spazioAzione.setZonaRaccoltoRotonda(this);
 	}
@@ -153,37 +140,31 @@ public class Famigliare {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		if (valore - 3 < 1)
 			return;
-		if (!spazioAzione.zonaRaccoltoRotondaLibera()) {
-			if (spazioAzione.getZonaRaccoltoRotonda().getGiocatoreAppartenenza() == giocatoreAppartenenza)
-				return;
-		}
+
 		for (int i = 0; i < spazioAzione.getZonaRaccoltoOvale().size(); i++) {
-			if (spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatoreAppartenenza() == giocatoreAppartenenza)
+			if ((spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatore() == giocatoreAppartenenza)
+					&& (spazioAzione.getZonaRaccoltoOvale().get(i).getNeutralita() == false)) // devo
+																								// controllare
+																								// che
+																								// non
+																								// sia
+																								// neutro,
+																								// perchè
+																								// altrimenti
+																								// posso
+																								// piazzare
+																								// il
+																								// famigliare
 				return;
 		}
 
 		valore -= 3;
 
-		// per attivare le carte territorio ?Enecessario oltre ai punti militari
-		// anche un certo valore del dado del famigliare sullo spazio azione. Si
-		// potrebbe creare un metodo public boolean attivabile(Famigliare
-		// famigliare) all'interno di Territorio
-		int puntiMilitari = giocatoreAppartenenza.getPunti().getPuntiMilitari();
+		// Stesso discorso che con la zona rotonda
 		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			if (i == 0)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoPermanente(giocatoreAppartenenza);
-			if (i == 1)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(1).effettoPermanente(giocatoreAppartenenza);
-			if (i == 2 && puntiMilitari >= 3)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(2).effettoPermanente(giocatoreAppartenenza);
-			if (i == 3 && puntiMilitari >= 7)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(3).effettoPermanente(giocatoreAppartenenza);
-			if (i == 4 && puntiMilitari >= 12)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(4).effettoPermanente(giocatoreAppartenenza);
-			if (i == 5 && puntiMilitari >= 18)
-				giocatoreAppartenenza.getPlancia().getTerritori().get(5).effettoPermanente(giocatoreAppartenenza);
+			giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
 		}
-		spazioAzione.setZonaRaccoltoOvale.add(this);
+		spazioAzione.getZonaRaccoltoOvale().add(this);
 
 	}
 
@@ -191,16 +172,52 @@ public class Famigliare {
 	 * @return
 	 */
 	public void eseguiSpostamentoProduzioneRotondo() {
-		// TODO implement here
-		return null;
+		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+		if (!(spazioAzione.zonaProduzioneRotondaLibera()))
+			return;
+		if (valore < 1)
+			return;
+
+		// Similmente alla zona di raccolto
+		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		}
+		spazioAzione.setZonaProduzioneRotonda(this);
 	}
 
 	/**
 	 * @return
 	 */
 	public void eseguiSpostamentoProduzioneOvale() {
-		// TODO implement here
-		return null;
+		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+		if (valore - 3 < 1)
+			return;
+
+		for (int i = 0; i < spazioAzione.getZonaProduzioneOvale().size(); i++) {
+			if ((spazioAzione.getZonaProduzioneOvale().get(i).getGiocatore() == giocatoreAppartenenza)
+					&& (spazioAzione.getZonaProduzioneOvale().get(i).getNeutralita() == false)) // devo
+																								// controllare
+																								// che
+																								// non
+																								// sia
+																								// neutro,
+																								// perchè
+																								// altrimenti
+																								// posso
+																								// piazzare
+																								// il
+																								// famigliare
+				return;
+		}
+
+		valore -= 3;
+
+		// Stesso discorso che con la zona rotonda
+		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
+			giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		}
+		spazioAzione.getZonaProduzioneOvale().add(this);
+
 	}
 
 	/**
@@ -211,16 +228,16 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoMercato(int i) {
-		if (i < 0 || i > 3)
+	public void eseguiSpostamentoMercato(int posizione) {
+		if (posizione < 0 || posizione > 3)
 			return;
 		if (valore < 1)
 			return;
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!spazioAzione.zonaMercatoLibera(i))
+		if (!spazioAzione.zonaMercatoLibera(posizione))
 			return;
-		spazioAzione.getMercato()[i] = this;
-		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, i);
+		spazioAzione.getMercato()[posizione] = this;
+		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, posizione);
 	}
 
 	/**
@@ -234,8 +251,11 @@ public class Famigliare {
 		if (valore < 1)
 			return;
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		spazioAzione.getPalazzoDelConsiglio().add(this);
+		spazioAzione.setPalazzoDelConsiglio(this);
 		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza);
 	}
 
+	public boolean getNeutralita() {
+		return this.neutro;
+	}
 }
