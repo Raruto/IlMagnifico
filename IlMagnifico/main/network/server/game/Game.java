@@ -28,11 +28,25 @@ public class Game extends Partita {
 	 * Inizializza una nuova Partita nella Stanza (usto in {@link Room})
 	 */
 	public void startNewGame() {
+		UpdateStats update;
+		
+		//TODO: decidere quali azioni vogliamo trasmettere...
+
 		inizializzaPartita();
+		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
+		dispatchGameUpdate(update);
 
-		UpdateStats update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
+		// lanciaDadi();
+		update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+		dispatchGameUpdate(update);
+
+		//
+		update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
+		dispatchGameUpdate(update);
+
+		//
+		update = new UpdateStats(EFasiDiGioco.GiocatoreDiTurno, this.spazioAzione);
 		update.setNomeGiocatore(giocatoreDiTurno.getNome());
-
 		dispatchGameUpdate(update);
 	}
 
