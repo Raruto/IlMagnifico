@@ -168,4 +168,20 @@ public class Giocatore implements Serializable {
 	public void setScomunica(int periodo, Scomunica scomunica) {
 		this.scomuniche[periodo] = scomunica;
 	}
+
+	/**
+	 * Metodo che controlla che tutti i famigliari del giocatore siano stati
+	 * posizionati. Ritorna true se sono stati posizionati tutti i famigliari,
+	 * false altrimenti
+	 * 
+	 * @param
+	 * @return
+	 */
+	public boolean checkPosizionato() {
+		for (int i = 0; i < 4; i++) {
+			if (!(this.famiglia[i].getPosizionato()))
+				return false;
+		}
+		return true;
+	}
 }

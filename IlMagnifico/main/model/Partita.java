@@ -186,21 +186,30 @@ public class Partita {
 	}
 
 	/**
+	 * Metodo che restituisce il giocatore che deve giocatore al turno
+	 * successivo. Restituisce null se sono finiti i famigliari da muovere e
+	 * restituisce il giocatore in ingresso nel caso non sia presente
+	 * all'interno dell'elenco dei giocatori nella partita
+	 * 
+	 * @param
 	 * @return
 	 */
 	public Giocatore giocatoreDelTurnoSuccessivo(Giocatore giocatoreDiTurno) {
-		int index=0;
-		for(int i=0;i<this.giocatori.size();i++){
-			if(this.giocatori.get(i)==giocatoreDiTurno){
-				if((i==(this.giocatori.size()-1)&&(!(this.giocatori.get(i).checkPosizionato()))) //implementare il metodo in Giocatore
-						return this.giocatori.get(0);
-				else if((i==(this.giocatori.size()-1))&&(this.giocatori.get(i).checkPosizionato()))
+		for (int i = 0; i < this.giocatori.size(); i++) {
+			if (this.giocatori.get(i) == giocatoreDiTurno) {
+				if ((i == (this.giocatori.size() - 1) && (!(this.giocatori.get(i).checkPosizionato())))) // implementare
+																											// il
+																											// metodo
+																											// in
+																											// Giocatore
+					return this.giocatori.get(0);
+				else if ((i == (this.giocatori.size() - 1)) && (this.giocatori.get(i).checkPosizionato()))
 					return null;
-				else return this.giocatori.get(i+1);
+				else
+					return this.giocatori.get(i + 1);
 			}
-				
 		}
-
+		return giocatoreDiTurno;
 	}
 
 	/**
