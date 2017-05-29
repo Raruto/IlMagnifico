@@ -2,6 +2,8 @@ package main.model;
 
 import java.util.*;
 
+import main.network.protocol.PlayerColors;
+
 /**
  * 
  */
@@ -85,19 +87,22 @@ public class Partita {
 	 */
 	public void inizializzaGiocatori() {
 		int contatoreMonete = 4;
-		// ci vuole un modo per riempire l'array dei giocatori con le
-		// informazioni reperite dalla parte di comunicazione
-		Collections.shuffle(giocatori);// generazione casuale dell'ordine del
-										// turno di gioco, ipotizzando che
-										// l'array sia giﾃ� riempito
+		Collections.shuffle(giocatori);
+		// generazione casuale dell'ordine dei turni di gioco
 
-		for (int i = 0; i < this.giocatori.size(); i++) {// inizializzo le
-															// riserve dei
-															// giocatori
+		for (int i = 0; i < this.giocatori.size(); i++) {
 			this.giocatori.get(i).getRisorse().cambiaLegno(2);
 			this.giocatori.get(i).getRisorse().cambiaPietre(2);
 			this.giocatori.get(i).getRisorse().cambiaServitori(3);
 			this.giocatori.get(i).getRisorse().cambiaMonete(contatoreMonete + 1);
+			if (i == 0)
+				this.giocatori.get(i).setColore(PlayerColors.BLUE);
+			if (i == 1)
+				this.giocatori.get(i).setColore(PlayerColors.GREEN);
+			if (i == 2)
+				this.giocatori.get(i).setColore(PlayerColors.RED);
+			if (i == 3)
+				this.giocatori.get(i).setColore(PlayerColors.YELLOW);
 		}
 
 	}
@@ -112,27 +117,89 @@ public class Partita {
 	}
 
 	/**
+	 * Metodo che posiziona le carte sulle torri all'inizio del turno
+	 * 
 	 * @return
 	 */
 	public void posizionaCarteSuTorre() {
-		// TODO implement here
-		return;
+		for (int j = 0; j < 16; j++) {
+			for (int i = 0; i < this.mazzo.size(); i++) {
+				if ((0 <= j) && j < 4) {
+					if ((this.mazzo.get(i).getPeriodoCarta() == this.periodo)
+							&& (this.mazzo.get(i) instanceof Territorio)) {
+						this.spazioAzione.setCartaTorre(this.mazzo.get(i), j);
+						this.mazzo.remove(i);
+						break;
+					}
+				}
+				if ((4 <= j) && j < 8) {
+					if ((this.mazzo.get(i).getPeriodoCarta() == this.periodo)
+							&& (this.mazzo.get(i) instanceof Personaggio)) {
+						this.spazioAzione.setCartaTorre(this.mazzo.get(i), j);
+						this.mazzo.remove(i);
+						break;
+					}
+				}
+				if ((8 <= j) && j < 12) {
+					if ((this.mazzo.get(i).getPeriodoCarta() == this.periodo)
+							&& (this.mazzo.get(i) instanceof Edificio)) {
+						this.spazioAzione.setCartaTorre(this.mazzo.get(i), j);
+						this.mazzo.remove(i);
+						break;
+					}
+				}
+				if ((12 <= j) && j < 16) {
+					if ((this.mazzo.get(i).getPeriodoCarta() == this.periodo)
+							&& (this.mazzo.get(i) instanceof Impresa)) {
+						this.spazioAzione.setCartaTorre(this.mazzo.get(i), j);
+						this.mazzo.remove(i);
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	/**
 	 * @return
 	 */
-	public void turnoGiocatore() {
-		// TODO implement here
-		return;
+	public Giocatore giocatoreDelTurnoSuccessivo(Giocatore giocatoreDiTurno) {
+		int index=0;
+		for(int i=0;i<this.giocatori.size();i++){
+			if(this.giocatori.get(i)==giocatoreDiTurno){
+				if((i==(this.giocatori.size()-1)&&(!(this.giocatori.get(i).checkPosizionato()))) //implementare il metodo in Giocatore
+						return this.giocatori.get(0);
+				else if((i==(this.giocatori.size()-1))&&(this.giocatori.get(i).checkPosizionato()))
+					return null;
+				else return this.giocatori.get(i+1);
+			}
+				
+		}
+
 	}
 
 	/**
+	 * Metodo che esegue il rapporto del vaticano per un giocatore. In ingresso
+	 * sono il giocatore stesso e un boolean che indica se il giocatore vuole
+	 * supportare (true) o no (false) la Chiesa.
+	 * 
+	 * @param
 	 * @return
 	 */
-	public void eseguiRapportoVaticano() {
-		// TODO implement here
-		return;
+	public void eseguiRapportoVaticano(Giocatore giocatore, boolean esegui) {
+		int puntiFede = 0;
+		int incremento = 0;
+		if (esegui == true) {
+			puntiFede = giocatore.getPunti().getPuntiFede();
+			for (int i = 0; i < puntiFede; i++) {
+				if (i > 4)
+					incremento++;
+			}
+			giocatore.getPunti().setPuntiVittoria(puntiFede + incremento);
+			giocatore.getPunti().setPuntiFede(0);
+		} else {
+			giocatore.setScomunica(periodo, this.scomuniche[periodo]);
+		}
 	}
 
 	/**
@@ -152,10 +219,21 @@ public class Partita {
 	}
 
 	/**
+	 * Metodo che lancia i dadi ed assegna i valori alle variabili legate ai
+	 * dadi in SpazioAzione ed ai famigliari dei giocatori. Per convenzione
+	 * lancio sempre prima il dado nero, poi l'arancione, poi il bianco.
+	 * 
 	 * @return
 	 */
 	public void lanciaDadi() {
-		// TODO implement here
-		return;
+		int valoreDado;
+		Random random = new Random();
+		for (int i = 0; i < 3; i++) {
+			valoreDado = random.nextInt(6) + 1;
+			for (int j = 0; j < this.giocatori.size(); j++) {
+				this.giocatori.get(j).setValore(i, valoreDado);
+				this.spazioAzione.setValoreDadi(valoreDado, i);
+			}
+		}
 	}
 }

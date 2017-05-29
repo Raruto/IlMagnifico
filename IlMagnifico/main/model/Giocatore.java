@@ -19,7 +19,6 @@ public class Giocatore implements Serializable {
 	 */
 	private PlayerColors colore;
 
-
 	/**
 	 * 
 	 */
@@ -50,7 +49,16 @@ public class Giocatore implements Serializable {
 	/**
 	 * Default constructor
 	 */
-	public Giocatore() {
+	public Giocatore(String nome, PlayerColors colore, Risorsa risorse, Plancia plancia, Punti punti,
+			SpazioAzione spazioAzione) {
+		this.nome = nome;
+		this.colore = colore;
+		this.risorse = risorse;
+		this.plancia = plancia;
+		this.punti = punti;
+		this.spazioAzione = spazioAzione;
+		this.famiglia = new Famigliare[4];
+		this.scomuniche = new Scomunica[3];
 	}
 
 	/**
@@ -132,5 +140,28 @@ public class Giocatore implements Serializable {
 
 	public Plancia getPlancia() {
 		return this.plancia;
+	}
+
+	/**
+	 * Metodo che imposta un valore al famigliare indicato dal numero in
+	 * ingresso
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void setValore(int famigliare, int valoreDaCambiare) {
+		this.famiglia[famigliare].setValore(valoreDaCambiare);
+	}
+
+	/**
+	 * Metodo che assegna una scomunica al giocatore. In ingresso vi sono il
+	 * periodo della scomunica e la scounica stessa
+	 * 
+	 * @param
+	 * @return
+	 * 
+	 */
+	public void setScomunica(int periodo, Scomunica scomunica) {
+		this.scomuniche[periodo] = scomunica;
 	}
 }
