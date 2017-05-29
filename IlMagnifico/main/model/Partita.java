@@ -36,12 +36,12 @@ public class Partita {
 	protected Scomunica[] scomuniche;
 
 	/**
-	 * 
+	 * TOT. 2 turni per periodo
 	 */
 	protected int turno = 0;
 
 	/**
-	 * 
+	 * TOT. 2 periodi per partita
 	 */
 	protected int periodo = 0;
 
