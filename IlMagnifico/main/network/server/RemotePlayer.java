@@ -33,11 +33,6 @@ public abstract class RemotePlayer extends Giocatore {
 	private boolean isOnline;
 
 	/**
-	 * Riferimento al giocatore associato al giocatore remoto.
-	 */
-	private Giocatore player;
-
-	/**
 	 * Reference to room where player is joined.
 	 */
 	private transient Room mRoom;
@@ -47,14 +42,6 @@ public abstract class RemotePlayer extends Giocatore {
 	 */
 	protected RemotePlayer() {
 
-	}
-
-	public Giocatore getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Giocatore player) {
-		this.player = player;
 	}
 
 	/**

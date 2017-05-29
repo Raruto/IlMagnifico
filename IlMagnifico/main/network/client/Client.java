@@ -241,6 +241,22 @@ public class Client implements IClient {
 
 	}
 
+	@Override
+	public void onPlayerDisconnected(String nickname) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onLastTurnStarted(String nickname) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Notifica che è arrivato un nuovo messaggio dalla chat.
 	 * 
@@ -261,19 +277,8 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
-		System.out.println("[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
-	}
-
-	@Override
-	public void onPlayerDisconnected(String nickname) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onLastTurnStarted(String nickname) {
-		// TODO Auto-generated method stub
-
+		System.out
+				.println("[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
 	}
 
 	/**

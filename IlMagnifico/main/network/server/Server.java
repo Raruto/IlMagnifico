@@ -162,6 +162,10 @@ public class Server implements IServer {
 		socketServer.startServer(socketPort);
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati sul Server Controller (vedi RMIServer, SocketServer)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Login del giocatore tramite nickname.
 	 * 
@@ -344,8 +348,7 @@ public class Server implements IServer {
 	@Override
 	public void send(Object object) throws NetworkException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }
