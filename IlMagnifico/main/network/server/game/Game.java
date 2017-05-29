@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
+import main.util.Errors;
 
 public class Game extends Partita {
 	/**
@@ -45,6 +46,13 @@ public class Game extends Partita {
 		notifyAll();
 	}
 
+	private boolean isElegible(RemotePlayer remotePlayer) {
+		if (this.periodo <= 0) {
+			return false;
+		} else
+			return false;
+	}
+
 	/**
 	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
 	 * gioco
@@ -54,8 +62,8 @@ public class Game extends Partita {
 	 * @return {@link UpdateStats}
 	 */
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) throws GameException {
-		if (this.periodo <= 0) {
-			throw new GameException("GAME_NOT_STARTED");
+		if (!isElegible(remotePlayer)) {
+			throw new GameException(Errors.GAME_NOT_STARTED);
 		} else {
 			UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
 			return updateStats;

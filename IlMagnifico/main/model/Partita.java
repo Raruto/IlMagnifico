@@ -13,7 +13,8 @@ public class Partita {
 	protected ArrayList<Carta> mazzo;
 
 	/**
-	 * 
+	 * Array giocatori (usato per determinare l'ordine attuale del turno di
+	 * gioco).
 	 */
 	protected ArrayList<Giocatore> giocatori;
 
