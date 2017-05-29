@@ -19,6 +19,11 @@ public class Partita {
 	protected ArrayList<Giocatore> giocatori;
 
 	/**
+	 * Puntatore al giocatore attualmente di turno
+	 */
+	protected Giocatore giocatoreDiTurno;
+
+	/**
 	 * 
 	 */
 	protected SpazioAzione spazioAzione;
@@ -43,6 +48,26 @@ public class Partita {
 	 */
 	public Partita() {
 		giocatori = new ArrayList<Giocatore>();
+	}
+
+	/**
+	 * Metodo usato per inizializzare la partita.
+	 */
+	protected void inizializzaPartita() {
+		// TOT. 2 periodi per partita
+		this.periodo = 1;
+
+		// TOT. 2 Turni per periodo
+		this.turno = 1;
+
+		// TODO: come inizializzate il mazzo?
+		// this.mazzo = new ArrayList<Carta>()????
+
+		// prossimo giocatore ad eseguire un azione
+		this.giocatoreDiTurno = giocatori.get(0);
+
+		// TODO: finire di implementare...
+
 	}
 
 	/**

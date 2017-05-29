@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
+import main.util.EFasiDiGioco;
 import main.util.Errors;
 
 public class Game extends Partita {
@@ -13,10 +14,13 @@ public class Game extends Partita {
 	 */
 	private boolean end;
 
-	public Game(ArrayList<RemotePlayer> players) {
+	private Room room;
+
+	public Game(ArrayList<RemotePlayer> players, Room room) {
 		for (RemotePlayer player : players) {
 			giocatori.add(player);
 		}
+		this.room = room;
 		end = false;
 	}
 
@@ -46,11 +50,25 @@ public class Game extends Partita {
 		notifyAll();
 	}
 
+	public void startNewGame() {
+		inizializzaPartita();
+
+		UpdateStats update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
+		update.setNomeGiocatore(giocatoreDiTurno.getNome());
+
+		dispatchGameUpdate(update);
+	}
+
 	private boolean isElegible(RemotePlayer remotePlayer) {
 		if (this.periodo <= 0) {
 			return false;
-		} else
-			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private void dispatchGameUpdate(UpdateStats update) {
+		room.dispatchGameUpdate(update);
 	}
 
 	/**

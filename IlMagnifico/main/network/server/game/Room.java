@@ -7,6 +7,7 @@ import main.network.exceptions.PlayerNotFound;
 import main.network.server.RemotePlayer;
 import main.util.Costants;
 import main.util.EAzioniGiocatore;
+import main.util.Errors;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
@@ -243,20 +244,23 @@ public class Room {
 		}
 	}
 
+	public void dispatchGameUpdate(UpdateStats update) {
+		players.stream().forEach(p -> {
+			try {
+				p.onGameUpdate(update);
+			} catch (NetworkException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+
 	public void performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore act) throws GameException {
 		try {
 			UpdateStats updateState = game.performGameAction(remotePlayer, act);
-
-			players.stream().forEach(p -> {
-				try {
-					p.onGameUpdate(updateState);
-				} catch (NetworkException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
+			dispatchGameUpdate(updateState);
 		} catch (NullPointerException e) {
-			throw new GameException("GAME_NOT_STARTED");
+			throw new GameException(e);
 		}
 	}
 
@@ -282,6 +286,7 @@ public class Room {
 		public void run() {
 			initializeRoomHandler();
 
+			Room.this.game.startNewGame();
 			Room.this.game.waitGameEnd();
 
 			cleanRoomHandler();
@@ -300,7 +305,8 @@ public class Room {
 			}
 
 			log("Creating game session");
-			Room.this.game = new Game(Room.this.players);
+
+			Room.this.game = new Game(Room.this.players, Room.this);
 
 			log("Room closed, " + players.size() + " players in");
 		}

@@ -10,6 +10,7 @@ import main.network.protocol.ConnectionTypes;
 import main.network.server.game.UpdateStats;
 import main.util.Costants;
 import main.util.EAzioniGiocatore;
+import main.util.EFasiDiGioco;
 import main.util.FakeUI;
 
 /**
@@ -277,8 +278,16 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
-		System.out
-				.println("[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
+		if (update.getAzioneGiocatore() != null)
+			System.out.println(
+					"[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
+		else if (update.getAzioneServer() != null) {
+			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
+			if (update.getNomeGiocatore() != null && update.getAzioneServer() == EFasiDiGioco.InizioPartita) {
+				System.out.println("E' il turno di: " + update.getNomeGiocatore());
+			}
+		}
+
 	}
 
 	/**
