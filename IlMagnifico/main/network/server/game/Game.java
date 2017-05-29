@@ -25,6 +25,18 @@ public class Game extends Partita {
 	}
 
 	/**
+	 * Inizializza una nuova Partita nella Stanza (usto in {@link Room})
+	 */
+	public void startNewGame() {
+		inizializzaPartita();
+
+		UpdateStats update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
+		update.setNomeGiocatore(giocatoreDiTurno.getNome());
+
+		dispatchGameUpdate(update);
+	}
+
+	/**
 	 * Blocca il Thread chiamante fintanto che la Partita è ancora in corso
 	 * (usato in {@link Room})
 	 */
@@ -48,15 +60,6 @@ public class Game extends Partita {
 
 		// Notify all about game end status.
 		notifyAll();
-	}
-
-	public void startNewGame() {
-		inizializzaPartita();
-
-		UpdateStats update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
-		update.setNomeGiocatore(giocatoreDiTurno.getNome());
-
-		dispatchGameUpdate(update);
 	}
 
 	private boolean isElegible(RemotePlayer remotePlayer) {
