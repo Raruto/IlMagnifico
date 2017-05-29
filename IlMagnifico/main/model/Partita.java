@@ -88,7 +88,7 @@ public class Partita {
 		// informazioni reperite dalla parte di comunicazione
 		Collections.shuffle(giocatori);// generazione casuale dell'ordine del
 										// turno di gioco, ipotizzando che
-										// l'array sia già riempito
+										// l'array sia giﾃ� riempito
 
 		for (int i = 0; i < this.giocatori.size(); i++) {// inizializzo le
 															// riserve dei
@@ -108,9 +108,6 @@ public class Partita {
 
 		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
 		// dall'arraylist dei giocatori, poi concateno
-		this.spazioAzione.eliminaRicorrenzePalazzoDelConsiglio();// ancora da
-																	// finire
-
 	}
 
 	/**
