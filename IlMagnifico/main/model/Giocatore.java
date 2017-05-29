@@ -61,6 +61,10 @@ public class Giocatore implements Serializable {
 		this.scomuniche = new Scomunica[3];
 	}
 
+	public Giocatore() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Imposta il nome del giocatore (utilizzato per identificare univocamente
 	 * il giocatore all'interno del gioco).

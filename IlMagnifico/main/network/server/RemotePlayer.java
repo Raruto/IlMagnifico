@@ -41,7 +41,7 @@ public abstract class RemotePlayer extends Giocatore {
 	 * Abstract constructor.
 	 */
 	protected RemotePlayer() {
-
+		super();
 	}
 
 	/**
@@ -62,7 +62,6 @@ public abstract class RemotePlayer extends Giocatore {
 	public Room getRoom() {
 		return mRoom;
 	}
-
 
 	/**
 	 * Imposta il flag online usato per determinare lo stato della connessione
