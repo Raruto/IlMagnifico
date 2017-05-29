@@ -38,18 +38,24 @@ public class Partita {
 	/**
 	 * TOT. 2 turni per periodo
 	 */
-	protected int turno = 0;
+	protected int turno;
 
 	/**
 	 * TOT. 2 periodi per partita
 	 */
-	protected int periodo = 0;
+	protected int periodo;
 
 	/**
 	 * Costruttore.
 	 */
 	public Partita() {
 		giocatori = new ArrayList<Giocatore>();
+		this.mazzo = new ArrayList<Carta>();
+		this.giocatoreDiTurno = null;
+		this.spazioAzione = new SpazioAzione();
+		this.scomuniche = new Scomunica[3];
+		this.turno = 0;
+		this.periodo = 0;
 	}
 
 	/**
@@ -63,13 +69,24 @@ public class Partita {
 		this.turno = 1;
 
 		// TODO: come inizializzate il mazzo?
-		// this.mazzo = new ArrayList<Carta>()????
-
+		inizializzaMazzo();
+		mescolaMazzo();
+		posizionaCarteSuTorre();
+		inizializzaScomunica();
+		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione
 		this.giocatoreDiTurno = giocatori.get(0);
 
-		// TODO: finire di implementare...
+		// Per ora non mi viene in mente altro che si potrebbe fare per
+		// inizializzare la partita. C'è ancora da implementare la parte
+		// della inizializzazione del mazzo perchè dipende dal file (per farlo
+		// funzionare anche solo temporaneamente dovrei fare un enum). Stesso
+		// discorso vale per le scomuniche.
 
+	}
+
+	public void inizializzaMazzo() {
+		// TODO: implementare
 	}
 
 	/**
@@ -88,7 +105,7 @@ public class Partita {
 	 * 
 	 * @return
 	 */
-	public void scegliScomunica() {
+	public void inizializzaScomunica() {
 		for (int i = 0; i < 3; i++) {
 			int periodo = i + 1;
 			int indice;
