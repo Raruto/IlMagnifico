@@ -13,6 +13,7 @@ import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.exceptions.*;
 import main.network.protocol.ErrorCodes;
+import main.network.server.game.GameException;
 import main.network.server.game.UpdateStats;
 import main.network.server.rmi.*;
 import main.util.EAzioniGiocatore;
@@ -134,6 +135,8 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 			server.performGameAction(sessionToken, act);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
+		} catch (GameException e) {
+			System.err.println("\n" + e.getMessage());
 		}
 	}
 

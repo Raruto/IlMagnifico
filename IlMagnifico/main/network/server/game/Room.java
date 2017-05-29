@@ -243,16 +243,21 @@ public class Room {
 		}
 	}
 
-	public void performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore act) {
-		UpdateStats updateState = game.performGameAction(remotePlayer, act);
-		players.stream().forEach(p -> {
-			try {
-				p.onGameUpdate(updateState);
-			} catch (NetworkException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
+	public void performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore act) throws GameException {
+		try {
+			UpdateStats updateState = game.performGameAction(remotePlayer, act);
+
+			players.stream().forEach(p -> {
+				try {
+					p.onGameUpdate(updateState);
+				} catch (NetworkException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+		} catch (NullPointerException e) {
+			throw new GameException("GAME_NOT_STARTED");
+		}
 	}
 
 	/**

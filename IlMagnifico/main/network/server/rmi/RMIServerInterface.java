@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import main.network.client.rmi.RMIClientInterface;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
+import main.network.server.game.GameException;
 import main.util.EAzioniGiocatore;
 
 /**
@@ -61,7 +62,7 @@ public interface RMIServerInterface extends Remote {
 	 */
 	void sendChatMessage(String sessionToken, String receiver, String message) throws IOException;
 
-	void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException;
+	void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException, GameException;
 
 	/**
 	 * Metodo per il "debug"

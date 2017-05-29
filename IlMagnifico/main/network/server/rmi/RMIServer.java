@@ -16,6 +16,7 @@ import main.network.server.AbstractServer;
 import main.network.server.IServer;
 import main.network.server.RemotePlayer;
 import main.network.server.ServerException;
+import main.network.server.game.GameException;
 import main.util.EAzioniGiocatore;
 
 /**
@@ -145,7 +146,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	@Override
-	public void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException {
+	public void performGameAction(String sessionToken, EAzioniGiocatore act) throws RemoteException, GameException {
 		RemotePlayer remotePlayer = getPlayer(sessionToken);
 		remotePlayer.getRoom().performGameAction(remotePlayer, act);
 	}

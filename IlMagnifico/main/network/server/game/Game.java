@@ -53,9 +53,13 @@ public class Game extends Partita {
 	 * @param action
 	 * @return {@link UpdateStats}
 	 */
-	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) {
-		UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
-		return updateStats;
+	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) throws GameException {
+		if (this.periodo <= 0) {
+			throw new GameException("GAME_NOT_STARTED");
+		} else {
+			UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
+			return updateStats;
+		}
 	}
 
 }

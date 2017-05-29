@@ -30,7 +30,12 @@ public class Partita {
 	/**
 	 * 
 	 */
-	protected int turno;
+	protected int turno = 0;
+
+	/**
+	 * 
+	 */
+	protected int periodo = 0;
 
 	/**
 	 * Costruttore.
