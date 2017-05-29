@@ -11,6 +11,7 @@ public class Famigliare {
 		this.giocatoreAppartenenza = giocatoreAppartenenza;
 		this.valore = valore;
 		this.neutro = neutro;
+		this.posizionato = false;
 	}
 
 	/**
@@ -22,6 +23,8 @@ public class Famigliare {
 	 * ?Eil valore del famigliare
 	 */
 	private int valore;
+
+	private boolean posizionato;
 
 	/**
 	 * se ?Etrue allora ?Eil famigliare neutro, se false non ?Eneutro
@@ -58,12 +61,15 @@ public class Famigliare {
 			return;
 
 		if (posizione % 4 == 0 && valore < 1)
+			// controlla alternativamente le prime ,le seconde, terze e quarte
+			// posizioni e controlla che il valore della pedina sia abbastanza
+			// grande
 			return;
-		else if ((posizione - 1) % 4 == 0 && valore < 3)
+		else if ((posizione) % 4 == 1 && valore < 3)
 			return;
-		else if ((posizione - 2) % 4 == 0 && valore < 5)
+		else if ((posizione) % 4 == 2 && valore < 5)
 			return;
-		else if ((posizione - 3) % 4 == 0 && valore < 7)
+		else if ((posizione) % 4 == 3 && valore < 7)
 			return;
 
 		Carta cartaTorre = spazioAzione.getCartaTorre(posizione);
@@ -257,5 +263,13 @@ public class Famigliare {
 
 	public boolean getNeutralita() {
 		return this.neutro;
+	}
+
+	public void setValore(int valore) {
+		this.valore = valore;
+	}
+
+	public boolean getPosizionato() {
+		return this.posizionato;
 	}
 }

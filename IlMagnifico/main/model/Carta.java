@@ -11,12 +11,13 @@ public abstract class Carta {
 	 * Default constructor
 	 */
 	public Carta(String nome, ArrayList<Object[]> acquisizione, ArrayList<Object[]> effettoImmediato,
-			ArrayList<Object[]> effettoPermanente, int valoreNecessario) {
+			ArrayList<Object[]> effettoPermanente, int valoreNecessario, int periodo) {
 		this.nome = nome;
 		this.acquisizione = acquisizione;
 		this.effettoImmediato = effettoImmediato;
 		this.effettoPermanente = effettoPermanente;
 		this.valoreNecessarioEffettoPermanente = valoreNecessario;
+		this.periodoCarta = periodo;
 	}
 
 	/**
@@ -42,6 +43,11 @@ public abstract class Carta {
 	 * 
 	 * */
 	protected int valoreNecessarioEffettoPermanente;
+
+	/**
+	 * Periodo associato alla carta
+	 */
+	protected int periodoCarta;
 
 	/**
 	 * 
@@ -106,4 +112,8 @@ public abstract class Carta {
 			return false;
 	}
 
+	/***/
+	public int getPeriodoCarta() {
+		return this.periodoCarta;
+	}
 }

@@ -18,6 +18,7 @@ public class SpazioAzione {
 		this.zonaProduzioneOvale = new ArrayList<Famigliare>();
 		this.mercato = new Famigliare[4];
 		this.palazzoDelConsiglio = new ArrayList<Famigliare>();
+		this.valoreDadi = new int[3];
 	}
 
 	private Torre[] pianoDellaTorre;
@@ -25,6 +26,8 @@ public class SpazioAzione {
 	 * 
 	 */
 	private Famigliare zonaRaccoltoRotonda;
+
+	private int[] valoreDadi;
 
 	/**
 	 * 
@@ -382,5 +385,17 @@ public class SpazioAzione {
 	public void eliminaRicorrenzePalazzoDelConsiglio() {
 		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
 		// dall'arraylist dei giocatori, poi concateno
+	}
+
+	/**
+	 * Cambia il valore al dado indicato in ingresso al valore indicato in
+	 * ingresso
+	 * 
+	 * @param
+	 * @return
+	 * 
+	 */
+	public void setValoreDadi(int valore, int dado) {
+		this.valoreDadi[dado] = valore;
 	}
 }

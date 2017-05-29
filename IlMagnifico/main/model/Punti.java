@@ -27,7 +27,7 @@ public class Punti {
 	private int puntiFede;
 
 	/**
-	 * Applica la variazione di punti vittoria. Se il parametro in ingresso è
+	 * Applica la variazione di punti vittoria. Se il parametro in ingresso ﾃｨ
 	 * negativo, vengono sottratti punti vittoria
 	 * 
 	 * @param variazione
@@ -38,7 +38,7 @@ public class Punti {
 	}
 
 	/**
-	 * Applica la variazione di punti millitari. Se il parametro in ingresso è
+	 * Applica la variazione di punti millitari. Se il parametro in ingresso ﾃｨ
 	 * negativo vengono sottratti punti militari
 	 * 
 	 * @param variazione
@@ -49,7 +49,7 @@ public class Punti {
 	}
 
 	/**
-	 * Applica la variazione di punti fede. Se il parametro in ingresso è
+	 * Applica la variazione di punti fede. Se il parametro in ingresso ﾃｨ
 	 * negativo, vengono sottratti punti fede
 	 * 
 	 * @param variazione
@@ -60,7 +60,7 @@ public class Punti {
 	}
 
 	/**
-	 * Ritorna la quantità di punti vittoria posseduti dal giocatore
+	 * Ritorna la quantitﾃ� di punti vittoria posseduti dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -70,7 +70,7 @@ public class Punti {
 	}
 
 	/**
-	 * Ritorna la quantità di punti militari posseduta dal giocatore
+	 * Ritorna la quantitﾃ� di punti militari posseduta dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -80,7 +80,7 @@ public class Punti {
 	}
 
 	/**
-	 * Ritorna la quantità di punti fede posseduta dal giocatore
+	 * Ritorna la quantitﾃ� di punti fede posseduta dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -90,7 +90,7 @@ public class Punti {
 	}
 
 	/**
-	 * Cambia la quantità di punti fede del giocatore al valore passato in
+	 * Cambia la quantitﾃ� di punti fede del giocatore al valore passato in
 	 * ingresso
 	 * 
 	 * @param
@@ -98,5 +98,9 @@ public class Punti {
 	 */
 	public void setPuntiFede(int puntiFede) {
 		this.puntiFede = puntiFede;
+	}
+
+	public void setPuntiVittoria(int puntiVittoria) {
+		this.puntiVittoria = puntiVittoria;
 	}
 }
