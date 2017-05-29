@@ -61,6 +61,20 @@ public class Giocatore implements Serializable {
 		this.scomuniche = new Scomunica[3];
 	}
 
+	// TODO: chiamato dal costruttore in RemotePlayer (vedi dentro...)
+	public Giocatore() {
+		// Si potrebbe fare:
+		// famiglia = null;
+		// risorse = null;
+		// plancia = null;
+		// punti = null;
+		// spazioAzione = null;
+		// scomuniche = null;
+		//
+		// oppure:
+		// inizializza(); ??
+	}
+
 	/**
 	 * Imposta il nome del giocatore (utilizzato per identificare univocamente
 	 * il giocatore all'interno del gioco).

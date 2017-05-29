@@ -25,12 +25,12 @@ public class Game extends Partita {
 	}
 
 	/**
-	 * Inizializza una nuova Partita nella Stanza (usto in {@link Room})
+	 * Inizializza una nuova Partita nella Stanza (usato in {@link Room})
 	 */
 	public void startNewGame() {
 		UpdateStats update;
-		
-		//TODO: decidere quali azioni vogliamo trasmettere...
+
+		// TODO: decidere quali azioni vogliamo trasmettere...
 
 		inizializzaPartita();
 		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
@@ -76,14 +76,35 @@ public class Game extends Partita {
 		notifyAll();
 	}
 
-	private boolean isElegible(RemotePlayer remotePlayer) {
+	/**
+	 * Metodo per verificare la possibilità di eseguire un azione da parte di un
+	 * determinato giocatore
+	 * 
+	 * @param remotePlayer
+	 *            giocatore su cui verificare la validità dell'azione da
+	 *            eseguire
+	 * @param e
+	 *            (nel caso di invalidità dell'azione che il giocatore sta
+	 *            tentando di compiere) conterrà il codice associato all'errore
+	 * @return true se giocatore può eseguire l'azione, false altrimenti
+	 */
+	private boolean isElegible(RemotePlayer remotePlayer, Errors e) {
+		boolean elegibility = true;
 		if (this.periodo <= 0) {
-			return false;
+			e = Errors.GAME_NOT_STARTED;
+			elegibility = false;
 		} else {
-			return true;
+
 		}
+		return elegibility;
 	}
 
+	/**
+	 * Metodo invocato dalla partita per notificare un avanzamento autonomo
+	 * dello stato della partita (es. fine periodo, rapporto vaticano...)
+	 * 
+	 * @param update
+	 */
 	private void dispatchGameUpdate(UpdateStats update) {
 		room.dispatchGameUpdate(update);
 	}
@@ -97,11 +118,12 @@ public class Game extends Partita {
 	 * @return {@link UpdateStats}
 	 */
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) throws GameException {
-		if (!isElegible(remotePlayer)) {
-			throw new GameException(Errors.GAME_NOT_STARTED);
-		} else {
+		Errors e = Errors.NO_ERROR;
+		if (isElegible(remotePlayer, e)) {
 			UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
 			return updateStats;
+		} else {
+			throw new GameException(e.toString());
 		}
 	}
 
