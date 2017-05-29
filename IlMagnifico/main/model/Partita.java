@@ -137,6 +137,7 @@ public class Partita {
 			this.giocatori.get(i).getRisorse().cambiaPietre(2);
 			this.giocatori.get(i).getRisorse().cambiaServitori(3);
 			this.giocatori.get(i).getRisorse().cambiaMonete(contatoreMonete + 1);
+			this.giocatori.get(i).setSpazioAzione(this.spazioAzione);
 			if (i == 0)
 				this.giocatori.get(i).setColore(PlayerColors.BLUE);
 			if (i == 1)
