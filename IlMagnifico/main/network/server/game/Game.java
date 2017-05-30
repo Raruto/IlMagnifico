@@ -1,7 +1,5 @@
 package main.network.server.game;
 
-import java.util.ArrayList;
-
 import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
@@ -10,21 +8,24 @@ import main.util.errors.Errors;
 import main.util.errors.GameError;
 
 public class Game extends Partita {
-	/**
-	 * Flag usato in {@link Room} per determinare se la partita è in corso.
-	 */
-	private boolean end;
 
+	/**
+	 * Riferimento alla Stanza in cui la partita è in atto.
+	 */
 	private Room room;
 
-	public Game(ArrayList<RemotePlayer> players) {
-		// TODO: necessaria in "dispatchGameUpdate()" si può migliorare?
-		this.room = players.get(0).getRoom();
-
-		for (RemotePlayer player : players) {
+	/**
+	 * Costruttore.
+	 * 
+	 * @param room
+	 */
+	public Game(Room room) {
+		// Inizializza array Giocatori (ereditato da Partita)
+		for (RemotePlayer player : room.getPlayers()) {
 			giocatori.add(player);
 		}
-		end = false;
+		// Salva riferimento alla Stanza (usato in "dispatchGameUpdate()")
+		this.room = room;
 	}
 
 	/**
@@ -48,7 +49,7 @@ public class Game extends Partita {
 		dispatchGameUpdate(update);
 
 		//
-		update = new UpdateStats(EFasiDiGioco.GiocatoreDiTurno, this.spazioAzione);
+		update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
 		update.setNomeGiocatore(giocatoreDiTurno.getNome());
 		dispatchGameUpdate(update);
 	}
@@ -58,10 +59,9 @@ public class Game extends Partita {
 	 * (usato in {@link Room})
 	 */
 	public synchronized void waitGameEnd() {
-		// Wait until game is end.
-		while (!end) {
+		while (!isPartitaFinita()) {
 			try {
-				wait();
+				wait(); // Wait until game is end.
 			} catch (InterruptedException e) {
 			}
 		}
@@ -72,34 +72,8 @@ public class Game extends Partita {
 	 * (usato in {@link Room})
 	 */
 	public synchronized void endGame() {
-		// Toggle game status.
-		end = true;
-
-		// Notify all about game end status.
-		notifyAll();
-	}
-
-	/**
-	 * Metodo per verificare la possibilità di eseguire un azione da parte di un
-	 * determinato giocatore
-	 * 
-	 * @param remotePlayer
-	 *            giocatore su cui verificare la validità dell'azione da
-	 *            eseguire
-	 * @param e
-	 *            (nel caso di invalidità dell'azione che il giocatore sta
-	 *            tentando di compiere) conterrà il codice associato all'errore
-	 * @return true se giocatore può eseguire l'azione, false altrimenti
-	 */
-	private boolean isElegible(RemotePlayer remotePlayer, GameError e) {
-		boolean elegibility = true;
-		if (this.periodo <= 0) {
-			e.setError(Errors.GAME_NOT_STARTED);
-			elegibility = false;
-		} else {
-
-		}
-		return elegibility;
+		terminaPartita(); // Toggle game status.
+		notifyAll(); // Notify all about game end status.
 	}
 
 	/**
@@ -120,14 +94,20 @@ public class Game extends Partita {
 	 * @param action
 	 * @return {@link UpdateStats}
 	 */
-	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) throws GameException {
+	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
-			return updateStats;
+			return handleGameActionRequest(remotePlayer, requestedAction);
 		} else {
 			throw new GameException(e.toString());
 		}
 	}
 
+	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats action) {
+		EAzioniGiocatore azione = action.getAzioneGiocatore();
+
+		UpdateStats updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
+
+		return updateStats;
+	}
 }

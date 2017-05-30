@@ -3,6 +3,9 @@ package main.model;
 import java.util.*;
 
 import main.network.protocol.PlayerColors;
+import main.network.server.RemotePlayer;
+import main.util.errors.Errors;
+import main.util.errors.GameError;
 
 /**
  * 
@@ -45,6 +48,8 @@ public class Partita {
 	 */
 	protected int periodo;
 
+	protected boolean partitaTerminata;
+
 	/**
 	 * Costruttore.
 	 */
@@ -56,6 +61,7 @@ public class Partita {
 		this.scomuniche = new Scomunica[3];
 		this.turno = 0;
 		this.periodo = 0;
+		this.partitaTerminata = false;
 	}
 
 	/**
@@ -71,7 +77,9 @@ public class Partita {
 		// TODO: come inizializzate il mazzo?
 		inizializzaMazzo();
 		mescolaMazzo();
+
 		inizializzaScomunica();
+
 		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione
 		this.giocatoreDiTurno = giocatori.get(0);
@@ -82,6 +90,50 @@ public class Partita {
 		// funzionare anche solo temporaneamente dovrei fare un enum). Stesso
 		// discorso vale per le scomuniche.
 
+	}
+
+	/**
+	 * Metodo per verificare la possibilit� di eseguire un azione da parte di un
+	 * determinato giocatore
+	 * 
+	 * @param remotePlayer
+	 *            giocatore su cui verificare la validit� dell'azione da
+	 *            eseguire
+	 * @param e
+	 *            (nel caso di invalidit� dell'azione che il giocatore sta
+	 *            tentando di compiere) conterr� il codice associato all'errore
+	 * @return true se giocatore pu� eseguire l'azione, false altrimenti
+	 */
+
+	protected boolean isElegible(Giocatore g, GameError e) {
+		boolean elegibility = true;
+		if (!isPartitaIniziata()) {
+			e.setError(Errors.GAME_NOT_STARTED);
+			elegibility = false;
+		} else if (!isGiocatoreDiTurno(g)) {
+			e.setError(Errors.NOT_YOUR_TURN);
+			elegibility = false;
+		} else if (isPartitaFinita()) {
+			e.setError(Errors.GAME_ENDED);
+			elegibility = false;
+		}
+		return elegibility;
+	}
+
+	protected boolean isPartitaIniziata() {
+		return this.periodo > 0;
+	}
+
+	protected boolean isPartitaFinita() {
+		return partitaTerminata;
+	}
+
+	protected void terminaPartita() {
+		this.partitaTerminata = true;
+	}
+
+	protected boolean isGiocatoreDiTurno(Giocatore g) {
+		return this.giocatoreDiTurno.equals(g);
 	}
 
 	public void inizializzaMazzo() {

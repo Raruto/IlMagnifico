@@ -1,11 +1,12 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class SpazioAzione {
+public class SpazioAzione implements Serializable {
 
 	/**
 	 * Default constructor
@@ -27,6 +28,11 @@ public class SpazioAzione {
 	 */
 	private Famigliare zonaRaccoltoRotonda;
 
+	/**
+	 * 0 = NERO
+	 * 1 = ARANCIONE
+	 * 2 = BIANCO
+	 */
 	private int[] valoreDadi;
 
 	/**

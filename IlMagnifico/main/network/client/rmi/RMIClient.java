@@ -130,9 +130,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	}
 
 	@Override
-	public void performGameAction(EAzioniGiocatore act) throws NetworkException {
+	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
 		try {
-			server.performGameAction(sessionToken, act);
+			server.performGameAction(sessionToken, requestedAction);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		} catch (GameException e) {

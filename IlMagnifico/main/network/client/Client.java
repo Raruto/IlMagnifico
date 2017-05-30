@@ -216,9 +216,9 @@ public class Client implements IClient {
 		}
 	}
 
-	public void performGameAction(EAzioniGiocatore act) {
+	public void performGameAction(UpdateStats requestedAction) {
 		try {
-			client.performGameAction(act);
+			client.performGameAction(requestedAction);
 		} catch (NetworkException e) {
 			System.err.println("Cannot perform action request");
 		}
@@ -283,7 +283,7 @@ public class Client implements IClient {
 					"[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
 		else if (update.getAzioneServer() != null) {
 			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
-			if (update.getNomeGiocatore() != null && update.getAzioneServer() == EFasiDiGioco.InizioPartita) {
+			if (update.getNomeGiocatore() != null && update.getAzioneServer() == EFasiDiGioco.MossaGiocatore) {
 				System.out.println("E' il turno di: " + update.getNomeGiocatore());
 			}
 		}

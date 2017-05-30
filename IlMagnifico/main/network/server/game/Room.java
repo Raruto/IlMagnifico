@@ -117,6 +117,10 @@ public class Room {
 		return roomNumber;
 	}
 
+	public ArrayList<RemotePlayer> getPlayers() {
+		return this.players;
+	}
+
 	/**
 	 * Aggiunge un giocatore alla Stanza .
 	 * 
@@ -244,7 +248,7 @@ public class Room {
 		}
 	}
 
-	public void dispatchGameUpdate(UpdateStats update) {
+	/*public*/ void dispatchGameUpdate(UpdateStats update) {
 		players.stream().forEach(p -> {
 			try {
 				p.onGameUpdate(update);
@@ -255,12 +259,13 @@ public class Room {
 		});
 	}
 
-	public void performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore act) throws GameException {
+	public void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		try {
-			UpdateStats updateState = game.performGameAction(remotePlayer, act);
+			UpdateStats updateState = game.performGameAction(remotePlayer, requestedAction);
 			dispatchGameUpdate(updateState);
 		} catch (NullPointerException e) {
-			throw new GameException(e);
+			if (game == null)
+				throw new GameException(Errors.GAME_NOT_STARTED.toString());
 		}
 	}
 
@@ -306,7 +311,7 @@ public class Room {
 
 			log("Creating game session");
 
-			Room.this.game = new Game(Room.this.players);
+			Room.this.game = new Game(Room.this);
 
 			log("Room closed, " + players.size() + " players in");
 		}

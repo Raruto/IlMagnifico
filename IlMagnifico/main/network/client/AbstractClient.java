@@ -1,6 +1,7 @@
 package main.network.client;
 
 import main.network.NetworkException;
+import main.network.server.game.UpdateStats;
 import main.util.EAzioniGiocatore;
 
 /**
@@ -151,5 +152,5 @@ public abstract class AbstractClient {
 	 */
 	public abstract void sendChatMessage(String receiver, String message) throws NetworkException;
 
-	public abstract void performGameAction(EAzioniGiocatore act) throws NetworkException;
+	public abstract void performGameAction(UpdateStats requestedAction) throws NetworkException;
 }
