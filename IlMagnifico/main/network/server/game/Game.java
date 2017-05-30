@@ -17,11 +17,13 @@ public class Game extends Partita {
 
 	private Room room;
 
-	public Game(ArrayList<RemotePlayer> players, Room room) {
+	public Game(ArrayList<RemotePlayer> players) {
+		// TODO: necessaria in "dispatchGameUpdate()" si può migliorare?
+		this.room = players.get(0).getRoom();
+
 		for (RemotePlayer player : players) {
 			giocatori.add(player);
 		}
-		this.room = room;
 		end = false;
 	}
 

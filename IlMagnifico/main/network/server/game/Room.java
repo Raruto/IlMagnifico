@@ -306,7 +306,7 @@ public class Room {
 
 			log("Creating game session");
 
-			Room.this.game = new Game(Room.this.players, Room.this);
+			Room.this.game = new Game(Room.this.players);
 
 			log("Room closed, " + players.size() + " players in");
 		}
