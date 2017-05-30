@@ -225,6 +225,115 @@ public class Client implements IClient {
 	}
 
 	@Override
+	public void onGameUpdate(UpdateStats update) {
+		if (update.getAzioneGiocatore() != null) {
+			// if (update.getNomeGiocatore() != null)
+			System.out.print("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
+					+ update.getAzioneGiocatore().toString());
+
+			switch (update.getAzioneGiocatore()) {
+			case Mercato:
+				break;
+			case PalazzoConsiglio:
+				break;
+			case Produzione:
+				break;
+			case Raccolto:
+				break;
+			case Torre:
+				break;
+
+			default:
+				break;
+			}
+		} else if (update.getAzioneServer() != null) {
+			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
+			switch (update.getAzioneServer()) {
+			case InizioPartita:
+				onGameStarted(update);
+				break;
+			case InizioPeriodo:
+				onPeriodStarted(update);
+				break;
+			case InizioTurno:
+				onTurnStarted(update);
+				break;
+			case MossaGiocatore:
+				onPlayerMove(update);
+				break;
+			case FinePartita:
+				onGameEnd(update);
+				break;
+			case FinePeriodo:
+				onPeriodEnd(update);
+				break;
+			case FineTurno:
+				onTurnEnd(update);
+				break;
+			case SostegnoChiesa:
+				onChurchSupport(update);
+				break;
+
+			default:
+				break;
+			}
+		}
+
+	}
+
+	@Override
+	public void onChurchSupport(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTurnEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPeriodEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPlayerMove(UpdateStats update) {
+		// if (update.getNomeGiocatore() != null)
+		System.out.println("E' il turno di: " + update.getNomeGiocatore());
+	}
+
+	@Override
+	public void onTurnStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPeriodStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameStarted(UpdateStats update) {
+		System.out.print("(" + update.getNomiGiocatori().size() + "G): ");
+		for (String s : update.getNomiGiocatori()) {
+			System.out.print(s + ", ");
+		}
+		System.out.println();
+
+	}
+
+	@Override
 	public void onTurnStarted(String nickname, int remainingTime) {
 		// TODO Auto-generated method stub
 
@@ -274,64 +383,6 @@ public class Client implements IClient {
 		System.out.println("[" + author + "]" + " " + message);
 		// }
 		// mUi.showChatMessage(privateMessage, author, message);
-	}
-
-	@Override
-	public void onGameUpdate(UpdateStats update) {
-		if (update.getAzioneGiocatore() != null) {
-			// if (update.getNomeGiocatore() != null)
-			System.out.print("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
-					+ update.getAzioneGiocatore().toString());
-
-			switch (update.getAzioneGiocatore()) {
-			case Mercato:
-				break;
-			case PalazzoConsiglio:
-				break;
-			case Produzione:
-				break;
-			case Raccolto:
-				break;
-			case Torre:
-				break;
-
-			default:
-				break;
-			}
-		} else if (update.getAzioneServer() != null) {
-			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
-			switch (update.getAzioneServer()) {
-			case InizioPartita:
-				System.out.print("(" + update.getNomiGiocatori().size() + "G): ");
-				for (String s : update.getNomiGiocatori()) {
-					System.out.print(s + ", ");
-				}
-				System.out.println();
-			case InizioPeriodo:
-				break;
-			case InizioTurno:
-				break;
-			case MossaGiocatore:
-				// if (update.getNomeGiocatore() != null)
-				System.out.println("E' il turno di: " + update.getNomeGiocatore());
-				break;
-			case FinePartita:
-				break;
-			case FinePeriodo:
-				break;
-			case FineTurno:
-				break;
-			case SostegnoChiesa:
-				break;
-
-			default:
-				break;
-			}
-			if (update.getNomeGiocatore() != null && update.getAzioneServer() == EFasiDiGioco.MossaGiocatore) {
-
-			}
-		}
-
 	}
 
 	/**

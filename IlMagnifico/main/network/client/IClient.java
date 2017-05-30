@@ -9,6 +9,22 @@ import main.network.server.game.UpdateStats;
  */
 public interface IClient {
 
+	void onGameStarted(UpdateStats update);
+
+	void onChurchSupport(UpdateStats update);
+
+	void onTurnEnd(UpdateStats update);
+
+	void onPeriodEnd(UpdateStats update);
+
+	void onGameEnd(UpdateStats update);
+
+	void onPlayerMove(UpdateStats update);
+
+	void onTurnStarted(UpdateStats update);
+
+	void onPeriodStarted(UpdateStats update);
+	
 	/**
 	 * Notify game is started and dispatch initial game state.
 	 * 
