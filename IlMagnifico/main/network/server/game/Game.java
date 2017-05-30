@@ -109,7 +109,30 @@ public class Game extends Partita {
 
 	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats action) {
 		EAzioniGiocatore azione = action.getAzioneGiocatore();
-		UpdateStats updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
+		UpdateStats updateStats;
+
+		switch (azione) {
+		case Mercato:
+			//
+			break;
+		case PalazzoConsiglio:
+			//
+			break;
+		case Produzione:
+			//
+			break;
+		case Raccolto:
+			//
+			break;
+		case Torre:
+			//
+			break;
+
+		default:
+			break;
+		}
+
+		updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
 
 		return updateStats;
 	}
