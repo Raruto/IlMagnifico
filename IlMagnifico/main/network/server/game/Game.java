@@ -1,7 +1,5 @@
 package main.network.server.game;
 
-import java.util.ArrayList;
-
 import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
@@ -15,15 +13,23 @@ public class Game extends Partita {
 	 */
 	private boolean end;
 
+	/**
+	 * Riferimento alla Stanza in cui la partita è in atto.
+	 */
 	private Room room;
 
-	public Game(ArrayList<RemotePlayer> players) {
-		// TODO: necessaria in "dispatchGameUpdate()" si può migliorare?
-		this.room = players.get(0).getRoom();
-
-		for (RemotePlayer player : players) {
+	/**
+	 * Costruttore.
+	 * 
+	 * @param room
+	 */
+	public Game(Room room) {
+		// Inizializza array Giocatori (ereditato da Partita)
+		for (RemotePlayer player : room.getPlayers()) {
 			giocatori.add(player);
 		}
+
+		this.room = room;
 		end = false;
 	}
 

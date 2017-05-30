@@ -117,6 +117,10 @@ public class Room {
 		return roomNumber;
 	}
 
+	public ArrayList<RemotePlayer> getPlayers() {
+		return this.players;
+	}
+
 	/**
 	 * Aggiunge un giocatore alla Stanza .
 	 * 
@@ -306,7 +310,7 @@ public class Room {
 
 			log("Creating game session");
 
-			Room.this.game = new Game(Room.this.players);
+			Room.this.game = new Game(Room.this);
 
 			log("Room closed, " + players.size() + " players in");
 		}
