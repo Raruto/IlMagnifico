@@ -68,7 +68,8 @@ public class Famigliare {
 		if (posizione % 4 == 0 && valore < 1)
 			// controlla alternativamente le prime ,le seconde, terze e quarte
 			// posizioni e controlla che il valore della pedina sia abbastanza
-			// // grande
+			// grande. Va implementato anche il controllo sugli effetti
+			// permanenti delle carte che modificano il valore dell'azione
 			return false;
 		else if ((posizione) % 4 == 1 && valore < 3)
 			return false;

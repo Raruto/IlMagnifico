@@ -61,17 +61,27 @@ public abstract class Carta {
 	 * @return
 	 */
 	public boolean acquisibile(Giocatore giocatore) {
+		// devo controllare che
+		// posso pagare o con le
+		// risorse o con i punti
 
+		boolean controlloRisorse = false;
+		boolean controlloPunti = false;
 		for (int i = 0; i < acquisizione.size(); i++) {
 			acquisizione.get(i)[1] = giocatore;
 			if ((int) acquisizione.get(i)[0] == 1)
-				if (!utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i)))
-					return false;
+				if (utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i)))
+					controlloRisorse = true;
 				else if ((int) acquisizione.get(i)[0] == 2)
-					if (!utilEffetto.cartaAcquisibilePunti(acquisizione.get(i)))
-						return false;
+					if (utilEffetto.cartaAcquisibilePunti(acquisizione.get(i)))
+						controlloPunti = true;
 		}
-		return true;
+		if (controlloRisorse | controlloPunti)
+			// se almeno con i punti o con le risorse posso pagare, allora la
+			// carta è acquisibile
+			return true;
+		else
+			return false;
 	}
 
 	/**
