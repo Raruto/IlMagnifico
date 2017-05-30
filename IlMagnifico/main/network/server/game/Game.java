@@ -8,7 +8,7 @@ import main.util.errors.Errors;
 import main.util.errors.GameError;
 
 public class Game extends Partita {
-	
+
 	/**
 	 * Riferimento alla Stanza in cui la partita è in atto.
 	 */
@@ -24,7 +24,7 @@ public class Game extends Partita {
 		for (RemotePlayer player : room.getPlayers()) {
 			giocatori.add(player);
 		}
-
+		// Salva riferimento alla Stanza (usato in "dispatchGameUpdate()")
 		this.room = room;
 	}
 
@@ -59,10 +59,9 @@ public class Game extends Partita {
 	 * (usato in {@link Room})
 	 */
 	public synchronized void waitGameEnd() {
-		// Wait until game is end.
 		while (!isPartitaFinita()) {
 			try {
-				wait();
+				wait(); // Wait until game is end.
 			} catch (InterruptedException e) {
 			}
 		}
@@ -98,11 +97,17 @@ public class Game extends Partita {
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			UpdateStats updateStats = new UpdateStats(remotePlayer, requestedAction.getAzioneGiocatore(), this.spazioAzione);
-			return updateStats;
+			return handleGameActionRequest(remotePlayer, requestedAction);
 		} else {
 			throw new GameException(e.toString());
 		}
 	}
 
+	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats requestedAction) {
+		EAzioniGiocatore azione = requestedAction.getAzioneGiocatore();
+
+		UpdateStats updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
+
+		return updateStats;
+	}
 }

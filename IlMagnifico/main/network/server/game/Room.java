@@ -248,7 +248,7 @@ public class Room {
 		}
 	}
 
-	public void dispatchGameUpdate(UpdateStats update) {
+	/*public*/ void dispatchGameUpdate(UpdateStats update) {
 		players.stream().forEach(p -> {
 			try {
 				p.onGameUpdate(update);
