@@ -7,6 +7,7 @@ import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
+import main.network.server.game.UpdateStats;
 import main.util.Costants;
 import main.util.EAzioniGiocatore;
 
@@ -210,7 +211,8 @@ public class FakeUI {
 			} else {
 				for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
 					if (inText.equals(act.toString().toLowerCase())) {
-						client.performGameAction(act);
+						UpdateStats requestedAction = new UpdateStats(act);
+						client.performGameAction(requestedAction);
 					}
 				}
 			}

@@ -8,6 +8,7 @@ import main.network.client.AbstractClient;
 import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.protocol.socket.ClientProtocol;
+import main.network.server.game.UpdateStats;
 import main.util.EAzioniGiocatore;
 
 /**
@@ -202,7 +203,7 @@ public class SocketClient extends AbstractClient {
 	}
 
 	@Override
-	public void performGameAction(EAzioniGiocatore act) throws NetworkException {
+	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
 		// TODO Auto-generated method stub
 
 	}

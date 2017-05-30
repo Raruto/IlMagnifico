@@ -68,6 +68,25 @@ public class UpdateStats implements Serializable {
 	private SpazioAzione spazioAzione;
 
 	/**
+	 * Usato dal client per richiedere di svolgere una azione.
+	 * 
+	 * @param azioneRichiesta
+	 */
+	public UpdateStats(EAzioniGiocatore azioneRichiesta) {
+		this.azioneGiocatore = azioneRichiesta;
+
+	}
+
+	/**
+	 * Usato dal server per inviare evoluzione stato della partita.
+	 * 
+	 * @param faseDiGioco
+	 */
+	public UpdateStats(EFasiDiGioco faseDiGioco) {
+		this.faseDiGioco = faseDiGioco;
+	}
+
+	/**
 	 * Costruttore (aggiornamento dello stato del gioco, a seguito di un'azione
 	 * eseguita da un client, es. posizionamento familiare).
 	 * 

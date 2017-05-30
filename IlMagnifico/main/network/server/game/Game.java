@@ -8,11 +8,7 @@ import main.util.errors.Errors;
 import main.util.errors.GameError;
 
 public class Game extends Partita {
-	/**
-	 * Flag usato in {@link Room} per determinare se la partita è in corso.
-	 */
-	private boolean end;
-
+	
 	/**
 	 * Riferimento alla Stanza in cui la partita è in atto.
 	 */
@@ -30,7 +26,6 @@ public class Game extends Partita {
 		}
 
 		this.room = room;
-		end = false;
 	}
 
 	/**
@@ -65,7 +60,7 @@ public class Game extends Partita {
 	 */
 	public synchronized void waitGameEnd() {
 		// Wait until game is end.
-		while (!end) {
+		while (!isPartitaFinita()) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -78,35 +73,8 @@ public class Game extends Partita {
 	 * (usato in {@link Room})
 	 */
 	public synchronized void endGame() {
-		// Toggle game status.
-		end = true;
-
-		// Notify all about game end status.
-		notifyAll();
-	}
-
-	/**
-	 * Metodo per verificare la possibilità di eseguire un azione da parte di un
-	 * determinato giocatore
-	 * 
-	 * @param remotePlayer
-	 *            giocatore su cui verificare la validità dell'azione da
-	 *            eseguire
-	 * @param e
-	 *            (nel caso di invalidità dell'azione che il giocatore sta
-	 *            tentando di compiere) conterrà il codice associato all'errore
-	 * @return true se giocatore può eseguire l'azione, false altrimenti
-	 */
-	private boolean isElegible(RemotePlayer remotePlayer, GameError e) {
-		boolean elegibility = true;
-		if (this.periodo <= 0) {
-			e.setError(Errors.GAME_NOT_STARTED);
-			elegibility = false;
-		} else if (!this.giocatoreDiTurno.getNome().equals(remotePlayer.getNome())) {
-			e.setError(Errors.NOT_YOUR_TURN);
-			elegibility = false;
-		}
-		return elegibility;
+		terminaPartita(); // Toggle game status.
+		notifyAll(); // Notify all about game end status.
 	}
 
 	/**
@@ -127,10 +95,10 @@ public class Game extends Partita {
 	 * @param action
 	 * @return {@link UpdateStats}
 	 */
-	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) throws GameException {
+	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
+			UpdateStats updateStats = new UpdateStats(remotePlayer, requestedAction.getAzioneGiocatore(), this.spazioAzione);
 			return updateStats;
 		} else {
 			throw new GameException(e.toString());

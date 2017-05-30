@@ -216,9 +216,9 @@ public class Client implements IClient {
 		}
 	}
 
-	public void performGameAction(EAzioniGiocatore act) {
+	public void performGameAction(UpdateStats requestedAction) {
 		try {
-			client.performGameAction(act);
+			client.performGameAction(requestedAction);
 		} catch (NetworkException e) {
 			System.err.println("Cannot perform action request");
 		}
