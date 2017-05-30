@@ -1,11 +1,12 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class SpazioAzione {
+public class SpazioAzione implements Serializable {
 
 	/**
 	 * Default constructor

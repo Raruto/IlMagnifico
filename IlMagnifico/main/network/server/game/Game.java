@@ -48,7 +48,7 @@ public class Game extends Partita {
 		dispatchGameUpdate(update);
 
 		//
-		update = new UpdateStats(EFasiDiGioco.GiocatoreDiTurno, this.spazioAzione);
+		update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
 		update.setNomeGiocatore(giocatoreDiTurno.getNome());
 		dispatchGameUpdate(update);
 	}
@@ -96,8 +96,9 @@ public class Game extends Partita {
 		if (this.periodo <= 0) {
 			e.setError(Errors.GAME_NOT_STARTED);
 			elegibility = false;
-		} else {
-
+		} else if (!this.giocatoreDiTurno.getNome().equals(remotePlayer.getNome())) {
+			e.setError(Errors.NOT_YOUR_TURN);
+			elegibility = false;
 		}
 		return elegibility;
 	}

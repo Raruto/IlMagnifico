@@ -72,7 +72,7 @@ public class Partita {
 		inizializzaMazzo();
 		mescolaMazzo();
 		posizionaCarteSuTorre();
-		inizializzaScomunica();
+		//inizializzaScomunica();
 		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione
 		this.giocatoreDiTurno = giocatori.get(0);

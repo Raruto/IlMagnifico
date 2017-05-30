@@ -283,7 +283,7 @@ public class Client implements IClient {
 					"[" + update.getNomeGiocatore() + "]" + " ACTION: " + update.getAzioneGiocatore().toString());
 		else if (update.getAzioneServer() != null) {
 			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
-			if (update.getNomeGiocatore() != null && update.getAzioneServer() == EFasiDiGioco.InizioPartita) {
+			if (update.getNomeGiocatore() != null && update.getAzioneServer() == EFasiDiGioco.MossaGiocatore) {
 				System.out.println("E' il turno di: " + update.getNomeGiocatore());
 			}
 		}
