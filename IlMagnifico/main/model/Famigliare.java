@@ -68,7 +68,8 @@ public class Famigliare {
 		if (posizione % 4 == 0 && valore < 1)
 			// controlla alternativamente le prime ,le seconde, terze e quarte
 			// posizioni e controlla che il valore della pedina sia abbastanza
-			// // grande
+			// grande. Va implementato anche il controllo sugli effetti
+			// permanenti delle carte che modificano il valore dell'azione
 			return false;
 		else if ((posizione) % 4 == 1 && valore < 3)
 			return false;
@@ -83,10 +84,9 @@ public class Famigliare {
 			return false;
 		else { // Quando acquisto una carta, devo pagarla. Bisognerebbe scrivere
 				// un metodo
-
-			// public void acquisizione(Giocatore giocatore) all'interno di
-			// carta che attivo nel caso in cui acquisibile
-			// restituisca true
+				// public void acquisizione(Giocatore giocatore) all'interno di
+				// carta che attivo nel caso in cui acquisibile
+				// restituisca true
 
 			if ((cartaTorre instanceof Personaggio)
 					&& (giocatoreAppartenenza.getPlancia().getPersonaggi().size() < 7)) {

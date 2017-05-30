@@ -61,7 +61,6 @@ public class Giocatore implements Serializable {
 		this.scomuniche = new Scomunica[3];
 	}
 
-	// TODO: chiamato dal costruttore in RemotePlayer (vedi dentro...)
 	public Giocatore() {
 		this.nome = null;
 		this.colore = null;
