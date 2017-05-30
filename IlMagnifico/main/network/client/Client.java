@@ -334,36 +334,6 @@ public class Client implements IClient {
 
 	}
 
-	@Override
-	public void onTurnStarted(String nickname, int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onTurnUpdateCountdown(int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onActionNotValid(int errorCode) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onPlayerDisconnected(String nickname) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onLastTurnStarted(String nickname) {
-		// TODO Auto-generated method stub
-
-	}
-
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -417,5 +387,36 @@ public class Client implements IClient {
 		 * Handle the server response.
 		 */
 		void handle(UpdateStats update);
+	}
+
+	/////////// OLD //////////////
+	@Override
+	public void onTurnStarted(String nickname, int remainingTime) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTurnUpdateCountdown(int remainingTime) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onActionNotValid(int errorCode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPlayerDisconnected(String nickname) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onLastTurnStarted(String nickname) {
+		// TODO Auto-generated method stub
+
 	}
 }
