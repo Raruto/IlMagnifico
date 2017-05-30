@@ -48,6 +48,9 @@ public class Partita {
 	 */
 	protected int periodo;
 
+	/**
+	 * Flag usato per determinare se la partita è terminata.
+	 */
 	protected boolean partitaTerminata;
 
 	/**
@@ -85,24 +88,24 @@ public class Partita {
 		this.giocatoreDiTurno = giocatori.get(0);
 
 		// Per ora non mi viene in mente altro che si potrebbe fare per
-		// inizializzare la partita. C'Ã¨ ancora da implementare la parte
-		// della inizializzazione del mazzo perchÃ¨ dipende dal file (per farlo
+		// inizializzare la partita. C'è ancora da implementare la parte
+		// della inizializzazione del mazzo perchè dipende dal file (per farlo
 		// funzionare anche solo temporaneamente dovrei fare un enum). Stesso
 		// discorso vale per le scomuniche.
 
 	}
 
 	/**
-	 * Metodo per verificare la possibilitï¿½ di eseguire un azione da parte di un
+	 * Metodo per verificare la possibilità di eseguire un azione da parte di un
 	 * determinato giocatore
 	 * 
-	 * @param remotePlayer
-	 *            giocatore su cui verificare la validitï¿½ dell'azione da
+	 * @param g
+	 *            giocatore su cui verificare la validità dell'azione da
 	 *            eseguire
 	 * @param e
-	 *            (nel caso di invaliditï¿½ dell'azione che il giocatore sta
-	 *            tentando di compiere) conterrï¿½ il codice associato all'errore
-	 * @return true se giocatore puï¿½ eseguire l'azione, false altrimenti
+	 *            (nel caso di invalidità dell'azione che il giocatore sta
+	 *            tentando di compiere) conterrà il codice associato all'errore
+	 * @return true se giocatore può eseguire l'azione, false altrimenti
 	 */
 
 	protected boolean isElegible(Giocatore g, GameError e) {
@@ -142,7 +145,7 @@ public class Partita {
 
 	/**
 	 * Metodo che mischia il mazzo senza distinguere le carte per periodo e per
-	 * tipo. //Il riconoscere le carte da prendere per il relativo periodo e per
+	 * tipo. Il riconoscere le carte da prendere per il relativo periodo e per
 	 * la relativa torre vengono lasciate al metodo posizionaCartaSuTorre
 	 * 
 	 * @return
