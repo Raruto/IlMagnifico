@@ -81,7 +81,8 @@ public class Partita {
 		inizializzaMazzo();
 		mescolaMazzo();
 
-		inizializzaScomunica();
+		// TODO: aggiustare (scatena IllegalArgumentException)
+		// inizializzaScomunica();
 
 		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione
