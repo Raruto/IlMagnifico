@@ -2,6 +2,8 @@ package main.model;
 
 import java.util.*;
 
+import main.util.EAzioniGiocatore;
+
 /**
  * 
  */
@@ -101,7 +103,7 @@ public abstract class Carta {
 	}
 
 	public boolean Attivabile(int valoreAzione) { // gli passo un valore, non il
-													// famigliare, perchè devo
+													// famigliare, perchﾃｨ devo
 													// potere variare il valore
 													// a seconda dei bonus e
 													// malus ricevuti con
@@ -116,4 +118,19 @@ public abstract class Carta {
 	public int getPeriodoCarta() {
 		return this.periodoCarta;
 	}
+
+	public void attivaOnRaccolto(Giocatore giocatore) {
+		// tra i parametri delle carte in posizione 2 ci sarà l'azione a cui
+		// corrisponde l'attivazione.
+		// Qui controllo che il primo effetto si attivi sul raccolto e se sì lo
+		// attivo, altrimenti non faccio niente
+		if ((EAzioniGiocatore) (this.effettoPermanente.get(0)[2]) == EAzioniGiocatore.Raccolto)
+			effettoPermanente(giocatore);
+	}
+
+	public void attivaOnProduzione(Giocatore giocatore) {
+		if ((EAzioniGiocatore) (this.effettoPermanente.get(0)[2]) == EAzioniGiocatore.Produzione)
+			effettoPermanente(giocatore);
+	}
+
 }

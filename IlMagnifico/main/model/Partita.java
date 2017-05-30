@@ -77,8 +77,9 @@ public class Partita {
 		// TODO: come inizializzate il mazzo?
 		inizializzaMazzo();
 		mescolaMazzo();
-		posizionaCarteSuTorre();
-		// inizializzaScomunica();
+
+		inizializzaScomunica();
+
 		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione
 		this.giocatoreDiTurno = giocatori.get(0);
@@ -92,16 +93,16 @@ public class Partita {
 	}
 
 	/**
-	 * Metodo per verificare la possibilità di eseguire un azione da parte di un
+	 * Metodo per verificare la possibilitï¿½ di eseguire un azione da parte di un
 	 * determinato giocatore
 	 * 
 	 * @param remotePlayer
-	 *            giocatore su cui verificare la validità dell'azione da
+	 *            giocatore su cui verificare la validitï¿½ dell'azione da
 	 *            eseguire
 	 * @param e
-	 *            (nel caso di invalidità dell'azione che il giocatore sta
-	 *            tentando di compiere) conterrà il codice associato all'errore
-	 * @return true se giocatore può eseguire l'azione, false altrimenti
+	 *            (nel caso di invaliditï¿½ dell'azione che il giocatore sta
+	 *            tentando di compiere) conterrï¿½ il codice associato all'errore
+	 * @return true se giocatore puï¿½ eseguire l'azione, false altrimenti
 	 */
 
 	protected boolean isElegible(Giocatore g, GameError e) {

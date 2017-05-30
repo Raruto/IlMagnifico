@@ -52,213 +52,213 @@ public class Famigliare {
 	}
 
 	/**
+	 * Metodo che effettua lo spostamento se la carta è acquisibile e se il
+	 * valore del famigliare è sufficiente. Restituuisce true se va a buon fine,
+	 * false altrimenti
 	 * 
+	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoTorre(int posizione) {
+	public boolean eseguiSpostamentoTorre(int posizione) {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+
 		if (!(spazioAzione.torreLibera(posizione)))
-			return;
+			return false;
 
 		if (posizione % 4 == 0 && valore < 1)
 			// controlla alternativamente le prime ,le seconde, terze e quarte
 			// posizioni e controlla che il valore della pedina sia abbastanza
-			// grande
-			return;
+			// // grande
+			return false;
 		else if ((posizione) % 4 == 1 && valore < 3)
-			return;
+			return false;
 		else if ((posizione) % 4 == 2 && valore < 5)
-			return;
+			return false;
 		else if ((posizione) % 4 == 3 && valore < 7)
-			return;
+			return false;
 
 		Carta cartaTorre = spazioAzione.getCartaTorre(posizione);
+
 		if (!cartaTorre.acquisibile(giocatoreAppartenenza))
-			return;
-		else {
-			// Quando acquisto una carta, devo pagarla. bisognerebbe scrivere un
-			// metodo public void acquisizione(Giocatore giocatore)
-			// all'interno di carta che attivo nel caso in cui acquisibile
+			return false;
+		else { // Quando acquisto una carta, devo pagarla. Bisognerebbe scrivere
+				// un metodo
+
+			// public void acquisizione(Giocatore giocatore) all'interno di
+			// carta che attivo nel caso in cui acquisibile
 			// restituisca true
+
+			if ((cartaTorre instanceof Personaggio)
+					&& (giocatoreAppartenenza.getPlancia().getPersonaggi().size() < 7)) {
+				giocatoreAppartenenza.getPlancia().getPersonaggi().add((Personaggio) cartaTorre);
+				spazioAzione.setCartaTorre(null, posizione);
+			} else if ((cartaTorre instanceof Territorio)
+					&& (giocatoreAppartenenza.getPlancia().getTerritori().size() < 7)) {
+				giocatoreAppartenenza.getPlancia().getTerritori().add((Territorio) cartaTorre);
+				spazioAzione.setCartaTorre(null, posizione);
+			} else if ((cartaTorre instanceof Edificio)
+					&& (giocatoreAppartenenza.getPlancia().getEdifici().size() < 7)) {
+				giocatoreAppartenenza.getPlancia().getEdifici().add((Edificio) cartaTorre);
+				spazioAzione.setCartaTorre(null, posizione);
+			} else if ((cartaTorre instanceof Impresa)
+					&& (giocatoreAppartenenza.getPlancia().getImprese().size() < 7)) {
+				giocatoreAppartenenza.getPlancia().getImprese().add((Impresa) cartaTorre);
+				spazioAzione.setCartaTorre(null, posizione);
+			} else
+				return false;
 		}
-
-		// Devo ancora programmare il fatto che se ha gi?Esei carte territorio
-		// non pu?Eacquisirne altre di tipo territorio
-		// Devo ancora programmare il fatto che se ha gi?Esei carte edificio non
-		// pu?Eacquisirne altre di tipo edificio
-
-		if (cartaTorre instanceof Personaggio)
-			giocatoreAppartenenza.getPlancia().getPersonaggi().add((Personaggio) cartaTorre);
-		else if (cartaTorre instanceof Territorio)
-			giocatoreAppartenenza.getPlancia().getTerritori().add((Territorio) cartaTorre);
-		else if (cartaTorre instanceof Edificio)
-			giocatoreAppartenenza.getPlancia().getEdifici().add((Edificio) cartaTorre);
-		else if (cartaTorre instanceof Impresa)
-			giocatoreAppartenenza.getPlancia().getImprese().add((Impresa) cartaTorre);
 
 		cartaTorre.effettoImmediato(giocatoreAppartenenza);
 
 		spazioAzione.setFamigliareTorre(this, posizione);
-
+		return true;
 	}
 
 	/**
-	 * Se la zona raccolto rotonda non ?Elibera oppure se il valore del
-	 * famigliare ?Einferiore ad 1 oppure se c'?Egi?Eun altro famigliare dello
-	 * stesso giocatore all'interno della zona raccolto, non ?Epossibile
-	 * effettuare lo spostamento. In caso contrario eseguo l'effetto permanente
-	 * della carte territorio se ci sono abbastanza punti militari. Pongo infine
-	 * la zona raccolto rotonda uguale al famigliare (che quindi va ad
-	 * occuparla)
+	 * Metodo che effettua lo spostamento sulla zona del raccolto rotonda se le
+	 * condizioni sono rispettate. Restituisce true se va a buon fine, false se
+	 * le condizioni non sono rispettate
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoRaccoltoRotondo() {
+	public boolean eseguiSpostamentoRaccoltoRotondo() {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+
 		if (!(spazioAzione.zonaRaccoltoRotondaLibera()))
-			return;
+			return false;
 		if (valore < 1)
-			return;
+			return false;
 
-		// Per attivare gli effetti permanenti dei territori NON e necessario
-		// avere dei punti militari, bisogna solo avere il valore dall'azione
-		// che arriva ad un certo punteggio. Il controllo si può affidare o ai
-		// singoli metodi degli effetti oppure si può inserire un int nei
-		// territori che permetta di sapere di quale valore si ha bisogno. In
-		// alternativa si può mettere appunto un metodo attivabile in territori.
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
 		}
+		Raccolto(this.giocatoreAppartenenza, valore);
+
 		spazioAzione.setZonaRaccoltoRotonda(this);
+		return true;
 	}
 
 	/**
-	 * Se il famigliare ha un valore diminuito di 3 inferiore a 1 oppure se
-	 * nella zona raccolto esiste un altro famigliare dello stesso giocatore,
-	 * allora non ?E possibile effettuare lo spostamento, in caso contrario il
-	 * valore del famigliare viene effettivamente diminuito di 3, attiva
-	 * l'effetto permanente delle carte territorio in base ai punti militari in
-	 * suo possesso, viene aggiunto alla zona raccolto ovale
+	 * Metodo che esegue lo spostamento sulla zona di raccolto ovale se le
+	 * condizioni sono rispettate. Restituisce true se va a buon fine, flase se
+	 * le condizioni non sono rispettate
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoRaccoltoOvale() {
+	public boolean eseguiSpostamentoRaccoltoOvale() {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+
 		if (valore - 3 < 1)
-			return;
+			return false;
 
 		for (int i = 0; i < spazioAzione.getZonaRaccoltoOvale().size(); i++) {
 			if ((spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatore() == giocatoreAppartenenza)
-					&& (spazioAzione.getZonaRaccoltoOvale().get(i).getNeutralita() == false)) // devo
-																								// controllare
-																								// che
-																								// non
-																								// sia
-																								// neutro,
-																								// perchè
-																								// altrimenti
-																								// posso
-																								// piazzare
-																								// il
-																								// famigliare
-				return;
+					&& (spazioAzione.getZonaRaccoltoOvale().get(i).getNeutralita() == false))
+				return false;
 		}
 
 		valore -= 3;
 
-		// Stesso discorso che con la zona rotonda
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
 		}
+		Raccolto(this.giocatoreAppartenenza, valore);
+
 		spazioAzione.getZonaRaccoltoOvale().add(this);
-
+		return true;
 	}
 
 	/**
+	 * Metodo che esegue lo spostamento del famigliare sulla zona di produzione
+	 * rotonda se le condizioni sono rispettate. Restituisce true se va a buon
+	 * fine, false se le condizioni non sono rispettate
+	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoProduzioneRotondo() {
+	public boolean eseguiSpostamentoProduzioneRotondo() {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+
 		if (!(spazioAzione.zonaProduzioneRotondaLibera()))
-			return;
+			return false;
 		if (valore < 1)
-			return;
+			return false;
 
-		// Similmente alla zona di raccolto
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i)
+					.attivaOnProduzione(this.giocatoreAppartenenza);
 		}
+		Produzione(this.giocatoreAppartenenza, this.valore);
+
 		spazioAzione.setZonaProduzioneRotonda(this);
+		return true;
 	}
 
 	/**
+	 * Metodo che esegue lo spostamento nella zona di produzione ovale Se le
+	 * condizioni sono rispettate. Restituisce true se va a buon fine, false se
+	 * le condizioni non sono rispettate
+	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoProduzioneOvale() {
+	public boolean eseguiSpostamentoProduzioneOvale() {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
+
 		if (valore - 3 < 1)
-			return;
+			return false;
 
 		for (int i = 0; i < spazioAzione.getZonaProduzioneOvale().size(); i++) {
 			if ((spazioAzione.getZonaProduzioneOvale().get(i).getGiocatore() == giocatoreAppartenenza)
-					&& (spazioAzione.getZonaProduzioneOvale().get(i).getNeutralita() == false)) // devo
-																								// controllare
-																								// che
-																								// non
-																								// sia
-																								// neutro,
-																								// perchè
-																								// altrimenti
-																								// posso
-																								// piazzare
-																								// il
-																								// famigliare
-				return;
+					&& (spazioAzione.getZonaProduzioneOvale().get(i).getNeutralita() == false))
+				return false;
 		}
 
 		valore -= 3;
-
-		// Stesso discorso che con la zona rotonda
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
-			giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i)
+					.attivaOnProduzione(this.giocatoreAppartenenza);
 		}
-		spazioAzione.getZonaProduzioneOvale().add(this);
+		Produzione(this.giocatoreAppartenenza, valore);
 
+		spazioAzione.getZonaProduzioneOvale().add(this);
+		return true;
 	}
 
 	/**
-	 * se il valore ?Einferiore ad 1 oppure se quella posizione del mercato
-	 * ?Egi?E occupata, allora non ?Epossibile effettuare lo spostamento. In
-	 * caso contrario effettuo lo spostamento ed eseguo sul giocatore l'effetto
-	 * del mercato
+	 * Metodo che esegue lo spostamento nella zona del mercato se le condizioni
+	 * sono rispettate. Restituisce true se va a buon fine, false altrimenti
 	 * 
+	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoMercato(int posizione) {
+	public boolean eseguiSpostamentoMercato(int posizione) {
 		if (posizione < 0 || posizione > 3)
-			return;
+			return false;
 		if (valore < 1)
-			return;
+			return false;
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		if (!spazioAzione.zonaMercatoLibera(posizione))
-			return;
+			return false;
 		spazioAzione.getMercato()[posizione] = this;
 		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, posizione);
+		return true;
 	}
 
 	/**
-	 * se il valore ?Einferiore a 1 allora non ?Epossibile effettuare lo
-	 * spostamento. In caso contrario aggiungo il famigliare al palazzo del
-	 * consiglio ed eseguo l'effetto del palazzo del consiglio sul giocatore
+	 * Metodo che esegue lo spostamento nella zona del palazzo del consiglio se
+	 * le condizioni sono rispettate. Restituisce true se va a buon fine, false
+	 * altrimenti
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoPalazzoConsiglio() {
+	public boolean eseguiSpostamentoPalazzoConsiglio() {
+
 		if (valore < 1)
-			return;
+			return false;
+
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		spazioAzione.setPalazzoDelConsiglio(this);
 		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza);
+		return true;
 	}
 
 	public boolean getNeutralita() {
@@ -271,5 +271,25 @@ public class Famigliare {
 
 	public boolean getPosizionato() {
 		return this.posizionato;
+	}
+
+	/**
+	 * 
+	 * */
+	public void Raccolto(Giocatore giocatore, int valore) {
+		for (int i = 0; i < giocatore.getPlancia().getTerritori().size(); i++) {
+			if (giocatore.getPlancia().getTerritori().get(i).Attivabile(valore))
+				giocatore.getPlancia().getTerritori().get(i).effettoPermanente(giocatore);
+		}
+	}
+
+	/**
+	 * 
+	 * */
+	public void Produzione(Giocatore giocatore, int valore) {
+		for (int i = 0; i < giocatore.getPlancia().getEdifici().size(); i++) {
+			if (giocatore.getPlancia().getEdifici().get(i).Attivabile(valore))
+				giocatore.getPlancia().getEdifici().get(i).effettoPermanente(giocatore);
+		}
 	}
 }

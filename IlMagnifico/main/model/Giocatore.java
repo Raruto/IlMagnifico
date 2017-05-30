@@ -206,4 +206,13 @@ public class Giocatore implements Serializable {
 		}
 		return true;
 	}
+
+	/**
+	 * Metodo che restituisce il famigliare nell'array all posizione indicata in
+	 * ingresso
+	 * 
+	 */
+	public Famigliare getFamigliare(int numeroFamigliare) {
+		return this.famiglia[numeroFamigliare];
+	}
 }
