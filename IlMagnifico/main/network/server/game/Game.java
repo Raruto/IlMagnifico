@@ -1,11 +1,12 @@
 package main.network.server.game;
 
+import java.util.HashMap;
+
 import main.model.Giocatore;
 import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
 import main.util.EFasiDiGioco;
-import main.util.errors.Errors;
 import main.util.errors.GameError;
 
 public class Game extends Partita {
@@ -14,6 +15,11 @@ public class Game extends Partita {
 	 * Riferimento alla Stanza in cui la partita è in atto.
 	 */
 	private Room room;
+
+	/*
+	 * Map of all defined server responses headers.
+	 */
+	private final HashMap<Object, ResponseHandler> responseMap;
 
 	/**
 	 * Costruttore.
@@ -27,6 +33,20 @@ public class Game extends Partita {
 		}
 		// Salva riferimento alla Stanza (usato in "dispatchGameUpdate()")
 		this.room = room;
+
+		responseMap = new HashMap<>();
+		loadResponses();
+	}
+
+	/**
+	 * Load all possible responses and associate an handler.
+	 */
+	private void loadResponses() {
+		responseMap.put(EAzioniGiocatore.Mercato, this::onMarket);
+		responseMap.put(EAzioniGiocatore.PalazzoConsiglio, this::onCouncilPalace);
+		responseMap.put(EAzioniGiocatore.Produzione, this::onProduction);
+		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvest);
+		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
 	}
 
 	/**
@@ -101,39 +121,65 @@ public class Game extends Partita {
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			return handleGameActionRequest(remotePlayer, requestedAction);
+			return handleResponse(remotePlayer, requestedAction);
 		} else {
 			throw new GameException(e.toString());
 		}
 	}
 
-	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats action) {
-		EAzioniGiocatore azione = action.getAzioneGiocatore();
-		UpdateStats updateStats;
+	private UpdateStats onMarket(RemotePlayer remotePlayer, UpdateStats update) {
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
 
-		switch (azione) {
-		case Mercato:
-			//
-			break;
-		case PalazzoConsiglio:
-			//
-			break;
-		case Produzione:
-			//
-			break;
-		case Raccolto:
-			//
-			break;
-		case Torre:
-			//
-			break;
+	private UpdateStats onCouncilPalace(RemotePlayer remotePlayer, UpdateStats update) {
+		// TODO: implement here
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
 
-		default:
-			break;
+	private UpdateStats onProduction(RemotePlayer remotePlayer, UpdateStats update) {
+		// TODO: implement here
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
+
+	private UpdateStats onHarvest(RemotePlayer remotePlayer, UpdateStats update) {
+		// TODO: implement here
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
+
+	private UpdateStats onTower(RemotePlayer remotePlayer, UpdateStats update) {
+		// TODO: implement here
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
+
+	/**
+	 * Handle the server response and execute the defined method.
+	 * 
+	 * @param object
+	 *            response header from server.
+	 */
+	public UpdateStats handleResponse(RemotePlayer remotePlayer, UpdateStats update) {
+		ResponseHandler handler = null;
+		EAzioniGiocatore azione = update.getAzioneGiocatore();
+
+		if (azione != null)
+			handler = responseMap.get(azione);
+
+		if (handler != null) {
+			return handler.handle(remotePlayer, update);
 		}
 
-		updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
+		return null;
+	}
 
-		return updateStats;
+	/**
+	 * This interface is used like {@link Runnable} interface.
+	 */
+	@FunctionalInterface
+	private interface ResponseHandler {
+
+		/**
+		 * Handle the server response.
+		 */
+		UpdateStats handle(RemotePlayer remotePlayer, UpdateStats update);
 	}
 }

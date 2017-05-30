@@ -53,7 +53,7 @@ public class Client implements IClient {
 	/*
 	 * Map of all defined server responses headers.
 	 */
-	private final HashMap<Object, ResponseHandler> mResponseMap;
+	private final HashMap<Object, ResponseHandler> responseMap;
 
 	/**
 	 * Crea una nuova istanza della classe.
@@ -65,7 +65,7 @@ public class Client implements IClient {
 		nickname = "anonymous";
 		isLogged = false;
 
-		mResponseMap = new HashMap<>();
+		responseMap = new HashMap<>();
 		loadResponses();
 	}
 
@@ -73,7 +73,21 @@ public class Client implements IClient {
 	 * Load all possible responses and associate an handler.
 	 */
 	private void loadResponses() {
-		mResponseMap.put(EFasiDiGioco.InizioPartita, this::onGameStarted);
+		responseMap.put(EFasiDiGioco.InizioPartita, this::onGameStarted);
+		responseMap.put(EFasiDiGioco.InizioPeriodo, this::onPeriodStarted);
+		responseMap.put(EFasiDiGioco.InizioTurno, this::onTurnStarted);
+		responseMap.put(EFasiDiGioco.FineTurno, this::onTurnEnd);
+		responseMap.put(EFasiDiGioco.FinePeriodo, this::onPeriodEnd);
+		responseMap.put(EFasiDiGioco.FinePartita, this::onGameEnd);
+
+		responseMap.put(EFasiDiGioco.MossaGiocatore, this::onPlayerMove);
+		responseMap.put(EFasiDiGioco.SostegnoChiesa, this::onChurchSupport);
+
+		// responseMap.put(EAzioniGiocatore.Mercato, this::);
+		// responseMap.put(EAzioniGiocatore.PalazzoConsiglio, this::);
+		// responseMap.put(EAzioniGiocatore.Produzione, this::);
+		// responseMap.put(EAzioniGiocatore.Raccolto, this::);
+		// responseMap.put(EAzioniGiocatore.Torre, this::);
 	}
 
 	/**
@@ -247,38 +261,10 @@ public class Client implements IClient {
 			// if (update.getNomeGiocatore() != null)
 			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
 					+ update.getAzioneGiocatore().toString());
-
-			switch (update.getAzioneGiocatore()) {
-			case Mercato:
-				break;
-			case PalazzoConsiglio:
-				break;
-			case Produzione:
-				break;
-			case Raccolto:
-				break;
-			case Torre:
-				break;
-
-			default:
-				break;
-			}
 		} else if (update.getAzioneServer() != null) {
 			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
-			handleResponse(update.getAzioneServer(), update);
-			/*
-			 * switch (update.getAzioneServer()) { case InizioPartita:
-			 * onGameStarted(update); break; case InizioPeriodo:
-			 * onPeriodStarted(update); break; case InizioTurno:
-			 * onTurnStarted(update); break; case MossaGiocatore:
-			 * onPlayerMove(update); break; case FinePartita: onGameEnd(update);
-			 * break; case FinePeriodo: onPeriodEnd(update); break; case
-			 * FineTurno: onTurnEnd(update); break; case SostegnoChiesa:
-			 * onChurchSupport(update); break;
-			 * 
-			 * default: break; }
-			 */
 		}
+		handleResponse(update);
 
 	}
 
@@ -370,8 +356,16 @@ public class Client implements IClient {
 	 * @param object
 	 *            response header from server.
 	 */
-	public void handleResponse(EFasiDiGioco enm, UpdateStats update) {
-		ResponseHandler handler = mResponseMap.get(enm);
+	public void handleResponse(UpdateStats update) {
+		ResponseHandler handler = null;
+		EAzioniGiocatore azione = update.getAzioneGiocatore();
+		EFasiDiGioco fase = update.getAzioneServer();
+
+		if (azione != null)
+			handler = responseMap.get(azione);
+		else if (fase != null)
+			handler = responseMap.get(fase);
+
 		if (handler != null) {
 			handler.handle(update);
 		}
