@@ -103,8 +103,8 @@ public class Game extends Partita {
 		}
 	}
 
-	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats requestedAction) {
-		EAzioniGiocatore azione = requestedAction.getAzioneGiocatore();
+	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats action) {
+		EAzioniGiocatore azione = action.getAzioneGiocatore();
 
 		UpdateStats updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
 

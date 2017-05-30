@@ -28,6 +28,11 @@ public class SpazioAzione implements Serializable {
 	 */
 	private Famigliare zonaRaccoltoRotonda;
 
+	/**
+	 * 0 = NERO
+	 * 1 = ARANCIONE
+	 * 2 = BIANCO
+	 */
 	private int[] valoreDadi;
 
 	/**
