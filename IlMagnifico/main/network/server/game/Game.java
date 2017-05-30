@@ -6,7 +6,8 @@ import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
 import main.util.EFasiDiGioco;
-import main.util.Errors;
+import main.util.errors.Errors;
+import main.util.errors.GameError;
 
 public class Game extends Partita {
 	/**
@@ -88,10 +89,10 @@ public class Game extends Partita {
 	 *            tentando di compiere) conterrà il codice associato all'errore
 	 * @return true se giocatore può eseguire l'azione, false altrimenti
 	 */
-	private boolean isElegible(RemotePlayer remotePlayer, Errors e) {
+	private boolean isElegible(RemotePlayer remotePlayer, GameError e) {
 		boolean elegibility = true;
 		if (this.periodo <= 0) {
-			e = Errors.GAME_NOT_STARTED;
+			e.setError(Errors.GAME_NOT_STARTED);
 			elegibility = false;
 		} else {
 
@@ -118,7 +119,7 @@ public class Game extends Partita {
 	 * @return {@link UpdateStats}
 	 */
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, EAzioniGiocatore action) throws GameException {
-		Errors e = Errors.NO_ERROR;
+		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
 			UpdateStats updateStats = new UpdateStats(remotePlayer, action, this.spazioAzione);
 			return updateStats;

@@ -1,4 +1,4 @@
-package main.util;
+package main.ui;
 
 import java.util.Scanner;
 
@@ -7,6 +7,8 @@ import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
+import main.util.Costants;
+import main.util.EAzioniGiocatore;
 
 /**
  * Classe di comodo per simulare l'interazione da parte del CLIENT verso il

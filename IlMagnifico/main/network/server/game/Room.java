@@ -7,7 +7,7 @@ import main.network.exceptions.PlayerNotFound;
 import main.network.server.RemotePlayer;
 import main.util.Costants;
 import main.util.EAzioniGiocatore;
-import main.util.Errors;
+import main.util.errors.Errors;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
