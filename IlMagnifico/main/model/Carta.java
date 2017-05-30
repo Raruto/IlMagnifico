@@ -57,6 +57,9 @@ public abstract class Carta {
 	protected ArrayList<Object[]> effettoPermanente;
 
 	/**
+	 * Metodo che controlla se il giocatore ha abbastanza punti militari o
+	 * risorse per potere pagare il costo della carta
+	 * 
 	 * @param oggetto
 	 * @return
 	 */
@@ -85,6 +88,8 @@ public abstract class Carta {
 	}
 
 	/**
+	 * Metodo che attiva l'effetto immediato della carta
+	 * 
 	 * @param Object
 	 * @return
 	 */
@@ -99,6 +104,8 @@ public abstract class Carta {
 	}
 
 	/**
+	 * Metodo che attiva l'effetto permanente della carta
+	 * 
 	 * @param Object
 	 * @return
 	 */
@@ -129,6 +136,13 @@ public abstract class Carta {
 		return this.periodoCarta;
 	}
 
+	/**
+	 * Metodo che controlla se l'effetto permanente si attiva quando il
+	 * giocatore esegue un'azione raccolto
+	 * 
+	 * @param
+	 * @return
+	 */
 	public void attivaOnRaccolto(Giocatore giocatore) {
 		// tra i parametri delle carte in posizione 2 ci sarà l'azione a cui
 		// corrisponde l'attivazione.
@@ -138,9 +152,23 @@ public abstract class Carta {
 			effettoPermanente(giocatore);
 	}
 
+	/**
+	 * Metodo che controlla se l'effetto permanente si attiva quando viene
+	 * eseguita un'azione produzione dal giocatore
+	 * 
+	 * @param
+	 * @return
+	 */
 	public void attivaOnProduzione(Giocatore giocatore) {
 		if ((EAzioniGiocatore) (this.effettoPermanente.get(0)[2]) == EAzioniGiocatore.Produzione)
 			effettoPermanente(giocatore);
+	}
+
+	/***/
+	public void acquisizione(Giocatore giocatore) {
+		// TODO:se il giocatore può pagare in un solo modo non ci sono problemi,
+		// ma se può pagare in tutti e due i modi deve potere decidere
+
 	}
 
 }

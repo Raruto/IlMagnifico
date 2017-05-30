@@ -84,10 +84,9 @@ public class Famigliare {
 			return false;
 		else { // Quando acquisto una carta, devo pagarla. Bisognerebbe scrivere
 				// un metodo
-
-			// public void acquisizione(Giocatore giocatore) all'interno di
-			// carta che attivo nel caso in cui acquisibile
-			// restituisca true
+				// public void acquisizione(Giocatore giocatore) all'interno di
+				// carta che attivo nel caso in cui acquisibile
+				// restituisca true
 
 			if ((cartaTorre instanceof Personaggio)
 					&& (giocatoreAppartenenza.getPlancia().getPersonaggi().size() < 7)) {
