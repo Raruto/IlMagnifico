@@ -1,6 +1,7 @@
 package main.network.client;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
 
 import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
@@ -49,6 +50,11 @@ public class Client implements IClient {
 	 */
 	private String nickname;
 
+	/*
+	 * Map of all defined server responses headers.
+	 */
+	private final HashMap<Object, ResponseHandler> mResponseMap;
+
 	/**
 	 * Crea una nuova istanza della classe.
 	 * 
@@ -58,6 +64,16 @@ public class Client implements IClient {
 	public Client() throws ClientException {
 		nickname = "anonymous";
 		isLogged = false;
+
+		mResponseMap = new HashMap<>();
+		loadResponses();
+	}
+
+	/**
+	 * Load all possible responses and associate an handler.
+	 */
+	private void loadResponses() {
+		mResponseMap.put(EFasiDiGioco.InizioPartita, this::onGameStarted);
 	}
 
 	/**
@@ -86,7 +102,8 @@ public class Client implements IClient {
 		try {
 			FakeUI.mainClient(serverAddress, socketPort, rmiPort);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
+			// e.printStackTrace();
 		}
 	}
 
@@ -228,7 +245,7 @@ public class Client implements IClient {
 	public void onGameUpdate(UpdateStats update) {
 		if (update.getAzioneGiocatore() != null) {
 			// if (update.getNomeGiocatore() != null)
-			System.out.print("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
+			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
 					+ update.getAzioneGiocatore().toString());
 
 			switch (update.getAzioneGiocatore()) {
@@ -248,35 +265,19 @@ public class Client implements IClient {
 			}
 		} else if (update.getAzioneServer() != null) {
 			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
-			switch (update.getAzioneServer()) {
-			case InizioPartita:
-				onGameStarted(update);
-				break;
-			case InizioPeriodo:
-				onPeriodStarted(update);
-				break;
-			case InizioTurno:
-				onTurnStarted(update);
-				break;
-			case MossaGiocatore:
-				onPlayerMove(update);
-				break;
-			case FinePartita:
-				onGameEnd(update);
-				break;
-			case FinePeriodo:
-				onPeriodEnd(update);
-				break;
-			case FineTurno:
-				onTurnEnd(update);
-				break;
-			case SostegnoChiesa:
-				onChurchSupport(update);
-				break;
-
-			default:
-				break;
-			}
+			handleResponse(update.getAzioneServer(), update);
+			/*
+			 * switch (update.getAzioneServer()) { case InizioPartita:
+			 * onGameStarted(update); break; case InizioPeriodo:
+			 * onPeriodStarted(update); break; case InizioTurno:
+			 * onTurnStarted(update); break; case MossaGiocatore:
+			 * onPlayerMove(update); break; case FinePartita: onGameEnd(update);
+			 * break; case FinePeriodo: onPeriodEnd(update); break; case
+			 * FineTurno: onTurnEnd(update); break; case SostegnoChiesa:
+			 * onChurchSupport(update); break;
+			 * 
+			 * default: break; }
+			 */
 		}
 
 	}
@@ -393,4 +394,28 @@ public class Client implements IClient {
 		System.out.println(object.toString());
 	}
 
+	/**
+	 * Handle the server response and execute the defined method.
+	 * 
+	 * @param object
+	 *            response header from server.
+	 */
+	public void handleResponse(EFasiDiGioco enm, UpdateStats update) {
+		ResponseHandler handler = mResponseMap.get(enm);
+		if (handler != null) {
+			handler.handle(update);
+		}
+	}
+
+	/**
+	 * This interface is used like {@link Runnable} interface.
+	 */
+	@FunctionalInterface
+	private interface ResponseHandler {
+
+		/**
+		 * Handle the server response.
+		 */
+		void handle(UpdateStats update);
+	}
 }

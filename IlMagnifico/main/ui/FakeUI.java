@@ -102,7 +102,7 @@ public class FakeUI {
 			Client client = getClient();
 			client.startClient(inText, serverAddress, socketPort, rmiPort);
 		} catch (ClientException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 			System.err.println("Exiting...");
 			System.exit(0);
 		}
