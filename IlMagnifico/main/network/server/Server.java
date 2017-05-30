@@ -188,13 +188,6 @@ public class Server implements IServer {
 				player.setNome(nickname);
 				players.put(nickname, player);
 				System.out.println(id + " Succesfully logged in!");
-				try {
-					System.out.println("Trying joining it to a room...");
-
-					joinFirstAvailableRoom(player);
-				} catch (JoinRoomException e) {
-					// e.printStackTrace();
-				}
 			} else {
 				System.out.println(id + " Already logged in!");
 				throw new LoginException();
@@ -244,6 +237,7 @@ public class Server implements IServer {
 	public void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException {
 		synchronized (ROOMS_MUTEX) {
 			try {
+				System.out.println("Trying joining it to a room...");
 				joinLastRoom(remotePlayer);
 			} catch (RoomFullException e) {
 				try {

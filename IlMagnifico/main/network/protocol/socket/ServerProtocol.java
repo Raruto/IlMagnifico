@@ -133,6 +133,8 @@ public class ServerProtocol {
 		}
 		mOutput.writeObject(responseCode);
 		mOutput.flush();
+
+		mCallback.joinRoom();
 	}
 
 	private void sendChatMessage() {

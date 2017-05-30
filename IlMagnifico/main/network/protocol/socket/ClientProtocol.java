@@ -136,6 +136,7 @@ public class ClientProtocol {
 			mOutput.writeObject(ProtocolConstants.LOGIN_REQUEST);
 			mOutput.writeObject(nickname);
 			mOutput.flush();
+
 			responseCode = (int) mInput.readObject();
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			throw new NetworkException(e);
@@ -223,7 +224,7 @@ public class ClientProtocol {
 	}
 
 	private void onChatMessage() {
-		try {
+		try {			
 			String author = (String) mInput.readObject();
 			String message = (String) mInput.readObject();
 			boolean privateMessage = (boolean) mInput.readObject();

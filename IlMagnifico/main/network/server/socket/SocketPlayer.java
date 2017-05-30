@@ -163,7 +163,8 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 	@Override
 	public void sendChatMessage(String receiver, String message) {
 		try {
-			getRoom().sendChatMessage(this, receiver, message);
+			//getRoom().sendChatMessage(this, receiver, message);
+			mServer.sendChatMessage(this, receiver, message);
 		} catch (PlayerNotFound e) {
 			System.err.println("[socket player] cannot dispatch message to a player that cannot be found");
 			// mSocketProtocol.actionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
@@ -172,8 +173,11 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 
 	@Override
 	public void joinRoom() throws JoinRoomException {
-		// TODO Auto-generated method stub
-
+		try {
+			mServer.joinFirstAvailableRoom(this);
+		} catch (JoinRoomException e) {
+			// e.printStackTrace();
+		}
 	}
 
 	@Override

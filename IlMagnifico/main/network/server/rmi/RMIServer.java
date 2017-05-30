@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import main.network.NetworkException;
 import main.network.client.rmi.RMIClientInterface;
+import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.server.AbstractServer;
 import main.network.server.IServer;
@@ -104,6 +105,13 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		// generate new unique session token
 		String sessionToken = UUID.randomUUID().toString();
 		sessionTokens.put(sessionToken, nickname);
+
+		try {
+			joinFirstAvailableRoom(sessionToken);
+		} catch (JoinRoomException e) {
+			// e.printStackTrace();
+		}
+
 		return sessionToken;
 	}
 
@@ -147,7 +155,8 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	@Override
-	public void performGameAction(String sessionToken, UpdateStats requestedAction) throws RemoteException, GameException {
+	public void performGameAction(String sessionToken, UpdateStats requestedAction)
+			throws RemoteException, GameException {
 		RemotePlayer remotePlayer = getPlayer(sessionToken);
 		remotePlayer.getRoom().performGameAction(remotePlayer, requestedAction);
 	}

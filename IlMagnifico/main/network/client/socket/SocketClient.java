@@ -95,6 +95,7 @@ public class SocketClient extends AbstractClient {
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
 		socketClientProtocol.loginPlayer(nickname);
+		startNetworkMessageHandlerThread();
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class SocketClient extends AbstractClient {
 	@Override
 	public void joinFirstAvailableRoom() throws NetworkException {
 		socketClientProtocol.joinFirstAvailableRoom();
-		startNetworkMessageHandlerThread();
+		//startNetworkMessageHandlerThread();
 	}
 
 	/**

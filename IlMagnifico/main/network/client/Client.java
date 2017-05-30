@@ -219,7 +219,8 @@ public class Client implements IClient {
 			System.out.println("Nickname is already in use on server");
 			// mUi.showLoginErrorMessage();
 		} catch (NetworkException e) {
-			System.out.println("Cannot send login request");
+			e.printStackTrace();
+			//System.out.println("Cannot send login request: " + e.getMessage());
 		}
 
 		if (success) {
