@@ -71,7 +71,6 @@ public class Partita {
 		// TODO: come inizializzate il mazzo?
 		inizializzaMazzo();
 		mescolaMazzo();
-		posizionaCarteSuTorre();
 		inizializzaScomunica();
 		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione

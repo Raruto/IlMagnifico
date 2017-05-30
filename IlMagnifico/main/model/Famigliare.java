@@ -129,9 +129,10 @@ public class Famigliare {
 		if (valore < 1)
 			return false;
 
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
 		}
+		Raccolto(this.giocatoreAppartenenza, valore);
 
 		spazioAzione.setZonaRaccoltoRotonda(this);
 		return true;
@@ -158,9 +159,10 @@ public class Famigliare {
 
 		valore -= 3;
 
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getTerritori().size(); i++) {
-			giocatoreAppartenenza.getPlancia().getTerritori().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
 		}
+		Raccolto(this.giocatoreAppartenenza, valore);
 
 		spazioAzione.getZonaRaccoltoOvale().add(this);
 		return true;
@@ -181,9 +183,11 @@ public class Famigliare {
 		if (valore < 1)
 			return false;
 
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i)
+					.attivaOnProduzione(this.giocatoreAppartenenza);
 		}
+		Produzione(this.giocatoreAppartenenza, this.valore);
 
 		spazioAzione.setZonaProduzioneRotonda(this);
 		return true;
@@ -209,9 +213,11 @@ public class Famigliare {
 		}
 
 		valore -= 3;
-		for (int i = 0; i < giocatoreAppartenenza.getPlancia().getEdifici().size(); i++) {
-			giocatoreAppartenenza.getPlancia().getEdifici().get(i).effettoPermanente(giocatoreAppartenenza);
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i)
+					.attivaOnProduzione(this.giocatoreAppartenenza);
 		}
+		Produzione(this.giocatoreAppartenenza, valore);
 
 		spazioAzione.getZonaProduzioneOvale().add(this);
 		return true;
@@ -265,5 +271,25 @@ public class Famigliare {
 
 	public boolean getPosizionato() {
 		return this.posizionato;
+	}
+
+	/**
+	 * 
+	 * */
+	public void Raccolto(Giocatore giocatore, int valore) {
+		for (int i = 0; i < giocatore.getPlancia().getTerritori().size(); i++) {
+			if (giocatore.getPlancia().getTerritori().get(i).Attivabile(valore))
+				giocatore.getPlancia().getTerritori().get(i).effettoPermanente(giocatore);
+		}
+	}
+
+	/**
+	 * 
+	 * */
+	public void Produzione(Giocatore giocatore, int valore) {
+		for (int i = 0; i < giocatore.getPlancia().getEdifici().size(); i++) {
+			if (giocatore.getPlancia().getEdifici().get(i).Attivabile(valore))
+				giocatore.getPlancia().getEdifici().get(i).effettoPermanente(giocatore);
+		}
 	}
 }
