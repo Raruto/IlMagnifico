@@ -29,9 +29,7 @@ public class SpazioAzione implements Serializable {
 	private Famigliare zonaRaccoltoRotonda;
 
 	/**
-	 * 0 = NERO
-	 * 1 = ARANCIONE
-	 * 2 = BIANCO
+	 * 0 = NERO 1 = ARANCIONE 2 = BIANCO
 	 */
 	private int[] valoreDadi;
 
@@ -77,8 +75,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se il piano della torre indicato dalla posizione �ｾ�ｽｨ
-	 * libero, false altrimenti
+	 * Restituisce true se il piano della torre indicato dalla posizione
+	 * �ｾ�ｽｨ libero, false altrimenti
 	 * 
 	 * @param int
 	 * @return boolean
@@ -93,8 +91,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Raccolto rotonda �ｾ�ｽｨ libera, false
-	 * altrimenti
+	 * Restituisce true se la zona Raccolto rotonda �ｾ�ｽｨ libera,
+	 * false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -109,8 +107,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Produzione rotonda �ｾ�ｽｨ libera, false
-	 * altrimenti
+	 * Restituisce true se la zona Produzione rotonda �ｾ�ｽｨ libera,
+	 * false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -124,8 +122,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Ritorna true se la zona mercato alla posizione indicata in ingresso �ｾ�ｽｨ
-	 * libera, false altrimenti
+	 * Ritorna true se la zona mercato alla posizione indicata in ingresso
+	 * �ｾ�ｽｨ libera, false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -139,7 +137,8 @@ public class SpazioAzione implements Serializable {
 
 	/**
 	 * Effettua l'effetto conseguente sul giocatore a seconda della posizione in
-	 * ingresso. Se la posizione non �ｾ�ｽｨ valida il metodo non fa niente
+	 * ingresso. Se la posizione non �ｾ�ｽｨ valida il metodo non fa
+	 * niente
 	 * 
 	 * @param Giocatore,
 	 *            int
@@ -403,5 +402,9 @@ public class SpazioAzione implements Serializable {
 	 */
 	public void setValoreDadi(int valore, int dado) {
 		this.valoreDadi[dado] = valore;
+	}
+
+	public int[] getValoreDadi() {
+		return this.valoreDadi;
 	}
 }

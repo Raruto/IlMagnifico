@@ -63,9 +63,19 @@ public class UpdateStats implements Serializable {
 	private EFasiDiGioco faseDiGioco;
 
 	/**
+	 * Nomi dei giocatori che devono eseguire l'azione (usato anche per
+	 * notificare giocatori connessi).
+	 */
+	private ArrayList<String> nomiGiocatori;
+
+	/**
 	 * {@link SpazioAzione} aggiornata.
 	 */
 	private SpazioAzione spazioAzione;
+
+	private UpdateStats() {
+		nomiGiocatori = new ArrayList<String>();
+	}
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -73,6 +83,7 @@ public class UpdateStats implements Serializable {
 	 * @param azioneRichiesta
 	 */
 	public UpdateStats(EAzioniGiocatore azioneRichiesta) {
+		this();
 		this.azioneGiocatore = azioneRichiesta;
 
 	}
@@ -83,6 +94,7 @@ public class UpdateStats implements Serializable {
 	 * @param faseDiGioco
 	 */
 	public UpdateStats(EFasiDiGioco faseDiGioco) {
+		this();
 		this.faseDiGioco = faseDiGioco;
 	}
 
@@ -176,6 +188,10 @@ public class UpdateStats implements Serializable {
 	 * = plancia; }
 	 */
 
+	/*
+	 * public PlayerColors getColore() { return player.getColore(); }
+	 */
+
 	public SpazioAzione getSpazioAzione() {
 		return spazioAzione;
 	}
@@ -215,8 +231,12 @@ public class UpdateStats implements Serializable {
 	public ArrayList<Territorio> getTerritoriGiocatore() {
 		return territori;
 	}
-	/*
-	 * public PlayerColors getColore() { return player.getColore(); }
-	 */
 
+	public void addToNomiGiocatori(String nomeGiocatore) {
+		this.nomiGiocatori.add(nomeGiocatore);
+	}
+
+	public ArrayList<String> getNomiGiocatori() {
+		return this.nomiGiocatori;
+	}
 }

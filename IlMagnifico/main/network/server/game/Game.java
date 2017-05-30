@@ -1,5 +1,6 @@
 package main.network.server.game;
 
+import main.model.Giocatore;
 import main.model.Partita;
 import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
@@ -37,14 +38,17 @@ public class Game extends Partita {
 		// TODO: decidere quali azioni vogliamo trasmettere...
 
 		inizializzaPartita();
-		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.spazioAzione);
+		update = new UpdateStats(EFasiDiGioco.InizioPartita);
+
+		for (Giocatore giocatore : this.giocatori) {
+			update.addToNomiGiocatori(giocatore.getNome());
+		}
 		dispatchGameUpdate(update);
 
-		// lanciaDadi();
-		update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+		update = new UpdateStats(EFasiDiGioco.InizioPeriodo);
 		dispatchGameUpdate(update);
 
-		//
+		// turnazione();
 		update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
 		dispatchGameUpdate(update);
 
@@ -105,7 +109,6 @@ public class Game extends Partita {
 
 	private UpdateStats handleGameActionRequest(RemotePlayer remotePlayer, UpdateStats action) {
 		EAzioniGiocatore azione = action.getAzioneGiocatore();
-
 		UpdateStats updateStats = new UpdateStats(remotePlayer, azione, this.spazioAzione);
 
 		return updateStats;
