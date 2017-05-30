@@ -63,6 +63,14 @@ public class Giocatore implements Serializable {
 
 	// TODO: chiamato dal costruttore in RemotePlayer (vedi dentro...)
 	public Giocatore() {
+		this.nome = null;
+		this.colore = null;
+		this.famiglia = new Famigliare[4];
+		this.risorse = new Risorsa();
+		this.plancia = new Plancia();
+		this.punti = new Punti();
+		this.scomuniche = new Scomunica[3];
+		this.spazioAzione = new SpazioAzione();
 		// Si potrebbe fare:
 		// famiglia = null;
 		// risorse = null;
