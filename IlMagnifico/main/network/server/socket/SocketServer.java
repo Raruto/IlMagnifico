@@ -49,12 +49,13 @@ public class SocketServer extends AbstractServer {
 	}
 
 	/**
-	 * This class is used to listen for new socket clients asynchronously.
+	 * Thread per la ricezione e gestione di nuove richieste di connessione
+	 * tramite Socket.
 	 */
 	private class RequestHandler extends Thread {
 
 		/**
-		 * Loop that listen for new clients and initialize their handlers.
+		 * Loop che attende nuovi Client e inizializza i relativi gestori.
 		 */
 		@Override
 		public void run() {

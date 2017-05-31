@@ -208,6 +208,10 @@ public class SocketClient extends AbstractClient {
 	 */
 	private class ResponseHandler extends Thread {
 
+		/**
+		 * Loop che attende messaggi di risposta dal Server e invocando i metodi
+		 * appropriati.
+		 */
 		@Override
 		public void run() {
 			while (true) {
