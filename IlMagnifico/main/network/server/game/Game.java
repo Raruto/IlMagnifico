@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import main.model.Giocatore;
 import main.model.Partita;
-import main.util.EAzioniGiocatore;
-import main.util.EFasiDiGioco;
 import main.util.errors.GameError;
+import main.util.game.EAzioniGiocatore;
+import main.util.game.EFasiDiGioco;
 
 public class Game extends Partita {
 

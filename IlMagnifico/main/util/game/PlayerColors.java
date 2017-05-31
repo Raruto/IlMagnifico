@@ -1,4 +1,4 @@
-package main.util;
+package main.util.game;
 
 public enum PlayerColors {
 	RED, GREEN, BLUE, YELLOW;

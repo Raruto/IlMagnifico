@@ -2,7 +2,7 @@ package main.model;
 
 import java.util.*;
 
-import main.util.EAzioniGiocatore;
+import main.util.game.EAzioniGiocatore;
 
 /**
  * 

@@ -8,7 +8,7 @@ import main.network.server.Server;
 import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
 import main.util.Costants;
-import main.util.EAzioniGiocatore;
+import main.util.game.EAzioniGiocatore;
 import main.util.network.ConnectionTypes;
 
 /**

@@ -10,8 +10,8 @@ import main.network.exceptions.LoginException;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
 import main.util.Costants;
-import main.util.EAzioniGiocatore;
-import main.util.EFasiDiGioco;
+import main.util.game.EAzioniGiocatore;
+import main.util.game.EFasiDiGioco;
 import main.util.network.ConnectionTypes;
 
 /**
