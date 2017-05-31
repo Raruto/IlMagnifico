@@ -1,9 +1,5 @@
 package main.network.server;
 
-import java.util.HashMap;
-
-import main.network.server.game.RemotePlayer;
-
 /**
  * Classe che rappresenta l'astrazione necessaria per le comunicazioni del
  * server. Estendendo questa classe è possibile utilizzare qualsiasi tipo di
@@ -18,13 +14,6 @@ public abstract class AbstractServer {
 	private final IServer controller;
 
 	/**
-	 * Internal cache that maps all logged used with an unique session token
-	 * that identify the single player. This is required in order to identify
-	 * the remote player when he is making a new request to the server.
-	 */
-	protected final HashMap<String, String> sessionTokens;
-
-	/**
 	 * Costruttore astratto.
 	 * 
 	 * @param controller
@@ -32,7 +21,6 @@ public abstract class AbstractServer {
 	 */
 	public AbstractServer(IServer controller) {
 		this.controller = controller;
-		sessionTokens = new HashMap<>();
 	}
 
 	/**
@@ -43,17 +31,6 @@ public abstract class AbstractServer {
 	 */
 	protected IServer getController() {
 		return this.controller;
-	}
-
-	/**
-	 * Get the remote player associated to provided session token.
-	 * 
-	 * @param sessionToken
-	 *            provided with the request.
-	 * @return the remote player associated.
-	 */
-	protected RemotePlayer getPlayer(String sessionToken) {
-		return controller.getPlayer(sessionTokens.get(sessionToken));
 	}
 
 	/**

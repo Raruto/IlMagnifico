@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 import java.util.UUID;
 
 import main.network.exceptions.JoinRoomException;
@@ -25,6 +26,13 @@ import main.network.server.game.UpdateStats;
 public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	/**
+	 * Internal cache that maps all logged used with an unique session token
+	 * that identify the single player. This is required in order to identify
+	 * the remote player when he is making a new request to the server.
+	 */
+	protected final HashMap<String, String> sessionTokens;
+
+	/**
 	 * Public constructor.
 	 * 
 	 * @param controller
@@ -32,7 +40,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 */
 	public RMIServer(IServer controller) {
 		super(controller);
-
+		sessionTokens = new HashMap<>();
 	}
 
 	/**
@@ -76,6 +84,17 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 			System.err.println("RMI Registry not found");
 		}
 		throw new ServerException("Cannot initialize RMI registry");
+	}
+
+	/**
+	 * Get the remote player associated to provided session token.
+	 * 
+	 * @param sessionToken
+	 *            provided with the request.
+	 * @return the remote player associated.
+	 */
+	protected RemotePlayer getPlayer(String sessionToken) {
+		return getController().getPlayer(sessionTokens.get(sessionToken));
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////

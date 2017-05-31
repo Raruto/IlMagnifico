@@ -14,7 +14,6 @@ import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.protocol.socket.Constants;
-import main.network.protocol.socket.SocketPlayerInterface;
 import main.network.server.IServer;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
@@ -23,7 +22,7 @@ import main.network.server.game.UpdateStats;
  * Extension of {@link RemotePlayer}. This implementation can communicate to his
  * referenced client.
  */
-public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayerInterface {
+public class SocketPlayer extends RemotePlayer implements Runnable {
 
 	/**
 	 * 
@@ -31,39 +30,47 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	private static final long serialVersionUID = -5294571565976357669L;
 
 	/**
-	 * Server interface.
+	 * Interfaccia utilizzata per comunicare con il Server (es. {@link Server}).
 	 */
 	private final transient IServer server;
 
 	/**
-	 * Socket where player can communicate with the server and vice versa.
+	 * Socket attraverso il quale il giocatore può comunicare con il Server e
+	 * viceversa.
 	 */
 	private final transient Socket socket;
 
 	/**
-	 * Input stream for receiving object from the client.
+	 * Stream di Input per la ricezione degli oggetti serializzati dal Client.
 	 */
 	private final transient ObjectInputStream inputStream;
 
 	/**
-	 * Output stream to send object to the client.
+	 * Stream di Output per l'invio di oggetti serializzati al Client.
 	 */
 	private final transient ObjectOutputStream outputStream;
 
 	/**
-	 * Socket protocol used for communication between client and server.
+	 * MUTEX per evitare la concorrenza tra Thread durante la scrittura sul
+	 * flusso di uscita del Socket.
 	 */
-	// private final transient ServerProtocol socketProtocol;
+	private static final Object OUTPUT_MUTEX = new Object();
 
 	/**
-	 * Create a new instance of a socket player.
+	 * Map of all defined client requests headers.
+	 */
+	private final HashMap<Object, RequestHandlerInterface> requestMap;
+
+	/**
+	 * Crea un'istanza SocketPlayer.
 	 * 
 	 * @param server
-	 *            server interface.
+	 *            interfaccia del Server (es. {@link Server}).
 	 * @param socket
-	 *            used for communication.
+	 *            socket usato per la comunicazione.
 	 * @throws IOException
-	 *             if some error occurs while opening input and output streams.
+	 *             se si verifica un errore durante l'inizializzazione degli
+	 *             Stream di Input e Output.
 	 */
 	/* package-local */ SocketPlayer(IServer server, Socket socket) throws IOException {
 		this.server = server;
@@ -72,15 +79,126 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 		this.outputStream.flush();
 		this.inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 
-		// this.socketProtocol = new ServerProtocol(inputStream, outputStream,
-		// this);
-		mRequestMap = new HashMap<>();
+		requestMap = new HashMap<>();
 		loadRequests();
+	}
+
+	/**
+	 * Inizializza "responseMap" caricando tutti i possibili metodi di risposta
+	 * (chiamati da {@link RequestHandler}).
+	 */
+	private void loadRequests() {
+		requestMap.put(Constants.LOGIN_REQUEST, this::loginPlayer);
+		requestMap.put(Constants.CHAT_MESSAGE, this::sendChatMessage);
+	}
+
+	/**
+	 * Invia un messaggio sulla chat del giocatore.
+	 * 
+	 * @param author
+	 *            nome del giocatore MITTENTE del messaggio.
+	 * @param message
+	 *            messaggio da inviare.
+	 * @param privateMessage
+	 *            True se il messaggio è privato, False se pubblico.
+	 * @throws NetworkException
+	 *             se il cliente non è raggiungibile.
+	 */
+	@Override
+	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
+
+		// sendChatMessage(author, message, privateMessage);
+		synchronized (OUTPUT_MUTEX) {
+			try {
+				outputStream.writeObject(Constants.CHAT_MESSAGE);
+				outputStream.writeObject(author);
+				outputStream.writeObject(message);
+				outputStream.writeObject(privateMessage);
+				outputStream.flush();
+			} catch (IOException e) {
+				throw new NetworkException(e);
+			}
+		}
+
+	}
+
+	@Override
+	public void onGameUpdate(UpdateStats update) throws NetworkException {
+		// TODO Auto-generated method stub
 
 	}
 
 	/**
-	 * Listen forever on input stream for reading messages.
+	 * Metodo per il "debug"
+	 */
+	@Override
+	public void send(Object object) throws NetworkException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi "invocati" dal Client (basato su RMIServerInterface)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Prova a fare eseguire il login sul Server con il nickname fornito.
+	 */
+	private void loginPlayer() {
+		try {
+			String nickname = (String) inputStream.readObject();
+
+			int responseCode;
+			try {
+				server.loginPlayer(nickname, this);
+				responseCode = Constants.RESPONSE_OK;
+			} catch (LoginException e) {
+				System.err.println("[socket protocol] LoginException");
+				responseCode = Constants.RESPONSE_PLAYER_ALREADY_EXISTS;
+			}
+			outputStream.writeObject(responseCode);
+			outputStream.flush();
+
+			if (responseCode != Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+				try {
+					server.joinFirstAvailableRoom(this);
+				} catch (JoinRoomException e) {
+					// e.printStackTrace();
+				}
+			}
+
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println("Exception while handling client request");
+		}
+	}
+
+	/**
+	 * Invia un messaggio in chat ad altri giocatori o un giocatore specifico.
+	 */
+	private void sendChatMessage() {
+		try {
+			String receiver = (String) inputStream.readObject();
+			String message = (String) inputStream.readObject();
+
+			try {
+				// getRoom().sendChatMessage(this, receiver, message);
+				server.sendChatMessage(this, receiver, message);
+			} catch (PlayerNotFound e) {
+				System.err.println("[socket player] cannot dispatch message to a player that cannot be found");
+			}
+
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println("Exception while handling client request");
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Thread per la gestione dei messaggi di richiesta (CLIENT --> SERVER)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Resta in ascolto sullo Stream di Input in attesa di messaggi di richiesta
+	 * dal Client.
 	 */
 	@Override
 	public void run() {
@@ -88,7 +206,6 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 			// noinspection InfiniteLoopStatement
 			while (true) {
 				Object object = inputStream.readObject();
-				// socketProtocol.handleClientRequest(object);
 				handleClientRequest(object);
 			}
 		} catch (IOException | ClassNotFoundException e) {
@@ -101,12 +218,13 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	}
 
 	/**
-	 * Close safely the connection.
+	 * Chiude correttamente la connessione Socket.
 	 * 
 	 * @param closeable
-	 *            object that implements {@link Closeable} interface.
+	 *            oggetto che implementa l'interfaccia {@link Closeable}.
 	 * @param message
-	 *            to print in case an exception is thrown while closing.
+	 *            messaggio da stampare nel caso si scateni un eccezione durante
+	 *            il tentativo di chiusura dell'oggetto.
 	 */
 	private void closeSafely(Closeable closeable, String message) {
 		try {
@@ -117,177 +235,15 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	}
 
 	/**
-	 * Send a chat message to the player.
-	 * 
-	 * @param author
-	 *            nickname of the player that sent the message.
-	 * @param message
-	 *            that the author has sent.
-	 * @param privateMessage
-	 *            if message is private, false if public.
-	 * @throws NetworkException
-	 *             if client is not reachable.
-	 */
-	@Override
-	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
-		// socketProtocol.sendChatMessage(author, message, privateMessage);
-		sendChatMessage(author, message, privateMessage);
-	}
-
-	/**
-	 * Try to login the player into server with the given nickname.
-	 * 
-	 * @param nickname
-	 *            to use.
-	 * @throws LoginException
-	 *             if another player with the same nickname is already logged.
-	 */
-	@Override
-	public void loginPlayer(String nickname) throws LoginException {
-		server.loginPlayer(nickname, this);
-	}
-
-	/**
-	 * Dispatch a chat message to the receiver or to all players.
-	 * 
-	 * @param receiver
-	 *            nickname of the receiver, null if message is public.
-	 * @param message
-	 *            body of the message.
-	 */
-	@Override
-	public void sendChatMessage(String receiver, String message) {
-		try {
-			// getRoom().sendChatMessage(this, receiver, message);
-			server.sendChatMessage(this, receiver, message);
-		} catch (PlayerNotFound e) {
-			System.err.println("[socket player] cannot dispatch message to a player that cannot be found");
-			// mSocketProtocol.actionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
-		}
-	}
-
-	@Override
-	public void joinRoom() throws JoinRoomException {
-		try {
-			server.joinFirstAvailableRoom(this);
-		} catch (JoinRoomException e) {
-			// e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void onGameUpdate(UpdateStats update) throws NetworkException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void send(Object object) throws NetworkException {
-		// TODO Auto-generated method stub
-
-	}
-
-	////////////////////////////////////////////////////////////
-	// SERVER PROTOCOL
-	///////////////////////////////////////////////////////////
-
-	/**
-	 * Interface used as callback to communicate with the server player.
-	 */
-	// private final ServerSocketProtocolInt mCallback;
-
-	/**
-	 * Object used as mutex to ensure that two threads never send a message over
-	 * output stream concurrently. (Only one thread can write on output stream).
-	 */
-	private static /* final */ Object OUTPUT_MUTEX = new Object();
-
-	/**
-	 * Map of all defined client requests headers.
-	 */
-	private /* final */ HashMap<Object, RequestHandler> mRequestMap;
-
-	/**
-	 * Load all possible requests and associate an handler.
-	 */
-	private void loadRequests() {
-		mRequestMap.put(Constants.LOGIN_REQUEST, this::loginPlayer);
-		mRequestMap.put(Constants.CHAT_MESSAGE, this::sendChatMessage);
-	}
-
-	private void loginPlayer() {
-		try {
-			String nickname = (String) inputStream.readObject();
-			loginPlayerAndRespond(nickname);
-		} catch (ClassNotFoundException | ClassCastException | IOException e) {
-			System.err.println("Exception while handling client request");
-		}
-	}
-
-	private void loginPlayerAndRespond(String nickname) throws IOException {
-		int responseCode;
-		try {
-			// mCallback.loginPlayer(nickname);
-			loginPlayer(nickname);
-			responseCode = Constants.RESPONSE_OK;
-		} catch (LoginException e) {
-			System.err.println("[socket protocol] LoginException");
-			responseCode = Constants.RESPONSE_PLAYER_ALREADY_EXISTS;
-		}
-		outputStream.writeObject(responseCode);
-		outputStream.flush();
-
-		// mCallback.joinRoom();
-		if (responseCode != Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
-			joinRoom();
-		}
-	}
-
-	private void sendChatMessage() {
-		try {
-			String receiver = (String) inputStream.readObject();
-			String message = (String) inputStream.readObject();
-			// mCallback.sendChatMessage(receiver, message);
-			sendChatMessage(receiver, message);
-		} catch (ClassNotFoundException | ClassCastException | IOException e) {
-			System.err.println("Exception while handling client request");
-		}
-	}
-
-	/**
-	 * Send a chat message to the player.
-	 * 
-	 * @param author
-	 *            nickname of the player that sent the message.
-	 * @param message
-	 *            that the author has sent.
-	 * @param privateMessage
-	 *            if message is private, false if public.
-	 * @throws NetworkException
-	 *             if client is not reachable.
-	 */
-	public void sendChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
-		synchronized (OUTPUT_MUTEX) {
-			try {
-				outputStream.writeObject(Constants.CHAT_MESSAGE);
-				outputStream.writeObject(author);
-				outputStream.writeObject(message);
-				outputStream.writeObject(privateMessage);
-				outputStream.flush();
-			} catch (IOException e) {
-				throw new NetworkException(e);
-			}
-		}
-	}
-
-	/**
-	 * Handle the client request and execute the defined method.
+	 * Gestisce la richiesta ricevuta dal Client ed invoca il metodo
+	 * associatogli nella "responseMap".
 	 * 
 	 * @param object
-	 *            request header from client.
+	 *            intestazione della risposta ricevuta dal server (es.
+	 *            {@link Constants}).
 	 */
 	public void handleClientRequest(Object object) {
-		RequestHandler handler = mRequestMap.get(object);
+		RequestHandlerInterface handler = requestMap.get(object);
 		if (handler != null) {
 			synchronized (OUTPUT_MUTEX) {
 				handler.handle();
@@ -296,15 +252,14 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	}
 
 	/**
-	 * This interface is used like {@link Runnable} interface.
+	 * Interfaccia utilizzata "come" l'interfaccia {@link Runnable}.
 	 */
 	@FunctionalInterface
-	private interface RequestHandler {
+	private interface RequestHandlerInterface {
 
 		/**
-		 * Handle the client request.
+		 * Gestisce la richiesta del Client.
 		 */
 		void handle();
 	}
-
 }

@@ -11,6 +11,9 @@ public class Constants {
 	 * Client request headers.
 	 */
 	public static final String LOGIN_REQUEST = "loginRequest";
+	public static final String PERFORM_GAME_ACTION = "performGameAction";
+	public static final String CHAT_MESSAGE = "chatMessage";
+		
 	public static final String JOIN_ROOM_REQUEST = "joinRequest";
 	public static final String CREATE_ROOM_REQUEST = "createRoomRequest";
 	public static final String APPLY_CONFIGURATION_REQUEST = "applyConfigurationRequest";
@@ -31,8 +34,7 @@ public class Constants {
 	public static final String SELL_BUSINESS_PERMIT_TILE = "sellBusinessPermitTile";
 	public static final String SELL_ASSISTANT = "sellAssistant";
 	public static final String BUY_ITEM = "buyItem";
-	public static final String END_TURN = "endTurn";
-	public static final String CHAT_MESSAGE = "chatMessage";
+	public static final String END_TURN = "endTurn";	
 
 	/**
 	 * Server response headers.

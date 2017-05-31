@@ -17,7 +17,7 @@ import main.network.server.game.UpdateStats;
 	 * 
 	 */
 	private static final long serialVersionUID = -211182477118050303L;
-	
+
 	/**
 	 * Remote interface to invoke method on {@link RMIClient}.
 	 */
@@ -43,16 +43,16 @@ import main.network.server.game.UpdateStats;
 	}
 
 	/**
-	 * Send a chat message to the player.
+	 * Invia un messaggio sulla chat del giocatore.
 	 * 
 	 * @param author
-	 *            nickname of the player that sent the message.
+	 *            nome del giocatore MITTENTE del messaggio.
 	 * @param message
-	 *            that the author has sent.
+	 *            messaggio da inviare.
 	 * @param privateMessage
-	 *            if message is private, false if public.
+	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws NetworkException
-	 *             if client is not reachable.
+	 *             se il cliente non è raggiungibile.
 	 */
 	@Override
 	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {

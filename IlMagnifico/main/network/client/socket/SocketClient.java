@@ -42,16 +42,16 @@ public class SocketClient extends AbstractClient {
 	 * MUTEX per evitare la concorrenza tra Thread durante la scrittura sul
 	 * flusso di uscita del Socket.
 	 */
-	private static /* final */ Object OUTPUT_MUTEX = new Object();
+	private static final Object OUTPUT_MUTEX = new Object();
 
 	/**
 	 * Mappa di tutti i metodi di risposta definiti sul server (vedi
 	 * {@link ResponseHandler}).
 	 */
-	private /* final */ HashMap<Object, ResponseHandlerInterface> responseMap;
+	private final HashMap<Object, ResponseHandlerInterface> responseMap;
 
 	/**
-	 * Crea un'istanza SocketClient .
+	 * Crea un'istanza SocketClient.
 	 * 
 	 * @param controller
 	 *            client controller (es. {@link Client}).
@@ -86,10 +86,6 @@ public class SocketClient extends AbstractClient {
 		} catch (IOException e) {
 			throw new ClientException(e);
 		}
-
-		// Inizializza il Protocollo di Comunicazione (Client).
-		// socketClientProtocol = new ClientProtocol(inputStream, outputStream,
-		// getController());
 
 		loadResponses();
 	}
@@ -176,8 +172,13 @@ public class SocketClient extends AbstractClient {
 
 	@Override
 	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
-		// TODO Auto-generated method stub
-
+		// TODO: finire di implementare
+		/*
+		 * synchronized (OUTPUT_MUTEX) { try {
+		 * outputStream.writeObject(Constants.PERFORM_GAME_ACTION);
+		 * outputStream.writeObject(requestedAction); outputStream.flush(); }
+		 * catch (IOException e) { throw new NetworkException(e); } }
+		 */
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
