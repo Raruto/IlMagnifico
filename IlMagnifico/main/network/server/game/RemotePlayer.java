@@ -4,8 +4,8 @@ import main.model.Giocatore;
 import main.network.NetworkException;
 
 /**
- * Abstract extension of {@link Player}. This implementation can communicate to
- * his referenced client.
+ * Classe Astratta che estende {@link Giocatore} aggiungendo le funzionalità di
+ * comunicazione al {@link Giocatore} Client associatogli.
  */
 public abstract class RemotePlayer extends Giocatore {
 
@@ -25,26 +25,27 @@ public abstract class RemotePlayer extends Giocatore {
 	private transient Room mRoom;
 
 	/**
-	 * Abstract constructor.
+	 * Costruttore Astratto.
 	 */
 	protected RemotePlayer() {
 		super();
 	}
 
 	/**
-	 * Set room reference.
+	 * Imposta il riferimento alla Stanza associata al Giocatore.
 	 * 
 	 * @param room
-	 *            where player is joined.
+	 *            stanza dove il giocatore è aggiunto.
 	 */
 	public void setRoom(Room room) {
 		mRoom = room;
 	}
 
 	/**
-	 * Get room reference where player is joined.
+	 * Ritorna il riferimento alla Stanza dove il Giocatore è stato aggiunto.
 	 * 
-	 * @return the room reference if player is in a room, null otherwise.
+	 * @return se il giocatore è in una stanza, il riferimento della stanza,
+	 *         altrimenti null.
 	 */
 	public Room getRoom() {
 		return mRoom;
@@ -71,20 +72,23 @@ public abstract class RemotePlayer extends Giocatore {
 	}
 
 	/**
-	 * Send a chat message to the player.
+	 * Invia un messaggio sulla chat del giocatore.
 	 * 
 	 * @param author
-	 *            nickname of the player that sent the message.
+	 *            nome del giocatore MITTENTE del messaggio.
 	 * @param message
-	 *            that the author has sent.
+	 *            messaggio da inviare.
 	 * @param privateMessage
-	 *            if message is private, false if public.
+	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws NetworkException
-	 *             if client is not reachable.
+	 *             se il cliente non è raggiungibile.
 	 */
 	public abstract void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException;
 
 	public abstract void onGameUpdate(UpdateStats update) throws NetworkException;
 
+	/**
+	 * Metodo per il "debug"
+	 */
 	public abstract void send(Object object) throws NetworkException;
 }

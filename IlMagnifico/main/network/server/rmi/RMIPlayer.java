@@ -2,14 +2,15 @@ package main.network.server.rmi;
 
 import java.rmi.RemoteException;
 
+import main.model.Giocatore;
 import main.network.NetworkException;
 import main.network.protocol.rmi.RMIClientInterface;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * Extension of {@link RemotePlayer}. This implementation can communicate to his
- * referenced client.
+ * Estende {@link RemotePlayer} implementando le funzionalità di comunicazione
+ * al {@link Giocatore} Client associatogli.
  */
 /* package-local */ class RMIPlayer extends RemotePlayer {
 
@@ -19,15 +20,15 @@ import main.network.server.game.UpdateStats;
 	private static final long serialVersionUID = -211182477118050303L;
 
 	/**
-	 * Remote interface to invoke method on {@link RMIClient}.
+	 * Interfaccia Remota per invocare i metodi presenti sul {@link RMIClient}.
 	 */
 	private transient RMIClientInterface clientInterface;
 
 	/**
-	 * Create a new instance of a RMIPlayer.
+	 * Crea una nuova istanza RMIPlayer.
 	 * 
 	 * @param playerInterface
-	 *            remote interface to send response to client.
+	 *            interfaccia remota per notificare le risposte al client.
 	 */
 	RMIPlayer(RMIClientInterface playerInterface) {
 		clientInterface = playerInterface;

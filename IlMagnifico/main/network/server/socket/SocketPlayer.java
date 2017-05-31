@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.HashMap;
 
+import main.model.Giocatore;
 import main.network.NetworkException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
@@ -19,8 +20,8 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * Extension of {@link RemotePlayer}. This implementation can communicate to his
- * referenced client.
+ * Estende {@link RemotePlayer} implementando le funzionalità di comunicazione al
+ * {@link Giocatore} Client associatogli.
  */
 public class SocketPlayer extends RemotePlayer implements Runnable {
 
@@ -57,7 +58,8 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 	private static final Object OUTPUT_MUTEX = new Object();
 
 	/**
-	 * Map of all defined client requests headers.
+	 * Mappa di tutti i metodi di risposta definiti sul server (vedi
+	 * {@link RequestHandler}).
 	 */
 	private final HashMap<Object, RequestHandlerInterface> requestMap;
 
