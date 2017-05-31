@@ -20,8 +20,8 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * This class is built on top of {@link AbstractServer} and let Server to
- * communicate whit RMIClients.
+ * Estende {@link AbstractServer} per consentire di implementare la
+ * comunicazione Client/Server con i {@link RMIClient}.
  */
 public class RMIServer extends AbstractServer implements RMIServerInterface {
 
@@ -44,12 +44,12 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	/**
-	 * Start the RMIServer connection.
+	 * Avvia il Server per le connessioni RMI.
 	 * 
 	 * @param port
-	 *            number of the port to use.
+	 *            numero di porta da usare.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	@Override
 	public void startServer(int port) throws ServerException {
@@ -102,18 +102,20 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Remote method to login a new player to the server.
+	 * Metodo remoto per il login di un nuovo Giocatore sul Server.
 	 * 
 	 * @param nickname
-	 *            to use for login.
+	 *            nome con cui il giocatore vorrebbe essere identificato sul
+	 *            server.
 	 * @param player
-	 *            that is trying to login.
-	 * @return current session token that identify uniquely this user on
-	 *         RMIServer.
+	 *            riferimento al giocatore che ha effettuato la richiesta (es.
+	 *            {@link RMIPlayer}).
+	 * @return token di sessione che identifica in modo univoco l'utente sul
+	 *         Server.
 	 * @throws LoginException
-	 *             if provided nickname is already in use.
+	 *             se esiste già un altro giocatore con il nome fornito.
 	 * @throws RemoteException
-	 *             if server is not reachable.
+	 *             se il server non è raggiungibile.
 	 */
 	@Override
 	public String loginPlayer(String nickname, RMIClientInterface player) throws IOException {
@@ -132,14 +134,15 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	/**
-	 * Remote method to join the player to the first available room.
+	 * Metodo remoto per aggiungere il Giocatore Remoto alla prima Stanza
+	 * disponibile.
 	 * 
 	 * @param sessionToken
-	 *            of the player that is making the request.
+	 *            token di sessione del giocatore che sta facendo la richiesta.
 	 * @throws JoinRoomException
-	 *             if no available room is found.
+	 *             se nessuna stanza è disponibile.
 	 * @throws RemoteException
-	 *             if server is not reachable.
+	 *             se il server non è raggiungibile.
 	 */
 	@Override
 	public void joinFirstAvailableRoom(String sessionToken) throws IOException {

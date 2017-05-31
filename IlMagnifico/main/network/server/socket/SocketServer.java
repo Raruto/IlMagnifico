@@ -9,33 +9,33 @@ import main.network.server.IServer;
 import main.network.server.ServerException;
 
 /**
- * This class is built on top of {@link AbstractServer} and let Server to
- * communicate whit SocketClient.
+ * Estende {@link AbstractServer} per consentire di implementare la
+ * comunicazione Client/Server con i {@link SocketClient}.
  */
 public class SocketServer extends AbstractServer {
 
 	/**
-	 * Server socket instance.
+	 * Socket del Server.
 	 */
 	private ServerSocket serverSocket;
 
 	/**
-	 * Public constructor.
+	 * Costruttore.
 	 * 
 	 * @param controller
-	 *            server interface to communicate with him.
+	 *            interfaccia del Server (es. {@link Server}).
 	 */
 	public SocketServer(IServer controller) {
 		super(controller);
 	}
 
 	/**
-	 * Start the SocketServer connection.
+	 * Avvia il Server per le connessioni Socket.
 	 * 
 	 * @param port
-	 *            number of the port to use.
+	 *            numero di porta da usare.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	@Override
 	public void startServer(int port) throws ServerException {
@@ -61,7 +61,7 @@ public class SocketServer extends AbstractServer {
 			while (true) {
 				try {
 					Socket socket = serverSocket.accept();
-					//System.out.println("New socket request");
+					// System.out.println("New socket request");
 					SocketPlayer socketPlayer = new SocketPlayer(getController(), socket);
 					new Thread(socketPlayer).start();
 				} catch (IOException e) {
