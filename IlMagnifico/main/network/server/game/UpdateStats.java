@@ -17,7 +17,6 @@ import main.util.EAzioniGiocatore;
 import main.util.EFasiDiGioco;
 import main.util.EPunti;
 import main.util.ERisorse;
-import main.util.PlayerColors;
 
 public class UpdateStats implements Serializable {
 

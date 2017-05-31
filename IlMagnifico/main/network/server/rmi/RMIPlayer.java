@@ -14,6 +14,11 @@ import main.network.server.game.UpdateStats;
 /* package-local */ class RMIPlayer extends RemotePlayer {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -211182477118050303L;
+	
+	/**
 	 * Remote interface to invoke method on {@link RMIClient}.
 	 */
 	private transient RMIClientInterface clientInterface;

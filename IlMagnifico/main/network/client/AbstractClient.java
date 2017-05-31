@@ -2,7 +2,6 @@ package main.network.client;
 
 import main.network.NetworkException;
 import main.network.server.game.UpdateStats;
-import main.util.EAzioniGiocatore;
 
 /**
  * 

@@ -8,7 +8,6 @@ import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.server.game.GameException;
 import main.network.server.game.UpdateStats;
-import main.util.EAzioniGiocatore;
 
 /**
  * Remote interface for RemoteMethodInvocation from client to server.

@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import main.network.NetworkException;
 import main.network.client.IClient;
-import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.protocol.socket.Constants;
 

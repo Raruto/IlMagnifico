@@ -5,11 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
-import main.network.NetworkException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.protocol.rmi.RMIClientInterface;
@@ -20,7 +17,6 @@ import main.network.server.ServerException;
 import main.network.server.game.GameException;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
-import main.util.EAzioniGiocatore;
 
 /**
  * This class is built on top of {@link AbstractServer} and let Server to

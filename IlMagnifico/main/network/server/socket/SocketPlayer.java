@@ -26,6 +26,11 @@ import main.network.server.game.UpdateStats;
 public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayerInterface {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5294571565976357669L;
+
+	/**
 	 * Server interface.
 	 */
 	private final transient IServer server;
