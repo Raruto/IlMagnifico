@@ -20,8 +20,8 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * Estende {@link RemotePlayer} implementando le funzionalità di comunicazione al
- * {@link Giocatore} Client associatogli.
+ * Estende {@link RemotePlayer} implementando le funzionalità di comunicazione
+ * al {@link Giocatore} Client associatogli.
  */
 public class SocketPlayer extends RemotePlayer implements Runnable {
 
@@ -92,6 +92,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 	private void loadRequests() {
 		requestMap.put(Constants.LOGIN_REQUEST, this::loginPlayer);
 		requestMap.put(Constants.CHAT_MESSAGE, this::sendChatMessage);
+		requestMap.put(Constants.PERFORM_GAME_ACTION, this::performGameAction);
 	}
 
 	/**
@@ -126,8 +127,15 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) throws NetworkException {
-		// TODO Auto-generated method stub
-
+		synchronized (OUTPUT_MUTEX) {
+			try {
+				outputStream.writeObject(Constants.PERFORM_GAME_ACTION);
+				outputStream.writeObject(update);
+				outputStream.flush();
+			} catch (IOException e) {
+				throw new NetworkException(e);
+			}
+		}
 	}
 
 	/**
@@ -194,6 +202,16 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 		}
 	}
 
+	private void performGameAction() {
+		try {
+			UpdateStats action = (UpdateStats) inputStream.readObject();
+
+			getRoom().performGameAction(this, action);
+
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println("Exception while handling client request");
+		}
+	}
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Thread per la gestione dei messaggi di richiesta (CLIENT --> SERVER)
 	/////////////////////////////////////////////////////////////////////////////////////////

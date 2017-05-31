@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import main.network.NetworkException;
@@ -96,6 +97,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	private void loadResponses() {
 		responseMap.put(Constants.CHAT_MESSAGE, this::notifyChatMessage);
+		responseMap.put(Constants.PERFORM_GAME_ACTION, this::notifyGameUpdate);
 	}
 
 	/**
@@ -173,12 +175,17 @@ public class SocketClient extends AbstractClient {
 	@Override
 	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
 		// TODO: finire di implementare
-		/*
-		 * synchronized (OUTPUT_MUTEX) { try {
-		 * outputStream.writeObject(Constants.PERFORM_GAME_ACTION);
-		 * outputStream.writeObject(requestedAction); outputStream.flush(); }
-		 * catch (IOException e) { throw new NetworkException(e); } }
-		 */
+
+		synchronized (OUTPUT_MUTEX) {
+			try {
+				outputStream.writeObject(Constants.PERFORM_GAME_ACTION);
+				outputStream.writeObject(requestedAction);
+				outputStream.flush();
+			} catch (IOException e) {
+				throw new NetworkException(e);
+			}
+		}
+
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -199,6 +206,14 @@ public class SocketClient extends AbstractClient {
 		}
 	}
 
+	private void notifyGameUpdate() {
+		try {
+			UpdateStats update = (UpdateStats) inputStream.readObject();
+			getController().onGameUpdate(update);
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println("Exception while handling server message");
+		}
+	}
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Thread per la gestione dei messaggi di risposta (SERVER --> CLIENT)
 	/////////////////////////////////////////////////////////////////////////////////////////
