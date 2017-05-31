@@ -16,7 +16,6 @@ import main.network.protocol.ErrorCodes;
 import main.network.server.game.GameException;
 import main.network.server.game.UpdateStats;
 import main.network.server.rmi.*;
-import main.util.EAzioniGiocatore;
 
 /**
  * Classe che gestisce la connessione di rete con RMI. Estende
@@ -87,34 +86,15 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	}
 
 	/**
-	 * Try to join the first available room.
-	 * 
-	 * @throws JoinRoomException
-	 *             if no available room where join player has been found.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	@Override
-	public void joinFirstAvailableRoom() throws NetworkException {
-		try {
-			server.joinFirstAvailableRoom(sessionToken);
-		} catch (JoinRoomException e) {
-			throw e;
-		} catch (IOException e) {
-			throw new NetworkException(e);
-		}
-	}
-
-	/**
-	 * Send a chat message to other players or a specified player.
+	 * Invia un messaggio in chat ad altri giocatori o un giocatore specifico.
 	 * 
 	 * @param receiver
-	 *            nickname of the specific player if a private message, null if
-	 *            should be delivered to all room players.
+	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
+	 *            verrà inviato a tutti i giocatori.
 	 * @param message
-	 *            to deliver.
+	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
@@ -145,16 +125,16 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notify player that a new chat message has been received.
+	 * Notifica al giocatore che è stato ricevuto un nuovo messaggio sulla chat.
 	 * 
 	 * @param author
-	 *            nickname of the player that sent the message.
+	 *            nome del giocatore che ha inviato il messaggio.
 	 * @param message
-	 *            that the author has sent.
+	 *            corpo del messaggio ricevuto.
 	 * @param privateMessage
-	 *            if message is private, false if public.
+	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws RemoteException
-	 *             if player is not reachable from the server.
+	 *             se il giocatore non è raggiungibile dal server.
 	 */
 	@Override
 	public void notifyChatMessage(String author, String message, boolean privateMessage) throws RemoteException {

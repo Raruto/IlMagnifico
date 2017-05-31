@@ -12,16 +12,16 @@ import main.network.server.game.UpdateStats;
 public interface RMIClientInterface extends Remote {
 
 	/**
-	 * Notify player that a new chat message has been received.
+	 * Notifica al giocatore che è stato ricevuto un nuovo messaggio sulla chat.
 	 * 
 	 * @param author
-	 *            nickname of the player that sent the message.
+	 *            nome del giocatore che ha inviato il messaggio.
 	 * @param message
-	 *            that the author has sent.
+	 *            corpo del messaggio ricevuto.
 	 * @param privateMessage
-	 *            if message is private, false if public.
+	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws RemoteException
-	 *             if player is not reachable from the server.
+	 *             se il giocatore non è raggiungibile dal server.
 	 */
 	void notifyChatMessage(String author, String message, boolean privateMessage) throws RemoteException;
 

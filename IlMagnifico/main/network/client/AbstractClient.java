@@ -86,69 +86,27 @@ public abstract class AbstractClient {
 	public abstract void connect() throws ClientException;
 
 	/**
-	 * Initialize client connection. Override this only if required. This is
-	 * called immediately after {@link #connect()}.
-	 */
-	public void initializeConnection() {
-
-	}
-
-	/**
-	 * Provare ad effettuare un accesso al server con il nome fornito.
+	 * Prova ad effettuare un accesso al server con il nome fornito.
 	 * 
 	 * @param nickname
 	 *            nome del giocatore da utilizzare per identificarsi sul server.
 	 * @throws LoginException
-	 *             se il nome fornito è già in uso sul server.
+	 *             se il nome è già in uso sul server.
 	 * @throws NetworkException
 	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	public abstract void loginPlayer(String nickname) throws NetworkException;
 
 	/**
-	 * Try to join the first available room.
-	 * 
-	 * @throws JoinRoomException
-	 *             if no available room where join player has been found.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	public abstract void joinFirstAvailableRoom() throws NetworkException;
-
-	/**
-	 * Retrieve a list that contains all possible actions.
-	 * 
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	// public abstract void getActionList() throws NetworkException;
-
-	/**
-	 * Draw a politic card.
-	 * 
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	// public abstract void drawPoliticCard() throws NetworkException;
-
-	/**
-	 * Send a request for ending the current turn.
-	 * 
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	// public abstract void endTurn() throws NetworkException;
-
-	/**
-	 * Send a chat message to other players or a specified player.
+	 * Invia un messaggio in chat ad altri giocatori o un giocatore specifico.
 	 * 
 	 * @param receiver
-	 *            nickname of the specific player if a private message, null if
-	 *            should be delivered to all room players.
+	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
+	 *            verrà inviato a tutti i giocatori.
 	 * @param message
-	 *            to deliver.
+	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	public abstract void sendChatMessage(String receiver, String message) throws NetworkException;
 

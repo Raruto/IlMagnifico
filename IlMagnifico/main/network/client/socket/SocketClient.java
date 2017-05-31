@@ -1,61 +1,77 @@
 package main.network.client.socket;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.util.HashMap;
 
 import main.network.NetworkException;
 import main.network.client.AbstractClient;
 import main.network.client.ClientException;
 import main.network.client.IClient;
-import main.network.protocol.socket.ClientProtocol;
+import main.network.exceptions.LoginException;
+import main.network.protocol.socket.ProtocolConstants;
 import main.network.server.game.UpdateStats;
-import main.util.EAzioniGiocatore;
 
 /**
- * This class is the implementation of {@link AbstractClient} class. It manages
- * the network connection with sockets.
+ * Classe che gestisce la connessione di rete con Socket. Estende
+ * {@link AbstractClient}.
  */
 public class SocketClient extends AbstractClient {
 
 	/**
-	 * Socket endpoint of client.
+	 * Socket del Client.
 	 */
 	private Socket socketClient;
 
 	/**
-	 * Object input stream for receiving serialized objects from server socket.
+	 * Stream di Input per la ricezione degli oggetti serializzati dal Server.
 	 */
 	private ObjectInputStream inputStream;
 
 	/**
-	 * Object output stream for sending serialized objects to server socket.
+	 * Stream di Output per l'invio di oggetti serializzati al Server.
 	 */
 	private ObjectOutputStream outputStream;
 
 	/**
-	 * Socket protocol used for communication between client and server.
+	 * MUTEX per evitare la concorrenza tra Thread durante la scrittura sul
+	 * flusso di uscita del Socket.
 	 */
-	private ClientProtocol socketClientProtocol;
+	private static /* final */ Object OUTPUT_MUTEX = new Object();
 
 	/**
-	 * Create a socket client instance.
+	 * Mappa di tutti i metodi di risposta definiti sul server (vedi
+	 * {@link ResponseHandler}).
+	 */
+	private /* final */ HashMap<Object, ResponseHandlerInterface> responseMap;
+
+	/**
+	 * Crea un'istanza SocketClient .
 	 * 
 	 * @param controller
-	 *            client controller.
+	 *            client controller (es. {@link Client}).
 	 * @param address
-	 *            of the server.
+	 *            indirizzo del the server.
 	 * @param port
-	 *            of the server.
+	 *            porta del server.
 	 */
 	public SocketClient(IClient controller, String address, int port) {
 		super(controller, address, port);
+		responseMap = new HashMap<>();
 	}
 
 	/**
-	 * Open a connection with the server and initialize socket protocol.
+	 * Apre una connessione con {@link SocketServer} e inizializza il
+	 * {@link ClientProtocol}.
 	 * 
-	 * @throws ClientConnectionException
-	 *             if server is not reachable or something went wrong.
+	 * @throws ClientException
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
 	@Override
 	public void connect() throws ClientException {
@@ -67,102 +83,127 @@ public class SocketClient extends AbstractClient {
 			outputStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
 			outputStream.flush();
 			inputStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
+
 		} catch (IOException e) {
 			throw new ClientException(e);
 		}
 
-		initializeConnection();
+		// Inizializza il Protocollo di Comunicazione (Client).
+		// socketClientProtocol = new ClientProtocol(inputStream, outputStream,
+		// getController());
+
+		loadResponses();
 	}
 
 	/**
-	 * Initialize socket protocol.
+	 * Inizializza "responseMap" caricando tutti i possibili metodi di risposta
+	 * (chiamati da {@link ResponseHandler}).
 	 */
-	@Override
-	public void initializeConnection() {
-		socketClientProtocol = new ClientProtocol(inputStream, outputStream, getController());
+	private void loadResponses() {
+		responseMap.put(ProtocolConstants.CHAT_MESSAGE, this::notifyChatMessage);
 	}
 
 	/**
-	 * Blocking request to server for user login.
-	 * 
-	 * @param nickname
-	 *            to use for login.
-	 * @throws LoginException
-	 *             if provided nickname is already in use.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
+	 * Avvia un nuovo Thread che rimane in attesa di messaggi sul flusso di
+	 * ingresso del socket e li elabora secondo il Protocollo definito.
 	 */
-	@Override
-	public void loginPlayer(String nickname) throws NetworkException {
-		socketClientProtocol.loginPlayer(nickname);
-		startNetworkMessageHandlerThread();
-	}
-
-	/**
-	 * Blocking request to server for join user in the first available room.
-	 * 
-	 * @throws JoinRoomException
-	 *             if no available room has been found where join the player.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	@Override
-	public void joinFirstAvailableRoom() throws NetworkException {
-		socketClientProtocol.joinFirstAvailableRoom();
-		//startNetworkMessageHandlerThread();
-	}
-
-	/**
-	 * Blocking request to server for creating a new room.
-	 * 
-	 * @param maxPlayers
-	 *            that should be accepted in this new room.
-	 * @throws CreateRoomException
-	 *             if a new room has been created in the meanwhile and the
-	 *             player has been added.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	// @Override
-	// public Configuration createNewRoom(int maxPlayers) throws
-	// NetworkException {
-	// try {
-	// return mSocketProtocol.createNewRoom(maxPlayers);
-	// } catch (NetworkException e) {
-	// startNetworkMessageHandlerThread();
-	// throw e;
-	// }
-	// }
-
-	/**
-	 * Send a chat message to other players or a specified player.
-	 * 
-	 * @param receiver
-	 *            nickname of the specific player if a private message, null if
-	 *            should be delivered to all room players.
-	 * @param message
-	 *            to deliver.
-	 * @throws NetworkException
-	 *             if server is not reachable or something went wrong.
-	 */
-	@Override
-	public void sendChatMessage(String receiver, String message) throws NetworkException {
-		socketClientProtocol.sendChatMessage(receiver, message);
-	}
-
-	/**
-	 * Start a new thread that will listen for all incoming messages on socket
-	 * input stream and will process them according to the defined socket
-	 * protocol.
-	 */
-	private void startNetworkMessageHandlerThread() {
+	private void startNetworkMessageHandler() {
 		ResponseHandler responseHandler = new ResponseHandler();
 		responseHandler.start();
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati dal Client (GUI) (vedi AbstractClient)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
-	 * Internal thread that will listen on {@link #inputStream inputStream} for
-	 * server messages.
+	 * Esegue il login del giocatore al SocketServer con il nickname fornito.
+	 * 
+	 * @param nickname
+	 *            nome da utilizzare per identificarsi al server.
+	 * @throws NetworkException
+	 *             se il server non è raggiungibile.
+	 */
+	@Override
+	public void loginPlayer(String nickname) throws NetworkException {
+		// try {
+		int responseCode;
+		try {
+			outputStream.writeObject(ProtocolConstants.LOGIN_REQUEST);
+			outputStream.writeObject(nickname);
+			outputStream.flush();
+
+			responseCode = (int) inputStream.readObject();
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			throw new NetworkException(e);
+		}
+		if (responseCode == ProtocolConstants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+			throw new LoginException();
+		}
+		// } catch (LoginException e) {
+		// throw e;
+		// } catch (IOException e) {
+		// throw new NetworkException(e);
+		// }
+
+		startNetworkMessageHandler();
+	}
+
+	/**
+	 * Invia un messaggio in chat ad altri giocatori o un giocatore specifico.
+	 * 
+	 * @param receiver
+	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
+	 *            verrà inviato a tutti i giocatori.
+	 * @param message
+	 *            messaggio da inviare.
+	 * @throws NetworkException
+	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 */
+	@Override
+	public void sendChatMessage(String receiver, String message) throws NetworkException {
+		synchronized (OUTPUT_MUTEX) {
+			try {
+				outputStream.writeObject(ProtocolConstants.CHAT_MESSAGE);
+				outputStream.writeObject(receiver);
+				outputStream.writeObject(message);
+				outputStream.flush();
+			} catch (IOException e) {
+				throw new NetworkException(e);
+			}
+		}
+	}
+
+	@Override
+	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi "invocati" dal Server (basato su RMIClientInterface)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Notifica al giocatore che è stato ricevuto un nuovo messaggio sulla chat.
+	 */
+	private void notifyChatMessage() {
+		try {
+			String author = (String) inputStream.readObject();
+			String message = (String) inputStream.readObject();
+			boolean privateMessage = (boolean) inputStream.readObject();
+			getController().onChatMessage(privateMessage, author, message);
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println("Exception while handling server message");
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Thread per la gestione dei messaggi di risposta (SERVER --> CLIENT)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Thread per la ricezione e gestione dei messaggi in ingresso dal Server.
 	 */
 	private class ResponseHandler extends Thread {
 
@@ -172,7 +213,7 @@ public class SocketClient extends AbstractClient {
 				boolean quit = false;
 				try {
 					Object object = inputStream.readObject();
-					socketClientProtocol.handleResponse(object);
+					handleResponse(object);
 				} catch (ClassNotFoundException | IOException e) {
 					System.err.println("Cannot read server response");
 					quit = true;
@@ -187,12 +228,28 @@ public class SocketClient extends AbstractClient {
 		}
 
 		/**
-		 * Close safely the connection.
+		 * Gestisce la risposta ricevuta dal Server ed invoca il metodo
+		 * associatogli nella "responseMap".
+		 * 
+		 * @param object
+		 *            intestazione della risposta ricevuta dal server (es.
+		 *            {@link ProtocolConstants}).
+		 */
+		public void handleResponse(Object object) {
+			ResponseHandlerInterface handler = responseMap.get(object);
+			if (handler != null) {
+				handler.handle();
+			}
+		}
+
+		/**
+		 * Chiude correttamente la connessione Socket.
 		 * 
 		 * @param closeable
-		 *            object that implements {@link Closeable} interface.
+		 *            oggetto che implementa l'interfaccia {@link Closeable}.
 		 * @param message
-		 *            to print in case an exception is thrown while closing.
+		 *            messaggio da stampare nel caso si scateni un eccezione
+		 *            durante il tentativo di chiusura dell'oggetto.
 		 */
 		private void closeSafely(Closeable closeable, String message) {
 			try {
@@ -203,9 +260,16 @@ public class SocketClient extends AbstractClient {
 		}
 	}
 
-	@Override
-	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
-		// TODO Auto-generated method stub
+	/**
+	 * Interfaccia utilizzata "come" l'interfaccia {@link Runnable}.
+	 */
+	@FunctionalInterface
+	private interface ResponseHandlerInterface {
 
+		/**
+		 * Gestisce la risposta del Server.
+		 */
+		void handle();
 	}
+
 }

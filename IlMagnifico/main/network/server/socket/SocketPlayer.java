@@ -27,22 +27,6 @@ import main.network.server.game.UpdateStats;
 public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocketProtocolInt {
 
 	/**
-	 * Debug constants.
-	 */
-	private static final String DEBUG_NO_ENOUGH_COINS = "[socket player] no enough coins";
-	private static final String DEBUG_NO_ENOUGH_ASSISTANTS = "[socket player] no enough assistants";
-	private static final String DEBUG_BALCONY_UNSATISFIABLE = "[socket player] balcony unsatisfiable";
-	private static final String DEBUG_EMPORIUM_ALREADY_BUILT = "[socket player] emporium already built";
-	private static final String DEBUG_CITY_NOT_FOUND = "[socket player] city not found";
-	private static final String DEBUG_CITY_NOT_VALID = "[socket player] city not valid";
-	private static final String DEBUG_ROUTE_NOT_VALID = "[socket player] route not valid";
-	private static final String DEBUG_POLITIC_CARD_NOT_YET_DRAWN = "[socket player] politic card not yet drawn";
-	private static final String DEBUG_MAIN_ACTION_NOT_AVAILABLE = "[socket player] main action not available";
-	private static final String DEBUG_FAST_ACTION_NOT_AVAILABLE = "[socket player] fast action not available";
-	private static final String DEBUG_NOT_YOUR_TURN = "[socket player] not your turn";
-	private static final String DEBUG_UNCAUGHT = "[socket player] uncaught exception";
-
-	/**
 	 * Server interface.
 	 */
 	private final transient IServer mServer;
@@ -163,7 +147,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 	@Override
 	public void sendChatMessage(String receiver, String message) {
 		try {
-			//getRoom().sendChatMessage(this, receiver, message);
+			// getRoom().sendChatMessage(this, receiver, message);
 			mServer.sendChatMessage(this, receiver, message);
 		} catch (PlayerNotFound e) {
 			System.err.println("[socket player] cannot dispatch message to a player that cannot be found");
@@ -178,66 +162,6 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 		} catch (JoinRoomException e) {
 			// e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void drawPoliticCard() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sendActionList() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void engageAssistant() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void changeBusinessPermitTiles(String region) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void performAdditionalMainAction() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void earnFirstSpecialRewards(List<String> cities) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void earnSecondSpecialRewards(List<String> regions, List<Integer> indices) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sellAssistant(int price) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void buyItem(String marketId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void endTurn() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
