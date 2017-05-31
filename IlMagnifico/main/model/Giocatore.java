@@ -149,15 +149,6 @@ public class Giocatore implements Serializable {
 		return this.punti;
 	}
 
-	public void raccolto(int valore) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void produzione(int valore) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public SpazioAzione getSpazioAzione() {
 		return this.spazioAzione;

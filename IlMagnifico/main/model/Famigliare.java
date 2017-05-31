@@ -24,6 +24,9 @@ public class Famigliare {
 	 */
 	private int valore;
 
+	/**
+	 * True se il famigliare è già stato usato
+	 */
 	private boolean posizionato;
 
 	/**
@@ -59,25 +62,59 @@ public class Famigliare {
 	 * @param
 	 * @return
 	 */
-	public boolean eseguiSpostamentoTorre(int posizione) {
+	public void eseguiSpostamentoTorre(int posizione)
+			throws FamigliareSpostatoException, SpazioOccupatoException, SameTowerException {
+		int identificativoTorre = 0;
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 
 		if (!(spazioAzione.torreLibera(posizione)))
-			return false;
+			throw new SpazioOccupatoException();
 
-		if (posizione % 4 == 0 && valore < 1)
-			// controlla alternativamente le prime ,le seconde, terze e quarte
-			// posizioni e controlla che il valore della pedina sia abbastanza
-			// grande. Va implementato anche il controllo sugli effetti
-			// permanenti delle carte che modificano il valore dell'azione
-			return false;
-		else if ((posizione) % 4 == 1 && valore < 3)
-			return false;
-		else if ((posizione) % 4 == 2 && valore < 5)
-			return false;
-		else if ((posizione) % 4 == 3 && valore < 7)
-			return false;
+		identificativoTorre = posizione / 4;
+		// mi dice esattamente in quale torre si trova la mia pedina:
+		// 0=territorio, 1=personaggio
+		// 2=edificio, 3=impresa
 
+		for (int i = 4 * identificativoTorre; i < identificativoTorre + 4; i++) {
+			// controllo che il giocatore sulla stessa torre non abbia due
+			// famigliari colorati
+			if ((spazioAzione.getFamigliareTorre(i).getGiocatore().getColore() == this.giocatoreAppartenenza
+					.getColore())
+					&& ((spazioAzione.getFamigliareTorre(i).getNeutralita() == false) | this.neutro == true))
+				throw new SameTowerException();
+		}
+
+		// creo un famigliare temporaneo su cui fare tutti i calcoli derivanti
+		// da effetti
+		Famigliare famigliareTemporaneo = new Famigliare(new Giocatore(), this.valore, this.neutro);
+		famigliareTemporaneo.getGiocatore().getRisorse()
+				.cambiaLegno(this.giocatoreAppartenenza.getRisorse().getLegno());
+		famigliareTemporaneo.getGiocatore().getRisorse()
+				.cambiaPietre(this.giocatoreAppartenenza.getRisorse().getPietre());
+		famigliareTemporaneo.getGiocatore().getRisorse()
+				.cambiaMonete(this.giocatoreAppartenenza.getRisorse().getMonete());
+		famigliareTemporaneo.getGiocatore().getRisorse()
+				.cambiaServitori(this.giocatoreAppartenenza.getRisorse().getServitori());
+		famigliareTemporaneo.getGiocatore().getPunti()
+				.cambiaPuntiMilitari(this.giocatoreAppartenenza.getPunti().getPuntiMilitari());
+		famigliareTemporaneo.getGiocatore().getPunti()
+				.cambiaPuntiFede(this.giocatoreAppartenenza.getPunti().getPuntiFede());
+		famigliareTemporaneo.getGiocatore().getPunti()
+				.cambiaPuntiVittoria(this.giocatoreAppartenenza.getPunti().getPuntiVittoria());
+		famigliareTemporaneo.getGiocatore().setColore(this.giocatoreAppartenenza.getColore());
+
+		/*
+		 * if (posizione % 4 == 0 && valore < 1) // controlla alternativamente
+		 * le prime ,le seconde, terze e quarte // posizioni e controlla che il
+		 * valore della pedina sia abbastanza // grande. Va implementato anche
+		 * il controllo sugli effetti // permanenti delle carte che modificano
+		 * il valore dell'azione return false; else if ((posizione) % 4 == 1 &&
+		 * valore < 3) return false; else if ((posizione) % 4 == 2 && valore <
+		 * 5) return false; else if ((posizione) % 4 == 3 && valore < 7) return
+		 * false;
+		 */
 		Carta cartaTorre = spazioAzione.getCartaTorre(posizione);
 
 		if (!cartaTorre.acquisibile(giocatoreAppartenenza))
