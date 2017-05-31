@@ -8,6 +8,7 @@ import main.network.exceptions.CreateRoomException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
+import main.network.server.game.RemotePlayer;
 import main.network.server.game.Room;
 import main.network.server.game.RoomFullException;
 import main.network.server.rmi.RMIServer;

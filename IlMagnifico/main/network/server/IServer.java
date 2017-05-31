@@ -5,6 +5,7 @@ import main.network.exceptions.CreateRoomException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
+import main.network.server.game.RemotePlayer;
 
 /**
  * Interfaccia usata come server controller in {@link AbstractServer} (invio di

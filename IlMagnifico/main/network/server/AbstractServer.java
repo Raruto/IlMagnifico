@@ -2,6 +2,8 @@ package main.network.server;
 
 import java.util.HashMap;
 
+import main.network.server.game.RemotePlayer;
+
 /**
  * Classe che rappresenta l'astrazione necessaria per le comunicazioni del
  * server. Estendendo questa classe è possibile utilizzare qualsiasi tipo di

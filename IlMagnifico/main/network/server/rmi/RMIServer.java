@@ -16,9 +16,9 @@ import main.network.protocol.rmi.RMIClientInterface;
 import main.network.protocol.rmi.RMIServerInterface;
 import main.network.server.AbstractServer;
 import main.network.server.IServer;
-import main.network.server.RemotePlayer;
 import main.network.server.ServerException;
 import main.network.server.game.GameException;
+import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 import main.util.EAzioniGiocatore;
 

@@ -2,7 +2,7 @@ package main.model;
 
 import java.util.*;
 
-import main.network.server.RemotePlayer;
+import main.network.server.game.RemotePlayer;
 import main.util.PlayerColors;
 import main.util.errors.Errors;
 import main.util.errors.GameError;

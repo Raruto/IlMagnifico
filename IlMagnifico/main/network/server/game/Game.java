@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import main.model.Giocatore;
 import main.model.Partita;
-import main.network.server.RemotePlayer;
 import main.util.EAzioniGiocatore;
 import main.util.EFasiDiGioco;
 import main.util.errors.GameError;

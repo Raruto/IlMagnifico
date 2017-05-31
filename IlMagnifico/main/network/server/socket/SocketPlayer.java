@@ -16,7 +16,7 @@ import main.network.exceptions.PlayerNotFound;
 import main.network.protocol.socket.Constants;
 import main.network.protocol.socket.SocketPlayerInterface;
 import main.network.server.IServer;
-import main.network.server.RemotePlayer;
+import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
