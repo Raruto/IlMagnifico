@@ -122,6 +122,20 @@ public class Famigliare {
 						.attivaOnPrendiImpresa(famigliareTemporaneo);
 		}
 
+		if ((famigliareTemporaneo.neutro == false) && (this.giocatoreAppartenenza.getScomunica(0) != null))
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnMuoviColorato(famigliareTemporaneo);
+
+		if (this.giocatoreAppartenenza.getScomunica(1) != null) {
+			if (identificativoTorre == 0)
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiTerritorio(famigliareTemporaneo);
+			if (identificativoTorre == 1)
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiPersonaggio(famigliareTemporaneo);
+			if (identificativoTorre == 2)
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiEdificio(famigliareTemporaneo);
+			if (identificativoTorre == 3)
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiImpresa(famigliareTemporaneo);
+		}
+
 		// TODO:finire di implementare, non toccatemelo per favore che è un
 		// casino
 

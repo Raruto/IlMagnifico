@@ -149,7 +149,6 @@ public class Giocatore implements Serializable {
 		return this.punti;
 	}
 
-
 	public SpazioAzione getSpazioAzione() {
 		return this.spazioAzione;
 	}
@@ -204,5 +203,9 @@ public class Giocatore implements Serializable {
 	 */
 	public Famigliare getFamigliare(int numeroFamigliare) {
 		return this.famiglia[numeroFamigliare];
+	}
+
+	public Scomunica getScomunica(int posizioneScomunica) {
+		return this.scomuniche[posizioneScomunica];
 	}
 }
