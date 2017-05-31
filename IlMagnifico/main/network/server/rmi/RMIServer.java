@@ -10,9 +10,10 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import main.network.NetworkException;
-import main.network.client.rmi.RMIClientInterface;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
+import main.network.protocol.rmi.RMIClientInterface;
+import main.network.protocol.rmi.RMIServerInterface;
 import main.network.server.AbstractServer;
 import main.network.server.IServer;
 import main.network.server.RemotePlayer;

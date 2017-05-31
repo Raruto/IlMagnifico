@@ -15,7 +15,7 @@ import main.network.client.AbstractClient;
 import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.exceptions.LoginException;
-import main.network.protocol.socket.ProtocolConstants;
+import main.network.protocol.socket.Constants;
 import main.network.server.game.UpdateStats;
 
 /**
@@ -100,7 +100,7 @@ public class SocketClient extends AbstractClient {
 	 * (chiamati da {@link ResponseHandler}).
 	 */
 	private void loadResponses() {
-		responseMap.put(ProtocolConstants.CHAT_MESSAGE, this::notifyChatMessage);
+		responseMap.put(Constants.CHAT_MESSAGE, this::notifyChatMessage);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class SocketClient extends AbstractClient {
 		// try {
 		int responseCode;
 		try {
-			outputStream.writeObject(ProtocolConstants.LOGIN_REQUEST);
+			outputStream.writeObject(Constants.LOGIN_REQUEST);
 			outputStream.writeObject(nickname);
 			outputStream.flush();
 
@@ -137,7 +137,7 @@ public class SocketClient extends AbstractClient {
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			throw new NetworkException(e);
 		}
-		if (responseCode == ProtocolConstants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+		if (responseCode == Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
 			throw new LoginException();
 		}
 		// } catch (LoginException e) {
@@ -164,7 +164,7 @@ public class SocketClient extends AbstractClient {
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(ProtocolConstants.CHAT_MESSAGE);
+				outputStream.writeObject(Constants.CHAT_MESSAGE);
 				outputStream.writeObject(receiver);
 				outputStream.writeObject(message);
 				outputStream.flush();
@@ -233,7 +233,7 @@ public class SocketClient extends AbstractClient {
 		 * 
 		 * @param object
 		 *            intestazione della risposta ricevuta dal server (es.
-		 *            {@link ProtocolConstants}).
+		 *            {@link Constants}).
 		 */
 		public void handleResponse(Object object) {
 			ResponseHandlerInterface handler = responseMap.get(object);

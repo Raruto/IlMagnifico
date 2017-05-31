@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 import main.network.client.Client;
 import main.network.client.ClientException;
-import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
 import main.util.Costants;
 import main.util.EAzioniGiocatore;
+import main.util.network.ConnectionTypes;
 
 /**
  * Classe di comodo per simulare l'interazione da parte del CLIENT verso il

@@ -9,7 +9,7 @@ import main.network.exceptions.LoginException;
 /**
  * This interface is used as callback for communication from the socket protocol to the server.
  */
-public interface ServerSocketProtocolInt {
+public interface SocketPlayerInterface {
 
     /**
      * Try to login the player into server with the given nickname.

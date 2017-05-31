@@ -2,8 +2,8 @@ package main.model;
 
 import java.util.*;
 
-import main.network.protocol.PlayerColors;
 import main.network.server.RemotePlayer;
+import main.util.PlayerColors;
 import main.util.errors.Errors;
 import main.util.errors.GameError;
 

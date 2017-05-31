@@ -13,11 +13,11 @@ import main.model.Punti;
 import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.Territorio;
-import main.network.protocol.PlayerColors;
 import main.util.EAzioniGiocatore;
 import main.util.EFasiDiGioco;
 import main.util.EPunti;
 import main.util.ERisorse;
+import main.util.PlayerColors;
 
 public class UpdateStats implements Serializable {
 

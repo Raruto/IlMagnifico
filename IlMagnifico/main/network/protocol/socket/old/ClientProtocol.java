@@ -9,7 +9,7 @@ import main.network.NetworkException;
 import main.network.client.IClient;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
-import main.network.protocol.socket.ProtocolConstants;
+import main.network.protocol.socket.Constants;
 
 /**
  * This class is used to define the Socket protocol for communicating with
@@ -65,7 +65,7 @@ public class ClientProtocol {
 	 * Load all possible responses and associate an handler.
 	 */
 	private void loadResponses() {
-		mResponseMap.put(ProtocolConstants.CHAT_MESSAGE, this::onChatMessage);
+		mResponseMap.put(Constants.CHAT_MESSAGE, this::onChatMessage);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class ClientProtocol {
 	public void loginPlayer(String nickname) throws NetworkException {
 		int responseCode;
 		try {
-			mOutput.writeObject(ProtocolConstants.LOGIN_REQUEST);
+			mOutput.writeObject(Constants.LOGIN_REQUEST);
 			mOutput.writeObject(nickname);
 			mOutput.flush();
 
@@ -89,7 +89,7 @@ public class ClientProtocol {
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			throw new NetworkException(e);
 		}
-		if (responseCode == ProtocolConstants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+		if (responseCode == Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
 			throw new LoginException();
 		}
 	}
@@ -108,7 +108,7 @@ public class ClientProtocol {
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				mOutput.writeObject(ProtocolConstants.CHAT_MESSAGE);
+				mOutput.writeObject(Constants.CHAT_MESSAGE);
 				mOutput.writeObject(receiver);
 				mOutput.writeObject(message);
 				mOutput.flush();

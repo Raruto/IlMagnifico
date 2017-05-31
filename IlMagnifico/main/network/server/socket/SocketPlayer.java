@@ -13,8 +13,8 @@ import main.network.NetworkException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
-import main.network.protocol.socket.ProtocolConstants;
-import main.network.protocol.socket.ServerSocketProtocolInt;
+import main.network.protocol.socket.Constants;
+import main.network.protocol.socket.SocketPlayerInterface;
 import main.network.server.IServer;
 import main.network.server.RemotePlayer;
 import main.network.server.game.UpdateStats;
@@ -23,7 +23,7 @@ import main.network.server.game.UpdateStats;
  * Extension of {@link RemotePlayer}. This implementation can communicate to his
  * referenced client.
  */
-public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocketProtocolInt {
+public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayerInterface {
 
 	/**
 	 * Server interface.
@@ -205,8 +205,8 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 	 * Load all possible requests and associate an handler.
 	 */
 	private void loadRequests() {
-		mRequestMap.put(ProtocolConstants.LOGIN_REQUEST, this::loginPlayer);
-		mRequestMap.put(ProtocolConstants.CHAT_MESSAGE, this::sendChatMessage);
+		mRequestMap.put(Constants.LOGIN_REQUEST, this::loginPlayer);
+		mRequestMap.put(Constants.CHAT_MESSAGE, this::sendChatMessage);
 	}
 
 	private void loginPlayer() {
@@ -223,10 +223,10 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 		try {
 			//mCallback.loginPlayer(nickname);
 			loginPlayer(nickname);
-			responseCode = ProtocolConstants.RESPONSE_OK;
+			responseCode = Constants.RESPONSE_OK;
 		} catch (LoginException e) {
 			System.err.println("[socket protocol] LoginException");
-			responseCode = ProtocolConstants.RESPONSE_PLAYER_ALREADY_EXISTS;
+			responseCode = Constants.RESPONSE_PLAYER_ALREADY_EXISTS;
 		}
 		outputStream.writeObject(responseCode);
 		outputStream.flush();
@@ -261,7 +261,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable, ServerSocket
 	public void sendChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(ProtocolConstants.CHAT_MESSAGE);
+				outputStream.writeObject(Constants.CHAT_MESSAGE);
 				outputStream.writeObject(author);
 				outputStream.writeObject(message);
 				outputStream.writeObject(privateMessage);

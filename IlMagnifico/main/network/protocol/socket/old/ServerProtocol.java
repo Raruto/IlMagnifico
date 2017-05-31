@@ -9,8 +9,8 @@ import java.util.List;
 
 import main.network.NetworkException;
 import main.network.exceptions.LoginException;
-import main.network.protocol.socket.ProtocolConstants;
-import main.network.protocol.socket.ServerSocketProtocolInt;
+import main.network.protocol.socket.Constants;
+import main.network.protocol.socket.SocketPlayerInterface;
 
 /**
  * This class is used to define the Socket protocol for communicating with
@@ -31,7 +31,7 @@ public class ServerProtocol {
 	/**
 	 * Interface used as callback to communicate with the server player.
 	 */
-	private final ServerSocketProtocolInt mCallback;
+	private final SocketPlayerInterface mCallback;
 
 	/**
 	 * Object used as mutex to ensure that two threads never send a message over
@@ -54,7 +54,7 @@ public class ServerProtocol {
 	 * @param callback
 	 *            used to communicate with the server.
 	 */
-	public ServerProtocol(ObjectInputStream input, ObjectOutputStream output, ServerSocketProtocolInt callback) {
+	public ServerProtocol(ObjectInputStream input, ObjectOutputStream output, SocketPlayerInterface callback) {
 		inputStream = input;
 		outputStream = output;
 		mCallback = callback;
@@ -66,8 +66,8 @@ public class ServerProtocol {
 	 * Load all possible requests and associate an handler.
 	 */
 	private void loadRequests() {
-		mRequestMap.put(ProtocolConstants.LOGIN_REQUEST, this::loginPlayer);
-		mRequestMap.put(ProtocolConstants.CHAT_MESSAGE, this::sendChatMessage);
+		mRequestMap.put(Constants.LOGIN_REQUEST, this::loginPlayer);
+		mRequestMap.put(Constants.CHAT_MESSAGE, this::sendChatMessage);
 	}
 
 	private void loginPlayer() {
@@ -83,10 +83,10 @@ public class ServerProtocol {
 		int responseCode;
 		try {
 			mCallback.loginPlayer(nickname);
-			responseCode = ProtocolConstants.RESPONSE_OK;
+			responseCode = Constants.RESPONSE_OK;
 		} catch (LoginException e) {
 			System.err.println("[socket protocol] LoginException");
-			responseCode = ProtocolConstants.RESPONSE_PLAYER_ALREADY_EXISTS;
+			responseCode = Constants.RESPONSE_PLAYER_ALREADY_EXISTS;
 		}
 		outputStream.writeObject(responseCode);
 		outputStream.flush();
@@ -119,7 +119,7 @@ public class ServerProtocol {
 	public void sendChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(ProtocolConstants.CHAT_MESSAGE);
+				outputStream.writeObject(Constants.CHAT_MESSAGE);
 				outputStream.writeObject(author);
 				outputStream.writeObject(message);
 				outputStream.writeObject(privateMessage);

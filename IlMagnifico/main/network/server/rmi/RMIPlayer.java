@@ -3,7 +3,7 @@ package main.network.server.rmi;
 import java.rmi.RemoteException;
 
 import main.network.NetworkException;
-import main.network.client.rmi.RMIClientInterface;
+import main.network.protocol.rmi.RMIClientInterface;
 import main.network.server.RemotePlayer;
 import main.network.server.game.UpdateStats;
 

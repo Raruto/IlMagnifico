@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-import main.network.protocol.PlayerColors;
+import main.util.PlayerColors;
 
 /**
  * 

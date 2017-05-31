@@ -5,7 +5,7 @@ package main.network.protocol.socket;
  * communication. See {@link ClientProtocol} and {@link ServerProtocol} for
  * detail about the protocol.
  */
-public class ProtocolConstants {
+public class Constants {
 
 	/**
 	 * Client request headers.
@@ -75,7 +75,7 @@ public class ProtocolConstants {
 	/**
 	 * Private constructor. This class has not been designed to be instantiated.
 	 */
-	private ProtocolConstants() {
+	private Constants() {
 		// hide constructor
 	}
 }

@@ -10,11 +10,11 @@ import main.model.Punti;
 import main.model.Risorsa;
 import main.model.Territorio;
 import main.network.NetworkException;
-import main.network.protocol.PlayerColors;
 import main.network.server.game.Room;
 import main.network.server.game.UpdateStats;
 import main.util.EPunti;
 import main.util.ERisorse;
+import main.util.PlayerColors;
 
 /**
  * Abstract extension of {@link Player}. This implementation can communicate to

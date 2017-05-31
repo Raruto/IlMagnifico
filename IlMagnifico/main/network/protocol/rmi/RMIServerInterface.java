@@ -1,10 +1,9 @@
-package main.network.server.rmi;
+package main.network.protocol.rmi;
 
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import main.network.client.rmi.RMIClientInterface;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.server.game.GameException;
@@ -72,44 +71,4 @@ public interface RMIServerInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	public void send(Object object) throws RemoteException;
-
-	// /**
-	// * Remote method to draw a politic card from the deck.
-	// *
-	// * @param sessionToken
-	// * of the player that is making the request.
-	// * @throws PoliticCardAlreadyDrawn
-	// * if politic card has been already drawn in this turn.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// * @throws RemoteException
-	// * if server is not reachable.
-	// */
-	// void drawPoliticCard(String sessionToken) throws IOException;
-	//
-	// /**
-	// * Remote method to retrieve current player action list.
-	// *
-	// * @param sessionToken
-	// * of the player that is making the request.
-	// * @throws NotYourTurnException
-	// * if is not current game turn of the player.
-	// * @throws RemoteException
-	// * if server is not reachable.
-	// */
-	// void getActionList(String sessionToken) throws IOException;
-	//
-
-	// /**
-	// * Remote method to end player turn.
-	// *
-	// * @param sessionToken
-	// * of the player that is making the request.
-	// * @throws NotYourTurnException
-	// * if the player that is making the request is not the current
-	// * player.
-	// * @throws RemoteException
-	// * if server is not reachable.
-	// */
-	// void endTurn(String sessionToken) throws IOException;
 }

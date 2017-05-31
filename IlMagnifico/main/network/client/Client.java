@@ -7,12 +7,12 @@ import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
 import main.network.client.socket.SocketClient;
 import main.network.exceptions.LoginException;
-import main.network.protocol.ConnectionTypes;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
 import main.util.Costants;
 import main.util.EAzioniGiocatore;
 import main.util.EFasiDiGioco;
+import main.util.network.ConnectionTypes;
 
 /**
  * 
