@@ -81,8 +81,8 @@ public class Famigliare {
 			// controllo che il giocatore sulla stessa torre non abbia due
 			// famigliari colorati
 			if ((spazioAzione.getFamigliareTorre(i).getGiocatore().getColore() == this.giocatoreAppartenenza
-					.getColore())
-					&& ((spazioAzione.getFamigliareTorre(i).getNeutralita() == false) | this.neutro == true))
+					.getColore()) && (spazioAzione.getFamigliareTorre(i).getNeutralita() == false)
+					&& (this.neutro == false))
 				throw new SameTowerException();
 		}
 
@@ -104,6 +104,26 @@ public class Famigliare {
 		famigliareTemporaneo.getGiocatore().getPunti()
 				.cambiaPuntiVittoria(this.giocatoreAppartenenza.getPunti().getPuntiVittoria());
 		famigliareTemporaneo.getGiocatore().setColore(this.giocatoreAppartenenza.getColore());
+
+		// Controllo tutti gli effetti permanenti delle carte personaggio e
+		// delle scomuniche
+		for (int j = 0; j < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); j++) {
+			if (identificativoTorre == 0)
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
+						.attivaOnPrendiTerritorio(famigliareTemporaneo);
+			if (identificativoTorre == 1)
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
+						.attivaOnPrendiPersonaggio(famigliareTemporaneo);
+			if (identificativoTorre == 2)
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
+						.attivaOnPrendiEdificio(famigliareTemporaneo);
+			if (identificativoTorre == 3)
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
+						.attivaOnPrendiImpresa(famigliareTemporaneo);
+		}
+
+		// TODO:finire di implementare, non toccatemelo per favore che è un
+		// casino
 
 		/*
 		 * if (posizione % 4 == 0 && valore < 1) // controlla alternativamente
