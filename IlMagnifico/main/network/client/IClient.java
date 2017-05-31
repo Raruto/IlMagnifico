@@ -24,7 +24,7 @@ public interface IClient {
 	void onTurnStarted(UpdateStats update);
 
 	void onPeriodStarted(UpdateStats update);
-	
+
 	/**
 	 * Notify game is started and dispatch initial game state.
 	 * 
@@ -41,7 +41,7 @@ public interface IClient {
 	 * @param remainingTime
 	 *            time to complete the turn.
 	 */
-	void onTurnStarted(String nickname, int remainingTime);
+	// void onTurnStarted(String nickname, int remainingTime);
 
 	/**
 	 * Notify internal bus that the timer countdown is changed.
@@ -49,31 +49,7 @@ public interface IClient {
 	 * @param remainingTime
 	 *            to complete the turn.
 	 */
-	void onTurnUpdateCountdown(int remainingTime);
-
-	/**
-	 * Notify internal bus that a new politic card has been drawn.
-	 * 
-	 * @param updateState
-	 *            to apply to the client game state.
-	 */
-	// void onDrawnPoliticCard(UpdateState updateState);
-
-	/**
-	 * Notify internal bus that the action list is ready.
-	 * 
-	 * @param actionList
-	 *            from server to show to the user.
-	 */
-	// void onActionList(ActionList actionList);
-
-	/**
-	 * Notify internal bus that server has respond with an error code.
-	 * 
-	 * @param errorCode
-	 *            that identify the error. See {@link ErrorCodes} for details.
-	 */
-	void onActionNotValid(int errorCode);
+	// void onTurnUpdateCountdown(int remainingTime);
 
 	/**
 	 * Notify internal bus that a new chat message is arrived.
@@ -95,7 +71,7 @@ public interface IClient {
 	 * @param nickname
 	 *            of the player that has disconnected.
 	 */
-	void onPlayerDisconnected(String nickname);
+	//void onPlayerDisconnected(String nickname);
 
 	/**
 	 * Notify internal bus that the last game turn is started.
@@ -103,7 +79,7 @@ public interface IClient {
 	 * @param nickname
 	 *            of the player that has started the last game turn.
 	 */
-	void onLastTurnStarted(String nickname);
+	//void onLastTurnStarted(String nickname);
 
 	void onNotify(Object object) throws RemoteException;
 

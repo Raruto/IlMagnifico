@@ -51,7 +51,8 @@ public class Client implements IClient {
 	private String nickname;
 
 	/*
-	 * Map of all defined server responses headers.
+	 * Mappa di tutte le intestazioni dei metodi per la gestione delle risposte
+	 * del server.
 	 */
 	private final HashMap<Object, ResponseHandler> responseMap;
 
@@ -70,7 +71,8 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Load all possible responses and associate an handler.
+	 * Inizializza "responseMap" caricando tutti i possibili metodi di risposta
+	 * (chiamati da {@link ResponseHandler}).
 	 */
 	private void loadResponses() {
 		responseMap.put(EFasiDiGioco.InizioPartita, this::onGameStarted);
@@ -203,10 +205,10 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * This method is triggered by {@link AbstractUi#showLoginMenu()}.
+	 * Metodo per effettuare il login presso il Server.
 	 * 
 	 * @param nickname
-	 *            to use for login session.
+	 *            nnickname da usare per il login presso il Server.
 	 */
 	public void loginPlayer(String nickname) {
 		boolean success = false;
@@ -220,7 +222,8 @@ public class Client implements IClient {
 			// mUi.showLoginErrorMessage();
 		} catch (NetworkException e) {
 			e.printStackTrace();
-			//System.out.println("Cannot send login request: " + e.getMessage());
+			// System.out.println("Cannot send login request: " +
+			// e.getMessage());
 		}
 
 		if (success) {
@@ -352,10 +355,12 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Handle the server response and execute the defined method.
+	 * Gestisce la risposta ricevuta dal Server ed invoca il metodo associatogli
+	 * nella "responseMap".
 	 * 
 	 * @param object
-	 *            response header from server.
+	 *            intestazione della risposta ricevuta dal server (es.
+	 *            {@link UpdateStats}).
 	 */
 	public void handleResponse(UpdateStats update) {
 		ResponseHandler handler = null;
@@ -373,45 +378,17 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * This interface is used like {@link Runnable} interface.
+	 * Interfaccia viene utilizzata "come" l'interfaccia {@link Runnable}.
 	 */
 	@FunctionalInterface
 	private interface ResponseHandler {
 
 		/**
-		 * Handle the server response.
+		 * Gestisce la risposta del Server.
+		 * 
+		 * @param update
+		 *            (vedi {@link UpdateStats})
 		 */
 		void handle(UpdateStats update);
-	}
-
-	/////////// OLD //////////////
-	@Override
-	public void onTurnStarted(String nickname, int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onTurnUpdateCountdown(int remainingTime) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onActionNotValid(int errorCode) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onPlayerDisconnected(String nickname) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onLastTurnStarted(String nickname) {
-		// TODO Auto-generated method stub
-
 	}
 }

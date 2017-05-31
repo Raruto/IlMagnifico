@@ -12,7 +12,6 @@ import main.network.client.AbstractClient;
 import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.exceptions.*;
-import main.network.protocol.ErrorCodes;
 import main.network.protocol.rmi.RMIClientInterface;
 import main.network.protocol.rmi.RMIServerInterface;
 import main.network.server.game.GameException;
@@ -105,9 +104,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		} catch (PlayerNotFound e) {
-			getController().onActionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
+			// getController().onActionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
 		} catch (IOException e) {
-			getController().onActionNotValid(ErrorCodes.ERROR_GENERIC_SERVER_ERROR);
+			// getController().onActionNotValid(ErrorCodes.ERROR_GENERIC_SERVER_ERROR);
 		}
 	}
 
