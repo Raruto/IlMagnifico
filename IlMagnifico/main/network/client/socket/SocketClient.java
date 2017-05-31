@@ -144,8 +144,9 @@ public class SocketClient extends AbstractClient {
 		// } catch (IOException e) {
 		// throw new NetworkException(e);
 		// }
-
-		startResponseHandler();
+		else {
+			startResponseHandler();
+		}
 	}
 
 	/**

@@ -53,7 +53,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	/**
 	 * Socket protocol used for communication between client and server.
 	 */
-	//private final transient ServerProtocol socketProtocol;
+	// private final transient ServerProtocol socketProtocol;
 
 	/**
 	 * Create a new instance of a socket player.
@@ -72,7 +72,8 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 		this.outputStream.flush();
 		this.inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 
-		//this.socketProtocol = new ServerProtocol(inputStream, outputStream, this);
+		// this.socketProtocol = new ServerProtocol(inputStream, outputStream,
+		// this);
 		mRequestMap = new HashMap<>();
 		loadRequests();
 
@@ -87,7 +88,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 			// noinspection InfiniteLoopStatement
 			while (true) {
 				Object object = inputStream.readObject();
-				//socketProtocol.handleClientRequest(object);
+				// socketProtocol.handleClientRequest(object);
 				handleClientRequest(object);
 			}
 		} catch (IOException | ClassNotFoundException e) {
@@ -129,7 +130,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	 */
 	@Override
 	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
-		//socketProtocol.sendChatMessage(author, message, privateMessage);
+		// socketProtocol.sendChatMessage(author, message, privateMessage);
 		sendChatMessage(author, message, privateMessage);
 	}
 
@@ -193,18 +194,18 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	/**
 	 * Interface used as callback to communicate with the server player.
 	 */
-	//private final ServerSocketProtocolInt mCallback;
+	// private final ServerSocketProtocolInt mCallback;
 
 	/**
 	 * Object used as mutex to ensure that two threads never send a message over
 	 * output stream concurrently. (Only one thread can write on output stream).
 	 */
-	private static /*final*/ Object OUTPUT_MUTEX = new Object();
+	private static /* final */ Object OUTPUT_MUTEX = new Object();
 
 	/**
 	 * Map of all defined client requests headers.
 	 */
-	private /*final*/ HashMap<Object, RequestHandler> mRequestMap;
+	private /* final */ HashMap<Object, RequestHandler> mRequestMap;
 
 	/**
 	 * Load all possible requests and associate an handler.
@@ -226,7 +227,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 	private void loginPlayerAndRespond(String nickname) throws IOException {
 		int responseCode;
 		try {
-			//mCallback.loginPlayer(nickname);
+			// mCallback.loginPlayer(nickname);
 			loginPlayer(nickname);
 			responseCode = Constants.RESPONSE_OK;
 		} catch (LoginException e) {
@@ -236,15 +237,17 @@ public class SocketPlayer extends RemotePlayer implements Runnable, SocketPlayer
 		outputStream.writeObject(responseCode);
 		outputStream.flush();
 
-		//mCallback.joinRoom();
-		joinRoom();
+		// mCallback.joinRoom();
+		if (responseCode != Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+			joinRoom();
+		}
 	}
 
 	private void sendChatMessage() {
 		try {
 			String receiver = (String) inputStream.readObject();
 			String message = (String) inputStream.readObject();
-			//mCallback.sendChatMessage(receiver, message);
+			// mCallback.sendChatMessage(receiver, message);
 			sendChatMessage(receiver, message);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			System.err.println("Exception while handling client request");
