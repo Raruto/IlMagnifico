@@ -1,4 +1,4 @@
-package main.network.protocol.socket;
+package main.network.protocol.socket.old;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,6 +9,8 @@ import java.util.List;
 
 import main.network.NetworkException;
 import main.network.exceptions.LoginException;
+import main.network.protocol.socket.ProtocolConstants;
+import main.network.protocol.socket.ServerSocketProtocolInt;
 
 /**
  * This class is used to define the Socket protocol for communicating with
@@ -16,21 +18,15 @@ import main.network.exceptions.LoginException;
  * {@link ClientProtocol}.
  */
 public class ServerProtocol {
-
-	/**
-	 * Generic debug tag.
-	 */
-	private static final String DEBUG_PROTOCOL_EXCEPTION = "Exception while handling client request";
-
 	/**
 	 * Input stream used to read client requests.
 	 */
-	private final ObjectInputStream mInput;
+	private final ObjectInputStream inputStream;
 
 	/**
 	 * Output stream used to send messages to client.
 	 */
-	private final ObjectOutputStream mOutput;
+	private final ObjectOutputStream outputStream;
 
 	/**
 	 * Interface used as callback to communicate with the server player.
@@ -59,8 +55,8 @@ public class ServerProtocol {
 	 *            used to communicate with the server.
 	 */
 	public ServerProtocol(ObjectInputStream input, ObjectOutputStream output, ServerSocketProtocolInt callback) {
-		mInput = input;
-		mOutput = output;
+		inputStream = input;
+		outputStream = output;
 		mCallback = callback;
 		mRequestMap = new HashMap<>();
 		loadRequests();
@@ -71,54 +67,15 @@ public class ServerProtocol {
 	 */
 	private void loadRequests() {
 		mRequestMap.put(ProtocolConstants.LOGIN_REQUEST, this::loginPlayer);
-		// mRequestMap.put(ProtocolConstants.JOIN_ROOM_REQUEST, this::joinRoom);
-		// mRequestMap.put(ProtocolConstants.CREATE_ROOM_REQUEST,
-		// this::createRoom);
-		// mRequestMap.put(ProtocolConstants.APPLY_CONFIGURATION_REQUEST,
-		// this::applyConfiguration);
-		// mRequestMap.put(ProtocolConstants.GET_ACTION_LIST,
-		// mCallback::sendActionList);
-		// mRequestMap.put(ProtocolConstants.DRAW_POLITIC_CARD,
-		// mCallback::drawPoliticCard);
-		// mRequestMap.put(ProtocolConstants.ELECT_COUNCILLOR,
-		// this::electCouncillor);
-		// mRequestMap.put(ProtocolConstants.ACQUIRE_BUSINESS_PERMIT_TILE,
-		// this::acquireBusinessPermitTile);
-		// mRequestMap.put(ProtocolConstants.BUILD_EMPORIUM_WITH_BUSINESS_PERMIT_TILE,
-		// this::buildEmporiumWithBusinessPermitTile);
-		// mRequestMap.put(ProtocolConstants.BUILD_EMPORIUM_WITH_KING_HELP,
-		// this::buildEmporiumWithKingHelp);
-		// mRequestMap.put(ProtocolConstants.ENGAGE_ASSISTANT,
-		// mCallback::engageAssistant);
-		// mRequestMap.put(ProtocolConstants.CHANGE_BUSINESS_PERMIT_TILES,
-		// this::changeBusinessPermitTiles);
-		// mRequestMap.put(ProtocolConstants.SEND_ASSISTANT_TO_ELECT_COUNCILLOR,
-		// this::sendAssistantElectCouncillor);
-		// mRequestMap.put(ProtocolConstants.PERFORM_ADDITIONAL_MAIN_ACTION,
-		// mCallback::performAdditionalMainAction);
-		// mRequestMap.put(ProtocolConstants.EARN_FIRST_SPECIAL_REWARDS,
-		// this::earnFirstSpecialRewards);
-		// mRequestMap.put(ProtocolConstants.EARN_SECOND_SPECIAL_REWARDS,
-		// this::earnSecondSpecialRewards);
-		// mRequestMap.put(ProtocolConstants.EARN_THIRD_SPECIAL_REWARDS,
-		// this::earnThirdSpecialRewards);
-		// mRequestMap.put(ProtocolConstants.SELL_POLITIC_CARD,
-		// this::sellPoliticCard);
-		// mRequestMap.put(ProtocolConstants.SELL_BUSINESS_PERMIT_TILE,
-		// this::sellBusinessPermitTile);
-		// mRequestMap.put(ProtocolConstants.SELL_ASSISTANT,
-		// this::sellAssistant);
-		// mRequestMap.put(ProtocolConstants.BUY_ITEM, this::buyItem);
-		// mRequestMap.put(ProtocolConstants.END_TURN, mCallback::endTurn);
 		mRequestMap.put(ProtocolConstants.CHAT_MESSAGE, this::sendChatMessage);
 	}
 
 	private void loginPlayer() {
 		try {
-			String nickname = (String) mInput.readObject();
+			String nickname = (String) inputStream.readObject();
 			loginPlayerAndRespond(nickname);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
-			System.err.println(DEBUG_PROTOCOL_EXCEPTION);
+			System.err.println("Exception while handling client request");
 		}
 	}
 
@@ -131,19 +88,19 @@ public class ServerProtocol {
 			System.err.println("[socket protocol] LoginException");
 			responseCode = ProtocolConstants.RESPONSE_PLAYER_ALREADY_EXISTS;
 		}
-		mOutput.writeObject(responseCode);
-		mOutput.flush();
+		outputStream.writeObject(responseCode);
+		outputStream.flush();
 
 		mCallback.joinRoom();
 	}
 
 	private void sendChatMessage() {
 		try {
-			String receiver = (String) mInput.readObject();
-			String message = (String) mInput.readObject();
+			String receiver = (String) inputStream.readObject();
+			String message = (String) inputStream.readObject();
 			mCallback.sendChatMessage(receiver, message);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
-			System.err.println(DEBUG_PROTOCOL_EXCEPTION);
+			System.err.println("Exception while handling client request");
 		}
 	}
 
@@ -162,11 +119,11 @@ public class ServerProtocol {
 	public void sendChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				mOutput.writeObject(ProtocolConstants.CHAT_MESSAGE);
-				mOutput.writeObject(author);
-				mOutput.writeObject(message);
-				mOutput.writeObject(privateMessage);
-				mOutput.flush();
+				outputStream.writeObject(ProtocolConstants.CHAT_MESSAGE);
+				outputStream.writeObject(author);
+				outputStream.writeObject(message);
+				outputStream.writeObject(privateMessage);
+				outputStream.flush();
 			} catch (IOException e) {
 				throw new NetworkException(e);
 			}

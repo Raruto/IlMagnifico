@@ -107,7 +107,7 @@ public class SocketClient extends AbstractClient {
 	 * Avvia un nuovo Thread che rimane in attesa di messaggi sul flusso di
 	 * ingresso del socket e li elabora secondo il Protocollo definito.
 	 */
-	private void startNetworkMessageHandler() {
+	private void startResponseHandler() {
 		ResponseHandler responseHandler = new ResponseHandler();
 		responseHandler.start();
 	}
@@ -146,7 +146,7 @@ public class SocketClient extends AbstractClient {
 		// throw new NetworkException(e);
 		// }
 
-		startNetworkMessageHandler();
+		startResponseHandler();
 	}
 
 	/**

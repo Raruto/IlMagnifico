@@ -17,7 +17,7 @@ public class SocketServer extends AbstractServer {
 	/**
 	 * Server socket instance.
 	 */
-	private ServerSocket mServerSocket;
+	private ServerSocket serverSocket;
 
 	/**
 	 * Public constructor.
@@ -40,7 +40,7 @@ public class SocketServer extends AbstractServer {
 	@Override
 	public void startServer(int port) throws ServerException {
 		try {
-			mServerSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(port);
 			System.out.println("[SOCKET Server] OK");
 			new RequestHandler().start();
 		} catch (IOException e) {
@@ -60,7 +60,7 @@ public class SocketServer extends AbstractServer {
 		public void run() {
 			while (true) {
 				try {
-					Socket socket = mServerSocket.accept();
+					Socket socket = serverSocket.accept();
 					//System.out.println("New socket request");
 					SocketPlayer socketPlayer = new SocketPlayer(getController(), socket);
 					new Thread(socketPlayer).start();
