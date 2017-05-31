@@ -26,9 +26,9 @@ import main.network.server.game.UpdateStats;
 public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	/**
-	 * Internal cache that maps all logged used with an unique session token
-	 * that identify the single player. This is required in order to identify
-	 * the remote player when he is making a new request to the server.
+	 * Mappa di tutti i giocatori che hanno eseguito il login al quale è stato
+	 * un token di sessione univoco (necessario per identificare il giocatore
+	 * remoto ogni volta che fa una richiesta verso il Server).
 	 */
 	protected final HashMap<String, String> sessionTokens;
 
@@ -64,13 +64,13 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	/**
-	 * Create or load registry in a specified port number.
+	 * Crea o carica il Registry al numero di porta specificato.
 	 * 
 	 * @param port
-	 *            number of the port to use.
-	 * @return the created or retrieved registry.
+	 *            numero di porta da usare.
+	 * @return il registry creato o recuperato.
 	 * @throws ServerException
-	 *             if some error occurs.
+	 *             se si verifica un errore.
 	 */
 	private Registry createOrLoadRegistry(int port) throws ServerException {
 		try {
@@ -87,11 +87,11 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	}
 
 	/**
-	 * Get the remote player associated to provided session token.
+	 * Ritorna il Giocatore Remoto associato al token di sessione fornito.
 	 * 
 	 * @param sessionToken
-	 *            provided with the request.
-	 * @return the remote player associated.
+	 *            token fornito con la richiesta.
+	 * @return il giocatore remoto associato.
 	 */
 	protected RemotePlayer getPlayer(String sessionToken) {
 		return getController().getPlayer(sessionTokens.get(sessionToken));
