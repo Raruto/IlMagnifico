@@ -217,7 +217,7 @@ public class SocketClient extends AbstractClient {
 
 	private void actionNotValid() {
 		try {
-			int errorCode = (int) inputStream.readObject();
+			String errorCode = (String) inputStream.readObject();
 			getController().onActionNotValid(errorCode);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			System.err.println("Exception while handling server message");

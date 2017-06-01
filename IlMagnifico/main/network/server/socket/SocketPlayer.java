@@ -226,7 +226,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 	 *            exception to handle.
 	 */
 	private void handleGameExceptions(GameException e) {
-		actionNotValid(ErrorCodes.ERROR_GENERIC_SERVER_ERROR);
+		actionNotValid(e.getMessage()/* ErrorCodes.ERROR_GENERIC_SERVER_ERROR */);
 		/*
 		 * if (e instanceof PoliticCardNotYetDrawn) {
 		 * Debug.debug(DEBUG_POLITIC_CARD_NOT_YET_DRAWN, e);
@@ -252,7 +252,7 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 	 * @param errorCode
 	 *            that identify the error. {@link ErrorCodes} for details.
 	 */
-	private void actionNotValid(int errorCode) {
+	private void actionNotValid(String errorCode) {
 		synchronized (OUTPUT_MUTEX) {
 			try {
 				outputStream.writeObject(Constants.ACTION_NOT_VALID);

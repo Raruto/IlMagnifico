@@ -90,7 +90,7 @@ public interface IClient {
 	 * @param errorCode
 	 *            that identify the error. See {@link ErrorCodes} for details.
 	 */
-	void onActionNotValid(int errorCode);
+	void onActionNotValid(String errorCode);
 
 	/**
 	 * Notify internal bus that the game is over.

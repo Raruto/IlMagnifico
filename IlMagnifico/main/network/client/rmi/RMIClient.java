@@ -117,7 +117,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		} catch (GameException e) {
-			System.err.println("\n" + e.getMessage());
+			getController().onActionNotValid(e.getMessage());
 		}
 	}
 
