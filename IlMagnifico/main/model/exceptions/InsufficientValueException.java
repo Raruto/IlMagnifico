@@ -1,4 +1,4 @@
-package modelLogicExceptions;
+package main.model.exceptions;
 
 /**
  * Eccezione che si verifica quando il valore del famigliare non è sufficiente

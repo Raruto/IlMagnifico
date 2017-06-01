@@ -1,4 +1,4 @@
-package modelLogicExceptions;
+package main.model.exceptions;
 
 /**
  * Eccezione che verifica che il famigliare selezionato è già stato posizionato

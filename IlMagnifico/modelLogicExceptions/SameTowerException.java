@@ -5,8 +5,8 @@ package modelLogicExceptions;
  * già posizionato un famigliare non neutro e si accinge a posizionarne un altro
  * non neutro
  */
-public class SameAreaException extends Exception {
-	public SameAreaException() {
+public class SameTowerException extends Exception {
+	public SameTowerException() {
 		super();
 	}
 }
