@@ -66,7 +66,7 @@ public class Giocatore implements Serializable {
 		this.colore = null;
 		this.famiglia = new Famigliare[4];
 		this.famiglia[3].setNeutralita(true);
-		this.risorse = new Risorsa();
+		this.risorse = new Risorsa(this);
 		this.plancia = new Plancia();
 		this.punti = new Punti(this);
 		this.scomuniche = new Scomunica[3];

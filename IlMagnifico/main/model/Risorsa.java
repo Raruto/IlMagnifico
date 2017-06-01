@@ -10,7 +10,8 @@ public class Risorsa {
 	/**
 	 * Default constructor
 	 */
-	public Risorsa() {
+	public Risorsa(Giocatore giocatore) {
+		this.giocatoreAppartenenza = giocatore;
 	}
 
 	/**
@@ -32,6 +33,8 @@ public class Risorsa {
 	 * 
 	 */
 	private int servitori;
+
+	private Giocatore giocatoreAppartenenza;
 
 	/**
 	 * Applica la variazione delle monete. Se il parametro in ingresso ﾃｨ
