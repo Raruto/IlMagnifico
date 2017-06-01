@@ -212,7 +212,46 @@ public class Giocatore implements Serializable {
 		return this.famiglia[numeroFamigliare];
 	}
 
+	/**
+	 * Metodo che restituisce la scomunica nell'array alla posizione indicata in
+	 * ingresso
+	 * 
+	 * @param
+	 * @return
+	 */
 	public Scomunica getScomunica(int posizioneScomunica) {
 		return this.scomuniche[posizioneScomunica];
+	}
+
+	/**
+	 * Metodo che implementa il Raccolto
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void raccolto(int valoreAzione) {
+		Carta carta = new Carta(null, null, null, null, 0, 0) {
+		};
+		for (int i = 0; i < getPlancia().getTerritori().size(); i++) {
+			carta = getPlancia().getTerritori().get(i);
+			if (valoreAzione >= carta.getValoreNecessarioEffettoPermanente())
+				carta.effettoPermanente(this, null, null);
+		}
+	}
+
+	/**
+	 * Metodo che implementa la Produzione
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void produzione(int valoreAzione) {
+		Carta carta = new Carta(null, null, null, null, 0, 0) {
+		};
+		for (int i = 0; i < getPlancia().getEdifici().size(); i++) {
+			carta = getPlancia().getEdifici().get(i);
+			if (valoreAzione >= carta.getValoreNecessarioEffettoPermanente())
+				carta.effettoPermanente(this, null, null);
+		}
 	}
 }
