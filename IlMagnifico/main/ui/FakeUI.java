@@ -199,9 +199,18 @@ public class FakeUI {
 		while (!ok) {
 			System.out.println("'q' to quit\n");
 			System.out.println("Available actions: ");
-			for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
-				System.out.print("[" + act.toString() + "] ");
+			/*
+			 * for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
+			 * System.out.print("[" + act.toString() + "] "); }
+			 */
+			EAzioniGiocatore[] a = EAzioniGiocatore.values();
+
+			for (int i = 0; i < a.length; i++) {
+				System.out.print("[" + a[i].toString() + "] ");
+				if (i % 7 == 0 && i != 0)
+					System.out.println();
 			}
+
 			System.out.println();
 
 			inText = scanner.nextLine().toLowerCase();

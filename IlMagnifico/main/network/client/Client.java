@@ -11,6 +11,7 @@ import main.network.protocol.ErrorCodes;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
 import main.util.Costants;
+import main.util.errors.Errors;
 import main.util.game.EAzioniGiocatore;
 import main.util.game.EFasiDiGioco;
 import main.util.network.ConnectionTypes;
@@ -349,7 +350,13 @@ public class Client implements IClient {
 
 	@Override
 	public void onActionNotValid(String errorCode) {
-		System.err.println("\n" + errorCode);
+		try {
+			System.err.println("\n" + Errors.valueOf(errorCode).toString());
+		} catch (RuntimeException e) {
+			// In casi estremi!
+			System.err.println("\nUnknown error: " + errorCode);
+		}
+
 	}
 
 	/**
