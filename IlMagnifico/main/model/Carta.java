@@ -150,36 +150,6 @@ public abstract class Carta {
 	}
 
 	/**
-	 * Metodo che controlla se l'effetto permanente si attiva quando il
-	 * giocatore esegue un'azione raccolto
-	 * 
-	 * @param
-	 * @return
-	 */
-	public void attivaOnRaccolto(Giocatore giocatore) {
-		// tra i parametri delle carte in posizione 2 ci sarà l'azione a cui
-		// corrisponde l'attivazione.
-		// Qui controllo che il primo effetto si attivi sul raccolto e se sì lo
-		// attivo, altrimenti non faccio niente
-		if ((EAzioniGiocatore) (this.effettoPermanente.get(0)[2]) == EAzioniGiocatore.Raccolto)
-			effettoPermanente(giocatore);
-	}
-
-	/**
-	 * Metodo che controlla se l'effetto permanente si attiva quando viene
-	 * eseguita un'azione produzione dal giocatore
-	 * 
-	 * @param
-	 * @return
-	 */
-	public void attivaOnProduzione(Giocatore giocatore) {
-		for (int i = 0; i < this.effettoPermanente.size(); i++) {
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiTerritorio)
-				attivaEffettoSingolo(this.effettoPermanente.get(i));
-		}
-	}
-
-	/**
 	 * Metodo che effettua l'acquisto da parte di un giocatore di una carta
 	 * 
 	 */
@@ -190,62 +160,17 @@ public abstract class Carta {
 	}
 
 	/**
-	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
-	 * esegue una azione che prende una carta territorio
+	 * Metodo che verifica che un effetto possa essere attivato e lo attiva
 	 * 
 	 * @param
 	 * @return
 	 */
-	public void attivaOnPrendiTerritorio(Famigliare famigliare) {
+	public void attivaOnAzione(Giocatore giocatore, EAzioniGiocatore azione, Famigliare famigliare, Carta carta) {
 		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			this.effettoPermanente.get(i)[1] = giocatore;
 			this.effettoPermanente.get(i)[3] = famigliare;
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiTerritorio)
-				attivaEffettoSingolo(this.effettoPermanente.get(i));
-		}
-	}
-
-	/**
-	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
-	 * esegue una azione che prende una carta personaggio
-	 * 
-	 * @param
-	 * @return
-	 */
-	public void attivaOnPrendiPersonaggio(Famigliare famigliare) {
-		for (int i = 0; i < this.effettoPermanente.size(); i++) {
-			this.effettoPermanente.get(i)[3] = famigliare;
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiPersonaggio)
-				attivaEffettoSingolo(this.effettoPermanente.get(i));
-		}
-	}
-
-	/**
-	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
-	 * esegue una azione che prende una carta edificio
-	 * 
-	 * @param
-	 * @return
-	 */
-	public void attivaOnPrendiEdificio(Famigliare famigliare) {
-		for (int i = 0; i < this.effettoPermanente.size(); i++) {
-			this.effettoPermanente.get(i)[3] = famigliare;
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiEdificio)
-				attivaEffettoSingolo(this.effettoPermanente.get(i));
-		}
-	}
-
-	/**
-	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
-	 * esegue una azione che prende una carta edificio
-	 * 
-	 * @param
-	 * @return
-	 * 
-	 */
-	public void attivaOnPrendiImpresa(Famigliare famigliare) {
-		for (int i = 0; i < this.effettoPermanente.size(); i++) {
-			this.effettoPermanente.get(i)[3] = famigliare;
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiImpresa)
+			this.effettoPermanente.get(i)[4] = carta;
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == azione)
 				attivaEffettoSingolo(this.effettoPermanente.get(i));
 		}
 	}
@@ -260,5 +185,22 @@ public abstract class Carta {
 		else if ((int) parametri[0] == 3)
 			utilEffetto.eseguiPrivilegioDelConsiglio(parametri);
 		// TODO:finire di elencare i metodi possibili
+	}
+
+	/**
+	 * Metodo che controlla che uno degli effetti permanenti si attivi sul bonus
+	 * percepito dalla azione della torre. Ritorna true se tale effetto esiste,
+	 * false altrimenti
+	 * 
+	 * @param
+	 * @return
+	 * 
+	 */
+	public boolean attivaOnEffettoTorre() {
+		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			if (this.effettoPermanente.get(i)[2] == EAzioniGiocatore.EffettoTorre)
+				return true;
+		}
+		return false;
 	}
 }

@@ -1,6 +1,8 @@
 package main.model;
 
 import java.util.*;
+
+import main.util.game.EAzioniGiocatore;
 import modelLogicExceptions.*;
 
 /**
@@ -125,31 +127,36 @@ public class Famigliare {
 		// delle scomuniche
 		for (int j = 0; j < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); j++) {
 			if (identificativoTorre == 0)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
-						.attivaOnPrendiTerritorio(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
+						EAzioniGiocatore.PrendiTerritorio, famigliareTemporaneo, null);
 			if (identificativoTorre == 1)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
-						.attivaOnPrendiPersonaggio(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
+						EAzioniGiocatore.PrendiPersonaggio, famigliareTemporaneo, null);
 			if (identificativoTorre == 2)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
-						.attivaOnPrendiEdificio(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
+						EAzioniGiocatore.PrendiEdificio, famigliareTemporaneo, null);
 			if (identificativoTorre == 3)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j)
-						.attivaOnPrendiImpresa(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
+						EAzioniGiocatore.PrendiImpresa, famigliareTemporaneo, null);
 		}
 
 		if ((famigliareTemporaneo.neutro == false) && (this.giocatoreAppartenenza.getScomunica(0) != null))
-			this.giocatoreAppartenenza.getScomunica(0).attivaOnMuoviColorato(famigliareTemporaneo);
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.MuoviColorato,
+					famigliareTemporaneo, null);
 
 		if (this.giocatoreAppartenenza.getScomunica(1) != null) {
 			if (identificativoTorre == 0)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiTerritorio(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiTerritorio,
+						famigliareTemporaneo, null);
 			if (identificativoTorre == 1)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiPersonaggio(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiPersonaggio,
+						famigliareTemporaneo, null);
 			if (identificativoTorre == 2)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiEdificio(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiEdificio,
+						famigliareTemporaneo, null);
 			if (identificativoTorre == 3)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiImpresa(famigliareTemporaneo);
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiImpresa,
+						famigliareTemporaneo, null);
 		}
 
 		// controllo che il famigliare abbia un valore sufficiente per l'azione
@@ -172,7 +179,7 @@ public class Famigliare {
 		boolean controllo = false;
 		if (posizione % 4 == 3 | posizione % 4 == 2) {
 			for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-				if (attivaOnEffettoTorre())
+				if (this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnEffettoTorre())
 					controllo = true;
 			}
 			if (controllo == false)
@@ -183,17 +190,17 @@ public class Famigliare {
 		for (int j = 0; j < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); j++) {
 			Personaggio cartaPersonaggio = this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j);
 			if (identificativoTorre == 0)
-				cartaPersonaggio.attivaOnPagaTerritorio(famigliareTemporaneo.giocatoreAppartenenza,
-						spazioAzione.getCartaTorre(posizione));
+				cartaPersonaggio.attivaOnAzione(famigliareTemporaneo.giocatoreAppartenenza,
+						EAzioniGiocatore.PagaTerritorio, null, spazioAzione.getCartaTorre(posizione));
 			if (identificativoTorre == 1)
-				cartaPersonaggio.attivaOnPagaPersonaggio(famigliareTemporaneo.giocatoreAppartenenza,
-						spazioAzione.getCartaTorre(posizione));
+				cartaPersonaggio.attivaOnAzione(famigliareTemporaneo.giocatoreAppartenenza,
+						EAzioniGiocatore.PagaPersonaggio, null, spazioAzione.getCartaTorre(posizione));
 			if (identificativoTorre == 2)
-				cartaPersonaggio.attivaOnPagaEdificio(famigliareTemporaneo.giocatoreAppartenenza,
-						spazioAzione.getCartaTorre(posizione));
+				cartaPersonaggio.attivaOnAzione(famigliareTemporaneo.giocatoreAppartenenza,
+						EAzioniGiocatore.PagaEdificio, null, spazioAzione.getCartaTorre(posizione));
 			if (identificativoTorre == 3)
-				cartaPersonaggio.attivaOnPagaImpresa(famigliareTemporaneo.giocatoreAppartenenza,
-						spazioAzione.getCartaTorre(posizione));
+				cartaPersonaggio.attivaOnAzione(famigliareTemporaneo.giocatoreAppartenenza,
+						EAzioniGiocatore.PagaImpresa, null, spazioAzione.getCartaTorre(posizione));
 		}
 
 		// controllo se posso pagare la carta. Se sì, effettuo il pagamento,
