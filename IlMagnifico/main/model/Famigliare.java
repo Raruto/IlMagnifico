@@ -1,6 +1,7 @@
 package main.model;
 
 import java.util.*;
+import modelLogicExceptions.*;
 
 /**
  * 
@@ -63,8 +64,13 @@ public class Famigliare {
 	 * @return
 	 */
 	public void eseguiSpostamentoTorre(int posizione)
-			throws FamigliareSpostatoException, SpazioOccupatoException, SameTowerException {
+			throws FamigliareSpostatoException, SpazioOccupatoException, SameTowerException, InvalidPositionException,
+			InsufficientValueException, NoMoneyException, NoEnoughResourcesException, MaxCardsReachedException {
 		int identificativoTorre = 0;
+
+		if (posizione < 0 | posizione > 15)
+			throw new InvalidPositionException();
+
 		if (this.posizionato == true)
 			throw new FamigliareSpostatoException();
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
@@ -80,11 +86,21 @@ public class Famigliare {
 		for (int i = 4 * identificativoTorre; i < identificativoTorre + 4; i++) {
 			// controllo che il giocatore sulla stessa torre non abbia due
 			// famigliari colorati
-			if ((spazioAzione.getFamigliareTorre(i).getGiocatore().getColore() == this.giocatoreAppartenenza
-					.getColore()) && (spazioAzione.getFamigliareTorre(i).getNeutralita() == false)
-					&& (this.neutro == false))
+			if ((spazioAzione.getFamigliareTorre(i).getGiocatore() == this.giocatoreAppartenenza)
+					&& (spazioAzione.getFamigliareTorre(i).getNeutralita() == false) && (this.neutro == false))
 				throw new SameTowerException();
 		}
+
+		if (identificativoTorre == 0 && this.giocatoreAppartenenza.getPlancia().getTerritori().size() == 6)
+			throw new MaxCardsReachedException();
+		if (identificativoTorre == 1 && this.giocatoreAppartenenza.getPlancia().getPersonaggi().size() == 6)
+			throw new MaxCardsReachedException();
+
+		if (identificativoTorre == 2 && this.giocatoreAppartenenza.getPlancia().getEdifici().size() == 6)
+			throw new MaxCardsReachedException();
+
+		if (identificativoTorre == 3 && this.giocatoreAppartenenza.getPlancia().getImprese().size() == 6)
+			throw new MaxCardsReachedException();
 
 		// creo un famigliare temporaneo su cui fare tutti i calcoli derivanti
 		// da effetti
@@ -136,53 +152,78 @@ public class Famigliare {
 				this.giocatoreAppartenenza.getScomunica(1).attivaOnPrendiImpresa(famigliareTemporaneo);
 		}
 
-		// TODO:finire di implementare, non toccatemelo per favore che è un
-		// casino
+		// controllo che il famigliare abbia un valore sufficiente per l'azione
+		if (famigliareTemporaneo.valore < (1 + 2 * (posizione % 4)))
+			throw new InsufficientValueException();
 
-		/*
-		 * if (posizione % 4 == 0 && valore < 1) // controlla alternativamente
-		 * le prime ,le seconde, terze e quarte // posizioni e controlla che il
-		 * valore della pedina sia abbastanza // grande. Va implementato anche
-		 * il controllo sugli effetti // permanenti delle carte che modificano
-		 * il valore dell'azione return false; else if ((posizione) % 4 == 1 &&
-		 * valore < 3) return false; else if ((posizione) % 4 == 2 && valore <
-		 * 5) return false; else if ((posizione) % 4 == 3 && valore < 7) return
-		 * false;
-		 */
-		Carta cartaTorre = spazioAzione.getCartaTorre(posizione);
-
-		if (!cartaTorre.acquisibile(giocatoreAppartenenza))
-			return false;
-		else { // Quando acquisto una carta, devo pagarla. Bisognerebbe scrivere
-				// un metodo
-				// public void acquisizione(Giocatore giocatore) all'interno di
-				// carta che attivo nel caso in cui acquisibile
-				// restituisca true
-
-			if ((cartaTorre instanceof Personaggio)
-					&& (giocatoreAppartenenza.getPlancia().getPersonaggi().size() < 7)) {
-				giocatoreAppartenenza.getPlancia().getPersonaggi().add((Personaggio) cartaTorre);
-				spazioAzione.setCartaTorre(null, posizione);
-			} else if ((cartaTorre instanceof Territorio)
-					&& (giocatoreAppartenenza.getPlancia().getTerritori().size() < 7)) {
-				giocatoreAppartenenza.getPlancia().getTerritori().add((Territorio) cartaTorre);
-				spazioAzione.setCartaTorre(null, posizione);
-			} else if ((cartaTorre instanceof Edificio)
-					&& (giocatoreAppartenenza.getPlancia().getEdifici().size() < 7)) {
-				giocatoreAppartenenza.getPlancia().getEdifici().add((Edificio) cartaTorre);
-				spazioAzione.setCartaTorre(null, posizione);
-			} else if ((cartaTorre instanceof Impresa)
-					&& (giocatoreAppartenenza.getPlancia().getImprese().size() < 7)) {
-				giocatoreAppartenenza.getPlancia().getImprese().add((Impresa) cartaTorre);
-				spazioAzione.setCartaTorre(null, posizione);
-			} else
-				return false;
+		// guardo se c'è un'altra pedina e nel caso pago 3 monete
+		for (int i = 4 * identificativoTorre; i < identificativoTorre + 4; i++) {
+			if (spazioAzione.torreLibera(i) == false) {
+				if (famigliareTemporaneo.giocatoreAppartenenza.getRisorse().getMonete() < 3)
+					throw new NoMoneyException();
+				else {
+					famigliareTemporaneo.giocatoreAppartenenza.getRisorse().cambiaMonete(-3);
+					break;
+				}
+			}
 		}
 
-		cartaTorre.effettoImmediato(giocatoreAppartenenza);
+		// Applico l'eventuale bonus della torre
+		boolean controllo = false;
+		if (posizione % 4 == 3 | posizione % 4 == 2) {
+			for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+				if (attivaOnEffettoTorre())
+					controllo = true;
+			}
+			if (controllo == false)
+				spazioAzione.eseguiEffettoImmediatoTorre(famigliareTemporaneo.giocatoreAppartenenza, posizione);
+		}
 
-		spazioAzione.setFamigliareTorre(this, posizione);
-		return true;
+		// controllo le carte personaggio per applicare eventuali sconti
+		for (int j = 0; j < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); j++) {
+			Personaggio cartaPersonaggio = this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j);
+			if (identificativoTorre == 0)
+				cartaPersonaggio.attivaOnPagaTerritorio(famigliareTemporaneo.giocatoreAppartenenza,
+						spazioAzione.getCartaTorre(posizione));
+			if (identificativoTorre == 1)
+				cartaPersonaggio.attivaOnPagaPersonaggio(famigliareTemporaneo.giocatoreAppartenenza,
+						spazioAzione.getCartaTorre(posizione));
+			if (identificativoTorre == 2)
+				cartaPersonaggio.attivaOnPagaEdificio(famigliareTemporaneo.giocatoreAppartenenza,
+						spazioAzione.getCartaTorre(posizione));
+			if (identificativoTorre == 3)
+				cartaPersonaggio.attivaOnPagaImpresa(famigliareTemporaneo.giocatoreAppartenenza,
+						spazioAzione.getCartaTorre(posizione));
+		}
+
+		// controllo se posso pagare la carta. Se sì, effettuo il pagamento,
+		// prendo la carta, eseguo l'effetto immediato e posiziono il famigliare
+		if (!spazioAzione.getCartaTorre(posizione).acquisibile(famigliareTemporaneo.giocatoreAppartenenza))
+			throw new NoEnoughResourcesException();
+		else {
+			spazioAzione.getCartaTorre(posizione).acquisizione(giocatoreAppartenenza);
+			if (identificativoTorre == 0) {
+				this.giocatoreAppartenenza.getPlancia().aggiungiTerritorio(spazioAzione.getCartaTorre(posizione));
+				spazioAzione.setCartaTorre(null, posizione);
+				this.giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoImmediato(giocatoreAppartenenza);
+			}
+			if (identificativoTorre == 1) {
+				this.giocatoreAppartenenza.getPlancia().aggiungiPersonaggio(spazioAzione.getCartaTorre(posizione));
+				spazioAzione.setCartaTorre(null, posizione);
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(0).effettoImmediato(giocatoreAppartenenza);
+			}
+			if (identificativoTorre == 2) {
+				this.giocatoreAppartenenza.getPlancia().aggiungiEdificio(spazioAzione.getCartaTorre(posizione));
+				spazioAzione.setCartaTorre(null, posizione);
+				this.giocatoreAppartenenza.getPlancia().getEdifici().get(0).effettoImmediato(giocatoreAppartenenza);
+			}
+			if (identificativoTorre == 3) {
+				this.giocatoreAppartenenza.getPlancia().aggiungiImpresa(spazioAzione.getCartaTorre(posizione));
+				spazioAzione.setCartaTorre(null, posizione);
+				this.giocatoreAppartenenza.getPlancia().getImprese().get(0).effettoImmediato(giocatoreAppartenenza);
+			}
+			spazioAzione.setFamigliareTorre(this, posizione);
+		}
 	}
 
 	/**

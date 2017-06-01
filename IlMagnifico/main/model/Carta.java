@@ -93,9 +93,11 @@ public abstract class Carta {
 	 * @param Object
 	 * @return
 	 */
-	public void effettoImmediato(Giocatore giocatore) {
+	public void effettoImmediato(Giocatore giocatore, Famigliare famigliare, Carta carta) {
 		for (int i = 0; i < effettoImmediato.size(); i++) {
 			effettoImmediato.get(i)[1] = giocatore;
+			effettoImmediato.get(i)[3] = famigliare;
+			effettoImmediato.get(i)[4] = carta;
 			if ((int) effettoImmediato.get(i)[0] == 0)
 				utilEffetto.aggiungiRisorse(effettoImmediato.get(i));
 			else if ((int) effettoImmediato.get(i)[0] == 3)
@@ -109,9 +111,11 @@ public abstract class Carta {
 	 * @param Object
 	 * @return
 	 */
-	public void effettoPermanente(Giocatore giocatore) {
+	public void effettoPermanente(Giocatore giocatore, Famigliare famigliare, Carta carta) {
 		for (int i = 0; i < effettoPermanente.size(); i++) {
 			effettoPermanente.get(i)[1] = giocatore;
+			effettoPermanente.get(i)[3] = famigliare;
+			effettoPermanente.get(i)[4] = carta;
 			if ((int) effettoPermanente.get(i)[0] == 0)
 				utilEffetto.aggiungiRisorse(effettoPermanente.get(i));
 			else if ((int) effettoPermanente.get(i)[0] == 3)
@@ -164,11 +168,20 @@ public abstract class Carta {
 			effettoPermanente(giocatore);
 	}
 
-	/***/
+	/**
+	 * Metodo che effettua l'acquisto da parte di un giocatore di una carta
+	 * 
+	 */
 	public void acquisizione(Giocatore giocatore) {
 		// TODO:se il giocatore può pagare in un solo modo non ci sono problemi,
 		// ma se può pagare in tutti e due i modi deve potere decidere
 
 	}
 
+	public void attivaOnPrendiTerritorio(Famigliare famigliare){
+		for(int i=0;i<this.effettoPermanente.size();i++){
+			if((EAzioniGiocatore) (this.effettoPermanente.get(i)[2])==EAzioniGiocatore.PrendiTerritorio)
+				
+		}
+	}
 }
