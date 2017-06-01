@@ -203,24 +203,32 @@ public class Famigliare {
 		else {
 			spazioAzione.getCartaTorre(posizione).acquisizione(giocatoreAppartenenza);
 			if (identificativoTorre == 0) {
-				this.giocatoreAppartenenza.getPlancia().aggiungiTerritorio(spazioAzione.getCartaTorre(posizione));
+				this.giocatoreAppartenenza.getPlancia()
+						.aggiungiTerritorio((Territorio) (spazioAzione.getCartaTorre(posizione)));
 				spazioAzione.setCartaTorre(null, posizione);
-				this.giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoImmediato(giocatoreAppartenenza);
+				this.giocatoreAppartenenza.getPlancia().getTerritori().get(0).effettoImmediato(giocatoreAppartenenza,
+						this, null);
 			}
 			if (identificativoTorre == 1) {
-				this.giocatoreAppartenenza.getPlancia().aggiungiPersonaggio(spazioAzione.getCartaTorre(posizione));
+				this.giocatoreAppartenenza.getPlancia()
+						.aggiungiPersonaggio((Personaggio) (spazioAzione.getCartaTorre(posizione)));
 				spazioAzione.setCartaTorre(null, posizione);
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(0).effettoImmediato(giocatoreAppartenenza);
+				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(0).effettoImmediato(giocatoreAppartenenza,
+						this, null);
 			}
 			if (identificativoTorre == 2) {
-				this.giocatoreAppartenenza.getPlancia().aggiungiEdificio(spazioAzione.getCartaTorre(posizione));
+				this.giocatoreAppartenenza.getPlancia()
+						.aggiungiEdificio((Edificio) (spazioAzione.getCartaTorre(posizione)));
 				spazioAzione.setCartaTorre(null, posizione);
-				this.giocatoreAppartenenza.getPlancia().getEdifici().get(0).effettoImmediato(giocatoreAppartenenza);
+				this.giocatoreAppartenenza.getPlancia().getEdifici().get(0).effettoImmediato(giocatoreAppartenenza,
+						this, null);
 			}
 			if (identificativoTorre == 3) {
-				this.giocatoreAppartenenza.getPlancia().aggiungiImpresa(spazioAzione.getCartaTorre(posizione));
+				this.giocatoreAppartenenza.getPlancia()
+						.aggiungiImpresa((Impresa) (spazioAzione.getCartaTorre(posizione)));
 				spazioAzione.setCartaTorre(null, posizione);
-				this.giocatoreAppartenenza.getPlancia().getImprese().get(0).effettoImmediato(giocatoreAppartenenza);
+				this.giocatoreAppartenenza.getPlancia().getImprese().get(0).effettoImmediato(giocatoreAppartenenza,
+						this, null);
 			}
 			spazioAzione.setFamigliareTorre(this, posizione);
 		}

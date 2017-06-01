@@ -98,10 +98,14 @@ public abstract class Carta {
 			effettoImmediato.get(i)[1] = giocatore;
 			effettoImmediato.get(i)[3] = famigliare;
 			effettoImmediato.get(i)[4] = carta;
-			if ((int) effettoImmediato.get(i)[0] == 0)
-				utilEffetto.aggiungiRisorse(effettoImmediato.get(i));
-			else if ((int) effettoImmediato.get(i)[0] == 3)
-				utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
+			/*
+			 * if ((int) effettoImmediato.get(i)[0] == 0)
+			 * utilEffetto.aggiungiRisorse(effettoImmediato.get(i)); else if
+			 * ((int) effettoImmediato.get(i)[0] == 3)
+			 * utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i))
+			 * ;
+			 */
+			attivaEffettoSingolo(this.effettoImmediato.get(i));
 		}
 	}
 
@@ -116,19 +120,24 @@ public abstract class Carta {
 			effettoPermanente.get(i)[1] = giocatore;
 			effettoPermanente.get(i)[3] = famigliare;
 			effettoPermanente.get(i)[4] = carta;
-			if ((int) effettoPermanente.get(i)[0] == 0)
-				utilEffetto.aggiungiRisorse(effettoPermanente.get(i));
-			else if ((int) effettoPermanente.get(i)[0] == 3)
-				utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i));
+			attivaEffettoSingolo(effettoPermanente.get(i));
+			/*
+			 * if ((int) effettoPermanente.get(i)[0] == 0)
+			 * utilEffetto.aggiungiRisorse(effettoPermanente.get(i)); else if
+			 * ((int) effettoPermanente.get(i)[0] == 3)
+			 * utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i))
+			 * ;
+			 */
 		}
 	}
 
-	public boolean Attivabile(int valoreAzione) { // gli passo un valore, non il
-													// famigliare, perchﾃｨ devo
-													// potere variare il valore
-													// a seconda dei bonus e
-													// malus ricevuti con
-													// effetti vari
+	public boolean Attivabile(int valoreAzione) {
+		// gli passo un valore, non il
+		// famigliare, perchﾃｨ devo
+		// potere variare il valore
+		// a seconda dei bonus e
+		// malus ricevuti con
+		// effetti vari
 		if (valoreAzione >= this.valoreNecessarioEffettoPermanente)
 			return true;
 		else
@@ -164,8 +173,10 @@ public abstract class Carta {
 	 * @return
 	 */
 	public void attivaOnProduzione(Giocatore giocatore) {
-		if ((EAzioniGiocatore) (this.effettoPermanente.get(0)[2]) == EAzioniGiocatore.Produzione)
-			effettoPermanente(giocatore);
+		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiTerritorio)
+				attivaEffettoSingolo(this.effettoPermanente.get(i));
+		}
 	}
 
 	/**
@@ -178,10 +189,76 @@ public abstract class Carta {
 
 	}
 
-	public void attivaOnPrendiTerritorio(Famigliare famigliare){
-		for(int i=0;i<this.effettoPermanente.size();i++){
-			if((EAzioniGiocatore) (this.effettoPermanente.get(i)[2])==EAzioniGiocatore.PrendiTerritorio)
-				
+	/**
+	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
+	 * esegue una azione che prende una carta territorio
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void attivaOnPrendiTerritorio(Famigliare famigliare) {
+		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			this.effettoPermanente.get(i)[3] = famigliare;
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiTerritorio)
+				attivaEffettoSingolo(this.effettoPermanente.get(i));
 		}
+	}
+
+	/**
+	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
+	 * esegue una azione che prende una carta personaggio
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void attivaOnPrendiPersonaggio(Famigliare famigliare) {
+		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			this.effettoPermanente.get(i)[3] = famigliare;
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiPersonaggio)
+				attivaEffettoSingolo(this.effettoPermanente.get(i));
+		}
+	}
+
+	/**
+	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
+	 * esegue una azione che prende una carta edificio
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void attivaOnPrendiEdificio(Famigliare famigliare) {
+		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			this.effettoPermanente.get(i)[3] = famigliare;
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiEdificio)
+				attivaEffettoSingolo(this.effettoPermanente.get(i));
+		}
+	}
+
+	/**
+	 * Metodo che va ad eseguire le variazioni sul valore dell'azione quando si
+	 * esegue una azione che prende una carta edificio
+	 * 
+	 * @param
+	 * @return
+	 * 
+	 */
+	public void attivaOnPrendiImpresa(Famigliare famigliare) {
+		for (int i = 0; i < this.effettoPermanente.size(); i++) {
+			this.effettoPermanente.get(i)[3] = famigliare;
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.PrendiImpresa)
+				attivaEffettoSingolo(this.effettoPermanente.get(i));
+		}
+	}
+
+	/**
+	 * Metodo che, dato un array di Object in ingresso, va ad eseguire l'effetto
+	 * corrispondente con i parametri codificati nell'array di Object
+	 */
+	public void attivaEffettoSingolo(Object[] parametri) {
+		if ((int) parametri[0] == 0)
+			utilEffetto.aggiungiRisorse(parametri);
+		else if ((int) parametri[0] == 3)
+			utilEffetto.eseguiPrivilegioDelConsiglio(parametri);
+		// TODO:finire di elencare i metodi possibili
 	}
 }
