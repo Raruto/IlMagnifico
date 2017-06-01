@@ -1,7 +1,7 @@
 package main.network.protocol.socket;
 
-import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
+import main.network.server.game.exceptions.JoinRoomException;
 
 /**
  * This interface is used as callback for communication from the socket protocol

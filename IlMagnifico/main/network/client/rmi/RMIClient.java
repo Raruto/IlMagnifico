@@ -14,8 +14,8 @@ import main.network.client.IClient;
 import main.network.exceptions.*;
 import main.network.protocol.rmi.RMIClientInterface;
 import main.network.protocol.rmi.RMIServerInterface;
-import main.network.server.game.GameException;
 import main.network.server.game.UpdateStats;
+import main.network.server.game.exceptions.GameException;
 import main.network.server.rmi.*;
 
 /**

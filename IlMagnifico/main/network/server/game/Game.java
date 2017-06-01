@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import main.model.Giocatore;
 import main.model.Partita;
-import main.network.protocol.ErrorCodes;
+import main.network.server.game.exceptions.GameException;
 import main.util.errors.Errors;
 import main.util.errors.GameError;
 import main.util.game.EAzioniGiocatore;
@@ -125,7 +125,7 @@ public class Game extends Partita {
 			UpdateStats update;
 			try {
 				update = handleResponse(remotePlayer, requestedAction);
-				//turnazione();
+				// turnazione();
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import main.network.NetworkException;
-import main.network.exceptions.CreateRoomException;
-import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.Room;
-import main.network.server.game.RoomFullException;
+import main.network.server.game.exceptions.CreateRoomException;
+import main.network.server.game.exceptions.JoinRoomException;
+import main.network.server.game.exceptions.RoomFullException;
 import main.network.server.rmi.RMIServer;
 import main.network.server.socket.SocketServer;
 import main.util.Costants;

@@ -1,4 +1,4 @@
-package main.network.exceptions;
+package main.network.server.game.exceptions;
 
 import main.network.NetworkException;
 

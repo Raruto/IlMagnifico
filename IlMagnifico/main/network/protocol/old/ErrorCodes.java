@@ -1,4 +1,4 @@
-package main.network.protocol;
+package main.network.protocol.old;
 
 /**
  * This class is used to define all possible error that can occur during the

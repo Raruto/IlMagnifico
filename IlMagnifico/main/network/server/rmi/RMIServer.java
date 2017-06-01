@@ -8,16 +8,16 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.UUID;
 
-import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.protocol.rmi.RMIClientInterface;
 import main.network.protocol.rmi.RMIServerInterface;
 import main.network.server.AbstractServer;
 import main.network.server.IServer;
 import main.network.server.ServerException;
-import main.network.server.game.GameException;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
+import main.network.server.game.exceptions.GameException;
+import main.network.server.game.exceptions.JoinRoomException;
 
 /**
  * Estende {@link AbstractServer} per consentire di implementare la

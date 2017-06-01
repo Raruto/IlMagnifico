@@ -1,4 +1,4 @@
-package main.network.server.game;
+package main.network.server.game.exceptions;
 
 /**
  * This exception is thrown when a player is trying to join in a full or closed
