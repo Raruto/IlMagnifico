@@ -189,8 +189,8 @@ public class Famigliare {
 	}
 
 	/**
-	 * Metodo che controlla i malus derivanti da effetti permanenti delle carte
-	 * quando eseguo uno spostamento su una torre
+	 * Metodo che controlla i malus e i bonus derivanti da effetti permanenti
+	 * delle carte quando eseguo uno spostamento su una torre
 	 * 
 	 * @param
 	 * @return
@@ -377,13 +377,31 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public boolean eseguiSpostamentoRaccoltoRotondo() {
+	public void eseguiSpostamentoRaccoltoRotondo() throws SpazioOccupatoException, InsufficientValueException {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-
+		// controllo se l'area è occupata
 		if (!(spazioAzione.zonaRaccoltoRotondaLibera()))
-			return false;
-		if (valore < 1)
-			return false;
+			throw new SpazioOccupatoException();
+
+		// creo un clone del mio famigliare
+		Famigliare famigliareTemporaneo = clonaFamigliare();
+
+		// applico gli effetti permanenti delle carte e gli effetti delle
+		// scomuniche
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnAzione(null,
+					EAzioniGiocatore.Raccolto, famigliareTemporaneo, null);
+		}
+
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto,
+					famigliareTemporaneo, null);
+		
+		//guardo se ho abbastanza valore con la pedina
+		if(famigliareTemporaneo.valore<1)
+			throw new InsufficientValueException();
+		
+		
 
 		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
 			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
