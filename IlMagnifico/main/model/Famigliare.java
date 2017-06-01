@@ -63,7 +63,7 @@ public class Famigliare {
 	 * @return
 	 */
 	public void eseguiSpostamentoTorre(int posizione) throws FamigliareSpostatoException, SpazioOccupatoException,
-			SameTowerException, InvalidPositionException, InsufficientValueException, NoMoneyException,
+			SameAreaException, InvalidPositionException, InsufficientValueException, NoMoneyException,
 			NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
 		int identificativoTorre = 0;
 
@@ -135,13 +135,13 @@ public class Famigliare {
 	 * @param
 	 * @return
 	 */
-	public void controlloSameTower(int identificativoTorre, SpazioAzione spazioAzione) throws SameTowerException {
+	public void controlloSameTower(int identificativoTorre, SpazioAzione spazioAzione) throws SameAreaException {
 		for (int i = 4 * identificativoTorre; i < identificativoTorre + 4; i++) {
 			// controllo che il giocatore sulla stessa torre non abbia due
 			// famigliari colorati
 			if ((spazioAzione.getFamigliareTorre(i).getGiocatore() == this.giocatoreAppartenenza)
 					&& (spazioAzione.getFamigliareTorre(i).getNeutralita() == false) && (this.neutro == false))
-				throw new SameTowerException();
+				throw new SameAreaException();
 		}
 	}
 
@@ -263,7 +263,7 @@ public class Famigliare {
 
 	/**
 	 * Metodo che controlla che sulla posizione dove viene posizionato il
-	 * famigliare ci sia un bonus. Se c'è lo attiva
+	 * famigliare ci sia un bonus. Se c'è e si può attivare lo attiva
 	 * 
 	 * @param
 	 * @return
@@ -413,7 +413,7 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public boolean eseguiSpostamentoRaccoltoOvale() {
+	public void eseguiSpostamentoRaccoltoOvale() throws{
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 
 		if (valore - 3 < 1)
