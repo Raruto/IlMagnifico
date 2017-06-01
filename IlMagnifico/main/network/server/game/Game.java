@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import main.model.Giocatore;
 import main.model.Partita;
+import main.network.protocol.ErrorCodes;
+import main.util.errors.Errors;
 import main.util.errors.GameError;
 import main.util.game.EAzioniGiocatore;
 import main.util.game.EFasiDiGioco;
@@ -120,7 +122,15 @@ public class Game extends Partita {
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			return handleResponse(remotePlayer, requestedAction);
+			UpdateStats update;
+			try {
+				update = handleResponse(remotePlayer, requestedAction);
+				//turnazione();
+			} catch (Exception e2) {
+				e.setError(Errors.GENERIC_ERROR);
+				throw new GameException(e.toString());
+			}
+			return update;
 		} else {
 			throw new GameException(e.toString());
 		}

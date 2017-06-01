@@ -2,8 +2,8 @@ package main.model;
 
 import java.util.*;
 
+import main.model.exceptions.*;
 import main.util.game.EAzioniGiocatore;
-import modelLogicExceptions.*;
 
 /**
  * 
