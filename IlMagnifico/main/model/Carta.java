@@ -145,7 +145,12 @@ public abstract class Carta {
 			return false;
 	}
 
-	/***/
+	/**
+	 * Metodo che restituisce il periodo della carta
+	 * 
+	 * @param
+	 * @return
+	 */
 	public int getPeriodoCarta() {
 		return this.periodoCarta;
 	}
@@ -203,5 +208,15 @@ public abstract class Carta {
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Metodo che restituisce il valore dell'azione necessario per attivare
+	 * l'effetto permanente della carta, se c'è
+	 * 
+	 * @return
+	 */
+	public int getValoreNecessarioEffettoPermanente() {
+		return this.valoreNecessarioEffettoPermanente;
 	}
 }

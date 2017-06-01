@@ -44,8 +44,6 @@ public class Famigliare {
 	 * @return
 	 */
 	public void cambiaValore(int variazione) {
-		if (valore + variazione < 0)
-			return;
 		valore += variazione;
 	}
 
@@ -331,6 +329,7 @@ public class Famigliare {
 				.setPietre(cloneFamigliare.giocatoreAppartenenza.getRisorse().getPietre());
 		this.giocatoreAppartenenza.getRisorse()
 				.setServitori(cloneFamigliare.giocatoreAppartenenza.getRisorse().getServitori());
+		this.valore = cloneFamigliare.valore;
 	}
 
 	/**
@@ -372,8 +371,7 @@ public class Famigliare {
 
 	/**
 	 * Metodo che effettua lo spostamento sulla zona del raccolto rotonda se le
-	 * condizioni sono rispettate. Restituisce true se va a buon fine, false se
-	 * le condizioni non sono rispettate
+	 * condizioni sono rispettate.
 	 * 
 	 * @return
 	 */
@@ -396,20 +394,16 @@ public class Famigliare {
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
 			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto,
 					famigliareTemporaneo, null);
-		
-		//guardo se ho abbastanza valore con la pedina
-		if(famigliareTemporaneo.valore<1)
+
+		// guardo se ho abbastanza valore con la pedina
+		if (famigliareTemporaneo.valore < 1)
 			throw new InsufficientValueException();
-		
-		
-
-		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
+		else {
+			mergeFamigliari(famigliareTemporaneo);
+			spazioAzione.setZonaRaccoltoRotonda(this);
+			this.posizionato = true;
+			this.giocatoreAppartenenza.raccolto(this.valore);
 		}
-		Raccolto(this.giocatoreAppartenenza, valore);
-
-		spazioAzione.setZonaRaccoltoRotonda(this);
-		return true;
 	}
 
 	/**
@@ -444,27 +438,39 @@ public class Famigliare {
 
 	/**
 	 * Metodo che esegue lo spostamento del famigliare sulla zona di produzione
-	 * rotonda se le condizioni sono rispettate. Restituisce true se va a buon
-	 * fine, false se le condizioni non sono rispettate
+	 * rotonda se le condizioni sono rispettate.
 	 * 
 	 * @return
 	 */
-	public boolean eseguiSpostamentoProduzioneRotondo() {
+	public void eseguiSpostamentoProduzioneRotondo() throws SpazioOccupatoException, InsufficientValueException {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-
+		// controllo se l'area è occupata
 		if (!(spazioAzione.zonaProduzioneRotondaLibera()))
-			return false;
-		if (valore < 1)
-			return false;
+			throw new SpazioOccupatoException();
 
+		// creo un clone del mio famigliare
+		Famigliare famigliareTemporaneo = clonaFamigliare();
+
+		// applico gli effetti permanenti delle carte e gli effetti delle
+		// scomuniche
 		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i)
-					.attivaOnProduzione(this.giocatoreAppartenenza);
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnAzione(null,
+					EAzioniGiocatore.Produzione, famigliareTemporaneo, null);
 		}
-		Produzione(this.giocatoreAppartenenza, this.valore);
 
-		spazioAzione.setZonaProduzioneRotonda(this);
-		return true;
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione,
+					famigliareTemporaneo, null);
+
+		// guardo se ho abbastanza valore con la pedina
+		if (famigliareTemporaneo.valore < 1)
+			throw new InsufficientValueException();
+		else {
+			mergeFamigliari(famigliareTemporaneo);
+			spazioAzione.setZonaProduzioneRotonda(this);
+			this.posizionato = true;
+			this.giocatoreAppartenenza.produzione(this.valore);
+		}
 	}
 
 	/**
@@ -524,7 +530,7 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public boolean eseguiSpostamentoPalazzoConsiglio() {
+	public boolean eseguiSpostamentoPalazzoConsiglio() {llkj
 
 		if (valore < 1)
 			return false;
@@ -545,26 +551,6 @@ public class Famigliare {
 
 	public boolean getPosizionato() {
 		return this.posizionato;
-	}
-
-	/**
-	 * 
-	 * */
-	public void Raccolto(Giocatore giocatore, int valore) {
-		for (int i = 0; i < giocatore.getPlancia().getTerritori().size(); i++) {
-			if (giocatore.getPlancia().getTerritori().get(i).Attivabile(valore))
-				giocatore.getPlancia().getTerritori().get(i).effettoPermanente(giocatore);
-		}
-	}
-
-	/**
-	 * 
-	 * */
-	public void Produzione(Giocatore giocatore, int valore) {
-		for (int i = 0; i < giocatore.getPlancia().getEdifici().size(); i++) {
-			if (giocatore.getPlancia().getEdifici().get(i).Attivabile(valore))
-				giocatore.getPlancia().getEdifici().get(i).effettoPermanente(giocatore);
-		}
 	}
 
 	public void setNeutralita(boolean neutro) {
