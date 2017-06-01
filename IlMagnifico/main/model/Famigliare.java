@@ -419,4 +419,8 @@ public class Famigliare {
 				giocatore.getPlancia().getEdifici().get(i).effettoPermanente(giocatore);
 		}
 	}
+
+	public void setNeutralita(boolean neutro) {
+		this.neutro = neutro;
+	}
 }
