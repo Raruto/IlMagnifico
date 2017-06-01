@@ -346,6 +346,12 @@ public class Client implements IClient {
 		// mUi.showChatMessage(privateMessage, author, message);
 	}
 
+	@Override
+	public void onActionNotValid(int errorCode) {
+		System.err.println("\n" + errorCode);
+
+	}
+
 	/**
 	 * Metodo per il "debug"
 	 */
@@ -391,4 +397,5 @@ public class Client implements IClient {
 		 */
 		void handle(UpdateStats update);
 	}
+
 }

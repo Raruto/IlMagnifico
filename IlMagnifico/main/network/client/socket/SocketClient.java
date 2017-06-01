@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import main.network.NetworkException;
@@ -97,6 +96,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	private void loadResponses() {
 		responseMap.put(Constants.CHAT_MESSAGE, this::notifyChatMessage);
+		responseMap.put(Constants.ACTION_NOT_VALID, this::actionNotValid);
 		responseMap.put(Constants.PERFORM_GAME_ACTION, this::notifyGameUpdate);
 	}
 
@@ -210,6 +210,15 @@ public class SocketClient extends AbstractClient {
 		try {
 			UpdateStats update = (UpdateStats) inputStream.readObject();
 			getController().onGameUpdate(update);
+		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+			System.err.println("Exception while handling server message");
+		}
+	}
+
+	private void actionNotValid() {
+		try {
+			int errorCode = (int) inputStream.readObject();
+			getController().onActionNotValid(errorCode);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			System.err.println("Exception while handling server message");
 		}

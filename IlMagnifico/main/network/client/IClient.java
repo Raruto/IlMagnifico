@@ -1,6 +1,7 @@
 package main.network.client;
 
 import java.rmi.RemoteException;
+
 import main.network.server.game.UpdateStats;
 
 /**
@@ -71,7 +72,7 @@ public interface IClient {
 	 * @param nickname
 	 *            of the player that has disconnected.
 	 */
-	//void onPlayerDisconnected(String nickname);
+	// void onPlayerDisconnected(String nickname);
 
 	/**
 	 * Notify internal bus that the last game turn is started.
@@ -79,9 +80,17 @@ public interface IClient {
 	 * @param nickname
 	 *            of the player that has started the last game turn.
 	 */
-	//void onLastTurnStarted(String nickname);
+	// void onLastTurnStarted(String nickname);
 
 	void onNotify(Object object) throws RemoteException;
+
+	/**
+	 * Notify internal bus that server has respond with an error code.
+	 * 
+	 * @param errorCode
+	 *            that identify the error. See {@link ErrorCodes} for details.
+	 */
+	void onActionNotValid(int errorCode);
 
 	/**
 	 * Notify internal bus that the game is over.

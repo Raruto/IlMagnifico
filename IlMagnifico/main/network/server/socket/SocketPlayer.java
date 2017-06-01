@@ -14,8 +14,10 @@ import main.network.NetworkException;
 import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
+import main.network.protocol.ErrorCodes;
 import main.network.protocol.socket.Constants;
 import main.network.server.IServer;
+import main.network.server.game.GameException;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
@@ -208,10 +210,60 @@ public class SocketPlayer extends RemotePlayer implements Runnable {
 
 			getRoom().performGameAction(this, action);
 
+		} catch (GameException e) {
+			handleGameExceptions(e);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
+
 			System.err.println("Exception while handling client request");
 		}
 	}
+
+	/**
+	 * Handle every exception that can be thrown while doing a main / fast
+	 * action.
+	 * 
+	 * @param e
+	 *            exception to handle.
+	 */
+	private void handleGameExceptions(GameException e) {
+		actionNotValid(ErrorCodes.ERROR_GENERIC_SERVER_ERROR);
+		/*
+		 * if (e instanceof PoliticCardNotYetDrawn) {
+		 * Debug.debug(DEBUG_POLITIC_CARD_NOT_YET_DRAWN, e);
+		 * mSocketProtocol.actionNotValid(ErrorCodes.
+		 * ERROR_POLITIC_CARD_NOT_YET_DRAWN); } else if (e instanceof
+		 * MainActionNotAvailable) {
+		 * Debug.debug(DEBUG_MAIN_ACTION_NOT_AVAILABLE, e);
+		 * mSocketProtocol.actionNotValid(ErrorCodes.
+		 * ERROR_MAIN_ACTION_NOT_AVAILABLE); } else if (e instanceof
+		 * FastActionNotAvailable) {
+		 * Debug.debug(DEBUG_FAST_ACTION_NOT_AVAILABLE, e);
+		 * mSocketProtocol.actionNotValid(ErrorCodes.
+		 * ERROR_FAST_ACTION_NOT_AVAILABLE); } else if (e instanceof
+		 * NotYourTurnException) { Debug.debug(DEBUG_NOT_YOUR_TURN, e);
+		 * mSocketProtocol.actionNotValid(ErrorCodes.ERROR_NOT_PLAYER_TURN); }
+		 * else { handleGameLogicExceptions(e); }
+		 */
+	}
+
+	/**
+	 * Notify the client that an error as occurred.
+	 * 
+	 * @param errorCode
+	 *            that identify the error. {@link ErrorCodes} for details.
+	 */
+	private void actionNotValid(int errorCode) {
+		synchronized (OUTPUT_MUTEX) {
+			try {
+				outputStream.writeObject(Constants.ACTION_NOT_VALID);
+				outputStream.writeObject(errorCode);
+				outputStream.flush();
+			} catch (IOException e) {
+				System.err.println("[socket protocol] Player is disconnected");
+			}
+		}
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Thread per la gestione dei messaggi di richiesta (CLIENT --> SERVER)
 	/////////////////////////////////////////////////////////////////////////////////////////
