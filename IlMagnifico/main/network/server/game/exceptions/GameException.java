@@ -1,4 +1,4 @@
-package main.network.server.game;
+package main.network.server.game.exceptions;
 
 import java.io.IOException;
 

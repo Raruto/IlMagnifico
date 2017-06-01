@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import main.network.exceptions.JoinRoomException;
 import main.network.exceptions.LoginException;
-import main.network.server.game.GameException;
 import main.network.server.game.UpdateStats;
+import main.network.server.game.exceptions.GameException;
+import main.network.server.game.exceptions.JoinRoomException;
 
 /**
  * Remote interface for RemoteMethodInvocation from client to server.

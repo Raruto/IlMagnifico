@@ -4,6 +4,8 @@ import java.util.*;
 
 import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
+import main.network.server.game.exceptions.GameException;
+import main.network.server.game.exceptions.RoomFullException;
 import main.util.Costants;
 import main.util.errors.Errors;
 
