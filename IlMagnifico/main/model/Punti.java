@@ -8,7 +8,8 @@ public class Punti {
 	/**
 	 * Default constructor
 	 */
-	public Punti() {
+	public Punti(Giocatore giocatore) {
+		this.giocatoreAppartenenza = giocatore;
 	}
 
 	/**
@@ -25,6 +26,8 @@ public class Punti {
 	 * 
 	 */
 	private int puntiFede;
+
+	private Giocatore giocatoreAppartenenza;
 
 	/**
 	 * Applica la variazione di punti vittoria. Se il parametro in ingresso ﾃｨ
@@ -102,5 +105,9 @@ public class Punti {
 
 	public void setPuntiVittoria(int puntiVittoria) {
 		this.puntiVittoria = puntiVittoria;
+	}
+
+	public void setPuntiMilitari(int puntiMilitari) {
+		this.puntiMilitari = puntiMilitari;
 	}
 }

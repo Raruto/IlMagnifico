@@ -58,16 +58,15 @@ public class Famigliare {
 	}
 
 	/**
-	 * Metodo che effettua lo spostamento se la carta è acquisibile e se il
-	 * valore del famigliare è sufficiente. Restituuisce true se va a buon fine,
-	 * false altrimenti
+	 * Metodo che effettua lo spostamento su una zona della torre se tutte le
+	 * condizioni sono rispettate
 	 * 
 	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoTorre(int posizione)
-			throws FamigliareSpostatoException, SpazioOccupatoException, SameTowerException, InvalidPositionException,
-			InsufficientValueException, NoMoneyException, NoEnoughResourcesException, MaxCardsReachedException {
+	public void eseguiSpostamentoTorre(int posizione) throws FamigliareSpostatoException, SpazioOccupatoException,
+			SameTowerException, InvalidPositionException, InsufficientValueException, NoMoneyException,
+			NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
 		int identificativoTorre = 0;
 
 		if (posizione < 0 | posizione > 15)
@@ -75,10 +74,14 @@ public class Famigliare {
 
 		if (this.posizionato == true)
 			throw new FamigliareSpostatoException();
+
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 
 		if (!(spazioAzione.torreLibera(posizione)))
 			throw new SpazioOccupatoException();
+
+		if (spazioAzione.getCartaTorre(posizione) == null)
+			throw new NullCardException();
 
 		identificativoTorre = posizione / 4;
 		// mi dice esattamente in quale torre si trova la mia pedina:
@@ -97,30 +100,25 @@ public class Famigliare {
 			throw new MaxCardsReachedException();
 		if (identificativoTorre == 1 && this.giocatoreAppartenenza.getPlancia().getPersonaggi().size() == 6)
 			throw new MaxCardsReachedException();
-
 		if (identificativoTorre == 2 && this.giocatoreAppartenenza.getPlancia().getEdifici().size() == 6)
 			throw new MaxCardsReachedException();
-
 		if (identificativoTorre == 3 && this.giocatoreAppartenenza.getPlancia().getImprese().size() == 6)
 			throw new MaxCardsReachedException();
 
 		// creo un famigliare temporaneo su cui fare tutti i calcoli derivanti
 		// da effetti
 		Famigliare famigliareTemporaneo = new Famigliare(new Giocatore(), this.valore, this.neutro);
+		famigliareTemporaneo.getGiocatore().getRisorse().setLegno(this.giocatoreAppartenenza.getRisorse().getLegno());
+		famigliareTemporaneo.getGiocatore().getRisorse().setPietre(this.giocatoreAppartenenza.getRisorse().getPietre());
+		famigliareTemporaneo.getGiocatore().getRisorse().setMonete(this.giocatoreAppartenenza.getRisorse().getMonete());
 		famigliareTemporaneo.getGiocatore().getRisorse()
-				.cambiaLegno(this.giocatoreAppartenenza.getRisorse().getLegno());
-		famigliareTemporaneo.getGiocatore().getRisorse()
-				.cambiaPietre(this.giocatoreAppartenenza.getRisorse().getPietre());
-		famigliareTemporaneo.getGiocatore().getRisorse()
-				.cambiaMonete(this.giocatoreAppartenenza.getRisorse().getMonete());
-		famigliareTemporaneo.getGiocatore().getRisorse()
-				.cambiaServitori(this.giocatoreAppartenenza.getRisorse().getServitori());
+				.setServitori(this.giocatoreAppartenenza.getRisorse().getServitori());
 		famigliareTemporaneo.getGiocatore().getPunti()
-				.cambiaPuntiMilitari(this.giocatoreAppartenenza.getPunti().getPuntiMilitari());
+				.setPuntiMilitari(this.giocatoreAppartenenza.getPunti().getPuntiMilitari());
 		famigliareTemporaneo.getGiocatore().getPunti()
-				.cambiaPuntiFede(this.giocatoreAppartenenza.getPunti().getPuntiFede());
+				.setPuntiFede(this.giocatoreAppartenenza.getPunti().getPuntiFede());
 		famigliareTemporaneo.getGiocatore().getPunti()
-				.cambiaPuntiVittoria(this.giocatoreAppartenenza.getPunti().getPuntiVittoria());
+				.setPuntiVittoria(this.giocatoreAppartenenza.getPunti().getPuntiVittoria());
 		famigliareTemporaneo.getGiocatore().setColore(this.giocatoreAppartenenza.getColore());
 
 		// Controllo tutti gli effetti permanenti delle carte personaggio e
@@ -208,7 +206,24 @@ public class Famigliare {
 		if (!spazioAzione.getCartaTorre(posizione).acquisibile(famigliareTemporaneo.giocatoreAppartenenza))
 			throw new NoEnoughResourcesException();
 		else {
-			spazioAzione.getCartaTorre(posizione).acquisizione(giocatoreAppartenenza);
+			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza);
+
+			// devo applicare tutte le modifiche al mio giocatore di partenza
+			this.giocatoreAppartenenza.getPunti()
+					.setPuntiFede(famigliareTemporaneo.giocatoreAppartenenza.getPunti().getPuntiFede());
+			this.giocatoreAppartenenza.getPunti()
+					.setPuntiMilitari(famigliareTemporaneo.giocatoreAppartenenza.getPunti().getPuntiMilitari());
+			this.giocatoreAppartenenza.getPunti()
+					.setPuntiVittoria(famigliareTemporaneo.giocatoreAppartenenza.getPunti().getPuntiVittoria());
+			this.giocatoreAppartenenza.getRisorse()
+					.setLegno(famigliareTemporaneo.giocatoreAppartenenza.getRisorse().getLegno());
+			this.giocatoreAppartenenza.getRisorse()
+					.setMonete(famigliareTemporaneo.giocatoreAppartenenza.getRisorse().getMonete());
+			this.giocatoreAppartenenza.getRisorse()
+					.setPietre(famigliareTemporaneo.giocatoreAppartenenza.getRisorse().getPietre());
+			this.giocatoreAppartenenza.getRisorse()
+					.setServitori(famigliareTemporaneo.giocatoreAppartenenza.getRisorse().getServitori());
+
 			if (identificativoTorre == 0) {
 				this.giocatoreAppartenenza.getPlancia()
 						.aggiungiTerritorio((Territorio) (spazioAzione.getCartaTorre(posizione)));

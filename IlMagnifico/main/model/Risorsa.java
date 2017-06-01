@@ -34,7 +34,7 @@ public class Risorsa {
 	private int servitori;
 
 	/**
-	 * Applica la variazione delle monete. Se il parametro in ingresso è
+	 * Applica la variazione delle monete. Se il parametro in ingresso ﾃｨ
 	 * negativo, vengono sottratte monete
 	 * 
 	 * @param variazione
@@ -45,8 +45,8 @@ public class Risorsa {
 	}
 
 	/**
-	 * Applica la variazione delle unità di legno.Se il parametro in ingresso è
-	 * negativo, vengono sottratte unità
+	 * Applica la variazione delle unitﾃ� di legno.Se il parametro in ingresso
+	 * ﾃｨ negativo, vengono sottratte unitﾃ�
 	 * 
 	 * @param variazione
 	 * @return
@@ -56,8 +56,8 @@ public class Risorsa {
 	}
 
 	/**
-	 * Applica la variazione di unità di pietre. Se il parametro in ingresso è
-	 * negativo, vengono sottratte unità
+	 * Applica la variazione di unitﾃ� di pietre. Se il parametro in ingresso ﾃｨ
+	 * negativo, vengono sottratte unitﾃ�
 	 * 
 	 * @param variazione
 	 * @return
@@ -67,8 +67,8 @@ public class Risorsa {
 	}
 
 	/**
-	 * Applica la variazione di unità di servitori. Se il parametro in ingresso
-	 * è negativo, vengono sottratte unità
+	 * Applica la variazione di unitﾃ� di servitori. Se il parametro in ingresso
+	 * ﾃｨ negativo, vengono sottratte unitﾃ�
 	 * 
 	 * @param variazione
 	 * @return
@@ -78,7 +78,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantità di monete possedute dal giocatore
+	 * Ritorna la quantitﾃ� di monete possedute dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -88,7 +88,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantità di legno posseduto dal giocatore
+	 * Ritorna la quantitﾃ� di legno posseduto dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -98,7 +98,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantità di pietre possedute dal giocatore
+	 * Ritorna la quantitﾃ� di pietre possedute dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -108,12 +108,28 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantità di servitori posseduti dal giocatore
+	 * Ritorna la quantitﾃ� di servitori posseduti dal giocatore
 	 * 
 	 * @param
 	 * @return int
 	 */
 	public int getServitori() {
 		return this.servitori;
+	}
+
+	public void setMonete(int monete) {
+		this.monete = monete;
+	}
+
+	public void setLegno(int legno) {
+		this.legno = legno;
+	}
+
+	public void setPietre(int pietre) {
+		this.pietre = pietre;
+	}
+
+	public void setServitori(int servitori) {
+		this.servitori = servitori;
 	}
 }

@@ -68,7 +68,7 @@ public class Giocatore implements Serializable {
 		this.famiglia[3].setNeutralita(true);
 		this.risorse = new Risorsa();
 		this.plancia = new Plancia();
-		this.punti = new Punti();
+		this.punti = new Punti(this);
 		this.scomuniche = new Scomunica[3];
 		this.spazioAzione = new SpazioAzione();
 		// Si potrebbe fare:
