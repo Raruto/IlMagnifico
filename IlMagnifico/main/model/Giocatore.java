@@ -65,11 +65,17 @@ public class Giocatore implements Serializable {
 		this.nome = null;
 		this.colore = null;
 		this.famiglia = new Famigliare[4];
+		for (int i = 0; i < 4; i++) {
+			this.famiglia[i] = new Famigliare(this, 0, false);
+		}
 		this.famiglia[3].setNeutralita(true);
 		this.risorse = new Risorsa(this);
 		this.plancia = new Plancia();
 		this.punti = new Punti(this);
 		this.scomuniche = new Scomunica[3];
+		for (int j = 0; j < 3; j++) {
+			this.scomuniche[j] = new Scomunica();
+		}
 		this.spazioAzione = new SpazioAzione();
 		// Si potrebbe fare:
 		// famiglia = null;

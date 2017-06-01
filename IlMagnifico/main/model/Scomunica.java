@@ -13,6 +13,7 @@ public class Scomunica {
 	 * Default constructor
 	 */
 	public Scomunica() {
+		this.utilEffetto = new UtilEffetto();
 	}
 
 	/**

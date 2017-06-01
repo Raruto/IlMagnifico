@@ -20,6 +20,7 @@ public abstract class Carta {
 		this.effettoPermanente = effettoPermanente;
 		this.valoreNecessarioEffettoPermanente = valoreNecessario;
 		this.periodoCarta = periodo;
+		this.utilEffetto = new UtilEffetto();
 	}
 
 	/**
