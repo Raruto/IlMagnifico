@@ -253,12 +253,46 @@ public class Client implements IClient {
 		}
 	}
 
+	// @Override
 	public void performGameAction(UpdateStats requestedAction) {
 		try {
 			client.performGameAction(requestedAction);
 		} catch (NetworkException e) {
 			System.err.println("Cannot perform action request");
 		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Notifica che è arrivato un nuovo messaggio dalla chat.
+	 * 
+	 * @param privateMessage
+	 *            "True" se il messaggio è privato, "False" se pubblico.
+	 * @param author
+	 *            autore del messaggio.
+	 * @param message
+	 *            corpo del messaggio.
+	 */
+	@Override
+	public void onChatMessage(boolean privateMessage, String author, String message) {
+		// if (privateMessage) {
+		System.out.println("[" + author + "]" + " " + message);
+		// }
+		// mUi.showChatMessage(privateMessage, author, message);
+	}
+
+	@Override
+	public void onActionNotValid(String errorCode) {
+		try {
+			System.err.println("\n" + Errors.valueOf(errorCode).toString());
+		} catch (RuntimeException e) {
+			// In casi estremi!
+			System.err.println("\nUnknown error: " + errorCode);
+		}
+
 	}
 
 	@Override
@@ -271,7 +305,6 @@ public class Client implements IClient {
 			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
 		}
 		handleResponse(update);
-
 	}
 
 	@Override
@@ -323,39 +356,6 @@ public class Client implements IClient {
 			System.out.print(s + ", ");
 		}
 		System.out.println();
-
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////
-	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)
-	/////////////////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Notifica che è arrivato un nuovo messaggio dalla chat.
-	 * 
-	 * @param privateMessage
-	 *            "True" se il messaggio è privato, "False" se pubblico.
-	 * @param author
-	 *            autore del messaggio.
-	 * @param message
-	 *            corpo del messaggio.
-	 */
-	@Override
-	public void onChatMessage(boolean privateMessage, String author, String message) {
-		// if (privateMessage) {
-		System.out.println("[" + author + "]" + " " + message);
-		// }
-		// mUi.showChatMessage(privateMessage, author, message);
-	}
-
-	@Override
-	public void onActionNotValid(String errorCode) {
-		try {
-			System.err.println("\n" + Errors.valueOf(errorCode).toString());
-		} catch (RuntimeException e) {
-			// In casi estremi!
-			System.err.println("\nUnknown error: " + errorCode);
-		}
 
 	}
 
