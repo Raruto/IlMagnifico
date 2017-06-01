@@ -7,7 +7,6 @@ import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
 import main.network.client.socket.SocketClient;
 import main.network.exceptions.LoginException;
-import main.network.protocol.ErrorCodes;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
 import main.util.Costants;
