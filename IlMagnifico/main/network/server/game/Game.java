@@ -101,6 +101,42 @@ public class Game extends Partita {
 		notifyAll(); // Notify all about game end status.
 	}
 
+	private void updateGameLogic() {
+		UpdateStats update;
+		if (!isGiroDiTurniTerminato()) {
+
+			avanzaDiTurno();
+			update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
+			update.setNomeGiocatore(giocatoreDelTurnoSuccessivo(giocatoreDiTurno).getNome());
+			dispatchGameUpdate(update);
+
+		} else {
+
+			// terminaGiroDiTurni();
+			update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
+			dispatchGameUpdate(update);
+
+			if (!isPeriodoTerminato()) {
+				// avanzaGiroDiTurni();
+			} else {
+
+				// terminaPeriodo();
+				update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
+				dispatchGameUpdate(update);
+
+				if (!isPartitaFinita()) {
+					// avanzaPeriodo();
+				} else {
+
+					// terminaPartita();
+					update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+					dispatchGameUpdate(update);
+
+				}
+			}
+		}
+	}
+
 	/**
 	 * Metodo invocato dalla partita per notificare un avanzamento autonomo
 	 * dello stato della partita (es. fine periodo, rapporto vaticano...)
@@ -123,42 +159,14 @@ public class Game extends Partita {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
 			try {
-				UpdateStats update;
-				update = handleResponse(remotePlayer, requestedAction);
+				// Tenta di eseguire l'azione richiesta dal giocatore
+				UpdateStats update = handleResponse(remotePlayer, requestedAction);
 				dispatchGameUpdate(update);
 
-				if (!isGiroDiTurniTerminato()) {
-				
-					avanzaDiTurno();
-					update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
-					update.setNomeGiocatore(giocatoreDelTurnoSuccessivo(remotePlayer).getNome());
-					dispatchGameUpdate(update);
-				
-				} else {
-					
-					// terminaGiroDiTurni();
-					update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
-					dispatchGameUpdate(update);
-					
-					if (!isPeriodoTerminato()) {
-						// avanzaGiroDiTurni();
-					} else {
-						
-						// terminaPeriodo();
-						update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
-						dispatchGameUpdate(update);
-
-						if (!isPartitaFinita()) {
-							// avanzaPeriodo();
-						} else {
-							
-							// terminaPartita();
-							update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
-							dispatchGameUpdate(update);
-							
-						}
-					}
-				}
+				// Se tutto va a buon fine (azione valida = non scatena nessuna
+				// eccezzione), faccio avanzare lo stato interno della partita
+				// (es. notifico al prossimo giocatore che e' il suo turno).
+				updateGameLogic();
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());
