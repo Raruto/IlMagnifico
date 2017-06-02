@@ -33,10 +33,10 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	protected final HashMap<String, String> sessionTokens;
 
 	/**
-	 * Public constructor.
+	 * Costruttore.
 	 * 
 	 * @param controller
-	 *            server interface to communicate with him.
+	 *            interfaccia del Server (es. {@link Server}).
 	 */
 	public RMIServer(IServer controller) {
 		super(controller);
@@ -173,6 +173,19 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		getController().sendChatMessage(getPlayer(sessionToken), receiver, message);
 	}
 
+	/**
+	 * Metodo Remoto per inviare una richiesta di esecuzione di un'azione di
+	 * gioco.
+	 * 
+	 * @param sessionToken
+	 *            token del giocatore che sta facendo la richiesta.
+	 * @param requestedAction
+	 *            richiesta del giocatore (vedi {@link UpdateStats}).
+	 * @throws RemoteException
+	 *             se il server non è raggiungibile.
+	 * @throws GameException
+	 *             se il giocatore sta tentando di eseguire un azione illegale.
+	 */
 	@Override
 	public void performGameAction(String sessionToken, UpdateStats requestedAction)
 			throws RemoteException, GameException {

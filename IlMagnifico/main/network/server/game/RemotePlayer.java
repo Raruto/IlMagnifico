@@ -81,10 +81,17 @@ public abstract class RemotePlayer extends Giocatore {
 	 * @param privateMessage
 	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws NetworkException
-	 *             se il cliente non è raggiungibile.
+	 *             se il client non è raggiungibile.
 	 */
 	public abstract void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException;
 
+	/**
+	 * Invia al giocatore un aggiornamento sullo stato della partita.
+	 * 
+	 * @param update {@link UpdateStats}
+	 * @throws NetworkException
+	 *             se il client non è raggiungibile.
+	 */
 	public abstract void onGameUpdate(UpdateStats update) throws NetworkException;
 
 	/**

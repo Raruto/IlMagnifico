@@ -34,15 +34,6 @@ import main.network.server.game.UpdateStats;
 		clientInterface = playerInterface;
 	}
 
-	@Override
-	public void onGameUpdate(UpdateStats update) throws NetworkException {
-		try {
-			clientInterface.notifyGameUpdate(update);
-		} catch (RemoteException e) {
-			throw new NetworkException(e);
-		}
-	}
-
 	/**
 	 * Invia un messaggio sulla chat del giocatore.
 	 * 
@@ -53,12 +44,28 @@ import main.network.server.game.UpdateStats;
 	 * @param privateMessage
 	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws NetworkException
-	 *             se il cliente non è raggiungibile.
+	 *             se il client non è raggiungibile.
 	 */
 	@Override
 	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		try {
 			clientInterface.notifyChatMessage(author, message, privateMessage);
+		} catch (RemoteException e) {
+			throw new NetworkException(e);
+		}
+	}
+
+	/*
+	 * Invia al giocatore un aggiornamento sullo stato della partita.
+	 * 
+	 * @param update {@link UpdateStats}
+	 * 
+	 * @throws NetworkException se il client non è raggiungibile.
+	 */
+	@Override
+	public void onGameUpdate(UpdateStats update) throws NetworkException {
+		try {
+			clientInterface.notifyGameUpdate(update);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		}

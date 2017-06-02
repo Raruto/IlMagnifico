@@ -10,57 +10,76 @@ import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.JoinRoomException;
 
 /**
- * Remote interface for RemoteMethodInvocation from client to server.
+ * Interfaccia remota per eseguire Invocazione a Metodi Remoti da CLIENT a
+ * SERVER.
  */
 public interface RMIServerInterface extends Remote {
 
 	/**
-	 * Remote method to login a new player to the server.
+	 * Metodo remoto per il login di un nuovo Giocatore sul Server.
 	 * 
 	 * @param nickname
-	 *            to use for login.
+	 *            nome con cui il giocatore vorrebbe essere identificato sul
+	 *            server.
 	 * @param player
-	 *            that is trying to login.
-	 * @return current session token that identify uniquely this user on
-	 *         RMIServer.
+	 *            riferimento al giocatore che ha effettuato la richiesta (es.
+	 *            {@link RMIPlayer}).
+	 * @return token di sessione che identifica in modo univoco l'utente sul
+	 *         Server.
 	 * @throws LoginException
-	 *             if provided nickname is already in use.
+	 *             se esiste già un altro giocatore con il nome fornito.
 	 * @throws RemoteException
-	 *             if server is not reachable.
+	 *             se il server non è raggiungibile.
 	 */
 	String loginPlayer(String nickname, RMIClientInterface player) throws IOException;
 
 	/**
-	 * Remote method to join the player to the first available room.
+	 * Metodo remoto per aggiungere il Giocatore Remoto alla prima Stanza
+	 * disponibile.
 	 * 
 	 * @param sessionToken
-	 *            of the player that is making the request.
+	 *            token di sessione del giocatore che sta facendo la richiesta.
 	 * @throws JoinRoomException
-	 *             if no available room is found.
+	 *             se nessuna stanza è disponibile.
 	 * @throws RemoteException
-	 *             if server is not reachable.
+	 *             se il server non è raggiungibile.
 	 */
 	void joinFirstAvailableRoom(String sessionToken) throws IOException;
 
 	/**
-	 * Remote method to send a chat message to all players or to a specific
-	 * player.
+	 * Metodo Remoto per inviare un messaggio di chat a tutti i giocatori o ad
+	 * uno specifico player.
 	 * 
 	 * @param sessionToken
-	 *            of the player that is making the request.
+	 *            token del giocatore che sta facendo la richiesta di invio
+	 *            (MITTENTE).
 	 * @param receiver
-	 *            nickname of the player that should receive the message. If
-	 *            null the message will be dispatched to all players.
+	 *            nome del giocatore che dovrebbe ricevere il messaggio
+	 *            (DESTINATARIO). Se null il messaggio verrà inviato a tutti i
+	 *            giocatori.
 	 * @param message
-	 *            to send.
+	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             if the receiver is not null and not match any players in the
-	 *             room.
+	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             presente sul server.
 	 * @throws RemoteException
-	 *             if server is not reachable.
+	 *             se il server non è raggiungibile.
 	 */
 	void sendChatMessage(String sessionToken, String receiver, String message) throws IOException;
 
+	/**
+	 * Metodo Remoto per inviare una richiesta di esecuzione di un'azione di
+	 * gioco.
+	 * 
+	 * @param sessionToken
+	 *            token del giocatore che sta facendo la richiesta.
+	 * @param requestedAction
+	 *            richiesta del giocatore (vedi {@link UpdateStats}).
+	 * @throws RemoteException
+	 *             se il server non è raggiungibile.
+	 * @throws GameException
+	 *             se il giocatore sta tentando di eseguire un azione illegale.
+	 */
 	void performGameAction(String sessionToken, UpdateStats requestedAction) throws RemoteException, GameException;
 
 	/**
