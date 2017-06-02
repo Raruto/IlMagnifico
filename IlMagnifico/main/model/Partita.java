@@ -2,7 +2,6 @@ package main.model;
 
 import java.util.*;
 
-import main.network.server.game.RemotePlayer;
 import main.util.errors.Errors;
 import main.util.errors.GameError;
 import main.util.game.PlayerColors;
@@ -49,7 +48,7 @@ public class Partita {
 	protected int periodo;
 
 	/**
-	 * Flag usato per determinare se la partita � terminata.
+	 * Flag usato per determinare se la partita e' terminata.
 	 */
 	protected boolean partitaTerminata;
 
@@ -92,24 +91,24 @@ public class Partita {
 		this.giocatoreDiTurno = giocatori.get(0);
 
 		// Per ora non mi viene in mente altro che si potrebbe fare per
-		// inizializzare la partita. C'� ancora da implementare la parte
-		// della inizializzazione del mazzo perch� dipende dal file (per farlo
+		// inizializzare la partita. C'e' ancora da implementare la parte
+		// della inizializzazione del mazzo perche' dipende dal file (per farlo
 		// funzionare anche solo temporaneamente dovrei fare un enum). Stesso
 		// discorso vale per le scomuniche.
 
 	}
 
 	/**
-	 * Metodo per verificare la possibilit� di eseguire un azione da parte di un
+	 * Metodo per verificare la possibilita' di eseguire un azione da parte di un
 	 * determinato giocatore
 	 * 
 	 * @param g
-	 *            giocatore su cui verificare la validit� dell'azione da
+	 *            giocatore su cui verificare la validita' dell'azione da
 	 *            eseguire
 	 * @param e
-	 *            (nel caso di invalidit� dell'azione che il giocatore sta
-	 *            tentando di compiere) conterr� il codice associato all'errore
-	 * @return true se giocatore pu� eseguire l'azione, false altrimenti
+	 *            (nel caso di invalidita' dell'azione che il giocatore sta
+	 *            tentando di compiere) conterra' il codice associato all'errore
+	 * @return true se giocatore puo' eseguire l'azione, false altrimenti
 	 */
 
 	protected boolean isElegible(Giocatore g, GameError e) {

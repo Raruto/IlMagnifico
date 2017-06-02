@@ -30,7 +30,7 @@ public class Punti {
 	private Giocatore giocatoreAppartenenza;
 
 	/**
-	 * Applica la variazione di punti vittoria. Se il parametro in ingresso ﾃｨ
+	 * Applica la variazione di punti vittoria. Se il parametro in ingresso e'
 	 * negativo, vengono sottratti punti vittoria
 	 * 
 	 * @param variazione
@@ -41,7 +41,7 @@ public class Punti {
 	}
 
 	/**
-	 * Applica la variazione di punti millitari. Se il parametro in ingresso ﾃｨ
+	 * Applica la variazione di punti millitari. Se il parametro in ingresso e'
 	 * negativo vengono sottratti punti militari
 	 * 
 	 * @param variazione
@@ -52,7 +52,7 @@ public class Punti {
 	}
 
 	/**
-	 * Applica la variazione di punti fede. Se il parametro in ingresso ﾃｨ
+	 * Applica la variazione di punti fede. Se il parametro in ingresso e'
 	 * negativo, vengono sottratti punti fede
 	 * 
 	 * @param variazione
@@ -63,7 +63,7 @@ public class Punti {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di punti vittoria posseduti dal giocatore
+	 * Ritorna la quantita' di punti vittoria posseduti dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -73,7 +73,7 @@ public class Punti {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di punti militari posseduta dal giocatore
+	 * Ritorna la quantita' di punti militari posseduta dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -83,7 +83,7 @@ public class Punti {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di punti fede posseduta dal giocatore
+	 * Ritorna la quantita' di punti fede posseduta dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -93,7 +93,7 @@ public class Punti {
 	}
 
 	/**
-	 * Cambia la quantitﾃ� di punti fede del giocatore al valore passato in
+	 * Cambia la quantita' di punti fede del giocatore al valore passato in
 	 * ingresso
 	 * 
 	 * @param

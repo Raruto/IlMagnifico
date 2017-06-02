@@ -7,7 +7,7 @@ public class UtilEffetto {
 	 * giocatore deve spendere. L'array in ingresso ha come valori
 	 * rispettivamente: Giocatore e vari int che simboleggiano i delta di
 	 * monete, legno, pietre, servitori, punti vittoria, punti militari e punti
-	 * fede. Restituisce true se l'esito del metodo ﾃｨ positivo, false
+	 * fede. Restituisce true se l'esito del metodo e' positivo, false
 	 * altrimenti.
 	 * 
 	 * @param
@@ -49,9 +49,9 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se il giocatore puﾃｲ pagare le risorse per l'aquisizione di una
+	 * Controlla se il giocatore puo' pagare le risorse per l'aquisizione di una
 	 * carta. L'array in ingresso ha come valori (dalla posizione 1 in poi):
-	 * Giocatore e più int rispettivamente per monete,legno,pietre,servitori
+	 * Giocatore e piu' int rispettivamente per: monete,legno,pietre,servitori
 	 * indicati nel costo della carta
 	 * 
 	 * @param
@@ -71,9 +71,10 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se il giocatore puﾃｲ pagare i punti militari per l'aquisizione
-	 * di una carta. L'array in ingresso ha come valori rispettivamente:
-	 * Giocatore e la soglia dei punti militari da avere per potere pagare
+	 * Controlla se il giocatore puo' pagare i punti militari per
+	 * l'aquisizione di una carta. L'array in ingresso ha come valori
+	 * rispettivamente: Giocatore e la soglia dei punti militari da avere per
+	 * potere pagare
 	 * 
 	 * @param
 	 * @return boolean
@@ -89,10 +90,10 @@ public class UtilEffetto {
 
 	/**
 	 * Proposta primitiva del metodo per l'esecuzione del privilegio del
-	 * consiglio. Tramite l'array in ingresso ﾃｨ possibile indicare quanti
+	 * consiglio. Tramite l'array in ingresso e' possibile indicare quanti
 	 * privilegi del consiglio effettuare ed il metodo procede da solo al
-	 * controllo sulle scelte. Quando ﾃｨ richiesta l'interazione dell'utente ﾃｨ
-	 * segnalato con un commento
+	 * controllo sulle scelte. Quando e' richiesta l'interazione dell'utente
+	 * e' segnalato con un commento
 	 */
 	public void eseguiPrivilegioDelConsiglio(Object o[]) {// metodo numero 3
 		Giocatore giocatore = (Giocatore) (o[1]);
@@ -111,14 +112,14 @@ public class UtilEffetto {
 					controllo = true;
 			}
 			if (controllo = true) {
-				// viene notificato all'utente che la scelta non ﾃｨ valida
+				// viene notificato all'utente che la scelta non e' valida
 				controllo = false;
 				i--;// ripeto la iterazione
 			} else
 				scelte[i] = scelta;
 		}
-		for (int i = 0; i < numeroIterazioni; i++) {// anzichﾃｨ chiamare i
-													// metodi cambia ﾃｨ
+		for (int i = 0; i < numeroIterazioni; i++) {// anziche' chiamare i
+													// metodi cambia e'
 													// possibile chiamare il
 													// metodo 0 di UtilEffetto
 			if (scelte[i] == "monete")
@@ -137,7 +138,7 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se l'azione effetuata ﾃｨ sulla torre territorio ed in caso
+	 * Controlla se l'azione effetuata e' sulla torre territorio ed in caso
 	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
 	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
 	 * pedina mossa
@@ -153,7 +154,7 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se l'azione effetuata ﾃｨ sulla torre edificio ed in caso
+	 * Controlla se l'azione effetuata e' sulla torre edificio ed in caso
 	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
 	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
 	 * pedina mossa
@@ -169,7 +170,7 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se l'azione effetuata ﾃｨ sulla torre personaggio ed in caso
+	 * Controlla se l'azione effetuata e' sulla torre personaggio ed in caso
 	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
 	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
 	 * pedina mossa
@@ -185,7 +186,7 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se l'azione effetuata ﾃｨ sulla torre impresa ed in caso
+	 * Controlla se l'azione effetuata e' sulla torre impresa ed in caso
 	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
 	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
 	 * pedina mossa
@@ -202,11 +203,11 @@ public class UtilEffetto {
 
 	/**
 	 * Metodo per gli effetti in cui si riceve o spende risorse e si riceve uno
-	 * o piﾃｹ privilegi del consiglio. I parametri in ingresso sono il
-	 * giocatore, unitﾃ� di monete, legna, pietre, servitori, punti vittoria,
-	 * punti militari , punti fede ed il numero di privilegi del consiglio. Se i
-	 * parametri sono negativi si procede al controllo se il giocatore puﾃｲ
-	 * pagare le risorse.
+	 * o piu' privilegi del consiglio. I parametri in ingresso sono il
+	 * giocatore, unita' di monete, legna, pietre, servitori, punti
+	 * vittoria, punti militari , punti fede ed il numero di privilegi del
+	 * consiglio. Se i parametri sono negativi si procede al controllo se il
+	 * giocatore puo' pagare le risorse.
 	 * 
 	 * @param
 	 * @return
@@ -227,8 +228,8 @@ public class UtilEffetto {
 	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
 	 * Raccolto. I parametri passati in ingresso sono il giocatore e il valore
 	 * della azioneraccolto che si va a fare. NB:al momento della scrittura non
-	 * ﾃｨ ancora stato implementato il metodo che gestisce il raccolto, per cui
-	 * tale metodo viene ipotizzato
+	 * e' ancora stato implementato il metodo che gestisce il raccolto, per
+	 * cui tale metodo viene ipotizzato
 	 * 
 	 * @param
 	 * @return
@@ -238,7 +239,7 @@ public class UtilEffetto {
 		Giocatore giocatore = (Giocatore) (o[1]);
 		int valore = (int) (o[2]);
 		giocatore.raccolto(valore);// metodo non ancora implementato. In ogni
-									// caso verrﾃ� chiamato il metodo che
+									// caso verra' chiamato il metodo che
 									// gestisce la raccolta del giocatore
 	}
 
@@ -246,8 +247,8 @@ public class UtilEffetto {
 	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
 	 * Produzione. I parametri passati in ingresso sono il giocatore e il valore
 	 * della azione produzione che si va a fare. NB:al momento della scrittura
-	 * non ﾃｨ ancora stato implementato il metodo che gestisce la produzione,
-	 * per cui tale metodo viene ipotizzato
+	 * non e' ancora stato implementato il metodo che gestisce la
+	 * produzione, per cui tale metodo viene ipotizzato
 	 * 
 	 * @param
 	 * @return
@@ -258,14 +259,15 @@ public class UtilEffetto {
 		Giocatore giocatore = (Giocatore) (o[1]);
 		int valore = (int) (o[2]);
 		giocatore.produzione(valore);// metodo non ancora implementato. In ogni
-										// caso verrﾃ� chiamato il metodo che
+										// caso verra' chiamato il metodo
+										// che
 										// gestisce la produzione del giocatore
 	}
 
 	/**
 	 * Metodo per effetti immediati dove si ricevono risorse e si effettua una
 	 * azione di raccolto. I parametri passati sono rispettivamente: giocatore,
-	 * unitﾃ� di monete, legno, pietre, servitori, punti vittoria, punti
+	 * unita' di monete, legno, pietre, servitori, punti vittoria, punti
 	 * militari, punti fede ed il valore dell'azione raccolto che si va a
 	 * svolgere
 	 * 
@@ -286,9 +288,9 @@ public class UtilEffetto {
 	/**
 	 * Metodo per effetti immediati dove si ricevono risorse e si effettua una
 	 * azione di produzione. I parametri passati sono rispettivamente:
-	 * giocatore, unitﾃ� di monete, legno, pietre, servitori, punti vittoria,
-	 * punti militari, punti fede ed il valore dell'azione produzione che si va
-	 * a svolgere
+	 * giocatore, unita' di monete, legno, pietre, servitori, punti
+	 * vittoria, punti militari, punti fede ed il valore dell'azione produzione
+	 * che si va a svolgere
 	 * 
 	 * @param
 	 * @return

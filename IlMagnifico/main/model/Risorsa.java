@@ -37,7 +37,7 @@ public class Risorsa {
 	private Giocatore giocatoreAppartenenza;
 
 	/**
-	 * Applica la variazione delle monete. Se il parametro in ingresso ﾃｨ
+	 * Applica la variazione delle monete. Se il parametro in ingresso e'
 	 * negativo, vengono sottratte monete
 	 * 
 	 * @param variazione
@@ -48,8 +48,8 @@ public class Risorsa {
 	}
 
 	/**
-	 * Applica la variazione delle unitﾃ� di legno.Se il parametro in ingresso
-	 * ﾃｨ negativo, vengono sottratte unitﾃ�
+	 * Applica la variazione delle unita' di legno.Se il parametro in ingresso
+	 * e' negativo, vengono sottratte unita'
 	 * 
 	 * @param variazione
 	 * @return
@@ -59,8 +59,8 @@ public class Risorsa {
 	}
 
 	/**
-	 * Applica la variazione di unitﾃ� di pietre. Se il parametro in ingresso ﾃｨ
-	 * negativo, vengono sottratte unitﾃ�
+	 * Applica la variazione di unita' di pietre. Se il parametro in ingresso e'
+	 * negativo, vengono sottratte unita'
 	 * 
 	 * @param variazione
 	 * @return
@@ -70,8 +70,8 @@ public class Risorsa {
 	}
 
 	/**
-	 * Applica la variazione di unitﾃ� di servitori. Se il parametro in ingresso
-	 * ﾃｨ negativo, vengono sottratte unitﾃ�
+	 * Applica la variazione di unita' di servitori. Se il parametro in ingresso
+	 * e' negativo, vengono sottratte unita'
 	 * 
 	 * @param variazione
 	 * @return
@@ -81,7 +81,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di monete possedute dal giocatore
+	 * Ritorna la quantita' di monete possedute dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -91,7 +91,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di legno posseduto dal giocatore
+	 * Ritorna la quantita' di legno posseduto dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -101,7 +101,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di pietre possedute dal giocatore
+	 * Ritorna la quantita' di pietre possedute dal giocatore
 	 * 
 	 * @param
 	 * @return int
@@ -111,7 +111,7 @@ public class Risorsa {
 	}
 
 	/**
-	 * Ritorna la quantitﾃ� di servitori posseduti dal giocatore
+	 * Ritorna la quantita' di servitori posseduti dal giocatore
 	 * 
 	 * @param
 	 * @return int

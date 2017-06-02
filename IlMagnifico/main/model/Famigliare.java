@@ -18,22 +18,22 @@ public class Famigliare {
 	}
 
 	/**
-	 * ?Eil riferimento al giocatore proprietario del famigliare
+	 * Riferimento al giocatore proprietario del famigliare
 	 */
 	private Giocatore giocatoreAppartenenza;
 
 	/**
-	 * ?Eil valore del famigliare
+	 * Valore del famigliare
 	 */
 	private int valore;
 
 	/**
-	 * True se il famigliare è già stato usato
+	 * True se il famigliare e' gia' stato usato
 	 */
 	private boolean posizionato;
 
 	/**
-	 * se ?Etrue allora ?Eil famigliare neutro, se false non ?Eneutro
+	 * se True allora il famigliare e' neutro, se false non e' neutro
 	 */
 	private boolean neutro;
 
@@ -103,7 +103,7 @@ public class Famigliare {
 		if (famigliareTemporaneo.valore < (1 + 2 * (posizione % 4)))
 			throw new InsufficientValueException();
 
-		// guardo se c'è un'altra pedina e nel caso pago 3 monete
+		// guardo se c'e' un'altra pedina e nel caso pago 3 monete
 		controlloAltroFamigliareNellaTorre(identificativoTorre, famigliareTemporaneo, spazioAzione);
 
 		// Applico l'eventuale bonus della torre
@@ -112,7 +112,7 @@ public class Famigliare {
 		// controllo le carte personaggio per applicare eventuali sconti
 		controlloScontiEffettoPermanente(identificativoTorre, famigliareTemporaneo, spazioAzione, posizione);
 
-		// controllo se posso pagare la carta. Se sì, effettuo il pagamento,
+		// controllo se posso pagare la carta. Se posso, effettuo il pagamento,
 		// prendo la carta, eseguo l'effetto immediato e posiziono il famigliare
 		if (!spazioAzione.getCartaTorre(posizione).acquisibile(famigliareTemporaneo.giocatoreAppartenenza))
 			throw new NoEnoughResourcesException();
@@ -146,7 +146,7 @@ public class Famigliare {
 	}
 
 	/**
-	 * Metodo che controlla che un giocatore non abbia già il massimo numero di
+	 * Metodo che controlla che un giocatore non abbia gia' il massimo numero di
 	 * carte del tipo della carta che vuole prendere
 	 * 
 	 * @param
@@ -274,7 +274,7 @@ public class Famigliare {
 
 	/**
 	 * Metodo che controlla che sulla posizione dove viene posizionato il
-	 * famigliare ci sia un bonus. Se c'è e si può attivare lo attiva
+	 * famigliare ci sia un bonus. Se c'e' e si puo' attivare lo attiva
 	 * 
 	 * @param
 	 * @return
@@ -392,7 +392,7 @@ public class Famigliare {
 			throw new FamigliareSpostatoException();
 
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		// controllo se l'area è occupata
+		// controllo se l'area e' occupata
 		if (!(spazioAzione.zonaRaccoltoRotondaLibera()))
 			throw new SpazioOccupatoException();
 
@@ -473,7 +473,7 @@ public class Famigliare {
 			throw new FamigliareSpostatoException();
 
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		// controllo se l'area è occupata
+		// controllo se l'area e' occupata
 		if (!(spazioAzione.zonaProduzioneRotondaLibera()))
 			throw new SpazioOccupatoException();
 

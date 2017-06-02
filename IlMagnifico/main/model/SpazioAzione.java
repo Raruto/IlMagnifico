@@ -9,6 +9,11 @@ import java.util.*;
 public class SpazioAzione implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7750262017347409763L;
+
+	/**
 	 * Default constructor
 	 */
 	public SpazioAzione() {
@@ -78,7 +83,7 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se il piano della torre indicato dalla posizione �ｾ�ｽｨ
+	 * Restituisce true se il piano della torre indicato dalla posizione e'
 	 * libero, false altrimenti
 	 * 
 	 * @param int
@@ -94,7 +99,7 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Raccolto rotonda �ｾ�ｽｨ libera, false
+	 * Restituisce true se la zona Raccolto rotonda e' libera, false
 	 * altrimenti
 	 * 
 	 * @param
@@ -110,7 +115,7 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Produzione rotonda �ｾ�ｽｨ libera, false
+	 * Restituisce true se la zona Produzione rotonda e' libera, false
 	 * altrimenti
 	 * 
 	 * @param
@@ -125,7 +130,7 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Ritorna true se la zona mercato alla posizione indicata in ingresso �ｾ�ｽｨ
+	 * Ritorna true se la zona mercato alla posizione indicata in ingresso e'
 	 * libera, false altrimenti
 	 * 
 	 * @param
@@ -140,7 +145,7 @@ public class SpazioAzione implements Serializable {
 
 	/**
 	 * Effettua l'effetto conseguente sul giocatore a seconda della posizione in
-	 * ingresso. Se la posizione non �ｾ�ｽｨ valida il metodo non fa niente
+	 * ingresso. Se la posizione non e' valida il metodo non fa niente
 	 * 
 	 * @param Giocatore,
 	 *            int
@@ -335,7 +340,7 @@ public class SpazioAzione implements Serializable {
 
 	/**
 	 * Aggiunge nella zona di raccolto ovale un famigliare (il famigliare
-	 * aggiunto sar�ｾ�ｿｽ nell'ultima posizione dell'ArrayList
+	 * aggiunto sara' nell'ultima posizione dell'ArrayList
 	 * 
 	 * @param
 	 * @return

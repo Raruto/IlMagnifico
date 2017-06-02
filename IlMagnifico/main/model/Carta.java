@@ -82,7 +82,7 @@ public abstract class Carta {
 		}
 		if (controlloRisorse | controlloPunti)
 			// se almeno con i punti o con le risorse posso pagare, allora la
-			// carta è acquisibile
+			// carta e' acquisibile
 			return true;
 		else
 			return false;
@@ -134,7 +134,7 @@ public abstract class Carta {
 
 	public boolean Attivabile(int valoreAzione) {
 		// gli passo un valore, non il
-		// famigliare, perchﾃｨ devo
+		// famigliare, perche' devo
 		// potere variare il valore
 		// a seconda dei bonus e
 		// malus ricevuti con
@@ -160,8 +160,8 @@ public abstract class Carta {
 	 * 
 	 */
 	public void acquisizione(Giocatore giocatore) {
-		// TODO:se il giocatore può pagare in un solo modo non ci sono problemi,
-		// ma se può pagare in tutti e due i modi deve potere decidere
+		// TODO:se il giocatore puo' pagare in un solo modo non ci sono problemi,
+		// ma se puo' pagare in tutti e due i modi deve potere decidere
 
 	}
 
@@ -212,7 +212,7 @@ public abstract class Carta {
 
 	/**
 	 * Metodo che restituisce il valore dell'azione necessario per attivare
-	 * l'effetto permanente della carta, se c'è
+	 * l'effetto permanente della carta, se c'e'
 	 * 
 	 * @return
 	 */

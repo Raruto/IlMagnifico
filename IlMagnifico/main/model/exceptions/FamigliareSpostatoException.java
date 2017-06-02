@@ -1,7 +1,7 @@
 package main.model.exceptions;
 
 /**
- * Eccezione che verifica che il famigliare selezionato è già stato posizionato
+ * Eccezione che verifica che il famigliare selezionato e' gia' stato posizionato
  * sul tabellone in precendenza nello stesso turno
  * 
  */
