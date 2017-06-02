@@ -9,7 +9,7 @@ import main.model.exceptions.*;
 /**
  * 
  */
-public class Famigliare implements Serializable{
+public class Famigliare implements Serializable {
 
 	/**
 	 * 
@@ -613,5 +613,9 @@ public class Famigliare implements Serializable{
 
 	public void setNeutralita(boolean neutro) {
 		this.neutro = neutro;
+	}
+
+	public void setPosizionato(boolean posizionato) {
+		this.posizionato = posizionato;
 	}
 }
