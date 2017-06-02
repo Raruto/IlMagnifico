@@ -13,6 +13,9 @@ public class SpazioAzione implements Serializable {
 	 */
 	public SpazioAzione() {
 		this.pianoDellaTorre = new Torre[16];
+		for (int i = 0; i < 16; i++) {
+			this.pianoDellaTorre[i] = new Torre();
+		}
 		this.zonaRaccoltoRotonda = null;
 		this.zonaRaccoltoOvale = new ArrayList<Famigliare>();
 		this.zonaProduzioneRotonda = null;

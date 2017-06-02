@@ -169,7 +169,8 @@ public class Partita {
 			int indice;
 			ArrayList<Scomunica> temporaneo = new ArrayList<Scomunica>();
 			Random random = new Random();
-			// da file o database si prendono le carte scomunica del periodo
+			// TODO: da file o database si prendono le carte scomunica del
+			// periodo
 			// corrispondente (indicato dalla variabile periodo). Con tali carte
 			// riempio un ArrayList temporaneo. Genero un numero casuale che sia
 			// compreso tra 0 e il numero di elementi nell'ArrayList tramite il
@@ -273,11 +274,7 @@ public class Partita {
 	public Giocatore giocatoreDelTurnoSuccessivo(Giocatore giocatoreDiTurno) {
 		for (int i = 0; i < this.giocatori.size(); i++) {
 			if (this.giocatori.get(i) == giocatoreDiTurno) {
-				if ((i == (this.giocatori.size() - 1) && (!(this.giocatori.get(i).checkPosizionato())))) // implementare
-																											// il
-																											// metodo
-																											// in
-																											// Giocatore
+				if ((i == (this.giocatori.size() - 1) && (!(this.giocatori.get(i).checkPosizionato()))))
 					return this.giocatori.get(0);
 				else if ((i == (this.giocatori.size() - 1)) && (this.giocatori.get(i).checkPosizionato()))
 					return null;
@@ -308,7 +305,8 @@ public class Partita {
 			giocatore.getPunti().setPuntiVittoria(puntiFede + incremento);
 			giocatore.getPunti().setPuntiFede(0);
 		} else {
-			giocatore.setScomunica(periodo, this.scomuniche[periodo]);
+			// gli array delle scomuniche corrispondono al numero del periodo-1
+			giocatore.setScomunica(periodo - 1, this.scomuniche[periodo - 1]);
 		}
 	}
 
