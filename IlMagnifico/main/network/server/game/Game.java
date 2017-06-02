@@ -126,11 +126,13 @@ public class Game extends Partita {
 				UpdateStats update;
 				update = handleResponse(remotePlayer, requestedAction);
 				dispatchGameUpdate(update);
-				
-				UpdateStats u = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
-				u.setNomeGiocatore(this.giocatoreDelTurnoSuccessivo(remotePlayer).getNome());
-				dispatchGameUpdate(u);
-				
+				if (!isGiroDiTurniTerminato()) {
+					avanzaDiTurno();
+					UpdateStats u = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
+					u.setNomeGiocatore(this.giocatoreDelTurnoSuccessivo(remotePlayer).getNome());
+					dispatchGameUpdate(u);
+				}
+
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());
