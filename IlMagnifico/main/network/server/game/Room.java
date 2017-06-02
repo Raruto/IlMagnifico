@@ -261,8 +261,7 @@ public class Room {
 
 	public void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		try {
-			UpdateStats updateState = game.performGameAction(remotePlayer, requestedAction);
-			dispatchGameUpdate(updateState);
+			game.performGameAction(remotePlayer, requestedAction);
 		} catch (NullPointerException e) {
 			if (game == null)
 				throw new GameException(Errors.GAME_NOT_STARTED.toString());

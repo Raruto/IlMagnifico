@@ -119,14 +119,18 @@ public class Game extends Partita {
 	 * @param action
 	 * @return {@link UpdateStats}
 	 */
-	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
+	public void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
 			try {
 				UpdateStats update;
 				update = handleResponse(remotePlayer, requestedAction);
-				// turnazione();
-				return update;
+				dispatchGameUpdate(update);
+				
+				UpdateStats u = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
+				u.setNomeGiocatore(this.giocatoreDelTurnoSuccessivo(remotePlayer).getNome());
+				dispatchGameUpdate(u);
+				
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());

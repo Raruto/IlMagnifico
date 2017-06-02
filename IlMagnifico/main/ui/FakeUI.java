@@ -99,19 +99,23 @@ public class FakeUI {
 		}
 
 		boolean success = false;
-
-		while (!success) {
+		int attempts = Costants.MAX_CONNECTION_ATTEMPTS;
+		int sec = Costants.RETRY_CONNECTION_SECONDS * 1000;
+		while (!success && attempts > 0) {
 			try {
+				attempts--;
 				Client client = getClient();
 				client.startClient(inText, serverAddress, socketPort, rmiPort);
 				success = true;
 			} catch (ClientException e) {
-				int sec = 5000;
-				System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 + " seconds" + ")");
-				try {
-					Thread.sleep(sec);
-				} catch (InterruptedException ie) {
-					// TODO Auto-generated catch block
+				if (attempts > 0) {
+					System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 + " seconds" + ", " + attempts
+							+ " attemps left)");
+					try {
+						Thread.sleep(sec);
+					} catch (InterruptedException ie) {
+						// TODO Auto-generated catch block
+					}
 				}
 			}
 		}
@@ -120,6 +124,10 @@ public class FakeUI {
 			FakeUI.login();
 			FakeUI.sayHelloToPlayers();
 			FakeUI.infiniteLoop();
+		} else {
+			System.err.println("\nCannot establish a connection to the server, the program will launch a local server");
+
+			FakeUI.mainServer(socketPort, rmiPort);
 		}
 	}
 

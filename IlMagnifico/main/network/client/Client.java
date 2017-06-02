@@ -13,6 +13,7 @@ import main.network.exceptions.LoginException;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
+import main.util.ANSI;
 import main.util.Costants;
 
 /**
@@ -328,7 +329,13 @@ public class Client implements IClient {
 	@Override
 	public void onPlayerMove(UpdateStats update) {
 		// if (update.getNomeGiocatore() != null)
-		System.out.println("E' il turno di: " + update.getNomeGiocatore());
+
+		if (update.getNomeGiocatore().equals(this.nickname))
+			System.out.print(ANSI.BACKGROUND_GREEN + "E' il tuo turno");
+		else
+			System.out.print(ANSI.BACKGROUND_RED + "E' il turno di: " + update.getNomeGiocatore());
+
+		System.out.println(ANSI.RESET);
 	}
 
 	@Override
