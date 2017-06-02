@@ -49,7 +49,7 @@ public class Partita {
 	protected int periodo;
 
 	/**
-	 * Flag usato per determinare se la partita è terminata.
+	 * Flag usato per determinare se la partita ï¿½ terminata.
 	 */
 	protected boolean partitaTerminata;
 
@@ -62,6 +62,9 @@ public class Partita {
 		this.giocatoreDiTurno = null;
 		this.spazioAzione = new SpazioAzione();
 		this.scomuniche = new Scomunica[3];
+		for (int i = 0; i < 3; i++) {
+			this.scomuniche[i] = new Scomunica();
+		}
 		this.turno = 0;
 		this.periodo = 0;
 		this.partitaTerminata = false;
@@ -89,24 +92,24 @@ public class Partita {
 		this.giocatoreDiTurno = giocatori.get(0);
 
 		// Per ora non mi viene in mente altro che si potrebbe fare per
-		// inizializzare la partita. C'è ancora da implementare la parte
-		// della inizializzazione del mazzo perchè dipende dal file (per farlo
+		// inizializzare la partita. C'ï¿½ ancora da implementare la parte
+		// della inizializzazione del mazzo perchï¿½ dipende dal file (per farlo
 		// funzionare anche solo temporaneamente dovrei fare un enum). Stesso
 		// discorso vale per le scomuniche.
 
 	}
 
 	/**
-	 * Metodo per verificare la possibilità di eseguire un azione da parte di un
+	 * Metodo per verificare la possibilitï¿½ di eseguire un azione da parte di un
 	 * determinato giocatore
 	 * 
 	 * @param g
-	 *            giocatore su cui verificare la validità dell'azione da
+	 *            giocatore su cui verificare la validitï¿½ dell'azione da
 	 *            eseguire
 	 * @param e
-	 *            (nel caso di invalidità dell'azione che il giocatore sta
-	 *            tentando di compiere) conterrà il codice associato all'errore
-	 * @return true se giocatore può eseguire l'azione, false altrimenti
+	 *            (nel caso di invaliditï¿½ dell'azione che il giocatore sta
+	 *            tentando di compiere) conterrï¿½ il codice associato all'errore
+	 * @return true se giocatore puï¿½ eseguire l'azione, false altrimenti
 	 */
 
 	protected boolean isElegible(Giocatore g, GameError e) {

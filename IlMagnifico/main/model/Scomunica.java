@@ -14,6 +14,8 @@ public class Scomunica {
 	 */
 	public Scomunica() {
 		this.utilEffetto = new UtilEffetto();
+		this.nome = new String();
+		this.effetto = new ArrayList<Object[]>();
 	}
 
 	/**
