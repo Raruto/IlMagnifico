@@ -342,11 +342,27 @@ public class Partita {
 	}
 
 	/**
+	 * Metodo che calcola la classifica finale dei giocatori
+	 * 
 	 * @return
 	 */
 	public ArrayList<Giocatore> calcolaClassificaFinale() {
-		// TODO implement here
-		return null;
+		ArrayList<Giocatore> classifica = new ArrayList<Giocatore>();
+		for (int i = 0; i < this.giocatori.size(); i++) {
+			this.giocatori.get(i).calcolaPVFinali();
+		}
+		classifica.add(giocatori.get(0));
+		for (int i = 1; i < this.giocatori.size(); i++) {
+			for (int j = 0; j < classifica.size(); j++) {
+				if (this.giocatori.get(i).getPunti().getPuntiVittoria() > classifica.get(j).getPunti()
+						.getPuntiVittoria()) {
+					classifica.add(j, this.giocatori.get(i));
+					break;
+				} else if (j == classifica.size() - 1)
+					classifica.add(giocatori.get(i));
+			}
+		}
+		return classifica;
 	}
 
 	/**
@@ -393,5 +409,13 @@ public class Partita {
 					giocatori.add(giocatore);
 				}
 		}
+	}
+
+	/**
+	 * Metodo che modifica l'attributo giocatoreDiTurno quando si avanza di
+	 * turno
+	 */
+	public void avanzaDiTurno() {
+		this.giocatoreDiTurno = giocatoreDelTurnoSuccessivo(giocatoreDiTurno);
 	}
 }
