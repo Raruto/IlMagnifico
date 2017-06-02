@@ -367,4 +367,31 @@ public class Partita {
 			}
 		}
 	}
+
+	/**
+	 * Metodo che controlla se qualche giocatore e' in possesso della carta
+	 * scomunica che fa giocare per ultimi. In caso affermativo provvede allo
+	 * spostamento
+	 */
+	public void controlloScomunicaModificaOrdine() {
+		ArrayList<Giocatore> cloneGiocatori = new ArrayList<Giocatore>();
+		Giocatore giocatore = new Giocatore();
+		// creo un arraylist identico all'ordine di turno
+		for (int i = 0; i < this.giocatori.size(); i++) {
+			giocatore = this.giocatori.get(i);
+			cloneGiocatori.add(giocatore);
+		}
+		// vado a scorrere l'arraylist dell'ordine attuale e modifico l'ordine
+		// se la scomunica e' presente
+		for (int j = 0; j < cloneGiocatori.size(); j++) {
+			giocatore = cloneGiocatori.get(j);
+			if (giocatore.getScomunica(1) != null)
+				if (giocatore.getScomunica(1).attivaOnInizioTurno()) {
+					// rimuovo il giocatore dalla posizione in cui e' e lo
+					// inserisco alla fine
+					giocatori.remove(giocatore);
+					giocatori.add(giocatore);
+				}
+		}
+	}
 }

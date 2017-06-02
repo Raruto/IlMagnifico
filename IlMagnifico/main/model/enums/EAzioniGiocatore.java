@@ -5,5 +5,5 @@ public enum EAzioniGiocatore {
 	// controllare le attivazioni degli effetti
 	// delle carte. Se qua ti danno fastidio si può
 	// fare un altro enum
-	Produzione, Raccolto, Mercato, PalazzoConsiglio, Torre, PrendiTerritorio, PrendiPersonaggio, PrendiEdificio, PrendiImpresa, MuoviColorato, EffettoTorre, PagaTerritorio, PagaPersonaggio, PagaEdificio, PagaImpresa;
+	Produzione, Raccolto, Mercato, PalazzoConsiglio, Torre, PrendiTerritorio, PrendiPersonaggio, PrendiEdificio, PrendiImpresa, MuoviColorato, EffettoTorre, PagaTerritorio, PagaPersonaggio, PagaEdificio, PagaImpresa, InizioTurno;
 }

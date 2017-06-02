@@ -75,4 +75,12 @@ public class Scomunica {
 		}
 		return false;
 	}
+
+	public boolean attivaOnInizioTurno() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.InizioTurno)
+				return true;
+		}
+		return false;
+	}
 }
