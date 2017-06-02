@@ -31,20 +31,7 @@ public interface RMIServerInterface extends Remote {
 	 * @throws RemoteException
 	 *             se il server non è raggiungibile.
 	 */
-	String loginPlayer(String nickname, RMIClientInterface player) throws IOException;
-
-	/**
-	 * Metodo remoto per aggiungere il Giocatore Remoto alla prima Stanza
-	 * disponibile.
-	 * 
-	 * @param sessionToken
-	 *            token di sessione del giocatore che sta facendo la richiesta.
-	 * @throws JoinRoomException
-	 *             se nessuna stanza è disponibile.
-	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
-	 */
-	void joinFirstAvailableRoom(String sessionToken) throws IOException;
+	String sendLoginRequest(String nickname, RMIClientInterface player) throws IOException;
 
 	/**
 	 * Metodo Remoto per inviare un messaggio di chat a tutti i giocatori o ad
@@ -80,7 +67,7 @@ public interface RMIServerInterface extends Remote {
 	 * @throws GameException
 	 *             se il giocatore sta tentando di eseguire un azione illegale.
 	 */
-	void performGameAction(String sessionToken, UpdateStats requestedAction) throws RemoteException, GameException;
+	void sendGameActionRequest(String sessionToken, UpdateStats requestedAction) throws RemoteException, GameException;
 
 	/**
 	 * Metodo per il "debug"

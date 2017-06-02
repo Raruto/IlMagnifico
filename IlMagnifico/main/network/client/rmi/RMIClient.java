@@ -76,9 +76,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 *             se il server non è raggiungibile.
 	 */
 	@Override
-	public void loginPlayer(String nickname) throws NetworkException {
+	public void sendLoginRequest(String nickname) throws NetworkException {
 		try {
-			sessionToken = server.loginPlayer(nickname, this);
+			sessionToken = server.sendLoginRequest(nickname, this);
 		} catch (LoginException e) {
 			throw e;
 		} catch (IOException e) {
@@ -111,9 +111,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	}
 
 	@Override
-	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
+	public void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException {
 		try {
-			server.performGameAction(sessionToken, requestedAction);
+			server.sendGameActionRequest(sessionToken, requestedAction);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		} catch (GameException e) {

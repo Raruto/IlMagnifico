@@ -94,7 +94,7 @@ public abstract class AbstractClient {
 	 * @throws NetworkException
 	 *             se il server non è raggiungibile o qualcosa è andato storto.
 	 */
-	public abstract void loginPlayer(String nickname) throws NetworkException;
+	public abstract void sendLoginRequest(String nickname) throws NetworkException;
 
 	/**
 	 * Invia un messaggio in chat ad altri giocatori o un giocatore specifico.
@@ -109,5 +109,5 @@ public abstract class AbstractClient {
 	 */
 	public abstract void sendChatMessage(String receiver, String message) throws NetworkException;
 
-	public abstract void performGameAction(UpdateStats requestedAction) throws NetworkException;
+	public abstract void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException;
 }

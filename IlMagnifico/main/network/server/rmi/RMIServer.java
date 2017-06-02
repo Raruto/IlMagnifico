@@ -118,35 +118,19 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 *             se il server non è raggiungibile.
 	 */
 	@Override
-	public String loginPlayer(String nickname, RMIClientInterface player) throws IOException {
+	public String sendLoginRequest(String nickname, RMIClientInterface player) throws IOException {
 		getController().loginPlayer(nickname, new RMIPlayer(player));
 		// generate new unique session token
 		String sessionToken = UUID.randomUUID().toString();
 		sessionTokens.put(sessionToken, nickname);
 
 		try {
-			joinFirstAvailableRoom(sessionToken);
+			getController().joinFirstAvailableRoom(getPlayer(sessionToken));
 		} catch (JoinRoomException e) {
 			// e.printStackTrace();
 		}
 
 		return sessionToken;
-	}
-
-	/**
-	 * Metodo remoto per aggiungere il Giocatore Remoto alla prima Stanza
-	 * disponibile.
-	 * 
-	 * @param sessionToken
-	 *            token di sessione del giocatore che sta facendo la richiesta.
-	 * @throws JoinRoomException
-	 *             se nessuna stanza è disponibile.
-	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
-	 */
-	@Override
-	public void joinFirstAvailableRoom(String sessionToken) throws IOException {
-		getController().joinFirstAvailableRoom(getPlayer(sessionToken));
 	}
 
 	/**
@@ -187,7 +171,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 *             se il giocatore sta tentando di eseguire un azione illegale.
 	 */
 	@Override
-	public void performGameAction(String sessionToken, UpdateStats requestedAction)
+	public void sendGameActionRequest(String sessionToken, UpdateStats requestedAction)
 			throws RemoteException, GameException {
 		RemotePlayer remotePlayer = getPlayer(sessionToken);
 		remotePlayer.getRoom().performGameAction(remotePlayer, requestedAction);

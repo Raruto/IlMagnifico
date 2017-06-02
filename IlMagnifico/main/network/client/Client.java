@@ -216,7 +216,7 @@ public class Client implements IClient {
 		boolean success = false;
 		try {
 			System.out.println("Try to login user with nickname: " + nickname);
-			client.loginPlayer(nickname);
+			client.sendLoginRequest(nickname);
 			success = true;
 		} catch (LoginException e) {
 			System.out.println("Nickname is already in use on server");
@@ -252,7 +252,7 @@ public class Client implements IClient {
 	// @Override
 	public void performGameAction(UpdateStats requestedAction) {
 		try {
-			client.performGameAction(requestedAction);
+			client.sendGameActionRequest(requestedAction);
 		} catch (NetworkException e) {
 			System.err.println("Cannot perform action request");
 		}

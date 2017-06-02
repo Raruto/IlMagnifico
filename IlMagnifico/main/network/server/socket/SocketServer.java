@@ -54,7 +54,7 @@ public class SocketServer extends AbstractServer {
 		try {
 			serverSocket = new ServerSocket(port);
 			System.out.println("[SOCKET Server] OK");
-			new RequestHandler().start();
+			new SocketRequestListener().start();
 		} catch (IOException e) {
 			throw new ServerException("I/O exception occurs while starting Socket server", e);
 		}
@@ -64,7 +64,7 @@ public class SocketServer extends AbstractServer {
 	 * Thread per la ricezione e gestione di nuove richieste di connessione
 	 * tramite Socket.
 	 */
-	private class RequestHandler extends Thread {
+	private class SocketRequestListener extends Thread {
 
 		/**
 		 * Loop che attende nuovi Client e inizializza i relativi gestori.
@@ -75,7 +75,7 @@ public class SocketServer extends AbstractServer {
 				try {
 					Socket socket = serverSocket.accept();
 					// System.out.println("New socket request");
-					new PlayerHandler(getController(), socket).start();
+					new RequestHandler(getController(), socket).start();
 				} catch (IOException e) {
 					e.printStackTrace();
 					break;
@@ -87,7 +87,7 @@ public class SocketServer extends AbstractServer {
 	/**
 	 * Thread per la gestione delle richieste Client.
 	 */
-	public static class PlayerHandler extends Thread {
+	public static class RequestHandler extends Thread {
 
 		/**
 		 * Interfaccia utilizzata per comunicare con il Server (es.
@@ -125,7 +125,7 @@ public class SocketServer extends AbstractServer {
 
 		/**
 		 * Mappa di tutti i metodi di risposta definiti sul server (vedi
-		 * {@link RequestHandler}).
+		 * {@link SocketRequestListener}).
 		 */
 		private final HashMap<Object, RequestHandlerInterface> requestMap;
 
@@ -138,7 +138,7 @@ public class SocketServer extends AbstractServer {
 		 *            socket usato per la comunicazione.
 		 * @throws IOException
 		 */
-		public PlayerHandler(IServer controller, Socket socket) throws IOException {
+		public RequestHandler(IServer controller, Socket socket) throws IOException {
 			this.server = controller;
 			this.socket = socket;
 			this.outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -151,12 +151,12 @@ public class SocketServer extends AbstractServer {
 
 		/**
 		 * Inizializza "responseMap" caricando tutti i possibili metodi di
-		 * risposta (chiamati da {@link RequestHandler}).
+		 * risposta (chiamati da {@link SocketRequestListener}).
 		 */
 		private void loadRequests() {
-			requestMap.put(SocketConstants.LOGIN_REQUEST, this::loginPlayer);
+			requestMap.put(SocketConstants.LOGIN_REQUEST, this::sendLoginRequest);
 			requestMap.put(SocketConstants.CHAT_MESSAGE, this::sendChatMessage);
-			requestMap.put(SocketConstants.GAME_ACTION, this::performGameAction);
+			requestMap.put(SocketConstants.GAME_ACTION, this::sendGameActionRequest);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////
@@ -214,7 +214,7 @@ public class SocketServer extends AbstractServer {
 		 *            intestazione della risposta ricevuta dal server (es.
 		 *            {@link SocketConstants}).
 		 */
-		public void handleClientRequest(Object object) {
+		private void handleClientRequest(Object object) {
 			RequestHandlerInterface handler = requestMap.get(object);
 			if (handler != null) {
 				synchronized (OUTPUT_MUTEX) {
@@ -230,7 +230,7 @@ public class SocketServer extends AbstractServer {
 		/**
 		 * Prova a fare eseguire il login sul Server con il nickname fornito.
 		 */
-		private void loginPlayer() {
+		private void sendLoginRequest() {
 			try {
 				String nickname = (String) inputStream.readObject();
 
@@ -279,12 +279,12 @@ public class SocketServer extends AbstractServer {
 		/**
 		 * Invia una una richiesta di esecuzione di un'azione di gioco.
 		 */
-		private void performGameAction() {
+		private void sendGameActionRequest() {
 			try {
 				UpdateStats action = (UpdateStats) inputStream.readObject();
 				this.socketPlayer.getRoom().performGameAction(this.socketPlayer, action);
 			} catch (GameException e) {
-				actionNotValid(e.getMessage());
+				notifyActionNotValid(e.getMessage());
 			} catch (ClassNotFoundException | ClassCastException | IOException e) {
 				System.err.println("Exception while handling client request");
 			}
@@ -296,7 +296,7 @@ public class SocketServer extends AbstractServer {
 		 * @param errorCode
 		 *            that identify the error. {@link ErrorCodes} for details.
 		 */
-		private void actionNotValid(String errorCode) {
+		private void notifyActionNotValid(String errorCode) {
 			synchronized (OUTPUT_MUTEX) {
 				try {
 					outputStream.writeObject(SocketConstants.ACTION_NOT_VALID);

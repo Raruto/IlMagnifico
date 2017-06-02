@@ -96,7 +96,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	private void loadResponses() {
 		responseMap.put(SocketConstants.CHAT_MESSAGE, this::notifyChatMessage);
-		responseMap.put(SocketConstants.ACTION_NOT_VALID, this::actionNotValid);
+		responseMap.put(SocketConstants.ACTION_NOT_VALID, this::notifyActionNotValid);
 		responseMap.put(SocketConstants.GAME_ACTION, this::notifyGameUpdate);
 	}
 
@@ -122,7 +122,7 @@ public class SocketClient extends AbstractClient {
 	 *             se il server non è raggiungibile.
 	 */
 	@Override
-	public void loginPlayer(String nickname) throws NetworkException {
+	public void sendLoginRequest(String nickname) throws NetworkException {
 		int responseCode;
 		try {
 			outputStream.writeObject(SocketConstants.LOGIN_REQUEST);
@@ -166,7 +166,7 @@ public class SocketClient extends AbstractClient {
 	}
 
 	@Override
-	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
+	public void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
 				outputStream.writeObject(SocketConstants.GAME_ACTION);
@@ -205,7 +205,7 @@ public class SocketClient extends AbstractClient {
 		}
 	}
 
-	private void actionNotValid() {
+	private void notifyActionNotValid() {
 		try {
 			String errorCode = (String) inputStream.readObject();
 			getController().onActionNotValid(errorCode);
@@ -254,7 +254,7 @@ public class SocketClient extends AbstractClient {
 		 *            intestazione della risposta ricevuta dal server (es.
 		 *            {@link SocketConstants}).
 		 */
-		public void handleResponse(Object object) {
+		private void handleResponse(Object object) {
 			ResponseHandlerInterface handler = responseMap.get(object);
 			if (handler != null) {
 				handler.handle();
