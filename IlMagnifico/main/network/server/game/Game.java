@@ -127,28 +127,38 @@ public class Game extends Partita {
 				update = handleResponse(remotePlayer, requestedAction);
 				dispatchGameUpdate(update);
 
-				if (!isGiroDiTurniTerminato()) {					
+				if (!isGiroDiTurniTerminato()) {
+				
 					avanzaDiTurno();
-					
 					update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
 					update.setNomeGiocatore(giocatoreDelTurnoSuccessivo(remotePlayer).getNome());
 					dispatchGameUpdate(update);
+				
 				} else {
 					
+					// terminaGiroDiTurni();
 					update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 					dispatchGameUpdate(update);
-
-					if (isPeriodoTerminato()) {
+					
+					if (!isPeriodoTerminato()) {
+						// avanzaGiroDiTurni();
+					} else {
+						
+						// terminaPeriodo();
 						update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 						dispatchGameUpdate(update);
-					}
-					
-					if (isPartitaFinita()) {
-						update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
-						dispatchGameUpdate(update);
+
+						if (!isPartitaFinita()) {
+							// avanzaPeriodo();
+						} else {
+							
+							// terminaPartita();
+							update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+							dispatchGameUpdate(update);
+							
+						}
 					}
 				}
-
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());
