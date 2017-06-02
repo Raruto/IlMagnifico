@@ -123,6 +123,8 @@ public class Game extends Partita {
 
 			if (!isPeriodoTerminato()) {
 				// avanzaGiroDiTurni();
+				update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
+				dispatchGameUpdate(update);
 			} else {
 
 				// terminaPeriodo();
@@ -131,6 +133,8 @@ public class Game extends Partita {
 
 				if (!isPartitaFinita()) {
 					// avanzaPeriodo();
+					update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+					dispatchGameUpdate(update);
 				} else {
 
 					// terminaPartita();
