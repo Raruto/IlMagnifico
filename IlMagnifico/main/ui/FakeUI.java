@@ -100,7 +100,7 @@ public class FakeUI {
 
 		boolean success = false;
 		int attempts = Costants.MAX_CONNECTION_ATTEMPTS;
-		int sec = Costants.RETRY_CONNECTION_SECONDS * 1000;
+		int sec = Costants.CONNECTION_RETRY_SECONDS * 1000;
 		while (!success && attempts > 0) {
 			try {
 				attempts--;

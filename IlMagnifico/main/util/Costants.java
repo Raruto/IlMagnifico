@@ -10,7 +10,7 @@ public class Costants {
 	public static final int SOCKET_PORT = 1098;
 	public static final int RMI_PORT = 1099;
 	public static final int MAX_CONNECTION_ATTEMPTS = 2;
-	public static final int RETRY_CONNECTION_SECONDS = 1;
+	public static final int CONNECTION_RETRY_SECONDS = 1;
 
 	// Stanza
 	public static final int ROOM_MIN_PLAYERS = 2;
