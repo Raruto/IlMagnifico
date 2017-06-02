@@ -122,15 +122,15 @@ public class Game extends Partita {
 	public UpdateStats performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			UpdateStats update;
 			try {
+				UpdateStats update;
 				update = handleResponse(remotePlayer, requestedAction);
 				// turnazione();
+				return update;
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());
 			}
-			return update;
 		} else {
 			throw new GameException(e.toString());
 		}
