@@ -204,7 +204,7 @@ public abstract class Carta {
 	 */
 	public boolean attivaOnEffettoTorre() {
 		for (int i = 0; i < this.effettoPermanente.size(); i++) {
-			if (this.effettoPermanente.get(i)[2] == EAzioniGiocatore.EffettoTorre)
+			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.EffettoTorre)
 				return true;
 		}
 		return false;

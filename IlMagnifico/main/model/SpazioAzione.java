@@ -13,6 +13,9 @@ public class SpazioAzione implements Serializable {
 	 */
 	public SpazioAzione() {
 		this.pianoDellaTorre = new Torre[16];
+		for (int i = 0; i < 16; i++) {
+			this.pianoDellaTorre[i] = new Torre();
+		}
 		this.zonaRaccoltoRotonda = null;
 		this.zonaRaccoltoOvale = new ArrayList<Famigliare>();
 		this.zonaProduzioneRotonda = null;
@@ -75,8 +78,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se il piano della torre indicato dalla posizione
-	 * �ｾ�ｽｨ libero, false altrimenti
+	 * Restituisce true se il piano della torre indicato dalla posizione �ｾ�ｽｨ
+	 * libero, false altrimenti
 	 * 
 	 * @param int
 	 * @return boolean
@@ -91,8 +94,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Raccolto rotonda �ｾ�ｽｨ libera,
-	 * false altrimenti
+	 * Restituisce true se la zona Raccolto rotonda �ｾ�ｽｨ libera, false
+	 * altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -107,8 +110,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Produzione rotonda �ｾ�ｽｨ libera,
-	 * false altrimenti
+	 * Restituisce true se la zona Produzione rotonda �ｾ�ｽｨ libera, false
+	 * altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -122,8 +125,8 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Ritorna true se la zona mercato alla posizione indicata in ingresso
-	 * �ｾ�ｽｨ libera, false altrimenti
+	 * Ritorna true se la zona mercato alla posizione indicata in ingresso �ｾ�ｽｨ
+	 * libera, false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -137,8 +140,7 @@ public class SpazioAzione implements Serializable {
 
 	/**
 	 * Effettua l'effetto conseguente sul giocatore a seconda della posizione in
-	 * ingresso. Se la posizione non �ｾ�ｽｨ valida il metodo non fa
-	 * niente
+	 * ingresso. Se la posizione non �ｾ�ｽｨ valida il metodo non fa niente
 	 * 
 	 * @param Giocatore,
 	 *            int
@@ -155,7 +157,8 @@ public class SpazioAzione implements Serializable {
 			giocatore.getRisorse().cambiaMonete(2);
 			giocatore.getPunti().cambiaPuntiMilitari(3);
 		} else if (posizione == 3) {
-			// qua ci vuole il metodo che permette al giocatore di ottenere un
+			// TODO:qua ci vuole il metodo che permette al giocatore di ottenere
+			// un
 			// doppio privilegio del consiglio
 		}
 
@@ -171,9 +174,10 @@ public class SpazioAzione implements Serializable {
 	 * 
 	 */
 	public void eseguiEffettoPalazzoConsiglio(Giocatore giocatore) {
-		// metodo per fare scegliere al giocatore l'effetto del privilegio del
+		// TODO: metodo per fare scegliere al giocatore l'effetto del privilegio
+		// del
 		// consiglio
-		return;
+		giocatore.getRisorse().cambiaMonete(1);
 	}
 
 	/**
@@ -388,7 +392,8 @@ public class SpazioAzione implements Serializable {
 	 * dal palazzo del consiglio
 	 */
 	public void eliminaRicorrenzePalazzoDelConsiglio() {
-		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
+		// TODO: elimino le ricorrenze nell'arraylist del Palazzo del consiglio
+		// e
 		// dall'arraylist dei giocatori, poi concateno
 	}
 

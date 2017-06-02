@@ -14,6 +14,8 @@ public class Scomunica {
 	 */
 	public Scomunica() {
 		this.utilEffetto = new UtilEffetto();
+		this.nome = new String();
+		this.effetto = new ArrayList<Object[]>();
 	}
 
 	/**
@@ -59,4 +61,18 @@ public class Scomunica {
 		}
 	}
 
+	/**
+	 * Metodo che controlla se l'effetto della scomunica influisce sull'azione
+	 * Mercato
+	 * 
+	 * @param
+	 * @return
+	 */
+	public boolean attivaOnMercato() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.Mercato)
+				return true;
+		}
+		return false;
+	}
 }
