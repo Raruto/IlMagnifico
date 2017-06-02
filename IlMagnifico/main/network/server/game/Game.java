@@ -112,7 +112,7 @@ public class Game extends Partita {
 
 			avanzaDiTurno();
 			update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
-			update.setNomeGiocatore(giocatoreDelTurnoSuccessivo(giocatoreDiTurno).getNome());
+			update.setNomeGiocatore(giocatoreDiTurno.getNome());
 			dispatchGameUpdate(update);
 
 		} else {
