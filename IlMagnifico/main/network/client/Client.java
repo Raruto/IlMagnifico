@@ -217,14 +217,10 @@ public class Client implements IClient {
 			System.out.println("Try to login user with nickname: " + nickname);
 			client.loginPlayer(nickname);
 			success = true;
-			// joinFirstAvailableRoom();
 		} catch (LoginException e) {
 			System.out.println("Nickname is already in use on server");
-			// mUi.showLoginErrorMessage();
 		} catch (NetworkException e) {
-			e.printStackTrace();
-			// System.out.println("Cannot send login request: " +
-			// e.getMessage());
+			System.err.println(e.getMessage());
 		}
 
 		if (success) {
@@ -291,7 +287,6 @@ public class Client implements IClient {
 			// In casi estremi!
 			System.err.println("\nUnknown error: " + errorCode);
 		}
-
 	}
 
 	@Override

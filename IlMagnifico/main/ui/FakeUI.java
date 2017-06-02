@@ -98,13 +98,13 @@ public class FakeUI {
 			System.out.println("Connecting with RMI..");
 		}
 
-		boolean connected = false;
+		boolean success = false;
 
-		while (!connected) {
+		while (!success) {
 			try {
 				Client client = getClient();
 				client.startClient(inText, serverAddress, socketPort, rmiPort);
-				connected = true;
+				success = true;
 			} catch (ClientException e) {
 				int sec = 5000;
 				System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 + " seconds" + ")");
@@ -116,7 +116,7 @@ public class FakeUI {
 			}
 		}
 
-		if (connected) {
+		if (success) {
 			FakeUI.login();
 			FakeUI.sayHelloToPlayers();
 			FakeUI.infiniteLoop();
