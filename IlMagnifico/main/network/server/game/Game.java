@@ -101,7 +101,12 @@ public class Game extends Partita {
 		notifyAll(); // Notify all about game end status.
 	}
 
-	private void updateGameLogic() {
+	/**
+	 * Ad ogni chiamata del metodo fa progredire lo stato della partita (es.
+	 * passando al giocatore successivo) inviando una notifica sullo stato della
+	 * partita (es. fine periodo, fine partita...)
+	 */
+	private void andvanceInGameLogic() {
 		UpdateStats update;
 		if (!isGiroDiTurniTerminato()) {
 
@@ -164,9 +169,9 @@ public class Game extends Partita {
 				dispatchGameUpdate(update);
 
 				// Se tutto va a buon fine (azione valida = non scatena nessuna
-				// eccezzione), faccio avanzare lo stato interno della partita
+				// eccezzione), fa avanzare lo stato interno della partita
 				// (es. notifico al prossimo giocatore che e' il suo turno).
-				updateGameLogic();
+				andvanceInGameLogic();
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());
