@@ -17,7 +17,10 @@ public class Costants {
 	public static final int ROOM_MAX_PLAYERS = 4;
 	public static final int ROOM_WAITING_TIME = 1;
 	public static final boolean ROOM_ENABLE_LOG = true;
-	
+
+	// Gioco
+	public static final String GAME_ID = ANSI.CYAN + "[" + "GAME" + "]" + ANSI.RESET;
+	public static final String ROOM_ID = ANSI.YELLOW + "[" + "ROOM" + "]" + ANSI.RESET;
 
 	/**
 	 * Costruttore privato.

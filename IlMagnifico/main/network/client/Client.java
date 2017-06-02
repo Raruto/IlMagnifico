@@ -275,7 +275,10 @@ public class Client implements IClient {
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
 		// if (privateMessage) {
-		System.out.println("[" + author + "]" + " " + message);
+		if(author.equals("ROOM"))
+		System.out.println(Costants.ROOM_ID + " " + message);
+		else
+			System.out.println("[" + author + "]" + " " + message);
 		// }
 		// mUi.showChatMessage(privateMessage, author, message);
 	}
@@ -297,7 +300,8 @@ public class Client implements IClient {
 			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
 					+ update.getAzioneGiocatore().toString());
 		} else if (update.getAzioneServer() != null) {
-			System.out.println("[GAME]" + " ACTION: " + update.getAzioneServer().toString());
+			System.out.println(Costants.GAME_ID + " ACTION: "
+					+ update.getAzioneServer().toString());
 		}
 		handleResponse(update);
 	}
