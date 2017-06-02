@@ -130,6 +130,14 @@ public class Partita {
 		return this.periodo > 0;
 	}
 
+	protected boolean isGiroDiTurniTerminato() {
+		return this.giocatoreDiTurno.equals(null);
+	}
+
+	protected boolean isPeriodoTerminato() {
+		return (turno == 2 && isGiroDiTurniTerminato());
+	}
+
 	protected boolean isPartitaFinita() {
 		return partitaTerminata;
 	}
@@ -140,10 +148,6 @@ public class Partita {
 
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
 		return this.giocatoreDiTurno.equals(g);
-	}
-	
-	protected boolean isGiroDiTurniTerminato(){
-		return this.giocatoreDiTurno.equals(null);
 	}
 
 	public void inizializzaMazzo() {
@@ -353,7 +357,7 @@ public class Partita {
 	public ArrayList<Giocatore> calcolaClassificaFinale() {
 		ArrayList<Giocatore> classifica = new ArrayList<Giocatore>();
 		for (int i = 0; i < this.giocatori.size(); i++) {
-			//this.giocatori.get(i).calcolaPVFinali();
+			this.giocatori.get(i).calcolaPVFinali();
 		}
 		classifica.add(giocatori.get(0));
 		for (int i = 1; i < this.giocatori.size(); i++) {
