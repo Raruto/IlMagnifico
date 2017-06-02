@@ -209,12 +209,11 @@ public class Partita {
 	}
 
 	/**
-	 * Metodo che calcola il nuovo ordine di gioco. Resituisce tale ordine in un
-	 * ArrayList<Giocatore>
+	 * Metodo che calcola il nuovo ordine di gioco.
 	 * 
 	 * @return
 	 */
-	public ArrayList<Giocatore> scegliOrdine() {
+	public void scegliOrdine() {
 		// prende la lista senza duplicati e ordinata di giocatori nella zona
 		// palazzo del consiglio, ci aggiunge i giocatori non ancora presenti
 		// nella lista e ritorna il nuovo ordine di gioco
@@ -226,7 +225,7 @@ public class Partita {
 			if (!ordineNuovo.contains(giocatore))
 				ordineNuovo.add(giocatore);
 		}
-		return ordineNuovo;
+		this.giocatori = ordineNuovo;
 	}
 
 	/**
