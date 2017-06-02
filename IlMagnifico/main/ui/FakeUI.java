@@ -98,18 +98,29 @@ public class FakeUI {
 			System.out.println("Connecting with RMI..");
 		}
 
-		try {
-			Client client = getClient();
-			client.startClient(inText, serverAddress, socketPort, rmiPort);
-		} catch (ClientException e) {
-			System.err.println(e.getMessage());
-			System.err.println("Exiting...");
-			System.exit(0);
+		boolean connected = false;
+
+		while (!connected) {
+			try {
+				Client client = getClient();
+				client.startClient(inText, serverAddress, socketPort, rmiPort);
+				connected = true;
+			} catch (ClientException e) {
+				int sec = 5000;
+				System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 + " seconds" + ")");
+				try {
+					Thread.sleep(sec);
+				} catch (InterruptedException ie) {
+					// TODO Auto-generated catch block
+				}
+			}
 		}
 
-		FakeUI.login();
-		FakeUI.sayHelloToPlayers();
-		FakeUI.infiniteLoop();
+		if (connected) {
+			FakeUI.login();
+			FakeUI.sayHelloToPlayers();
+			FakeUI.infiniteLoop();
+		}
 	}
 
 	/**
@@ -128,7 +139,7 @@ public class FakeUI {
 			System.out.println();
 
 		} catch (ServerException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 			System.err.println("Exiting...");
 			System.exit(0);
 		}
