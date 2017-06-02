@@ -66,7 +66,12 @@ public class SpazioAzione implements Serializable {
 	 */
 	private ArrayList<Famigliare> palazzoDelConsiglio;
 
-	private class Torre {
+	private class Torre implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -5793155106745004370L;
+
 		/**
 		 * 
 		 */

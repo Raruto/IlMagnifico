@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 
 import main.model.Giocatore;
 import main.network.NetworkException;
-import main.network.protocol.socket.Constants;
+import main.network.protocol.socket.SocketConstants;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
@@ -67,7 +67,7 @@ public class SocketPlayer extends RemotePlayer {
 	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(Constants.CHAT_MESSAGE);
+				outputStream.writeObject(SocketConstants.CHAT_MESSAGE);
 				outputStream.writeObject(author);
 				outputStream.writeObject(message);
 				outputStream.writeObject(privateMessage);
@@ -89,7 +89,7 @@ public class SocketPlayer extends RemotePlayer {
 	public void onGameUpdate(UpdateStats update) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(Constants.PERFORM_GAME_ACTION);
+				outputStream.writeObject(SocketConstants.GAME_ACTION);
 				outputStream.writeObject(update);
 				outputStream.flush();
 			} catch (IOException e) {

@@ -14,7 +14,7 @@ import main.network.client.AbstractClient;
 import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.exceptions.LoginException;
-import main.network.protocol.socket.Constants;
+import main.network.protocol.socket.SocketConstants;
 import main.network.server.game.UpdateStats;
 
 /**
@@ -95,9 +95,9 @@ public class SocketClient extends AbstractClient {
 	 * (chiamati da {@link ResponseHandler}).
 	 */
 	private void loadResponses() {
-		responseMap.put(Constants.CHAT_MESSAGE, this::notifyChatMessage);
-		responseMap.put(Constants.ACTION_NOT_VALID, this::actionNotValid);
-		responseMap.put(Constants.PERFORM_GAME_ACTION, this::notifyGameUpdate);
+		responseMap.put(SocketConstants.CHAT_MESSAGE, this::notifyChatMessage);
+		responseMap.put(SocketConstants.ACTION_NOT_VALID, this::actionNotValid);
+		responseMap.put(SocketConstants.GAME_ACTION, this::notifyGameUpdate);
 	}
 
 	/**
@@ -123,10 +123,9 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void loginPlayer(String nickname) throws NetworkException {
-		// try {
 		int responseCode;
 		try {
-			outputStream.writeObject(Constants.LOGIN_REQUEST);
+			outputStream.writeObject(SocketConstants.LOGIN_REQUEST);
 			outputStream.writeObject(nickname);
 			outputStream.flush();
 
@@ -134,15 +133,9 @@ public class SocketClient extends AbstractClient {
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			throw new NetworkException(e);
 		}
-		if (responseCode == Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+		if (responseCode == SocketConstants.RESPONSE_PLAYER_ALREADY_EXISTS) {
 			throw new LoginException();
-		}
-		// } catch (LoginException e) {
-		// throw e;
-		// } catch (IOException e) {
-		// throw new NetworkException(e);
-		// }
-		else {
+		} else {
 			startResponseHandler();
 		}
 	}
@@ -162,7 +155,7 @@ public class SocketClient extends AbstractClient {
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(Constants.CHAT_MESSAGE);
+				outputStream.writeObject(SocketConstants.CHAT_MESSAGE);
 				outputStream.writeObject(receiver);
 				outputStream.writeObject(message);
 				outputStream.flush();
@@ -174,18 +167,15 @@ public class SocketClient extends AbstractClient {
 
 	@Override
 	public void performGameAction(UpdateStats requestedAction) throws NetworkException {
-		// TODO: finire di implementare
-
 		synchronized (OUTPUT_MUTEX) {
 			try {
-				outputStream.writeObject(Constants.PERFORM_GAME_ACTION);
+				outputStream.writeObject(SocketConstants.GAME_ACTION);
 				outputStream.writeObject(requestedAction);
 				outputStream.flush();
 			} catch (IOException e) {
 				throw new NetworkException(e);
 			}
 		}
-
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -262,7 +252,7 @@ public class SocketClient extends AbstractClient {
 		 * 
 		 * @param object
 		 *            intestazione della risposta ricevuta dal server (es.
-		 *            {@link Constants}).
+		 *            {@link SocketConstants}).
 		 */
 		public void handleResponse(Object object) {
 			ResponseHandlerInterface handler = responseMap.get(object);

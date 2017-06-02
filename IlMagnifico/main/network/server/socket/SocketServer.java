@@ -8,12 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
-import main.network.protocol.socket.Constants;
+import main.network.protocol.socket.SocketConstants;
 import main.network.server.AbstractServer;
 import main.network.server.IServer;
 import main.network.server.ServerException;
@@ -155,9 +154,9 @@ public class SocketServer extends AbstractServer {
 		 * risposta (chiamati da {@link RequestHandler}).
 		 */
 		private void loadRequests() {
-			requestMap.put(Constants.LOGIN_REQUEST, this::loginPlayer);
-			requestMap.put(Constants.CHAT_MESSAGE, this::sendChatMessage);
-			requestMap.put(Constants.PERFORM_GAME_ACTION, this::performGameAction);
+			requestMap.put(SocketConstants.LOGIN_REQUEST, this::loginPlayer);
+			requestMap.put(SocketConstants.CHAT_MESSAGE, this::sendChatMessage);
+			requestMap.put(SocketConstants.GAME_ACTION, this::performGameAction);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +212,7 @@ public class SocketServer extends AbstractServer {
 		 * 
 		 * @param object
 		 *            intestazione della risposta ricevuta dal server (es.
-		 *            {@link Constants}).
+		 *            {@link SocketConstants}).
 		 */
 		public void handleClientRequest(Object object) {
 			RequestHandlerInterface handler = requestMap.get(object);
@@ -238,15 +237,15 @@ public class SocketServer extends AbstractServer {
 				int responseCode;
 				try {
 					server.loginPlayer(nickname, this.socketPlayer);
-					responseCode = Constants.RESPONSE_OK;
+					responseCode = SocketConstants.RESPONSE_OK;
 				} catch (LoginException e) {
 					System.err.println("[socket protocol] LoginException");
-					responseCode = Constants.RESPONSE_PLAYER_ALREADY_EXISTS;
+					responseCode = SocketConstants.RESPONSE_PLAYER_ALREADY_EXISTS;
 				}
 				outputStream.writeObject(responseCode);
 				outputStream.flush();
 
-				if (responseCode != Constants.RESPONSE_PLAYER_ALREADY_EXISTS) {
+				if (responseCode != SocketConstants.RESPONSE_PLAYER_ALREADY_EXISTS) {
 					try {
 						server.joinFirstAvailableRoom(this.socketPlayer);
 					} catch (JoinRoomException e) {
@@ -300,7 +299,7 @@ public class SocketServer extends AbstractServer {
 		private void actionNotValid(String errorCode) {
 			synchronized (OUTPUT_MUTEX) {
 				try {
-					outputStream.writeObject(Constants.ACTION_NOT_VALID);
+					outputStream.writeObject(SocketConstants.ACTION_NOT_VALID);
 					outputStream.writeObject(errorCode);
 					outputStream.flush();
 				} catch (IOException e) {

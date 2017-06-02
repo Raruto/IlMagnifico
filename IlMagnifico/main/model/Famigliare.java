@@ -1,5 +1,6 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 import main.model.exceptions.*;
@@ -8,7 +9,12 @@ import main.util.game.EAzioniGiocatore;
 /**
  * 
  */
-public class Famigliare {
+public class Famigliare implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7874494906323451581L;
 
 	public Famigliare(Giocatore giocatoreAppartenenza, int valore, boolean neutro) {
 		this.giocatoreAppartenenza = giocatoreAppartenenza;
