@@ -194,19 +194,30 @@ public class Famigliare {
 	 * @return
 	 */
 	public void controlloMalusEffettiPermanentiTorre(int identificativoTorre, Famigliare famigliare) {
-		for (int j = 0; j < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); j++) {
-			if (identificativoTorre == 0)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
-						EAzioniGiocatore.PrendiTerritorio, famigliare, null);
-			if (identificativoTorre == 1)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
-						EAzioniGiocatore.PrendiPersonaggio, famigliare, null);
-			if (identificativoTorre == 2)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
-						EAzioniGiocatore.PrendiEdificio, famigliare, null);
-			if (identificativoTorre == 3)
-				this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j).attivaOnAzione(null,
-						EAzioniGiocatore.PrendiImpresa, famigliare, null);
+
+		if (identificativoTorre == 0)
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiTerritorio);
+		if (identificativoTorre == 1)
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiPersonaggio);
+		if (identificativoTorre == 2)
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiEdificio);
+		if (identificativoTorre == 3)
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiImpresa);
+
+	}
+
+	/**
+	 * Metodo che scorre le carte personaggio del giocatore ed applica gli
+	 * effetti che modificano il valore del famigliare quando viene eseguita una
+	 * determinata azione
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void controlloEffettiPermanentiOnFamigliare(Famigliare famigliare, EAzioniGiocatore azione) {
+		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
+			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnAzione(null, azione, famigliare,
+					null);
 		}
 	}
 
@@ -375,7 +386,11 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoRaccoltoRotondo() throws SpazioOccupatoException, InsufficientValueException {
+	public void eseguiSpostamentoRaccoltoRotondo()
+			throws SpazioOccupatoException, InsufficientValueException, FamigliareSpostatoException {
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
+
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		// controllo se l'area è occupata
 		if (!(spazioAzione.zonaRaccoltoRotondaLibera()))
@@ -386,10 +401,7 @@ public class Famigliare {
 
 		// applico gli effetti permanenti delle carte e gli effetti delle
 		// scomuniche
-		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnAzione(null,
-					EAzioniGiocatore.Raccolto, famigliareTemporaneo, null);
-		}
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Raccolto);
 
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
 			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto,
@@ -408,32 +420,45 @@ public class Famigliare {
 
 	/**
 	 * Metodo che esegue lo spostamento sulla zona di raccolto ovale se le
-	 * condizioni sono rispettate. Restituisce true se va a buon fine, flase se
-	 * le condizioni non sono rispettate
+	 * condizioni sono rispettate.
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoRaccoltoOvale() throws{
+	public void eseguiSpostamentoRaccoltoOvale()
+			throws FamigliareSpostatoException, SameAreaException, InsufficientValueException {
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-
-		if (valore - 3 < 1)
-			return false;
-
+		Famigliare famigliareTemporaneo = new Famigliare(null, 0, false);
+		// controllo che non ci sia un famigliare dello stesso colore
 		for (int i = 0; i < spazioAzione.getZonaRaccoltoOvale().size(); i++) {
-			if ((spazioAzione.getZonaRaccoltoOvale().get(i).getGiocatore() == giocatoreAppartenenza)
-					&& (spazioAzione.getZonaRaccoltoOvale().get(i).getNeutralita() == false))
-				return false;
+			famigliareTemporaneo = spazioAzione.getZonaRaccoltoOvale().get(i);
+			if (famigliareTemporaneo.giocatoreAppartenenza == this.giocatoreAppartenenza
+					&& famigliareTemporaneo.getNeutralita() == false && this.neutro == false)
+				throw new SameAreaException();
 		}
 
-		valore -= 3;
+		famigliareTemporaneo = clonaFamigliare();
 
-		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnRaccolto(this.giocatoreAppartenenza);
+		// applico gli effetti permanenti delle carte e gli effetti delle
+		// scomuniche
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Raccolto);
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto,
+					famigliareTemporaneo, null);
+
+		// applico il malus della zona ovale
+		famigliareTemporaneo.cambiaValore(-3);
+		// guardo se il famigliare ha abbastanza valore
+		if (famigliareTemporaneo.valore < 1)
+			throw new InsufficientValueException();
+		else {
+			mergeFamigliari(famigliareTemporaneo);
+			spazioAzione.setZonaRaccoltoOvale(this);
+			this.posizionato = true;
+			this.giocatoreAppartenenza.raccolto(this.valore);
 		}
-		Raccolto(this.giocatoreAppartenenza, valore);
 
-		spazioAzione.getZonaRaccoltoOvale().add(this);
-		return true;
 	}
 
 	/**
@@ -442,7 +467,11 @@ public class Famigliare {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoProduzioneRotondo() throws SpazioOccupatoException, InsufficientValueException {
+	public void eseguiSpostamentoProduzioneRotondo()
+			throws SpazioOccupatoException, InsufficientValueException, FamigliareSpostatoException {
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
+
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		// controllo se l'area è occupata
 		if (!(spazioAzione.zonaProduzioneRotondaLibera()))
@@ -453,10 +482,7 @@ public class Famigliare {
 
 		// applico gli effetti permanenti delle carte e gli effetti delle
 		// scomuniche
-		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnAzione(null,
-					EAzioniGiocatore.Produzione, famigliareTemporaneo, null);
-		}
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Produzione);
 
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
 			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione,
@@ -475,70 +501,96 @@ public class Famigliare {
 
 	/**
 	 * Metodo che esegue lo spostamento nella zona di produzione ovale Se le
-	 * condizioni sono rispettate. Restituisce true se va a buon fine, false se
-	 * le condizioni non sono rispettate
+	 * condizioni sono rispettate.
 	 * 
 	 * @return
 	 */
-	public boolean eseguiSpostamentoProduzioneOvale() {
+	public void eseguiSpostamentoProduzioneOvale()
+			throws FamigliareSpostatoException, SameAreaException, InsufficientValueException {
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-
-		if (valore - 3 < 1)
-			return false;
-
+		Famigliare famigliareTemporaneo = new Famigliare(null, 0, false);
+		// controllo che non ci sia un famigliare dello stesso colore
 		for (int i = 0; i < spazioAzione.getZonaProduzioneOvale().size(); i++) {
-			if ((spazioAzione.getZonaProduzioneOvale().get(i).getGiocatore() == giocatoreAppartenenza)
-					&& (spazioAzione.getZonaProduzioneOvale().get(i).getNeutralita() == false))
-				return false;
+			famigliareTemporaneo = spazioAzione.getZonaProduzioneOvale().get(i);
+			if (famigliareTemporaneo.giocatoreAppartenenza == this.giocatoreAppartenenza
+					&& famigliareTemporaneo.getNeutralita() == false && this.neutro == false)
+				throw new SameAreaException();
 		}
 
-		valore -= 3;
-		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
-			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i)
-					.attivaOnProduzione(this.giocatoreAppartenenza);
-		}
-		Produzione(this.giocatoreAppartenenza, valore);
+		famigliareTemporaneo = clonaFamigliare();
 
-		spazioAzione.getZonaProduzioneOvale().add(this);
-		return true;
+		// applico gli effetti permanenti delle carte e gli effetti delle
+		// scomuniche
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Produzione);
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione,
+					famigliareTemporaneo, null);
+
+		// applico il malus della zona ovale
+		famigliareTemporaneo.cambiaValore(-3);
+		// guardo se il famigliare ha abbastanza valore
+		if (famigliareTemporaneo.valore < 1)
+			throw new InsufficientValueException();
+		else {
+			mergeFamigliari(famigliareTemporaneo);
+			spazioAzione.setZonaProduzioneOvale(this);
+			this.posizionato = true;
+			this.giocatoreAppartenenza.produzione(this.valore);
+
+		}
 	}
 
 	/**
 	 * Metodo che esegue lo spostamento nella zona del mercato se le condizioni
-	 * sono rispettate. Restituisce true se va a buon fine, false altrimenti
+	 * sono rispettate.
 	 * 
 	 * @param
 	 * @return
 	 */
-	public boolean eseguiSpostamentoMercato(int posizione) {
+	public void eseguiSpostamentoMercato(int posizione) throws InvalidPositionException, FamigliareSpostatoException,
+			SpazioOccupatoException, MarketNotAvailableException, InsufficientValueException {
 		if (posizione < 0 || posizione > 3)
-			return false;
+			throw new InvalidPositionException();
+
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
+
+		SpazioAzione spazioAzione = this.giocatoreAppartenenza.getSpazioAzione();
+		if (spazioAzione.zonaMercatoLibera(posizione) == false)
+			throw new SpazioOccupatoException();
+
+		if (this.giocatoreAppartenenza.getScomunica(1) != null)
+			if (this.giocatoreAppartenenza.getScomunica(1).attivaOnMercato())
+				throw new MarketNotAvailableException();
+
 		if (valore < 1)
-			return false;
-		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
-		if (!spazioAzione.zonaMercatoLibera(posizione))
-			return false;
-		spazioAzione.getMercato()[posizione] = this;
+			throw new InsufficientValueException();
+
+		spazioAzione.setMercato(this, posizione);
+		this.posizionato = true;
 		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, posizione);
-		return true;
 	}
 
 	/**
 	 * Metodo che esegue lo spostamento nella zona del palazzo del consiglio se
-	 * le condizioni sono rispettate. Restituisce true se va a buon fine, false
-	 * altrimenti
+	 * le condizioni sono rispettate.
 	 * 
 	 * @return
 	 */
-	public boolean eseguiSpostamentoPalazzoConsiglio() {llkj
+	public void eseguiSpostamentoPalazzoConsiglio() throws FamigliareSpostatoException, InsufficientValueException {
+
+		if (this.posizionato == true)
+			throw new FamigliareSpostatoException();
 
 		if (valore < 1)
-			return false;
+			throw new InsufficientValueException();
 
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		spazioAzione.setPalazzoDelConsiglio(this);
+		this.posizionato = true;
 		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza);
-		return true;
 	}
 
 	public boolean getNeutralita() {
