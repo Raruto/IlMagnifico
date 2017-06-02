@@ -107,4 +107,36 @@ public class Scomunica {
 		}
 		return false;
 	}
+
+	public boolean attivaOnRiceviMonete() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviMonete)
+				return true;
+		}
+		return false;
+	}
+
+	public boolean attivaOnRiceviPietreOLegno() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviPietreOLegno)
+				return true;
+		}
+		return false;
+	}
+
+	public boolean attivaOnRiceviPM() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviPM)
+				return true;
+		}
+		return false;
+	}
+
+	public boolean attivaOnRiceviServitori() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviServitori)
+				return true;
+		}
+		return false;
+	}
 }
