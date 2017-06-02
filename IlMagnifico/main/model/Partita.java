@@ -209,8 +209,7 @@ public class Partita {
 	}
 
 	/**
-	 * Metodo che calcola il nuovo ordine di gioco. Resituisce tale ordine in un
-	 * ArrayList<Giocatore>
+	 * Metodo che calcola il nuovo ordine di gioco.
 	 * 
 	 * @return
 	 */
