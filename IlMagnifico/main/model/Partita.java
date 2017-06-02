@@ -214,7 +214,7 @@ public class Partita {
 	 */
 	public void scegliOrdine() {
 
-		// elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
+		//TODO: elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
 		// dall'arraylist dei giocatori, poi concateno
 	}
 
