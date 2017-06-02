@@ -1,4 +1,4 @@
-package main.util.errors;
+package main.model.errors;
 
 /**
  * Classe che definisce alcune costanti per i messaggi di segnalazione di errori

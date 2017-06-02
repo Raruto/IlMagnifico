@@ -2,9 +2,9 @@ package main.model;
 
 import java.util.*;
 
-import main.util.errors.Errors;
-import main.util.errors.GameError;
-import main.util.game.PlayerColors;
+import main.model.enums.PlayerColors;
+import main.model.errors.Errors;
+import main.model.errors.GameError;
 
 /**
  * 

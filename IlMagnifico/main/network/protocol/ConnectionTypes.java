@@ -1,4 +1,4 @@
-package main.util.network;
+package main.network.protocol;
 
 /**
  * Tipi di connessioni di rete supportati per la comunicazione Client/Server.

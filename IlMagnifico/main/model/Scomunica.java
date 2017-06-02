@@ -2,7 +2,7 @@ package main.model;
 
 import java.util.*;
 
-import main.util.game.EAzioniGiocatore;
+import main.model.enums.EAzioniGiocatore;
 
 /**
  * 

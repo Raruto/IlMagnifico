@@ -13,10 +13,10 @@ import main.model.Punti;
 import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.Territorio;
-import main.util.game.EAzioniGiocatore;
-import main.util.game.EFasiDiGioco;
-import main.util.game.EPunti;
-import main.util.game.ERisorse;
+import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EFasiDiGioco;
+import main.model.enums.EPunti;
+import main.model.enums.ERisorse;
 
 public class UpdateStats implements Serializable {
 

@@ -1,4 +1,4 @@
-package main.util.game;
+package main.model.enums;
 
 public enum EAzioniGiocatore {
 	// ho inserito le costanti che servono per

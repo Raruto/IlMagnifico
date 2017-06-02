@@ -3,17 +3,17 @@ package main.network.client;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
+import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EFasiDiGioco;
+import main.model.errors.Errors;
 import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
 import main.network.client.socket.SocketClient;
 import main.network.exceptions.LoginException;
+import main.network.protocol.ConnectionTypes;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
 import main.util.Costants;
-import main.util.errors.Errors;
-import main.util.game.EAzioniGiocatore;
-import main.util.game.EFasiDiGioco;
-import main.util.network.ConnectionTypes;
 
 /**
  * 

@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 import main.model.Giocatore;
 import main.model.Partita;
+import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EFasiDiGioco;
+import main.model.errors.Errors;
+import main.model.errors.GameError;
 import main.network.server.game.exceptions.GameException;
-import main.util.errors.Errors;
-import main.util.errors.GameError;
-import main.util.game.EAzioniGiocatore;
-import main.util.game.EFasiDiGioco;
 
 public class Game extends Partita {
 

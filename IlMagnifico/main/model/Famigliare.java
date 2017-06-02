@@ -3,8 +3,8 @@ package main.model;
 import java.io.Serializable;
 import java.util.*;
 
+import main.model.enums.EAzioniGiocatore;
 import main.model.exceptions.*;
-import main.util.game.EAzioniGiocatore;
 
 /**
  * 

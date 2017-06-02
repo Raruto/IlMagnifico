@@ -1,4 +1,4 @@
-package main.util.game;
+package main.model.enums;
 
 public enum EPunti {
 	Fede, Militare, Vittoria;

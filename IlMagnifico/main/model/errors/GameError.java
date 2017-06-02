@@ -1,4 +1,4 @@
-package main.util.errors;
+package main.model.errors;
 
 public class GameError {
 	Errors e;

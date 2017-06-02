@@ -2,12 +2,12 @@ package main.network.server.game;
 
 import java.util.*;
 
+import main.model.errors.Errors;
 import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.RoomFullException;
 import main.util.Costants;
-import main.util.errors.Errors;
 
 /**
  * Classe per la gestione di una singola Stanza sul server. Ogni Stanza gestisce
