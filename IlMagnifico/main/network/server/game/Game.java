@@ -102,6 +102,51 @@ public class Game extends Partita {
 	}
 
 	/**
+	 * Ad ogni chiamata del metodo fa progredire lo stato della partita (es.
+	 * passando al giocatore successivo) inviando una notifica sullo stato della
+	 * partita (es. fine periodo, fine partita...)
+	 */
+	private void andvanceInGameLogic() {
+		UpdateStats update;
+		if (!isGiroDiTurniTerminato()) {
+
+			avanzaDiTurno();
+			update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
+			update.setNomeGiocatore(giocatoreDelTurnoSuccessivo(giocatoreDiTurno).getNome());
+			dispatchGameUpdate(update);
+
+		} else {
+
+			// terminaGiroDiTurni();
+			update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
+			dispatchGameUpdate(update);
+
+			if (!isPeriodoTerminato()) {
+				// avanzaGiroDiTurni();
+				update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
+				dispatchGameUpdate(update);
+			} else {
+
+				// terminaPeriodo();
+				update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
+				dispatchGameUpdate(update);
+
+				if (!isPartitaFinita()) {
+					// avanzaPeriodo();
+					update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+					dispatchGameUpdate(update);
+				} else {
+
+					// terminaPartita();
+					update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+					dispatchGameUpdate(update);
+
+				}
+			}
+		}
+	}
+
+	/**
 	 * Metodo invocato dalla partita per notificare un avanzamento autonomo
 	 * dello stato della partita (es. fine periodo, rapporto vaticano...)
 	 * 
@@ -123,16 +168,14 @@ public class Game extends Partita {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
 			try {
-				UpdateStats update;
-				update = handleResponse(remotePlayer, requestedAction);
+				// Tenta di eseguire l'azione richiesta dal giocatore
+				UpdateStats update = handleResponse(remotePlayer, requestedAction);
 				dispatchGameUpdate(update);
-				if (!isGiroDiTurniTerminato()) {
-					avanzaDiTurno();
-					UpdateStats u = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
-					u.setNomeGiocatore(this.giocatoreDelTurnoSuccessivo(remotePlayer).getNome());
-					dispatchGameUpdate(u);
-				}
 
+				// Se tutto va a buon fine (azione valida = non scatena nessuna
+				// eccezzione), fa avanzare lo stato interno della partita
+				// (es. notifico al prossimo giocatore che e' il suo turno).
+				andvanceInGameLogic();
 			} catch (Exception e2) {
 				e.setError(Errors.GENERIC_ERROR);
 				throw new GameException(e.toString());

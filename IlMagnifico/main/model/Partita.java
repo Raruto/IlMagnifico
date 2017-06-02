@@ -131,6 +131,10 @@ public class Partita {
 		return this.periodo > 0;
 	}
 
+	protected boolean isPeriodoTerminato() {
+		return (turno == 2 && isGiroDiTurniTerminato());
+	}
+
 	protected boolean isPartitaFinita() {
 		return partitaTerminata;
 	}
