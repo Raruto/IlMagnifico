@@ -66,7 +66,7 @@ public class SpazioAzione implements Serializable {
 	 */
 	private ArrayList<Famigliare> palazzoDelConsiglio;
 
-	private class Torre implements Serializable{
+	private class Torre implements Serializable {
 		/**
 		 * 
 		 */
@@ -104,8 +104,7 @@ public class SpazioAzione implements Serializable {
 	}
 
 	/**
-	 * Restituisce true se la zona Raccolto rotonda e' libera, false
-	 * altrimenti
+	 * Restituisce true se la zona Raccolto rotonda e' libera, false altrimenti
 	 * 
 	 * @param
 	 * @return boolean
@@ -401,10 +400,17 @@ public class SpazioAzione implements Serializable {
 	 * Metodo che toglie i famigliari che appartengono ad uno stesso giocatore
 	 * dal palazzo del consiglio
 	 */
-	public void eliminaRicorrenzePalazzoDelConsiglio() {
-		// TODO: elimino le ricorrenze nell'arraylist del Palazzo del consiglio
-		// e
-		// dall'arraylist dei giocatori, poi concateno
+	public ArrayList<Giocatore> getGiocatoriPalazzoDelConsiglio() {
+		// creo un arraylist di giocatori che rappresenta l'ordine dei
+		// famigliari senza duplicati
+		ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>();
+		Giocatore giocatore = new Giocatore();
+		for (int i = 0; i < this.palazzoDelConsiglio.size(); i++) {
+			giocatore = palazzoDelConsiglio.get(i).getGiocatore();
+			if (!giocatori.contains(giocatore))
+				giocatori.add(giocatore);
+		}
+		return giocatori;
 	}
 
 	/**
