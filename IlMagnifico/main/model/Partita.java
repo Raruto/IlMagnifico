@@ -99,8 +99,8 @@ public class Partita {
 	}
 
 	/**
-	 * Metodo per verificare la possibilita' di eseguire un azione da parte di un
-	 * determinato giocatore
+	 * Metodo per verificare la possibilita' di eseguire un azione da parte di
+	 * un determinato giocatore
 	 * 
 	 * @param g
 	 *            giocatore su cui verificare la validita' dell'azione da
@@ -213,7 +213,8 @@ public class Partita {
 	 */
 	public void scegliOrdine() {
 
-		//TODO: elimino le ricorrenze nell'arraylist del Palazzo del consiglio e
+		// TODO: elimino le ricorrenze nell'arraylist del Palazzo del consiglio
+		// e
 		// dall'arraylist dei giocatori, poi concateno
 	}
 
@@ -310,11 +311,24 @@ public class Partita {
 	}
 
 	/**
+	 * Inizializza un nuovo SpazioAzione, aggiorna i giocatori con tale
+	 * SpazioAzione e per ogni famigliare di ogni giocatore rimette il valore a
+	 * 0 e la verifica di essere già spostati a false. Questo metodo NON mette
+	 * le carte nuove sul tabellone.
+	 * 
 	 * @return
 	 */
 	public void resetPerNuovoTurno() {
-		// TODO implement here
-		return;
+		this.spazioAzione = new SpazioAzione();
+		Giocatore giocatore = new Giocatore();
+		for (int i = 0; i < this.giocatori.size(); i++) {
+			giocatore = this.giocatori.get(i);
+			giocatore.setSpazioAzione(spazioAzione);
+			for (int j = 0; j < 4; j++) {
+				giocatore.getFamigliare(j).setValore(0);
+				giocatore.getFamigliare(j).setPosizionato(false);
+			}
+		}
 	}
 
 	/**
