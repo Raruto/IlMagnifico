@@ -230,6 +230,9 @@ public class Giocatore implements Serializable {
 	 * @return
 	 */
 	public void raccolto(int valoreAzione) {
+		this.risorse.cambiaLegno(1);
+		this.risorse.cambiaPietre(1);
+		this.risorse.cambiaServitori(1);
 		Carta carta = new Carta(null, null, null, null, 0, 0) {
 		};
 		for (int i = 0; i < getPlancia().getTerritori().size(); i++) {
@@ -246,6 +249,8 @@ public class Giocatore implements Serializable {
 	 * @return
 	 */
 	public void produzione(int valoreAzione) {
+		this.risorse.cambiaMonete(2);
+		this.punti.cambiaPuntiMilitari(1);
 		Carta carta = new Carta(null, null, null, null, 0, 0) {
 		};
 		for (int i = 0; i < getPlancia().getEdifici().size(); i++) {
