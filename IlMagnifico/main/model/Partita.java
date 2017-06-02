@@ -2,6 +2,7 @@ package main.model;
 
 import java.util.*;
 
+import main.model.enums.EAzioniGiocatore;
 import main.model.enums.PlayerColors;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
@@ -130,10 +131,6 @@ public class Partita {
 		return this.periodo > 0;
 	}
 
-	protected boolean isGiroDiTurniTerminato() {
-		return this.giocatoreDiTurno.equals(null);
-	}
-
 	protected boolean isPeriodoTerminato() {
 		return (turno == 2 && isGiroDiTurniTerminato());
 	}
@@ -148,6 +145,10 @@ public class Partita {
 
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
 		return this.giocatoreDiTurno.equals(g);
+	}
+
+	protected boolean isGiroDiTurniTerminato() {
+		return this.giocatoreDiTurno.equals(null);
 	}
 
 	public void inizializzaMazzo() {
@@ -356,6 +357,29 @@ public class Partita {
 	 */
 	public ArrayList<Giocatore> calcolaClassificaFinale() {
 		ArrayList<Giocatore> classifica = new ArrayList<Giocatore>();
+		// calcolo la classifica dei punti militari per potere assegnare i punti
+		// vittoria derivanti da tale classifica
+		classifica.add(giocatori.get(0));
+		for (int i = 1; i < this.giocatori.size(); i++) {
+			for (int j = 0; j < classifica.size(); j++) {
+				if (this.giocatori.get(i).getPunti().getPuntiMilitari() > classifica.get(j).getPunti()
+						.getPuntiMilitari()) {
+					classifica.add(j, this.giocatori.get(i));
+					break;
+				} else if (j == classifica.size() - 1)
+					classifica.add(giocatori.get(i));
+			}
+		}
+		classifica.get(0).getPunti().cambiaPuntiVittoria(5);
+		classifica.get(1).getPunti().cambiaPuntiVittoria(2);
+		classifica.removeAll(classifica);
+		// attivo gli effetti delle scomuniche di terzo periodo
+		for (int i = 0; i < giocatori.size(); i++) {
+			if (this.giocatori.get(i).getScomunica(2) != null)
+				this.giocatori.get(i).getScomunica(2).attivaOnAzione(this.giocatori.get(i),
+						EAzioniGiocatore.FinePartita, null, null);
+		}
+		// procedo al calcolo dei punti finali e alla relativa classifica
 		for (int i = 0; i < this.giocatori.size(); i++) {
 			this.giocatori.get(i).calcolaPVFinali();
 		}

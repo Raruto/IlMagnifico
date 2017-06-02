@@ -48,6 +48,8 @@ public class Punti {
 	 * @return
 	 */
 	public void cambiaPuntiMilitari(int variazione) {
+		if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviPM() && variazione > 0)
+			this.puntiMilitari--;
 		this.puntiMilitari = this.puntiMilitari + variazione;
 	}
 
