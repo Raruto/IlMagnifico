@@ -7,7 +7,6 @@ import java.rmi.RemoteException;
 import main.network.exceptions.LoginException;
 import main.network.server.game.UpdateStats;
 import main.network.server.game.exceptions.GameException;
-import main.network.server.game.exceptions.JoinRoomException;
 
 /**
  * Interfaccia remota per eseguire Invocazione a Metodi Remoti da CLIENT a
