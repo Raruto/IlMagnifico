@@ -3,6 +3,7 @@ package main.model;
 import java.io.Serializable;
 
 import main.model.enums.PlayerColors;
+import main.model.exceptions.NoEnoughResourcesException;
 
 /**
  * 
@@ -140,9 +141,15 @@ public class Giocatore implements Serializable {
 	/**
 	 * @return
 	 */
-	public void pagaServitore() {
-		// TODO implement here
-		return;
+	public void pagaServitore() throws NoEnoughResourcesException {
+		int servitoriDaPagare = 1;
+		if (this.scomuniche[1] != null)
+			if (this.scomuniche[1].attivaOnPagaServitore())
+				servitoriDaPagare++;
+		if (this.risorse.getServitori() < servitoriDaPagare)
+			throw new NoEnoughResourcesException();
+		else
+			this.risorse.cambiaServitori(-servitoriDaPagare);
 	}
 
 	public Risorsa getRisorse() {

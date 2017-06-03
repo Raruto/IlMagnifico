@@ -44,8 +44,9 @@ public class Risorsa {
 	 * @return
 	 */
 	public void cambiaMonete(int variazione) {
-		if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviMonete() && variazione > 0)
-			this.monete--;
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviMonete() && variazione > 0)
+				this.monete--;
 		this.monete = this.monete + variazione;
 	}
 
@@ -57,8 +58,9 @@ public class Risorsa {
 	 * @return
 	 */
 	public void cambiaLegno(int variazione) {
-		if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviPietreOLegno() && variazione > 0)
-			this.legno--;
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviPietreOLegno() && variazione > 0)
+				this.legno--;
 		this.legno = this.legno + variazione;
 	}
 
@@ -70,8 +72,9 @@ public class Risorsa {
 	 * @return
 	 */
 	public void cambiaPietre(int variazione) {
-		if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviPietreOLegno() && variazione > 0)
-			this.pietre--;
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviPietreOLegno() && variazione > 0)
+				this.pietre--;
 		this.pietre = this.pietre + variazione;
 	}
 
@@ -83,8 +86,9 @@ public class Risorsa {
 	 * @return
 	 */
 	public void cambiaServitori(int variazione) {
-		if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviServitori() && variazione > 0)
-			this.servitori--;
+		if (this.giocatoreAppartenenza.getScomunica(0) != null)
+			if (this.giocatoreAppartenenza.getScomunica(0).attivaOnRiceviServitori() && variazione > 0)
+				this.servitori--;
 		this.servitori = this.servitori + variazione;
 	}
 

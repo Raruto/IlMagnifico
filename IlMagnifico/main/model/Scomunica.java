@@ -139,4 +139,12 @@ public class Scomunica {
 		}
 		return false;
 	}
+
+	public boolean attivaOnPagaServitore() {
+		for (int i = 0; i < effetto.size(); i++) {
+			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.PagaServitori)
+				return true;
+		}
+		return false;
+	}
 }

@@ -139,8 +139,7 @@ public class UtilEffetto {
 	 * @return
 	 */
 	public void aumentaDiDueAzione(Object o[]) {// metodo numero 4
-		Famigliare famigliare = (Famigliare) (o[3]);
-		famigliare.cambiaValore(2);
+		cambiaValoreAzione(2, (Famigliare) (o[3]));
 	}
 
 	/**
@@ -148,8 +147,7 @@ public class UtilEffetto {
 	 * @return
 	 */
 	public void aumentaDiTreAzione(Object o[]) {// metodo numero 5
-		Famigliare famigliare = (Famigliare) (o[3]);
-		famigliare.cambiaValore(3);
+		cambiaValoreAzione(3, (Famigliare) (o[3]));
 	}
 
 	/**
@@ -306,6 +304,60 @@ public class UtilEffetto {
 	}
 
 	/**
+	 * @param
+	 */
+	public void decrementaDiQuattroAzione(Object o[]) {// metodo numero 18
+		cambiaValoreAzione(-4, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * @param
+	 */
+	public void decrementaDiTreAzione(Object o[]) {// metodo numero 19
+		cambiaValoreAzione(-3, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * @param
+	 */
+	public void decrementaDiUnoAzione(Object o[]) {// metodo numero 20
+		cambiaValoreAzione(-1, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * Metodo che implementa la scomunica dove il giocatore perde un punto
+	 * vittoria per ogni 5 punti vittoria in suo possesso
+	 * 
+	 * @param
+	 */
+	public void perdiPvxcinquePV(Object o[]) {// metodo numero 21
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getPunti().cambiaPuntiVittoria(-(giocatore.getPunti().getPuntiVittoria() / 5));
+	}
+
+	/**
+	 * Metodo che implementa la scomunica dove il giocatore perde un punto
+	 * vittoria per ogni punto militare in suo possesso
+	 * 
+	 * @param
+	 */
+	public void perdiPvxPM(Object o[]) {// metodo numero 22
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getPunti().cambiaPuntiVittoria(-(giocatore.getPunti().getPuntiMilitari()));
+	}
+
+	/**
+	 * Metodo che implementa la scomunica dove il giocatore perde un punto
+	 * vittoria per ogni risorsa in proprio possesso
+	 */
+	public void perdiPVxRisorse(Object o[]) {
+		Giocatore giocatore = (Giocatore) (o[1]);
+		Risorsa risorse = giocatore.getRisorse();
+		giocatore.getPunti().cambiaPuntiVittoria(
+				-(risorse.getLegno() + risorse.getMonete() + risorse.getPietre() + risorse.getServitori()));
+	}
+
+	/**
 	 * Metodo che supporta tutti gli altri metodi che danno una somma di punti
 	 * vittoria in base al numero di carta possedute dal giocatore
 	 * 
@@ -321,5 +373,13 @@ public class UtilEffetto {
 			giocatore.getPunti().cambiaPuntiVittoria(PVdaMoltiplicare * giocatore.getPlancia().getEdifici().size());
 		if (cartaDaMoltiplicare instanceof Impresa)
 			giocatore.getPunti().cambiaPuntiVittoria(PVdaMoltiplicare * giocatore.getPlancia().getImprese().size());
+	}
+
+	/**
+	 * Metodo che supporta tutti gli effetti in cui viene cambiato il valore
+	 * dell'azione
+	 */
+	public void cambiaValoreAzione(int variazione, Famigliare famigliare) {
+		famigliare.cambiaValore(variazione);
 	}
 }
