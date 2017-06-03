@@ -13,7 +13,7 @@ import main.network.server.game.exceptions.GameException;
 public class Game extends Partita {
 
 	/**
-	 * Riferimento alla Stanza in cui la partita è in atto.
+	 * Riferimento alla Stanza in cui la partita ï¿½ in atto.
 	 */
 	private Room room;
 
@@ -80,7 +80,7 @@ public class Game extends Partita {
 	}
 
 	/**
-	 * Blocca il Thread chiamante fintanto che la Partita è ancora in corso
+	 * Blocca il Thread chiamante fintanto che la Partita ï¿½ ancora in corso
 	 * (usato in {@link Room})
 	 */
 	public synchronized void waitGameEnd() {
@@ -173,7 +173,7 @@ public class Game extends Partita {
 				dispatchGameUpdate(update);
 
 				// Se tutto va a buon fine (azione valida = non scatena nessuna
-				// eccezzione), fa avanzare lo stato interno della partita
+				// eccezione), fa avanzare lo stato interno della partita
 				// (es. notifico al prossimo giocatore che e' il suo turno).
 				andvanceInGameLogic();
 			} catch (Exception e2) {
