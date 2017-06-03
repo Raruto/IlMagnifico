@@ -618,4 +618,8 @@ public class Famigliare implements Serializable {
 	public void setPosizionato(boolean posizionato) {
 		this.posizionato = posizionato;
 	}
+
+	public int getValore() {
+		return this.valore;
+	}
 }
