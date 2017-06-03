@@ -1,5 +1,7 @@
 package main.model;
 
+import main.model.enums.EAzioniGiocatore;
+
 public class UtilEffetto {
 	/**
 	 * Aggiunge risorse al giocatore passato tra i parametri. Tra i parametri
@@ -131,57 +133,253 @@ public class UtilEffetto {
 	}
 
 	/**
-	 * Controlla se l'azione effetuata e' sulla torre territorio ed in caso
-	 * affermativo aumenta il valore del famigliare passato in ingresso di due.
-	 * I valore in ingresso sono la posizione dell'azione nelle torri e la
-	 * pedina mossa
+	 * 
 	 * 
 	 * @param
 	 * @return
 	 */
 	public void aumentaDiDueAzione(Object o[]) {// metodo numero 4
-		Famigliare famigliare = (Famigliare) (o[3]);
-		famigliare.cambiaValore(2);
+		cambiaValoreAzione(2, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * @param
+	 * @return
+	 */
+	public void aumentaDiTreAzione(Object o[]) {// metodo numero 5
+		cambiaValoreAzione(3, (Famigliare) (o[3]));
 	}
 
 	/**
 	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
-	 * Raccolto. I parametri passati in ingresso sono il giocatore e il valore
-	 * della azioneraccolto che si va a fare. NB:al momento della scrittura non
-	 * e' ancora stato implementato il metodo che gestisce il raccolto, per cui
-	 * tale metodo viene ipotizzato
+	 * Raccolto di valore 4
 	 * 
 	 * @param
 	 * @return
 	 * 
 	 */
-	public void eseguiEffettoImmediatoRaccolto(Object o[]) {// metodo numero 5
-		Giocatore giocatore = (Giocatore) (o[1]);
-		int valore = (int) (o[2]);
-		giocatore.raccolto(valore);// metodo non ancora implementato. In ogni
-									// caso verra' chiamato il metodo che
-									// gestisce la raccolta del giocatore
+	public void eseguiEffettoImmediatoRaccolto(Object o[]) {// metodo numero 6
+		Famigliare famigliare = new Famigliare((Giocatore) o[1], 4, false);
+		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.Raccolto);
+		if (famigliare.getGiocatore().getScomunica(0) != null)
+			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto, famigliare, null);
+		if (famigliare.getValore() > 0)
+			famigliare.getGiocatore().raccolto(famigliare.getValore());
+
 	}
 
 	/**
 	 * Metodo per gli effetti immediati che richiedono di eseguire l'azione
-	 * Produzione. I parametri passati in ingresso sono il giocatore e il valore
-	 * della azione produzione che si va a fare. NB:al momento della scrittura
-	 * non e' ancora stato implementato il metodo che gestisce la produzione,
-	 * per cui tale metodo viene ipotizzato
+	 * Produzione di valore 3
 	 * 
 	 * @param
 	 * @return
 	 * 
 	 */
-	public void eseguiEffettoImmediatoProduzione(Object o[]) {// metodo numero 6
+	public void eseguiEffettoImmediatoProduzioneValoreTre(Object o[]) {// metodo
+																		// numero
+																		// 7
+		Famigliare famigliare = new Famigliare((Giocatore) o[1], 3, false);
+		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.Produzione);
+		if (famigliare.getGiocatore().getScomunica(0) != null)
+			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione, famigliare,
+					null);
+		if (famigliare.getValore() > 0)
+			famigliare.getGiocatore().produzione(famigliare.getValore());
 
-		Giocatore giocatore = (Giocatore) (o[1]);
-		int valore = (int) (o[2]);
-		giocatore.produzione(valore);// metodo non ancora implementato. In ogni
-										// caso verra' chiamato il metodo
-										// che
-										// gestisce la produzione del giocatore
 	}
 
+	/**
+	 * Metodo per gli effetti immediati che richiedono di effettuare l'azione di
+	 * Produzione di valore 4
+	 */
+	public void eseguiEffettoImmediatoProduzioneValoreQuattro(Object o[]) {// metodo
+																			// numero
+																			// 8
+		Famigliare famigliare = new Famigliare((Giocatore) o[1], 4, false);
+		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.Produzione);
+		if (famigliare.getGiocatore().getScomunica(0) != null)
+			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione, famigliare,
+					null);
+		if (famigliare.getValore() > 0)
+			famigliare.getGiocatore().produzione(famigliare.getValore());
+
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore due punti vittoria per ogni carta
+	 * edificio in suo possesso
+	 */
+	public void duePVxedificio(Object o[]) {// metodo numero 9
+		Giocatore giocatore = (Giocatore) (o[1]);
+		moltiplicatorePuntiVittoria(giocatore, 2, new Edificio(null, null, null, null, 0, 0));
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore due punti vittoria per ogni carta
+	 * personaggio in suo possesso
+	 * 
+	 * @param
+	 */
+	public void duePVxpersonaggio(Object o[]) {// metodo numero 10
+		Giocatore giocatore = (Giocatore) (o[1]);
+		moltiplicatorePuntiVittoria(giocatore, 2, new Personaggio(null, null, null, null, 0, 0));
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore due punti vittoria per ogni carta
+	 * impresa in suo possesso
+	 * 
+	 * @param
+	 */
+	public void duePVximpresa(Object o[]) {// metodo numero 11
+		Giocatore giocatore = (Giocatore) (o[1]);
+		moltiplicatorePuntiVittoria(giocatore, 2, new Impresa(null, null, null, null, 0, 0));
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore due punti vittoria per ogni carta
+	 * territorio in suo possesso
+	 * 
+	 * @param
+	 */
+	public void duePVxterritorio(Object o[]) {// metodo numero 12
+		Giocatore giocatore = (Giocatore) (o[1]);
+		moltiplicatorePuntiVittoria(giocatore, 2, new Territorio(null, null, null, null, 0, 0));
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore un punto vittoria per ogni carta
+	 * personaggio in suo possesso
+	 * 
+	 * @param
+	 */
+	public void unPVxpersonaggio(Object o[]) {// metodo numero 13
+		Giocatore giocatore = (Giocatore) (o[1]);
+		moltiplicatorePuntiVittoria(giocatore, 1, new Personaggio(null, null, null, null, 0, 0));
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore un punto vittoria per ogni carta
+	 * impresa in suo possesso
+	 * 
+	 * @param
+	 */
+	public void unPVximpresa(Object o[]) {// metodo numero 14
+		Giocatore giocatore = (Giocatore) (o[1]);
+		moltiplicatorePuntiVittoria(giocatore, 1, new Impresa(null, null, null, null, 0, 0));
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore una moneta per ogni carta territorio in
+	 * suo possesso
+	 * 
+	 * @param
+	 */
+	public void unaMonetaxterritorio(Object o[]) {// metodo numero 15
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getRisorse().cambiaMonete(giocatore.getPlancia().getTerritori().size());
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore una moneta per ogni carta edificio in
+	 * suo possesso
+	 * 
+	 * @param
+	 */
+	public void unaMonetaxedificio(Object o[]) {// metodo numero 16
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getRisorse().cambiaMonete(giocatore.getPlancia().getEdifici().size());
+	}
+
+	/**
+	 * Effetto che aggiunge al giocatore un punto vittoria per ogni due punti
+	 * militare in suo possesso
+	 * 
+	 * @param
+	 */
+	public void unPVxduePM(Object o[]) {// metodo numero 17
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getPunti().cambiaPuntiVittoria(giocatore.getPunti().getPuntiMilitari() / 2);
+	}
+
+	/**
+	 * @param
+	 */
+	public void decrementaDiQuattroAzione(Object o[]) {// metodo numero 18
+		cambiaValoreAzione(-4, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * @param
+	 */
+	public void decrementaDiTreAzione(Object o[]) {// metodo numero 19
+		cambiaValoreAzione(-3, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * @param
+	 */
+	public void decrementaDiUnoAzione(Object o[]) {// metodo numero 20
+		cambiaValoreAzione(-1, (Famigliare) (o[3]));
+	}
+
+	/**
+	 * Metodo che implementa la scomunica dove il giocatore perde un punto
+	 * vittoria per ogni 5 punti vittoria in suo possesso
+	 * 
+	 * @param
+	 */
+	public void perdiPvxcinquePV(Object o[]) {// metodo numero 21
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getPunti().cambiaPuntiVittoria(-(giocatore.getPunti().getPuntiVittoria() / 5));
+	}
+
+	/**
+	 * Metodo che implementa la scomunica dove il giocatore perde un punto
+	 * vittoria per ogni punto militare in suo possesso
+	 * 
+	 * @param
+	 */
+	public void perdiPvxPM(Object o[]) {// metodo numero 22
+		Giocatore giocatore = (Giocatore) (o[1]);
+		giocatore.getPunti().cambiaPuntiVittoria(-(giocatore.getPunti().getPuntiMilitari()));
+	}
+
+	/**
+	 * Metodo che implementa la scomunica dove il giocatore perde un punto
+	 * vittoria per ogni risorsa in proprio possesso
+	 */
+	public void perdiPVxRisorse(Object o[]) {
+		Giocatore giocatore = (Giocatore) (o[1]);
+		Risorsa risorse = giocatore.getRisorse();
+		giocatore.getPunti().cambiaPuntiVittoria(
+				-(risorse.getLegno() + risorse.getMonete() + risorse.getPietre() + risorse.getServitori()));
+	}
+
+	/**
+	 * Metodo che supporta tutti gli altri metodi che danno una somma di punti
+	 * vittoria in base al numero di carta possedute dal giocatore
+	 * 
+	 * @param
+	 * @return
+	 */
+	public void moltiplicatorePuntiVittoria(Giocatore giocatore, int PVdaMoltiplicare, Carta cartaDaMoltiplicare) {
+		if (cartaDaMoltiplicare instanceof Territorio)
+			giocatore.getPunti().cambiaPuntiVittoria(PVdaMoltiplicare * giocatore.getPlancia().getTerritori().size());
+		if (cartaDaMoltiplicare instanceof Personaggio)
+			giocatore.getPunti().cambiaPuntiVittoria(PVdaMoltiplicare * giocatore.getPlancia().getPersonaggi().size());
+		if (cartaDaMoltiplicare instanceof Edificio)
+			giocatore.getPunti().cambiaPuntiVittoria(PVdaMoltiplicare * giocatore.getPlancia().getEdifici().size());
+		if (cartaDaMoltiplicare instanceof Impresa)
+			giocatore.getPunti().cambiaPuntiVittoria(PVdaMoltiplicare * giocatore.getPlancia().getImprese().size());
+	}
+
+	/**
+	 * Metodo che supporta tutti gli effetti in cui viene cambiato il valore
+	 * dell'azione
+	 */
+	public void cambiaValoreAzione(int variazione, Famigliare famigliare) {
+		famigliare.cambiaValore(variazione);
+	}
 }
