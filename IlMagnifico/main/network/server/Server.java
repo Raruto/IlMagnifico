@@ -184,7 +184,7 @@ public class Server implements IServer {
 			System.out.println("New login request: " + nickname);
 			String player_id = "[" + nickname.toUpperCase() + "]";
 
-			if (!players.containsKey(nickname)) {
+			if (!players.containsKey(nickname) && nickname.length() > 0) {
 				player.setNome(nickname);
 				players.put(nickname, player);
 				System.out.println(player_id + " Succesfully logged in!");
