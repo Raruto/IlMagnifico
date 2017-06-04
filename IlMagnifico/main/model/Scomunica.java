@@ -18,6 +18,12 @@ public class Scomunica {
 		this.effetto = new ArrayList<Object[]>();
 	}
 
+	public Scomunica(String nome, int periodo, ArrayList<Object[]> effetto) {
+		this.nome = nome;
+		this.periodo = periodo;
+		this.effetto = effetto;
+	}
+
 	/**
 	 * 
 	 */
@@ -29,6 +35,8 @@ public class Scomunica {
 	 * 
 	 */
 	private ArrayList<Object[]> effetto;
+
+	private int periodo;
 
 	/**
 	 * @param giocatore
