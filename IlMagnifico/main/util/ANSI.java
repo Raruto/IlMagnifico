@@ -1,5 +1,8 @@
 package main.util;
 
+/**
+ * Classe che definisce alcune costanti ANSI per la stampa a video.
+ */
 public class ANSI {
 
 	public static final String	RESET			    = "\u001B[0m";
@@ -32,7 +35,10 @@ public class ANSI {
 	public static final String	BACKGROUND_CYAN		= "\u001B[46m";
     public static final String	BACKGROUND_WHITE	= "\u001B[47m";
 
+	/**
+	 * Costruttore privato.
+	 */
 	private ANSI() {
-
+		// Questa classe non è stata progettata per essere istanziata.
 	}
 }
