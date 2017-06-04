@@ -21,7 +21,7 @@ import main.model.enums.ERisorse;
 public class UpdateStats implements Serializable {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = 6689449538127752618L;
 

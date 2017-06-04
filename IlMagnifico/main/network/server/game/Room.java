@@ -253,7 +253,6 @@ public class Room {
 			try {
 				p.onGameUpdate(update);
 			} catch (NetworkException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});

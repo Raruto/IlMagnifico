@@ -9,7 +9,7 @@ import java.io.IOException;
 public class NetworkException extends IOException {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = -3569320576419655791L;
 

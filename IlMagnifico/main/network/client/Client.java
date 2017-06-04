@@ -275,8 +275,8 @@ public class Client implements IClient {
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
 		// if (privateMessage) {
-		if(author.equals("ROOM"))
-		System.out.println(Costants.ROOM_ID + " " + message);
+		if (author.equals("ROOM"))
+			System.out.println(Costants.ROOM_ID + " " + message);
 		else
 			System.out.println("[" + author + "]" + " " + message);
 		// }
@@ -300,8 +300,7 @@ public class Client implements IClient {
 			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
 					+ update.getAzioneGiocatore().toString());
 		} else if (update.getAzioneServer() != null) {
-			System.out.println(Costants.GAME_ID + " ACTION: "
-					+ update.getAzioneServer().toString());
+			System.out.println(Costants.GAME_ID + " ACTION: " + update.getAzioneServer().toString());
 		}
 		handleResponse(update);
 	}
@@ -376,9 +375,8 @@ public class Client implements IClient {
 	 * Gestisce la risposta ricevuta dal Server ed invoca il metodo associatogli
 	 * nella "responseMap".
 	 * 
-	 * @param object
-	 *            intestazione della risposta ricevuta dal server (es.
-	 *            {@link UpdateStats}).
+	 * @param update
+	 *            risposta ricevuta dal server (es. {@link UpdateStats}).
 	 */
 	public void handleResponse(UpdateStats update) {
 		ResponseHandler handler = null;
@@ -396,7 +394,7 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Interfaccia viene utilizzata "come" l'interfaccia {@link Runnable}.
+	 * Interfaccia utilizzata "come" l'interfaccia {@link Runnable}.
 	 */
 	@FunctionalInterface
 	private interface ResponseHandler {
@@ -405,7 +403,7 @@ public class Client implements IClient {
 		 * Gestisce la risposta del Server.
 		 * 
 		 * @param update
-		 *            (vedi {@link UpdateStats})
+		 *            (vedi {@link UpdateStats}).
 		 */
 		void handle(UpdateStats update);
 	}

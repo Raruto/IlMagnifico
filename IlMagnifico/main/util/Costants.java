@@ -12,6 +12,15 @@ public class Costants {
 	public static final int MAX_CONNECTION_ATTEMPTS = 2;
 	public static final int CONNECTION_RETRY_SECONDS = 0;
 
+	// Comunicazione
+	public static final String SERVER = "SERVER";
+	public static final String ROOM = "ROOM";
+	public static final String GAME = "GAME";
+	
+	//Server
+	public static final String SOCKET_SERVER_ID = ANSI.WHITE + "[" + SERVER + "]" + ANSI.RESET;
+	public static final String RMI_SERVER_ID = ANSI.WHITE + "[" + SERVER + "]" + ANSI.RESET;
+	
 	// Stanza
 	public static final int ROOM_MIN_PLAYERS = 2;
 	public static final int ROOM_MAX_PLAYERS = 4;
@@ -19,8 +28,8 @@ public class Costants {
 	public static final boolean ROOM_ENABLE_LOG = true;
 
 	// Gioco
-	public static final String GAME_ID = ANSI.CYAN + "[" + "GAME" + "]" + ANSI.RESET;
-	public static final String ROOM_ID = ANSI.YELLOW + "[" + "ROOM" + "]" + ANSI.RESET;
+	public static final String GAME_ID = ANSI.CYAN + "[" + GAME + "]" + ANSI.RESET;
+	public static final String ROOM_ID = ANSI.YELLOW + "[" + GAME + "]" + ANSI.RESET;
 
 	/**
 	 * Costruttore privato.

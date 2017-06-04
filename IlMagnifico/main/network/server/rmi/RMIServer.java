@@ -18,6 +18,7 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.JoinRoomException;
+import main.util.Costants;
 
 /**
  * Estende {@link AbstractServer} per consentire di implementare la
@@ -31,6 +32,11 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 * remoto ogni volta che fa una richiesta verso il Server).
 	 */
 	protected final HashMap<String, String> sessionTokens;
+
+	/**
+	 * ID usato per identificare il server nelle comunicazioni
+	 */
+	private final static String RMI_ID = Costants.RMI_SERVER_ID;
 
 	/**
 	 * Costruttore.
@@ -57,7 +63,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		try {
 			registry.rebind("Server", this);
 			UnicastRemoteObject.exportObject(this, port);
-			System.out.println("[RMI Server] OK");
+			System.out.println(RMI_ID + " OK");
 		} catch (RemoteException e) {
 			throw new ServerException("Server interface not loaded", e);
 		}
@@ -129,7 +135,6 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 		} catch (JoinRoomException e) {
 			// e.printStackTrace();
 		}
-
 		return sessionToken;
 	}
 
@@ -184,5 +189,4 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	public void send(Object object) throws RemoteException {
 		// TODO Auto-generated catch block
 	}
-
 }

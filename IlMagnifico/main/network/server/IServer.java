@@ -28,34 +28,34 @@ public interface IServer {
 	void loginPlayer(String nickname, RemotePlayer remotePlayer) throws LoginException;
 
 	/**
-	 * Get the player associated to required nickname.
+	 * Ritorna il giocatore associato al nome richiesto.
 	 * 
 	 * @param nickname
-	 *            of the player to retrieve.
-	 * @return the associated remote player if found.
+	 *            nome associato al giocatore.
+	 * @return il giocatore remoto associato (se trovato).
 	 */
 	RemotePlayer getPlayer(String nickname);
 
 	/**
-	 * Join player to the first available room.
+	 * Aggiunge il giocatore alla prima Stanza disponibile.
 	 * 
 	 * @param remotePlayer
-	 *            that would join.
+	 *            giocatore remoto da aggiungere.
 	 * @throws JoinRoomException
-	 *             if no available room has been found.
+	 *             se non è stata trovata alcuna stanza disponibile.
 	 */
 	void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException;
 
 	/**
-	 * Create a new room on server.
+	 * Crea una nuova Stanza sul server.
 	 * 
 	 * @param remotePlayer
-	 *            that made the request.
+	 *            giocatore remoto che ha fatto la richiesta.
 	 * @param maxPlayers
-	 *            that player would like to add in the room.
+	 *            numero massimo di giocatori che stanza dovrebbe gestire.
 	 * @throws CreateRoomException
-	 *             if another player has created a new room in the meanwhile.
-	 * @return configuration bundle that contains all default configurations.
+	 *             se nel frattempo un altro giocatore ha creato una nuova
+	 *             stanza.
 	 */
 	void createNewRoom(RemotePlayer remotePlayer, int maxPlayers, int minPlayers) throws CreateRoomException;
 
@@ -75,5 +75,8 @@ public interface IServer {
 	 */
 	void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
 
+	/**
+	 * Metodo per il "debug"
+	 */
 	void send(Object object) throws NetworkException;
 }

@@ -1,28 +1,28 @@
 package main.network.server.game.exceptions;
 
 /**
- * This exception is thrown when a player is trying to join in a full or closed
- * room. This exception is used only by the server side of the game.
+ * Eccezione scatenata quando un giocatore sta tentando di entrare in una stanza
+ * piena o chiusa. Utilizzata solo dal server del gioco.
  */
 public class RoomFullException extends Exception {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = 2915973657497743818L;
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 */
 	public RoomFullException() {
 		super();
 	}
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param message
-	 *            of the error.
+	 *            messaggio di errore.
 	 */
 	public RoomFullException(String message) {
 		super(message);

@@ -10,12 +10,12 @@ import main.network.NetworkException;
 public abstract class RemotePlayer extends Giocatore {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = -7157051737050661369L;
 
 	/**
-	 * Flag che indica se il giocatore è online
+	 * Flag che indica se il giocatore è online.
 	 */
 	private boolean isOnline;
 

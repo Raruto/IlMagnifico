@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
+import main.model.errors.Errors;
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.protocol.socket.SocketConstants;
@@ -19,6 +20,7 @@ import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
 import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.JoinRoomException;
+import main.util.Costants;
 
 /**
  * Estende {@link AbstractServer} per consentire di implementare la
@@ -30,6 +32,11 @@ public class SocketServer extends AbstractServer {
 	 * Socket del Server.
 	 */
 	private ServerSocket serverSocket;
+
+	/**
+	 *  ID usato per identificare il server nelle comunicazioni
+	 */
+	private final static String SOCKET_ID = Costants.SOCKET_SERVER_ID;
 
 	/**
 	 * Costruttore.
@@ -53,7 +60,7 @@ public class SocketServer extends AbstractServer {
 	public void startServer(int port) throws ServerException {
 		try {
 			serverSocket = new ServerSocket(port);
-			System.out.println("[SOCKET Server] OK");
+			System.out.println(SOCKET_ID + " OK");
 			new SocketRequestListener().start();
 		} catch (IOException e) {
 			throw new ServerException("I/O exception occurs while starting Socket server", e);
@@ -239,7 +246,7 @@ public class SocketServer extends AbstractServer {
 					server.loginPlayer(nickname, this.socketPlayer);
 					responseCode = SocketConstants.RESPONSE_OK;
 				} catch (LoginException e) {
-					System.err.println("[socket protocol] LoginException");
+					System.err.println(SOCKET_ID + " LoginException");
 					responseCode = SocketConstants.RESPONSE_PLAYER_ALREADY_EXISTS;
 				}
 				outputStream.writeObject(responseCode);
@@ -249,7 +256,7 @@ public class SocketServer extends AbstractServer {
 					try {
 						server.joinFirstAvailableRoom(this.socketPlayer);
 					} catch (JoinRoomException e) {
-						// e.printStackTrace();
+						//e.printStackTrace();
 					}
 				}
 
@@ -269,7 +276,7 @@ public class SocketServer extends AbstractServer {
 				try {
 					server.sendChatMessage(this.socketPlayer, receiver, message);
 				} catch (PlayerNotFound e) {
-					System.err.println("[socket player] cannot dispatch message to a player that cannot be found");
+					System.err.println(SOCKET_ID + " cannot dispatch message to a player that cannot be found");
 				}
 			} catch (ClassNotFoundException | ClassCastException | IOException e) {
 				System.err.println("Exception while handling client request");
@@ -291,10 +298,10 @@ public class SocketServer extends AbstractServer {
 		}
 
 		/**
-		 * Notify the client that an error as occurred.
+		 * Notifica al Client che si è verificato un errore.
 		 * 
 		 * @param errorCode
-		 *            that identify the error. {@link ErrorCodes} for details.
+		 *            codice d'errore che lo identific (vedi {@link Errors}).
 		 */
 		private void notifyActionNotValid(String errorCode) {
 			synchronized (OUTPUT_MUTEX) {
@@ -303,7 +310,7 @@ public class SocketServer extends AbstractServer {
 					outputStream.writeObject(errorCode);
 					outputStream.flush();
 				} catch (IOException e) {
-					System.err.println("[socket protocol] Player is disconnected");
+					System.err.println(SOCKET_ID + " Player is disconnected");
 				}
 			}
 		}
@@ -321,5 +328,4 @@ public class SocketServer extends AbstractServer {
 		 */
 		void handle();
 	}
-
 }

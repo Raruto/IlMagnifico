@@ -3,45 +3,53 @@ package main.network.server.game.exceptions;
 import main.network.NetworkException;
 
 /**
- * This exception is used to identify an error while joining another existing room, for example no room has been found
- * or the room is full. It is built on top of {@link NetworkException}.
+ * Eccezione scatenata durante l'accesso ad stanza esistente (ad esempio non è
+ * stata trovata alcuna stanza o la stanza è piena). Basata su
+ * {@link NetworkException}.
  */
 public class JoinRoomException extends NetworkException {
 
-    /**
-	 * 
+	/**
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = 8674697838871392712L;
 
 	/**
-     * Base constructor.
-     */
-    public JoinRoomException() {
-        super();
-    }
+	 * Costruttore.
+	 */
+	public JoinRoomException() {
+		super();
+	}
 
-    /**
-     * Base constructor.
-     * @param message of the error.
-     */
-    public JoinRoomException(String message) {
-        super(message);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param message
+	 *            messaggio di errore.
+	 */
+	public JoinRoomException(String message) {
+		super(message);
+	}
 
-    /**
-     * Base constructor.
-     * @param message of the error.
-     * @param cause of the error.
-     */
-    public JoinRoomException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param message
+	 *            messagggio di erore.
+	 * @param cause
+	 *            causa dell'errore.
+	 */
+	public JoinRoomException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-    /**
-     * Base constructor.
-     * @param cause of the error.
-     */
-    public JoinRoomException(Throwable cause) {
-        super(cause);
-    }
+	/**
+	 * Costruttore.
+	 * 
+	 * @param cause
+	 *            causa dell'errore.
+	 */
+	public JoinRoomException(Throwable cause) {
+		super(cause);
+	}
 }

@@ -16,7 +16,7 @@ import main.network.server.game.UpdateStats;
 public class SocketPlayer extends RemotePlayer {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = -5294571565976357669L;
 

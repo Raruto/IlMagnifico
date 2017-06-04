@@ -74,7 +74,7 @@ public class Server implements IServer {
 	/**
 	 * ID usato per identificare il server nelle comunicazioni
 	 */
-	private static final String ID = "SERVER";
+	private static final String ID = Costants.SERVER;
 
 	/**
 	 * Crea una nuova istanza della classe.
@@ -93,8 +93,7 @@ public class Server implements IServer {
 	 * Metodo statico per eseguire il server.
 	 * 
 	 * @param args
-	 *            parametri per la connessione (TODO: FINIRE DI IMPLEMENTARE,
-	 *            lato client).
+	 *            parametri per la connessione
 	 */
 	public static void main(String[] args) {
 		int socketPort = SOCKET_PORT, rmiPort = RMI_PORT;
@@ -183,14 +182,14 @@ public class Server implements IServer {
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
 		synchronized (PLAYERS_MUTEX) {
 			System.out.println("New login request: " + nickname);
-			String id = "[" + nickname.toUpperCase() + "]";
+			String player_id = "[" + nickname.toUpperCase() + "]";
 
 			if (!players.containsKey(nickname)) {
 				player.setNome(nickname);
 				players.put(nickname, player);
-				System.out.println(id + " Succesfully logged in!");
+				System.out.println(player_id + " Succesfully logged in!");
 			} else {
-				System.out.println(id + " Already logged in!");
+				System.out.println(player_id + " Already logged in!");
 				throw new LoginException();
 			}
 		}
@@ -227,7 +226,7 @@ public class Server implements IServer {
 					createNewRoom(remotePlayer, MAX_ROOM_PLAYERS, MIN_ROOM_PLAYERS);
 					System.out.println("Succesfully created a room!");
 				} catch (CreateRoomException e1) {
-					e1.printStackTrace();
+					// e1.printStackTrace();
 				}
 				throw new JoinRoomException(e);
 			}
@@ -235,7 +234,7 @@ public class Server implements IServer {
 	}
 
 	/**
-	 * Aggiugne il giocatore alla prima Stanza disponibile (l'ultima della
+	 * Aggiunge il giocatore alla prima Stanza disponibile (l'ultima della
 	 * lista).
 	 * 
 	 * @param player
@@ -285,8 +284,6 @@ public class Server implements IServer {
 				} catch (NetworkException e) {
 					e.printStackTrace();
 				}
-
-				return /* Configurator.getConfigurationBundle() */;
 			} else {
 				throw new CreateRoomException();
 			}
@@ -326,7 +323,6 @@ public class Server implements IServer {
 				}
 			}
 			throw new PlayerNotFound();
-
 		}
 		/* Send a BROADCAST message */
 		else {
@@ -347,7 +343,5 @@ public class Server implements IServer {
 	@Override
 	public void send(Object object) throws NetworkException {
 		// TODO Auto-generated method stub
-
 	}
-
 }

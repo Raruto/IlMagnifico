@@ -2,47 +2,54 @@ package main.network.server.game.exceptions;
 
 import java.io.IOException;
 
+import main.model.errors.Errors;
+
+/**
+ * Eccezione scatenta quando un giocatore tenta di eseguire un'azione di gioco
+ * illegale presso il server. Scatenata solo dal server del gioco (usata lato
+ * client per identificare la causa dell'eccezione). Basata su {@link IOException}.
+ */
 public class GameException extends IOException {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = -2511558205317566371L;
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 */
 	public GameException() {
 		super();
 	}
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param message
-	 *            of the exception.
+	 *            messaggio di errore.
 	 */
 	public GameException(String message) {
 		super(message);
 	}
 
 	/**
-	 * /** Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param message
-	 *            of the exception.
+	 *            messaggio di errore (vedi {@link Errors}).
 	 * @param cause
-	 *            of the exception.
+	 *            causa dell'errore.
 	 */
 	public GameException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 * 
 	 * @param cause
-	 *            of the exception.
+	 *            causa dell'errore.
 	 */
 	public GameException(Throwable cause) {
 		super(cause);

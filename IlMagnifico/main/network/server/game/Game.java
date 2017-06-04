@@ -13,12 +13,13 @@ import main.network.server.game.exceptions.GameException;
 public class Game extends Partita {
 
 	/**
-	 * Riferimento alla Stanza in cui la partita � in atto.
+	 * Riferimento alla Stanza in cui la partita e' in atto.
 	 */
 	private Room room;
 
 	/*
-	 * Map of all defined server responses headers.
+	 * Mappa di tutte le intestazioni dei metodi per la gestione delle richieste
+	 * dei client.
 	 */
 	private final HashMap<Object, ResponseHandler> responseMap;
 
@@ -40,7 +41,8 @@ public class Game extends Partita {
 	}
 
 	/**
-	 * Load all possible responses and associate an handler.
+	 * Inizializza "responseMap" caricando tutti i possibili metodi di risposta
+	 * (chiamati da {@link ResponseHandler}).
 	 */
 	private void loadResponses() {
 		responseMap.put(EAzioniGiocatore.Mercato, this::onMarket);
@@ -80,7 +82,7 @@ public class Game extends Partita {
 	}
 
 	/**
-	 * Blocca il Thread chiamante fintanto che la Partita � ancora in corso
+	 * Blocca il Thread chiamante fintanto che la Partita e' ancora in corso
 	 * (usato in {@link Room})
 	 */
 	public synchronized void waitGameEnd() {
@@ -210,10 +212,13 @@ public class Game extends Partita {
 	}
 
 	/**
-	 * Handle the server response and execute the defined method.
+	 * Gestisce la richiesta ricevuta dal Client ed invoca il metodo
+	 * associatogli nella "responseMap".
 	 * 
-	 * @param object
-	 *            response header from server.
+	 * @param remotePlayer
+	 *            giocatore che ha effettuato la richiesta.
+	 * @param update
+	 *            richiesta ricevuta dal client (es. {@link UpdateStats}).
 	 */
 	public UpdateStats handleResponse(RemotePlayer remotePlayer, UpdateStats update) {
 		ResponseHandler handler = null;
@@ -230,13 +235,18 @@ public class Game extends Partita {
 	}
 
 	/**
-	 * This interface is used like {@link Runnable} interface.
+	 * Interfaccia utilizzata "come" l'interfaccia {@link Runnable}.
 	 */
 	@FunctionalInterface
 	private interface ResponseHandler {
 
 		/**
-		 * Handle the server response.
+		 * Gestisce la richiesta del Client.
+		 * 
+		 * @param remotePlayer
+		 *            (vedi {@link RemotePlayer}).
+		 * @param update
+		 *            (vedi {@link UpdateStats}).
 		 */
 		UpdateStats handle(RemotePlayer remotePlayer, UpdateStats update);
 	}

@@ -15,7 +15,7 @@ import main.network.server.game.UpdateStats;
 /* package-local */ class RMIPlayer extends RemotePlayer {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = -211182477118050303L;
 
