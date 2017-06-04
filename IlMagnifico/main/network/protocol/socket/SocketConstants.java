@@ -21,9 +21,6 @@ public class SocketConstants {
 	// Codici di risposta del server.
 	public static final int RESPONSE_OK = 200;
 	public static final int RESPONSE_PLAYER_ALREADY_EXISTS = 401;
-	public static final int RESPONSE_NO_ROOM_AVAILABLE = 402;
-	public static final int RESPONSE_PLAYER_FORCE_JOINED = 403;
-	public static final int RESPONSE_CONFIGURATION_NOT_VALID = 418;
 
 	/**
 	 * Costruttore privato.
