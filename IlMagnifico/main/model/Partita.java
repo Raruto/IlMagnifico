@@ -3,6 +3,8 @@ package main.model;
 import java.util.*;
 
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.ECarte;
+import main.model.enums.ETipiCarte;
 import main.model.enums.PlayerColors;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
@@ -152,7 +154,25 @@ public class Partita {
 	}
 
 	public void inizializzaMazzo() {
-		// TODO: implementare
+		ECarte carte[] = ECarte.values();
+		for (int i = 0; i < carte.length; i++) {
+			if (carte[i].getTipoCarta() == ETipiCarte.Territorio)
+				this.mazzo.add(new Territorio(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
+						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
+						carte[i].getPeriodo()));
+			if (carte[i].getTipoCarta() == ETipiCarte.Edificio)
+				this.mazzo.add(new Edificio(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
+						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
+						carte[i].getPeriodo()));
+			if (carte[i].getTipoCarta() == ETipiCarte.Personaggio)
+				this.mazzo.add(new Personaggio(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
+						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
+						carte[i].getPeriodo()));
+			if (carte[i].getTipoCarta() == ETipiCarte.Impresa)
+				this.mazzo.add(new Impresa(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
+						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
+						carte[i].getPeriodo()));
+		}
 	}
 
 	/**
