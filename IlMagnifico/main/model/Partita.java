@@ -4,6 +4,7 @@ import java.util.*;
 
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.ECarte;
+import main.model.enums.EScomuniche;
 import main.model.enums.ETipiCarte;
 import main.model.enums.PlayerColors;
 import main.model.errors.Errors;
@@ -197,15 +198,12 @@ public class Partita {
 			int indice;
 			ArrayList<Scomunica> temporaneo = new ArrayList<Scomunica>();
 			Random random = new Random();
-			// TODO: da file o database si prendono le carte scomunica del
-			// periodo
-			// corrispondente (indicato dalla variabile periodo). Con tali carte
-			// riempio un ArrayList temporaneo. Genero un numero casuale che sia
-			// compreso tra 0 e il numero di elementi nell'ArrayList tramite il
-			// metodo random.nextInt(). Si va poi a prendere la scomunica
-			// corrispondente all'indice generato casualmente.
-			// NB:0<=indice<temporaneo.size(), non ci deovrebbero essere
-			// problemi
+			EScomuniche scomuniche[] = EScomuniche.values();
+			for (int j = 0; j < scomuniche.length; j++) {
+				if (scomuniche[j].getPeriodo() == periodo)
+					temporaneo.add(new Scomunica(scomuniche[j].getNome(), scomuniche[j].getPeriodo(),
+							scomuniche[j].getEffetto()));
+			}
 			indice = random.nextInt(temporaneo.size());
 			this.scomuniche[i] = temporaneo.get(indice);
 		}
