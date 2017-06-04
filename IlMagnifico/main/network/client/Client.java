@@ -121,7 +121,6 @@ public class Client implements IClient {
 			FakeUI.mainClient(serverAddress, socketPort, rmiPort);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
-			// e.printStackTrace();
 		}
 	}
 
@@ -275,7 +274,7 @@ public class Client implements IClient {
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
 		// if (privateMessage) {
-		if (author.equals("ROOM"))
+		if (author.equals(Costants.ROOM))
 			System.out.println(Costants.ROOM_ID + " " + message);
 		else
 			System.out.println("[" + author + "]" + " " + message);
@@ -407,5 +406,4 @@ public class Client implements IClient {
 		 */
 		void handle(UpdateStats update);
 	}
-
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 public class ClientException extends IOException {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = -5902506250056087761L;
 	

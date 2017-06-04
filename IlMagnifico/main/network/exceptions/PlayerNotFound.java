@@ -3,17 +3,17 @@ package main.network.exceptions;
 import main.network.exceptions.LogicException;
 
 /**
- * This exception is thrown when a player is not found.
+ * Eccezione scatenata quando non viene trovato un giocatore.
  */
 public class PlayerNotFound extends LogicException {
 
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = 526510107978150087L;
 
 	/**
-	 * Base constructor.
+	 * Costruttore.
 	 */
 	public PlayerNotFound() {
 		super();

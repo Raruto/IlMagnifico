@@ -2,6 +2,7 @@ package main.network.client;
 
 import java.rmi.RemoteException;
 
+import main.model.errors.Errors;
 import main.network.server.game.UpdateStats;
 
 /**
@@ -27,78 +28,29 @@ public interface IClient {
 	void onPeriodStarted(UpdateStats update);
 
 	/**
-	 * Notify game is started and dispatch initial game state.
-	 * 
-	 * @param baseGame
-	 *            snapshot of the initial state of the game on server.
-	 */
-	// void onGameStarted(BaseGame baseGame);
-
-	/**
-	 * Notify internal bus that a new turn is started.
-	 * 
-	 * @param nickname
-	 *            of the player.
-	 * @param remainingTime
-	 *            time to complete the turn.
-	 */
-	// void onTurnStarted(String nickname, int remainingTime);
-
-	/**
-	 * Notify internal bus that the timer countdown is changed.
-	 * 
-	 * @param remainingTime
-	 *            to complete the turn.
-	 */
-	// void onTurnUpdateCountdown(int remainingTime);
-
-	/**
-	 * Notify internal bus that a new chat message is arrived.
+	 * Notifica che è arrivato un nuovo messaggio dalla chat.
 	 * 
 	 * @param privateMessage
-	 *            true if message is private, false if public.
+	 *            "True" se il messaggio è privato, "False" se pubblico.
 	 * @param author
-	 *            of the message.
+	 *            autore del messaggio.
 	 * @param message
-	 *            body of the message.
+	 *            corpo del messaggio.
 	 */
 	void onChatMessage(boolean privateMessage, String author, String message);
 
 	void onGameUpdate(UpdateStats update);
 
 	/**
-	 * Notify internal bus that a player has disconnected.
-	 * 
-	 * @param nickname
-	 *            of the player that has disconnected.
-	 */
-	// void onPlayerDisconnected(String nickname);
-
-	/**
-	 * Notify internal bus that the last game turn is started.
-	 * 
-	 * @param nickname
-	 *            of the player that has started the last game turn.
-	 */
-	// void onLastTurnStarted(String nickname);
-
-	void onNotify(Object object) throws RemoteException;
-
-	/**
-	 * Notify internal bus that server has respond with an error code.
+	 * Notifica che il server ha risposto con un codice di errore.
 	 * 
 	 * @param errorCode
-	 *            that identify the error. See {@link ErrorCodes} for details.
+	 *            codice che identifica l'errore (vedi {@link Errors}).
 	 */
 	void onActionNotValid(String errorCode);
 
 	/**
-	 * Notify internal bus that the game is over.
-	 * 
-	 * @param updateStates
-	 *            list of final update states to apply.
-	 * @param ranking
-	 *            list of players sorted from the winner to the last loser.
+	 * Metodo per il "debug"
 	 */
-	// void onGameEnded(UpdateState[] updateStates, List<String> ranking);
+	void onNotify(Object object) throws RemoteException;
 }

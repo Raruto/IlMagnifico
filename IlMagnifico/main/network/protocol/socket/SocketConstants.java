@@ -10,21 +10,15 @@ import main.network.protocol.rmi.RMIServerInterface;
  */
 public class SocketConstants {
 
-	/**
-	 * Intestazioni di richiesta (Client).
-	 */
+	// Intestazioni richieste (Client).
 	public static final String LOGIN_REQUEST = "loginRequest";
 	public static final String GAME_ACTION = "gameAction";
 	public static final String CHAT_MESSAGE = "chatMessage";
 
-	/**
-	 * Intestazioni di risposta (Server).
-	 */
+	// Intestazioni risposte (Server).
 	public static final String ACTION_NOT_VALID = "actionNotValid";
 
-	/**
-	 * Codici di risposta del server.
-	 */
+	// Codici di risposta del server.
 	public static final int RESPONSE_OK = 200;
 	public static final int RESPONSE_PLAYER_ALREADY_EXISTS = 401;
 	public static final int RESPONSE_NO_ROOM_AVAILABLE = 402;
