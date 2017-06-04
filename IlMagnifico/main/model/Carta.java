@@ -74,11 +74,14 @@ public abstract class Carta {
 		for (int i = 0; i < acquisizione.size(); i++) {
 			acquisizione.get(i)[1] = giocatore;
 			if ((int) acquisizione.get(i)[0] == 1)
-				if (utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i)))
+				if (utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i))) {
 					controlloRisorse = true;
-				else if ((int) acquisizione.get(i)[0] == 2)
-					if (utilEffetto.cartaAcquisibilePunti(acquisizione.get(i)))
+					acquisizione.get(i)[0] = 0;
+				} else if ((int) acquisizione.get(i)[0] == 2)
+					if (utilEffetto.cartaAcquisibilePunti(acquisizione.get(i))) {
 						controlloPunti = true;
+						acquisizione.get(i)[0] = 0;
+					}
 		}
 		if (controlloRisorse | controlloPunti)
 			// se almeno con i punti o con le risorse posso pagare, allora la
@@ -160,9 +163,15 @@ public abstract class Carta {
 	 * 
 	 */
 	public void acquisizione(Giocatore giocatore) {
-		// TODO:se il giocatore puo' pagare in un solo modo non ci sono problemi,
+		// TODO:se il giocatore puo' pagare in un solo modo non ci sono
+		// problemi,
 		// ma se puo' pagare in tutti e due i modi deve potere decidere
-
+		for (int i = 0; i < acquisizione.size(); i++) {
+			if ((int) (acquisizione.get(i)[0]) == 0) {
+				utilEffetto.aggiungiRisorse(acquisizione.get(i));
+				return;
+			}
+		}
 	}
 
 	/**
