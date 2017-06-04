@@ -144,7 +144,7 @@ public class Server implements IServer {
 	 * @throws ServerException
 	 *             se si verifica un errore.
 	 */
-	private void startRMIServer(int rmiPort) throws ServerException {
+	public void startRMIServer(int rmiPort) throws ServerException {
 		System.out.println("Starting RMI Server...");
 		rmiServer.startServer(rmiPort);
 	}
@@ -157,7 +157,7 @@ public class Server implements IServer {
 	 * @throws ServerException
 	 *             se si verifica un errore.
 	 */
-	private void startSocketServer(int socketPort) throws ServerException {
+	public void startSocketServer(int socketPort) throws ServerException {
 		System.out.println("Starting Socket Server...");
 		socketServer.startServer(socketPort);
 	}
