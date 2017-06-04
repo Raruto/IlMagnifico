@@ -12,7 +12,7 @@ import main.network.server.game.UpdateStats;
  * Estende {@link RemotePlayer} implementando le funzionalità di comunicazione
  * al {@link Giocatore} Client associatogli.
  */
-/* package-local */ class RMIPlayer extends RemotePlayer {
+public class RMIPlayer extends RemotePlayer {
 
 	/**
 	 * Serial Version UID
