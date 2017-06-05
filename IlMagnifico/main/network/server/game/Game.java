@@ -13,6 +13,11 @@ import main.model.exceptions.FamigliareSpostatoException;
 import main.model.exceptions.InsufficientValueException;
 import main.model.exceptions.InvalidPositionException;
 import main.model.exceptions.MarketNotAvailableException;
+import main.model.exceptions.MaxCardsReachedException;
+import main.model.exceptions.NoEnoughResourcesException;
+import main.model.exceptions.NoMoneyException;
+import main.model.exceptions.NullCardException;
+import main.model.exceptions.SameAreaException;
 import main.model.exceptions.SpazioOccupatoException;
 import main.network.server.game.exceptions.GameException;
 
@@ -229,7 +234,7 @@ public class Game extends Partita {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneRotondo();
 		} catch (FamigliareSpostatoException e) {
 			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
-		} catch (InsufficientValueException e) {
+		} catch (InsufficientValueException e1) {
 			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
 		} catch (SpazioOccupatoException e2) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
@@ -242,7 +247,7 @@ public class Game extends Partita {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoRotondo();
 		} catch (FamigliareSpostatoException e) {
 			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
-		} catch (InsufficientValueException e) {
+		} catch (InsufficientValueException e1) {
 			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
 		} catch (SpazioOccupatoException e2) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
@@ -250,18 +255,55 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onHarvestOval(RemotePlayer remotePlayer, UpdateStats update) {
-		// TODO: implement here
+	private UpdateStats onHarvestOval(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoOvale();
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (SameAreaException e1) {
+			throw new GameException(Errors.SAME_AREA.toString());
+		} catch (FamigliareSpostatoException e) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onProductionOval(RemotePlayer remotePlayer, UpdateStats update) {
-		// TODO: implement here
+	private UpdateStats onProductionOval(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneOvale();
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (SameAreaException e1) {
+			throw new GameException(Errors.SAME_AREA.toString());
+		} catch (FamigliareSpostatoException e2) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onTower(RemotePlayer remotePlayer, UpdateStats update) {
-		// TODO: implement here
+	private UpdateStats onTower(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina())
+					.eseguiSpostamentoTorre(update.getPosizioneSpostamentoPedina());
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (NullCardException e1) {
+			throw new GameException(Errors.NULL_CARD_EXCEPTION.toString());
+		} catch (MaxCardsReachedException e2) {
+			throw new GameException(Errors.MAX_CARDS.toString());
+		} catch (NoEnoughResourcesException e3) {
+			throw new GameException(Errors.NO_ENOUGH_RESOURCES.toString());
+		} catch (NoMoneyException e4) {
+			throw new GameException(Errors.NO_MONEY_EXCEPTION.toString());
+		} catch (InvalidPositionException e4) {
+			throw new GameException(Errors.INVALID_POSTITION.toString());
+		} catch (SameAreaException e1) {
+			throw new GameException(Errors.SAME_AREA.toString());
+		} catch (SpazioOccupatoException e2) {
+			throw new GameException(Errors.SPACE_TAKEN.toString());
+		} catch (FamigliareSpostatoException e2) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
