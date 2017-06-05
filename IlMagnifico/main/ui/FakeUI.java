@@ -10,6 +10,7 @@ import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
+import main.util.ANSI;
 import main.util.Costants;
 
 /**
@@ -214,26 +215,54 @@ public class FakeUI {
 	public static void performGameAction() {
 		Client client = getClient();
 
-		boolean ok = false;
-		boolean ok2 = false;
+		EAzioniGiocatore action = chooseGameAction();
 
+		switch (action) {
+		case Mercato:
+			movePawn(action);
+			break;
+		case Produzione:
+			movePawn(action);
+			break;
+		case ProduzioneOvale:
+			movePawn(action);
+			break;
+		case Raccolto:
+			movePawn(action);
+			break;
+		case RaccoltoOvale:
+			movePawn(action);
+			break;
+		case PalazzoConsiglio:
+			movePawn(action);
+			break;
+		case Torre:
+			movePawn(action);
+			break;
+
+		default:
+			System.out.println(ANSI.YELLOW + "Not yet implmented" + ANSI.RESET);
+			break;
+		}
+
+	}
+
+	private static void movePawn(EAzioniGiocatore action) {
+		EColoriPedine color = choosePawnColor();
+		if (color != null) {
+			Integer position = chooseANumber();
+			if (position != null) {
+				client.movePawn(action, color, position);
+			}
+		}
+	}
+
+	private static EAzioniGiocatore chooseGameAction() {
+		boolean ok = false;
 		while (!ok) {
 			System.out.println("'q' to quit\n");
 			System.out.println("Available actions: ");
-			/*
-			 * for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
-			 * System.out.print("[" + act.toString() + "] "); }
-			 */
-			EAzioniGiocatore[] a = EAzioniGiocatore.values();
-
-			for (int i = 0; i < a.length; i++) {
-				System.out.print("[" + a[i].toString() + "] ");
-				if (i % 7 == 0 && i != 0)
-					System.out.println();
-			}
-
-			System.out.println();
-
+			System.out.println(EAzioniGiocatore.stringify());
 			inText = scanner.nextLine().toLowerCase();
 
 			if (inText.equals("q")) {
@@ -241,36 +270,55 @@ public class FakeUI {
 			} else {
 				for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
 					if (inText.equals(act.toString().toLowerCase())) {
-						while (!ok2) {
-							System.out.println("Choose a Pawn Color: ");
-							for (EColoriPedine col : EColoriPedine.values()) {
-								System.out.print("[" + col.toString() + "] ");
-							}
-							System.out.println();
-							inText = scanner.nextLine().toLowerCase();
-							
-							for (EColoriPedine col : EColoriPedine.values()) {
-								if (inText.equals(col.toString().toLowerCase()))
-								{
-									System.out.println("Choose a Number: ");
-									int number;
-									number = scanner.nextInt();
-									
-									UpdateStats requestedAction = new UpdateStats(act);
-									requestedAction.setColorePedina(col);
-									requestedAction.setPosizioneSpostamento(number);
-									client.performGameAction(requestedAction);			
-								}
-							}
-
-						}
-						
+						return act;
 					}
 				}
 			}
-
 		}
+		return null;
+	}
 
+	private static EColoriPedine choosePawnColor() {
+		boolean ok = false;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Pawn Color: ");
+			System.out.println(EColoriPedine.stringify());
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				for (EColoriPedine col : EColoriPedine.values()) {
+					if (inText.equals(col.toString().toLowerCase())) {
+						return col;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseANumber() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Number: ");
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					return number;
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
