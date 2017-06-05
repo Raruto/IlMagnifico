@@ -50,8 +50,8 @@ public class Game extends Partita {
 		responseMap.put(EAzioniGiocatore.PalazzoConsiglio, this::onCouncilPalace);
 		responseMap.put(EAzioniGiocatore.Produzione, this::onProductionRound);
 		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvestRound);
-		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvestOval);
-		responseMap.put(EAzioniGiocatore.Raccolto, this::onProductionOval);
+		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
+		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
 	}
 
