@@ -88,7 +88,7 @@ public class Partita {
 		mescolaMazzo();
 
 		// TODO: aggiustare (scatena IllegalArgumentException)
-		// inizializzaScomunica();
+		inizializzaScomunica();
 
 		inizializzaGiocatori();
 		// prossimo giocatore ad eseguire un azione
@@ -200,6 +200,8 @@ public class Partita {
 			Random random = new Random();
 			EScomuniche scomuniche[] = EScomuniche.values();
 			for (int j = 0; j < scomuniche.length; j++) {
+				System.out.println("Periodo: "+this.periodo);
+				System.out.println("Scomunica: "+scomuniche[j].getPeriodo() + " Nome " +scomuniche[j].getNome());
 				if (scomuniche[j].getPeriodo() == periodo)
 					temporaneo.add(new Scomunica(scomuniche[j].getNome(), scomuniche[j].getPeriodo(),
 							scomuniche[j].getEffetto()));

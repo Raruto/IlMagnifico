@@ -3,15 +3,17 @@ package main.model.enums;
 import java.util.ArrayList;
 
 public enum EScomuniche {
-	RICEVI_MENO_PM("ricevi meno pm", 1);
+	RICEVI_MENO_PM("ricevi meno pm", 1, null);
 
 	private String nome;
 	private int periodo;
 	private ArrayList<Object[]> effetto;
 
-	private EScomuniche(String nome, int periodo) {
+	private EScomuniche(String nome, int periodo, ArrayList<Object[]> effetto) {
 		this.nome = nome;
 		this.periodo = periodo;
+
+		this.effetto = new ArrayList<Object[]>();
 		inizializzaEffetto();
 	}
 
