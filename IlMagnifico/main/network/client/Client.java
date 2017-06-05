@@ -260,14 +260,14 @@ public class Client implements IClient {
 			System.err.println("Cannot perform action request");
 		}
 	}
-	
-	public void movePawn(EAzioniGiocatore action, EColoriPedine color, int position){
+
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, int position) {
 		UpdateStats requestedAction = new UpdateStats(action);
 		requestedAction.spostaPedina(color, position);
 		performGameAction(requestedAction);
 	}
-	
-	public void supportChurch(boolean isSupported){
+
+	public void supportChurch(boolean isSupported) {
 		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		requestedAction.supportaChiesa(isSupported);
 	}
@@ -311,8 +311,9 @@ public class Client implements IClient {
 	public void onGameUpdate(UpdateStats update) {
 		if (update.getAzioneGiocatore() != null) {
 			// if (update.getNomeGiocatore() != null)
-			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
-					+ update.getAzioneGiocatore().toString());
+			if (!update.getNomeGiocatore().equals(nickname))
+				System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
+						+ update.getAzioneGiocatore().toString());
 		} else if (update.getAzioneServer() != null) {
 			System.out.println(Costants.GAME_ID + " ACTION: " + update.getAzioneServer().toString());
 		}
@@ -324,7 +325,7 @@ public class Client implements IClient {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void onMarket(UpdateStats update) {
 		// TODO
 	}
@@ -385,7 +386,19 @@ public class Client implements IClient {
 
 	@Override
 	public void onTurnStarted(UpdateStats update) {
-		// TODO Auto-generated method stub
+		int[] dadi = update.getSpazioAzione().getValoreDadi();
+		String s = "";
+		for (int i = 0; i < dadi.length; i++) {
+			if (i == 0)
+				s = "Nero";
+			else if (i == 1)
+				s = "Arancione";
+			else if (i == 2)
+				s = "Bianco";
+			else if (i == 3)
+				s = "Neutrale";
+			System.out.println(ANSI.YELLOW + "Dado " + s + ": " + dadi[i] + ANSI.RESET);
+		}
 
 	}
 

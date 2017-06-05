@@ -244,7 +244,7 @@ public class FakeUI {
 			break;
 
 		default:
-			System.out.println(ANSI.YELLOW + "Not yet implmented" + ANSI.RESET);
+			System.out.println(ANSI.YELLOW + "Not yet implemented" + ANSI.RESET);
 			break;
 		}
 
@@ -273,7 +273,7 @@ public class FakeUI {
 	private static void movePawn(EAzioniGiocatore action) {
 		EColoriPedine color = choosePawnColor();
 		if (color != null) {
-			Integer position = chooseANumber();
+			Integer position = choosePosition(action);
 			if (position != null) {
 				client.movePawn(action, color, position);
 			}
@@ -322,12 +322,39 @@ public class FakeUI {
 		return null;
 	}
 
-	private static Integer chooseANumber() {
+	private static Integer choosePosition(EAzioniGiocatore action) {
 		boolean ok = false;
 		int number;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Number: ");
+			System.out.print("Available Positions: ");
+			switch (action) {
+			case Mercato:
+				System.out.println("[0..4]");
+				break;
+			case Produzione:
+				System.out.println("[0]");
+				break;
+			case ProduzioneOvale:
+				System.out.println("[0..*]");
+				break;
+			case Raccolto:
+				System.out.println("[0]");
+				break;
+			case RaccoltoOvale:
+				System.out.println("[0..*]");
+				break;
+			case PalazzoConsiglio:
+				System.out.println("[0..*]");
+				break;
+			case Torre:
+				System.out.println("[0..15]");
+				break;
+
+			default:
+				System.out.println(ANSI.YELLOW + "Not implmented" + ANSI.RESET);
+				break;
+			}
 			inText = scanner.nextLine().toLowerCase();
 
 			if (inText.equals("q")) {
