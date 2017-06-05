@@ -224,13 +224,29 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) {
-		// TODO: implement here
+	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneRotondo();
+		} catch (FamigliareSpostatoException e) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (SpazioOccupatoException e2) {
+			throw new GameException(Errors.SPACE_TAKEN.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onHarvestRound(RemotePlayer remotePlayer, UpdateStats update) {
-		// TODO: implement here
+	private UpdateStats onHarvestRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoRotondo();
+		} catch (FamigliareSpostatoException e) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (SpazioOccupatoException e2) {
+			throw new GameException(Errors.SPACE_TAKEN.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
