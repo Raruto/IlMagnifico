@@ -266,6 +266,11 @@ public class Client implements IClient {
 		requestedAction.spostaPedina(color, position);
 		performGameAction(requestedAction);
 	}
+	
+	public void supportChurch(boolean isSupported){
+		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
+		requestedAction.supportaChiesa(isSupported);
+	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)

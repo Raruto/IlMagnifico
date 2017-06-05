@@ -41,6 +41,8 @@ public class UpdateStats implements Serializable {
 
 	private int posizionePedinaSpostata;
 
+	private boolean supportoChiesa;
+
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
 	 */
@@ -189,12 +191,20 @@ public class UpdateStats implements Serializable {
 	public int getIndiceColorePedina() {
 		return this.colorePedinaSpostata.getIndiceColore();
 	}
-	
+
 	public void spostaPedina(EColoriPedine color, int position) {
 		this.colorePedinaSpostata = color;
 		this.posizionePedinaSpostata = position;
 	}
-	
+
+	public boolean getSupportoChiesa() {
+		return this.supportoChiesa;
+	}
+
+	public void supportaChiesa(boolean supportoChiesa) {
+		this.supportoChiesa = supportoChiesa;
+	}
+
 	public ArrayList<Edificio> getEdificiGiocatore() {
 		return edifici;
 	}
@@ -221,5 +231,5 @@ public class UpdateStats implements Serializable {
 
 	public ArrayList<String> getNomiGiocatori() {
 		return this.nomiGiocatori;
-	}	
+	}
 }

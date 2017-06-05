@@ -6,7 +6,7 @@ public enum EAzioniGiocatore {
 	// delle carte. Se qua ti danno fastidio si può
 	// fare un altro enum
 
-	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre;
+	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre, SostegnoChiesa;
 
 	
 	public static String stringify(){

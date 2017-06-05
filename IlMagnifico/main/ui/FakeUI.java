@@ -240,9 +240,33 @@ public class FakeUI {
 			movePawn(action);
 			break;
 
+		case SostegnoChiesa:
+			supportChurch();
+			break;
+
 		default:
 			System.out.println(ANSI.YELLOW + "Not yet implmented" + ANSI.RESET);
 			break;
+		}
+
+	}
+
+	private static void supportChurch() {
+		boolean ok = false;
+		while (!ok) {
+			System.out.println("'q' to quit\n");
+			System.out.println("Support the Church? [y/n]: ");
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else if (inText.equalsIgnoreCase("y")) {
+				client.supportChurch(true);
+				ok=true;
+			}else if (inText.equalsIgnoreCase("n")) {
+				client.supportChurch(false);
+				ok=true;
+			}
 		}
 
 	}
