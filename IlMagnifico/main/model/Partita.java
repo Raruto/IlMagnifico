@@ -2,7 +2,6 @@ package main.model;
 
 import java.util.*;
 
-import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EAzioniGioco;
 import main.model.enums.ECarte;
 import main.model.enums.EScomuniche;
