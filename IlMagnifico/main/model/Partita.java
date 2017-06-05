@@ -18,7 +18,7 @@ import main.network.server.game.Game;
 public abstract class Partita {
 
 	/**
-	 * 
+	 * Mazzo delle Carte Sviluppo
 	 */
 	protected ArrayList<Carta> mazzo;
 
@@ -34,12 +34,12 @@ public abstract class Partita {
 	protected Giocatore giocatoreDiTurno;
 
 	/**
-	 * 
+	 * "Tabellone" di gioco
 	 */
 	protected SpazioAzione spazioAzione;
 
 	/**
-	 * 
+	 * Tessere Scomunica
 	 */
 	protected Scomunica[] scomuniche;
 
@@ -116,7 +116,6 @@ public abstract class Partita {
 	 *            tentando di compiere) conterra' il codice associato all'errore
 	 * @return true se giocatore puo' eseguire l'azione, false altrimenti
 	 */
-
 	protected boolean isElegible(Giocatore g, GameError e) {
 		boolean elegibility = true;
 		if (!isPartitaIniziata()) {
@@ -132,30 +131,64 @@ public abstract class Partita {
 		return elegibility;
 	}
 
+	/**
+	 * Check dell'inizio Partita
+	 * 
+	 * @return true se la partita è finita
+	 */
 	protected boolean isPartitaIniziata() {
 		return this.periodo > 0;
 	}
 
+	/**
+	 * Check dello stato del Periodo
+	 * 
+	 * @return true se il periodo corrente è terminato
+	 */
 	protected boolean isPeriodoTerminato() {
 		return (turno == 2 && isGiroDiTurniTerminato());
 	}
 
+	/**
+	 * Check del fine Partita
+	 * 
+	 * @return true se la partita è finita
+	 */
 	protected boolean isPartitaFinita() {
 		return partitaTerminata;
 	}
 
+	/**
+	 * Metodo per la terminazione corretta della Partita
+	 */
 	protected void terminaPartita() {
 		this.partitaTerminata = true;
 	}
 
+	/**
+	 * Check per determinare dell'ammissibilità del giocatore di turno
+	 * 
+	 * @param {@link
+	 * 			Giocatore} riferimento ad giocatore presente nella partita
+	 * @return true se il giocatore passato è quello cui spetta eseguire un
+	 *         azione
+	 */
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
 		return this.giocatoreDiTurno.equals(g);
 	}
 
+	/**
+	 * Check del fine Turno
+	 * 
+	 * @return true se il turno è terminato
+	 */
 	protected boolean isGiroDiTurniTerminato() {
 		return this.giocatoreDiTurno.equals(null);
 	}
 
+	/**
+	 * Inizializza il mazzo (per tutti i periodi di gioco)
+	 */
 	public void inizializzaMazzo() {
 		ECarte carte[] = ECarte.values();
 		for (int i = 0; i < carte.length; i++) {
@@ -434,16 +467,17 @@ public abstract class Partita {
 				this.giocatori.get(j).setValore(i, valoreDado);
 				this.spazioAzione.setValoreDadi(valoreDado, i);
 			}
-			log("Dado["+i+"]" + " " + valoreDado);
+			log("Dado[" + i + "]" + " " + valoreDado);
 		}
 	}
-	
+
 	/**
 	 * Metodo astratto per il log sul Server (vedi {@link Game})
+	 * 
 	 * @param message
 	 */
 	public abstract void log(String message);
-	
+
 	/**
 	 * Metodo che controlla se qualche giocatore e' in possesso della carta
 	 * scomunica che fa giocare per ultimi. In caso affermativo provvede allo
