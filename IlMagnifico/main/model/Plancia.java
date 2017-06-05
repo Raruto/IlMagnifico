@@ -1,11 +1,17 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class Plancia {
+public class Plancia implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7187091442351902574L;
 
 	/**
 	 * Default constructor

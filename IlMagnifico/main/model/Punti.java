@@ -1,9 +1,16 @@
 package main.model;
 
+import java.io.Serializable;
+
 /**
  * 
  */
-public class Punti {
+public class Punti implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7642887997296035889L;
 
 	/**
 	 * Default constructor

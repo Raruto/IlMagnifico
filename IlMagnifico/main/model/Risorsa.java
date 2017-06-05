@@ -1,11 +1,17 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class Risorsa {
+public class Risorsa implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6060279375623683644L;
 
 	/**
 	 * Default constructor
