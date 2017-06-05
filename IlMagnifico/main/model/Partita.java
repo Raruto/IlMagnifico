@@ -10,11 +10,12 @@ import main.model.enums.ETipiCarte;
 import main.model.enums.PlayerColors;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
+import main.network.server.game.Game;
 
 /**
  * 
  */
-public class Partita {
+public abstract class Partita {
 
 	/**
 	 * 
@@ -432,11 +433,17 @@ public class Partita {
 			for (int j = 0; j < this.giocatori.size(); j++) {
 				this.giocatori.get(j).setValore(i, valoreDado);
 				this.spazioAzione.setValoreDadi(valoreDado, i);
-				System.out.println("stampo il valore del dado" + " " + valoreDado);
 			}
+			log("Dado["+i+"]" + " " + valoreDado);
 		}
 	}
-
+	
+	/**
+	 * Metodo astratto per il log sul Server (vedi {@link Game})
+	 * @param message
+	 */
+	public abstract void log(String message);
+	
 	/**
 	 * Metodo che controlla se qualche giocatore e' in possesso della carta
 	 * scomunica che fa giocare per ultimi. In caso affermativo provvede allo

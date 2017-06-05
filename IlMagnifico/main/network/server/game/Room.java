@@ -272,7 +272,7 @@ public class Room {
 	 * 
 	 * @param message
 	 */
-	private void log(String message) {
+	public void log(String message) {
 		if (LOG_ENABLED)
 			System.out.println("[" + ID + "#" + roomNumber + "] " + message);
 	}

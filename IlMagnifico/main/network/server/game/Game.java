@@ -175,6 +175,14 @@ public class Game extends Partita {
 	private void dispatchGameUpdate(UpdateStats update) {
 		room.dispatchGameUpdate(update);
 	}
+	/**
+	 * Metodo interno usato per il Log sul Server (abilitato da: LOG_ENABLED in {@link Room})
+	 * 
+	 * @param message
+	 */
+	public void log(String message) {
+		room.log(message);
+	}
 
 	/**
 	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
