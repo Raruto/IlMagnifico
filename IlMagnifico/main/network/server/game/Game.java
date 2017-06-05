@@ -9,6 +9,11 @@ import main.model.enums.EColoriPedine;
 import main.model.enums.EFasiDiGioco;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
+import main.model.exceptions.FamigliareSpostatoException;
+import main.model.exceptions.InsufficientValueException;
+import main.model.exceptions.InvalidPositionException;
+import main.model.exceptions.MarketNotAvailableException;
+import main.model.exceptions.SpazioOccupatoException;
 import main.network.server.game.exceptions.GameException;
 
 public class Game extends Partita {
@@ -172,26 +177,34 @@ public class Game extends Partita {
 	public void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
-			try {
-				// Tenta di eseguire l'azione richiesta dal giocatore
-				UpdateStats update = handleResponse(remotePlayer, requestedAction);
-				dispatchGameUpdate(update);
+			// Tenta di eseguire l'azione richiesta dal giocatore
+			UpdateStats update = handleResponse(remotePlayer, requestedAction);
+			dispatchGameUpdate(update);
 
-				// Se tutto va a buon fine (azione valida = non scatena nessuna
-				// eccezione), fa avanzare lo stato interno della partita
-				// (es. notifico al prossimo giocatore che e' il suo turno).
-				andvanceInGameLogic();
-			} catch (Exception e2) {
-				e.setError(Errors.GENERIC_ERROR);
-				throw new GameException(e.toString());
-			}
+			// Se tutto va a buon fine (azione valida = non scatena nessuna
+			// eccezione), fa avanzare lo stato interno della partita
+			// (es. notifico al prossimo giocatore che e' il suo turno).
+			andvanceInGameLogic();
 		} else {
 			throw new GameException(e.toString());
 		}
 	}
 
-	private UpdateStats onMarket(RemotePlayer remotePlayer, UpdateStats update) {
-
+	private UpdateStats onMarket(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina())
+					.eseguiSpostamentoMercato(update.getPosizioneSpostamento());
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (MarketNotAvailableException e1) {
+			throw new GameException(Errors.MARKET_NOT_AVAILABLE.toString());
+		} catch (SpazioOccupatoException e2) {
+			throw new GameException(Errors.SPACE_TAKEN.toString());
+		} catch (FamigliareSpostatoException e3) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (InvalidPositionException e4) {
+			throw new GameException(Errors.INVALID_POSTITION.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
@@ -234,7 +247,7 @@ public class Game extends Partita {
 	 * @param update
 	 *            richiesta ricevuta dal client (es. {@link UpdateStats}).
 	 */
-	public UpdateStats handleResponse(RemotePlayer remotePlayer, UpdateStats update) {
+	public UpdateStats handleResponse(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		ResponseHandler handler = null;
 		EAzioniGiocatore azione = update.getAzioneGiocatore();
 
@@ -262,6 +275,6 @@ public class Game extends Partita {
 		 * @param update
 		 *            (vedi {@link UpdateStats}).
 		 */
-		UpdateStats handle(RemotePlayer remotePlayer, UpdateStats update);
+		UpdateStats handle(RemotePlayer remotePlayer, UpdateStats update) throws GameException;
 	}
 }

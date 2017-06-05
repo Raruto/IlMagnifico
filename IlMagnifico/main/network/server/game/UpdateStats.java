@@ -36,7 +36,10 @@ public class UpdateStats implements Serializable {
 	 */
 	private String nomeGiocatore;
 
-	private HashMap<EColoriPedine, Integer> spostamentoPedina;
+	// private HashMap<EColoriPedine, Integer> spostamentoPedina;
+	private EColoriPedine colorePedinaSpostata;
+
+	private int posizioneSpostamento;
 
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
@@ -179,8 +182,25 @@ public class UpdateStats implements Serializable {
 		return risorseGiocatore;
 	}
 
-	public HashMap<EColoriPedine, Integer> getSpostamentoPedina() {
-		return spostamentoPedina;
+	/*
+	 * public HashMap<EColoriPedine, Integer> getSpostamentoPedina() { return
+	 * spostamentoPedina; }
+	 */
+
+	public int getPosizioneSpostamento() {
+		return this.posizioneSpostamento;
+	}
+
+	public int getIndiceColorePedina() {
+		return this.colorePedinaSpostata.getIndiceColore();
+	}
+
+	public void setposizioneSpostamento(int posizione) {
+		this.posizioneSpostamento = posizione;
+	}
+
+	public void setColorePedina(EColoriPedine colore) {
+		this.colorePedinaSpostata = colore;
 	}
 
 	public ArrayList<Edificio> getEdificiGiocatore() {
@@ -200,10 +220,10 @@ public class UpdateStats implements Serializable {
 	}
 
 	public void addToNomiGiocatori(String nomeGiocatore) {
-		
+
 		if (nomiGiocatori == null)
 			nomiGiocatori = new ArrayList<String>();
-		
+
 		this.nomiGiocatori.add(nomeGiocatore);
 	}
 
