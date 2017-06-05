@@ -1,8 +1,15 @@
 package main.model;
 
+import java.io.Serializable;
+
 import main.model.enums.EAzioniGioco;
 
-public class UtilEffetto {
+public class UtilEffetto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6350024466665562089L;
+
 	/**
 	 * Aggiunge risorse al giocatore passato tra i parametri. Tra i parametri
 	 * sono passate le risorse da aggiungere e, se negativi, sono quelle che il

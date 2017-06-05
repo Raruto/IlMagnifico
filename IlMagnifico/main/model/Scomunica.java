@@ -1,5 +1,6 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 import main.model.enums.EAzioniGiocatore;
@@ -8,7 +9,12 @@ import main.model.enums.EAzioniGioco;
 /**
  * 
  */
-public class Scomunica {
+public class Scomunica implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4068077334736726930L;
 
 	/**
 	 * Default constructor

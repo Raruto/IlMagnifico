@@ -1,7 +1,7 @@
 package main.model.enums;
 
 public enum EColoriPedine {
-	BLACK(0), ORANGE(1), WHITE(2), NEUTRAL(3);
+	Nera(0), Arancione(1), Bianca(2), Neutrale(3);
 	private int indiceColore;
 
 	private EColoriPedine(int indice) {

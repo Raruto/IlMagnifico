@@ -1,5 +1,6 @@
 package main.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 import main.model.enums.EAzioniGioco;
@@ -7,7 +8,12 @@ import main.model.enums.EAzioniGioco;
 /**
  * 
  */
-public abstract class Carta {
+public abstract class Carta implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7463494507592883793L;
 
 	/**
 	 * Default constructor

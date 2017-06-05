@@ -239,7 +239,6 @@ public class FakeUI {
 		case Torre:
 			movePawn(action);
 			break;
-
 		case SostegnoChiesa:
 			supportChurch();
 			break;
