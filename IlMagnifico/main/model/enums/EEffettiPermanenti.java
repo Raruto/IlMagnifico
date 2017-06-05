@@ -2,11 +2,11 @@ package main.model.enums;
 
 public enum EEffettiPermanenti {
 
-	CAPPELLA("cappella", 0, EAzioniGiocatore.Raccolto, -1, 0, 0, 0, 0, 0, 1, 0);
+	CAPPELLA("cappella", 0, EAzioniGioco.Raccolto, -1, 0, 0, 0, 0, 0, 1, 0);
 
 	private String nome;
 	private int numeroEffetto;
-	private EAzioniGiocatore azioneAttivazione;
+	private EAzioniGioco azioneAttivazione;
 	private int deltaMonete;
 	private int deltaLegno;
 	private int deltaPietra;
@@ -20,7 +20,7 @@ public enum EEffettiPermanenti {
 		return this.nome;
 	}
 
-	private EEffettiPermanenti(String nome, int numeroEffetto, EAzioniGiocatore azione, int monete, int legno,
+	private EEffettiPermanenti(String nome, int numeroEffetto, EAzioniGioco azione, int monete, int legno,
 			int pietra, int servitori, int PV, int PM, int PF, int privilegiConsiglio) {
 		this.nome = nome;
 		this.numeroEffetto = numeroEffetto;

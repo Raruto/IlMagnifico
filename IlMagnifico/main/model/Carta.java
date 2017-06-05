@@ -2,7 +2,7 @@ package main.model;
 
 import java.util.*;
 
-import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EAzioniGioco;
 
 /**
  * 
@@ -180,12 +180,12 @@ public abstract class Carta {
 	 * @param
 	 * @return
 	 */
-	public void attivaOnAzione(Giocatore giocatore, EAzioniGiocatore azione, Famigliare famigliare, Carta carta) {
+	public void attivaOnAzione(Giocatore giocatore, EAzioniGioco azione, Famigliare famigliare, Carta carta) {
 		for (int i = 0; i < this.effettoPermanente.size(); i++) {
 			this.effettoPermanente.get(i)[1] = giocatore;
 			this.effettoPermanente.get(i)[3] = famigliare;
 			this.effettoPermanente.get(i)[4] = carta;
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == azione)
+			if ((EAzioniGioco) (this.effettoPermanente.get(i)[2]) == azione)
 				attivaEffettoSingolo(this.effettoPermanente.get(i));
 		}
 	}
@@ -213,7 +213,7 @@ public abstract class Carta {
 	 */
 	public boolean attivaOnEffettoTorre() {
 		for (int i = 0; i < this.effettoPermanente.size(); i++) {
-			if ((EAzioniGiocatore) (this.effettoPermanente.get(i)[2]) == EAzioniGiocatore.EffettoTorre)
+			if ((EAzioniGioco) (this.effettoPermanente.get(i)[2]) == EAzioniGioco.EffettoTorre)
 				return true;
 		}
 		return false;

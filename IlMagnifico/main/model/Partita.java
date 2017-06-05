@@ -3,6 +3,7 @@ package main.model;
 import java.util.*;
 
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EAzioniGioco;
 import main.model.enums.ECarte;
 import main.model.enums.EScomuniche;
 import main.model.enums.ETipiCarte;
@@ -396,7 +397,7 @@ public class Partita {
 		for (int i = 0; i < giocatori.size(); i++) {
 			if (this.giocatori.get(i).getScomunica(2) != null)
 				this.giocatori.get(i).getScomunica(2).attivaOnAzione(this.giocatori.get(i),
-						EAzioniGiocatore.FinePartita, null, null);
+						EAzioniGioco.FinePartita, null, null);
 		}
 		// procedo al calcolo dei punti finali e alla relativa classifica
 		for (int i = 0; i < this.giocatori.size(); i++) {

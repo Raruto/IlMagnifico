@@ -1,6 +1,6 @@
 package main.model;
 
-import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EAzioniGioco;
 
 public class UtilEffetto {
 	/**
@@ -160,9 +160,9 @@ public class UtilEffetto {
 	 */
 	public void eseguiEffettoImmediatoRaccolto(Object o[]) {// metodo numero 6
 		Famigliare famigliare = new Famigliare((Giocatore) o[1], 4, false);
-		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.Raccolto);
+		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.Raccolto);
 		if (famigliare.getGiocatore().getScomunica(0) != null)
-			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto, famigliare, null);
+			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGioco.Raccolto, famigliare, null);
 		if (famigliare.getValore() > 0)
 			famigliare.getGiocatore().raccolto(famigliare.getValore());
 
@@ -180,10 +180,9 @@ public class UtilEffetto {
 																		// numero
 																		// 7
 		Famigliare famigliare = new Famigliare((Giocatore) o[1], 3, false);
-		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.Produzione);
+		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.Produzione);
 		if (famigliare.getGiocatore().getScomunica(0) != null)
-			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione, famigliare,
-					null);
+			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGioco.Produzione, famigliare, null);
 		if (famigliare.getValore() > 0)
 			famigliare.getGiocatore().produzione(famigliare.getValore());
 
@@ -197,10 +196,9 @@ public class UtilEffetto {
 																			// numero
 																			// 8
 		Famigliare famigliare = new Famigliare((Giocatore) o[1], 4, false);
-		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.Produzione);
+		famigliare.controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.Produzione);
 		if (famigliare.getGiocatore().getScomunica(0) != null)
-			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione, famigliare,
-					null);
+			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGioco.Produzione, famigliare, null);
 		if (famigliare.getValore() > 0)
 			famigliare.getGiocatore().produzione(famigliare.getValore());
 

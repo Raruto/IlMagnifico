@@ -2,13 +2,14 @@ package main.model.enums;
 
 public enum EEffettiScomuniche {
 
-	RICEVI_MENO_PM("ricevi meno pm", -1, EAzioniGiocatore.RiceviPM, 0, 0, 0, 0, 0, -1, 0, 0),
-	MENO_QUATTRO_ON_TERRITORIO("meno quattro on territorio",18,EAzioniGiocatore.PrendiTerritorio,0,0,0,0,0,0,0,0),
-	NO_PV_PERSONAGGIO("no pv personaggio",-1,EAzioniGiocatore.PersonaggiFinePartita,0,0,0,0,0,0,0,0);
+	RICEVI_MENO_PM("ricevi meno pm", -1, EAzioniGioco.RiceviPM, 0, 0, 0, 0, 0, -1, 0,
+			0), MENO_QUATTRO_ON_TERRITORIO("meno quattro on territorio", 18, EAzioniGioco.PrendiTerritorio, 0, 0, 0,
+					0, 0, 0, 0, 0), NO_PV_PERSONAGGIO("no pv personaggio", -1, EAzioniGioco.PersonaggiFinePartita,
+							0, 0, 0, 0, 0, 0, 0, 0);
 
 	private String nome;
 	private int numeroEffetto;
-	private EAzioniGiocatore azioneAttivazione;
+	private EAzioniGioco azioneAttivazione;
 	private int deltaMonete;
 	private int deltaLegno;
 	private int deltaPietra;
@@ -18,8 +19,8 @@ public enum EEffettiScomuniche {
 	private int deltaPF;
 	private int numeroprivilegiConsiglio;
 
-	private EEffettiScomuniche(String nome, int numeroEffetto, EAzioniGiocatore azione, int monete, int legno,
-			int pietra, int servitori, int PV, int PM, int PF, int privilegiConsiglio) {
+	private EEffettiScomuniche(String nome, int numeroEffetto, EAzioniGioco azione, int monete, int legno, int pietra,
+			int servitori, int PV, int PM, int PF, int privilegiConsiglio) {
 		this.nome = nome;
 		this.numeroEffetto = numeroEffetto;
 		this.azioneAttivazione = azione;

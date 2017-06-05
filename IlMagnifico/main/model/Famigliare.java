@@ -3,7 +3,7 @@ package main.model;
 import java.io.Serializable;
 import java.util.*;
 
-import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EAzioniGioco;
 import main.model.exceptions.*;
 
 /**
@@ -202,13 +202,13 @@ public class Famigliare implements Serializable {
 	public void controlloMalusEffettiPermanentiTorre(int identificativoTorre, Famigliare famigliare) {
 
 		if (identificativoTorre == 0)
-			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiTerritorio);
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.PrendiTerritorio);
 		if (identificativoTorre == 1)
-			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiPersonaggio);
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.PrendiPersonaggio);
 		if (identificativoTorre == 2)
-			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiEdificio);
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.PrendiEdificio);
 		if (identificativoTorre == 3)
-			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGiocatore.PrendiImpresa);
+			controlloEffettiPermanentiOnFamigliare(famigliare, EAzioniGioco.PrendiImpresa);
 
 	}
 
@@ -220,7 +220,7 @@ public class Famigliare implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void controlloEffettiPermanentiOnFamigliare(Famigliare famigliare, EAzioniGiocatore azione) {
+	public void controlloEffettiPermanentiOnFamigliare(Famigliare famigliare, EAzioniGioco azione) {
 		for (int i = 0; i < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); i++) {
 			this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(i).attivaOnAzione(null, azione, famigliare,
 					null);
@@ -237,22 +237,22 @@ public class Famigliare implements Serializable {
 	 */
 	public void controlloMalusScomunicheTorre(int identificativoTorre, Famigliare famigliare) {
 		if ((famigliare.neutro == false) && (this.giocatoreAppartenenza.getScomunica(0) != null))
-			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.MuoviColorato, famigliare,
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGioco.MuoviColorato, famigliare,
 					null);
 
 		if (this.giocatoreAppartenenza.getScomunica(1) != null) {
 			if (identificativoTorre == 0)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiTerritorio,
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGioco.PrendiTerritorio,
 						famigliare, null);
 			if (identificativoTorre == 1)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiPersonaggio,
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGioco.PrendiPersonaggio,
 						famigliare, null);
 			if (identificativoTorre == 2)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiEdificio,
-						famigliare, null);
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGioco.PrendiEdificio, famigliare,
+						null);
 			if (identificativoTorre == 3)
-				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGiocatore.PrendiImpresa,
-						famigliare, null);
+				this.giocatoreAppartenenza.getScomunica(1).attivaOnAzione(null, EAzioniGioco.PrendiImpresa, famigliare,
+						null);
 		}
 	}
 
@@ -311,16 +311,16 @@ public class Famigliare implements Serializable {
 		for (int j = 0; j < this.giocatoreAppartenenza.getPlancia().getPersonaggi().size(); j++) {
 			Personaggio cartaPersonaggio = this.giocatoreAppartenenza.getPlancia().getPersonaggi().get(j);
 			if (identificativoTorre == 0)
-				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGiocatore.PagaTerritorio, null,
+				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGioco.PagaTerritorio, null,
 						spazioAzione.getCartaTorre(posizione));
 			if (identificativoTorre == 1)
-				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGiocatore.PagaPersonaggio,
-						null, spazioAzione.getCartaTorre(posizione));
+				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGioco.PagaPersonaggio, null,
+						spazioAzione.getCartaTorre(posizione));
 			if (identificativoTorre == 2)
-				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGiocatore.PagaEdificio, null,
+				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGioco.PagaEdificio, null,
 						spazioAzione.getCartaTorre(posizione));
 			if (identificativoTorre == 3)
-				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGiocatore.PagaImpresa, null,
+				cartaPersonaggio.attivaOnAzione(famigliare.giocatoreAppartenenza, EAzioniGioco.PagaImpresa, null,
 						spazioAzione.getCartaTorre(posizione));
 		}
 	}
@@ -407,11 +407,11 @@ public class Famigliare implements Serializable {
 
 		// applico gli effetti permanenti delle carte e gli effetti delle
 		// scomuniche
-		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Raccolto);
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGioco.Raccolto);
 
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
-			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto,
-					famigliareTemporaneo, null);
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGioco.Raccolto, famigliareTemporaneo,
+					null);
 
 		// guardo se ho abbastanza valore con la pedina
 		if (famigliareTemporaneo.valore < 1)
@@ -448,10 +448,10 @@ public class Famigliare implements Serializable {
 
 		// applico gli effetti permanenti delle carte e gli effetti delle
 		// scomuniche
-		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Raccolto);
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGioco.Raccolto);
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
-			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Raccolto,
-					famigliareTemporaneo, null);
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGioco.Raccolto, famigliareTemporaneo,
+					null);
 
 		// applico il malus della zona ovale
 		famigliareTemporaneo.cambiaValore(-3);
@@ -488,10 +488,10 @@ public class Famigliare implements Serializable {
 
 		// applico gli effetti permanenti delle carte e gli effetti delle
 		// scomuniche
-		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Produzione);
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGioco.Produzione);
 
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
-			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione,
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGioco.Produzione,
 					famigliareTemporaneo, null);
 
 		// guardo se ho abbastanza valore con la pedina
@@ -529,9 +529,9 @@ public class Famigliare implements Serializable {
 
 		// applico gli effetti permanenti delle carte e gli effetti delle
 		// scomuniche
-		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGiocatore.Produzione);
+		controlloEffettiPermanentiOnFamigliare(famigliareTemporaneo, EAzioniGioco.Produzione);
 		if (this.giocatoreAppartenenza.getScomunica(0) != null)
-			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGiocatore.Produzione,
+			this.giocatoreAppartenenza.getScomunica(0).attivaOnAzione(null, EAzioniGioco.Produzione,
 					famigliareTemporaneo, null);
 
 		// applico il malus della zona ovale

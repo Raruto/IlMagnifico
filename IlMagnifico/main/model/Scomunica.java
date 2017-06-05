@@ -3,6 +3,7 @@ package main.model;
 import java.util.*;
 
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EAzioniGioco;
 
 /**
  * 
@@ -59,12 +60,12 @@ public class Scomunica {
 		// TODO:finire di elencare i metodi possibili
 	}
 
-	public void attivaOnAzione(Giocatore giocatore, EAzioniGiocatore azione, Famigliare famigliare, Carta carta) {
+	public void attivaOnAzione(Giocatore giocatore, EAzioniGioco azione, Famigliare famigliare, Carta carta) {
 		for (int i = 0; i < this.effetto.size(); i++) {
 			this.effetto.get(i)[1] = giocatore;
 			this.effetto.get(i)[3] = famigliare;
 			this.effetto.get(i)[4] = carta;
-			if ((EAzioniGiocatore) (this.effetto.get(i)[2]) == azione)
+			if ((EAzioniGioco) (this.effetto.get(i)[2]) == azione)
 				attivaEffettoSingolo(this.effetto.get(i));
 		}
 	}
@@ -86,7 +87,7 @@ public class Scomunica {
 
 	public boolean attivaOnInizioTurno() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.InizioTurno)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.InizioTurno)
 				return true;
 		}
 		return false;
@@ -94,7 +95,7 @@ public class Scomunica {
 
 	public boolean attivaOnPersonaggiFinePartita() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.PersonaggiFinePartita)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.PersonaggiFinePartita)
 				return true;
 		}
 		return false;
@@ -102,7 +103,7 @@ public class Scomunica {
 
 	public boolean attivaOnTerritoriFinePartita() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.TerritoriFinePartita)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.TerritoriFinePartita)
 				return true;
 		}
 		return false;
@@ -110,7 +111,7 @@ public class Scomunica {
 
 	public boolean attivaOnImpreseFinePartita() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.ImpreseFinePartita)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.ImpreseFinePartita)
 				return true;
 		}
 		return false;
@@ -118,7 +119,7 @@ public class Scomunica {
 
 	public boolean attivaOnRiceviMonete() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviMonete)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.RiceviMonete)
 				return true;
 		}
 		return false;
@@ -126,7 +127,7 @@ public class Scomunica {
 
 	public boolean attivaOnRiceviPietreOLegno() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviPietreOLegno)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.RiceviPietreOLegno)
 				return true;
 		}
 		return false;
@@ -134,7 +135,7 @@ public class Scomunica {
 
 	public boolean attivaOnRiceviPM() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviPM)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.RiceviPM)
 				return true;
 		}
 		return false;
@@ -142,7 +143,7 @@ public class Scomunica {
 
 	public boolean attivaOnRiceviServitori() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.RiceviServitori)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.RiceviServitori)
 				return true;
 		}
 		return false;
@@ -150,7 +151,7 @@ public class Scomunica {
 
 	public boolean attivaOnPagaServitore() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.PagaServitori)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.PagaServitori)
 				return true;
 		}
 		return false;
