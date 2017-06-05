@@ -396,8 +396,8 @@ public class Partita {
 		// attivo gli effetti delle scomuniche di terzo periodo
 		for (int i = 0; i < giocatori.size(); i++) {
 			if (this.giocatori.get(i).getScomunica(2) != null)
-				this.giocatori.get(i).getScomunica(2).attivaOnAzione(this.giocatori.get(i),
-						EAzioniGioco.FinePartita, null, null);
+				this.giocatori.get(i).getScomunica(2).attivaOnAzione(this.giocatori.get(i), EAzioniGioco.FinePartita,
+						null, null);
 		}
 		// procedo al calcolo dei punti finali e alla relativa classifica
 		for (int i = 0; i < this.giocatori.size(); i++) {
@@ -432,6 +432,7 @@ public class Partita {
 			for (int j = 0; j < this.giocatori.size(); j++) {
 				this.giocatori.get(j).setValore(i, valoreDado);
 				this.spazioAzione.setValoreDadi(valoreDado, i);
+				System.out.println("stampo il valore del dado" + " " + valoreDado);
 			}
 		}
 	}

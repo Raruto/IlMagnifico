@@ -79,7 +79,9 @@ public class Game extends Partita {
 		update = new UpdateStats(EFasiDiGioco.InizioPeriodo);
 		dispatchGameUpdate(update);
 
-		// turnazione();
+		// turnazione
+		// posizionaCarteSuTorre();
+		lanciaDadi();
 		update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
 		dispatchGameUpdate(update);
 
@@ -118,8 +120,8 @@ public class Game extends Partita {
 	 */
 	private void andvanceInGameLogic() {
 		UpdateStats update;
-		if (!isGiroDiTurniTerminato()) {
 
+		if (!isGiroDiTurniTerminato()) {
 			avanzaDiTurno();
 			update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
 			update.setNomeGiocatore(giocatoreDiTurno.getNome());
@@ -128,11 +130,14 @@ public class Game extends Partita {
 		} else {
 
 			// terminaGiroDiTurni();
+			resetPerNuovoTurno();
 			update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 			dispatchGameUpdate(update);
 
 			if (!isPeriodoTerminato()) {
 				// avanzaGiroDiTurni();
+				posizionaCarteSuTorre();
+				lanciaDadi();
 				update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
 				dispatchGameUpdate(update);
 			} else {
@@ -208,8 +213,14 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onCouncilPalace(RemotePlayer remotePlayer, UpdateStats update) {
-		// TODO: implement here
+	private UpdateStats onCouncilPalace(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoPalazzoConsiglio();
+		} catch (InsufficientValueException e) {
+			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+		} catch (FamigliareSpostatoException e1) {
+			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
