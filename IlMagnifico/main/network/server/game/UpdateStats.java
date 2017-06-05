@@ -39,7 +39,7 @@ public class UpdateStats implements Serializable {
 	// private HashMap<EColoriPedine, Integer> spostamentoPedina;
 	private EColoriPedine colorePedinaSpostata;
 
-	private int posizioneSpostamento;
+	private int posizionePedinaSpostata;
 
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
@@ -182,27 +182,19 @@ public class UpdateStats implements Serializable {
 		return risorseGiocatore;
 	}
 
-	/*
-	 * public HashMap<EColoriPedine, Integer> getSpostamentoPedina() { return
-	 * spostamentoPedina; }
-	 */
-
-	public int getPosizioneSpostamento() {
-		return this.posizioneSpostamento;
+	public int getPosizioneSpostamentoPedina() {
+		return this.posizionePedinaSpostata;
 	}
 
 	public int getIndiceColorePedina() {
 		return this.colorePedinaSpostata.getIndiceColore();
 	}
-
-	public void setPosizioneSpostamento(int posizione) {
-		this.posizioneSpostamento = posizione;
+	
+	public void spostaPedina(EColoriPedine color, int position) {
+		this.colorePedinaSpostata = color;
+		this.posizionePedinaSpostata = position;
 	}
-
-	public void setColorePedina(EColoriPedine colore) {
-		this.colorePedinaSpostata = colore;
-	}
-
+	
 	public ArrayList<Edificio> getEdificiGiocatore() {
 		return edifici;
 	}
@@ -229,5 +221,5 @@ public class UpdateStats implements Serializable {
 
 	public ArrayList<String> getNomiGiocatori() {
 		return this.nomiGiocatori;
-	}
+	}	
 }

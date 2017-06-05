@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EColoriPedine;
 import main.model.enums.EFasiDiGioco;
 import main.model.errors.Errors;
 import main.network.NetworkException;
@@ -259,6 +260,12 @@ public class Client implements IClient {
 			System.err.println("Cannot perform action request");
 		}
 	}
+	
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, int position){
+		UpdateStats requestedAction = new UpdateStats(action);
+		requestedAction.spostaPedina(color, position);
+		performGameAction(requestedAction);
+	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)
@@ -311,6 +318,34 @@ public class Client implements IClient {
 	public void onChurchSupport(UpdateStats update) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void onMarket(UpdateStats update) {
+		// TODO
+	}
+
+	public void onTower(UpdateStats update) {
+		// TODO
+	}
+
+	public void onCouncilPalace(UpdateStats update) {
+		// TODO
+	}
+
+	public void onHarvestRound(UpdateStats update) {
+		// TODO
+	}
+
+	public void onProductionRound(UpdateStats update) {
+		// TODO
+	}
+
+	public void onHarvestOval(UpdateStats update) {
+		// TODO
+	}
+
+	public void onProductionOval(UpdateStats update) {
+		// TODO
 	}
 
 	@Override
@@ -408,33 +443,5 @@ public class Client implements IClient {
 		 *            (vedi {@link UpdateStats}).
 		 */
 		void handle(UpdateStats update);
-	}
-
-	public void onMarket(UpdateStats update) {
-		// TODO
-	}
-
-	public void onTower(UpdateStats update) {
-		// TODO
-	}
-
-	public void onCouncilPalace(UpdateStats update) {
-		// TODO
-	}
-
-	public void onHarvestRound(UpdateStats update) {
-		// TODO
-	}
-
-	public void onProductionRound(UpdateStats update) {
-		// TODO
-	}
-
-	public void onHarvestOval(UpdateStats update) {
-		// TODO
-	}
-
-	public void onProductionOval(UpdateStats update) {
-		// TODO
 	}
 }

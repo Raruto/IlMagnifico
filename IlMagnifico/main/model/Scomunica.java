@@ -79,7 +79,7 @@ public class Scomunica {
 	 */
 	public boolean attivaOnMercato() {
 		for (int i = 0; i < effetto.size(); i++) {
-			if ((EAzioniGiocatore) (effetto.get(i)[2]) == EAzioniGiocatore.Mercato)
+			if ((EAzioniGioco) (effetto.get(i)[2]) == EAzioniGioco.Mercato)
 				return true;
 		}
 		return false;
