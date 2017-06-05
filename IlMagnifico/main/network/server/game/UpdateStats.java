@@ -195,7 +195,7 @@ public class UpdateStats implements Serializable {
 		return this.colorePedinaSpostata.getIndiceColore();
 	}
 
-	public void setposizioneSpostamento(int posizione) {
+	public void setPosizioneSpostamento(int posizione) {
 		this.posizioneSpostamento = posizione;
 	}
 

@@ -3,6 +3,7 @@ package main.ui;
 import java.util.Scanner;
 
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EColoriPedine;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;
@@ -214,6 +215,7 @@ public class FakeUI {
 		Client client = getClient();
 
 		boolean ok = false;
+		boolean ok2 = false;
 
 		while (!ok) {
 			System.out.println("'q' to quit\n");
@@ -239,8 +241,30 @@ public class FakeUI {
 			} else {
 				for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
 					if (inText.equals(act.toString().toLowerCase())) {
-						UpdateStats requestedAction = new UpdateStats(act);
-						client.performGameAction(requestedAction);
+						while (!ok2) {
+							System.out.println("Choose a Pawn Color: ");
+							for (EColoriPedine col : EColoriPedine.values()) {
+								System.out.print("[" + col.toString() + "] ");
+							}
+							System.out.println();
+							inText = scanner.nextLine().toLowerCase();
+							
+							for (EColoriPedine col : EColoriPedine.values()) {
+								if (inText.equals(col.toString().toLowerCase()))
+								{
+									System.out.println("Choose a Number: ");
+									int number;
+									number = scanner.nextInt();
+									
+									UpdateStats requestedAction = new UpdateStats(act);
+									requestedAction.setColorePedina(col);
+									requestedAction.setPosizioneSpostamento(number);
+									client.performGameAction(requestedAction);			
+								}
+							}
+
+						}
+						
 					}
 				}
 			}
