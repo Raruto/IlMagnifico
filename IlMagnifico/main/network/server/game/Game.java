@@ -48,8 +48,10 @@ public class Game extends Partita {
 	private void loadResponses() {
 		responseMap.put(EAzioniGiocatore.Mercato, this::onMarket);
 		responseMap.put(EAzioniGiocatore.PalazzoConsiglio, this::onCouncilPalace);
-		responseMap.put(EAzioniGiocatore.Produzione, this::onProduction);
-		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvest);
+		responseMap.put(EAzioniGiocatore.Produzione, this::onProductionRound);
+		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvestRound);
+		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvestOval);
+		responseMap.put(EAzioniGiocatore.Raccolto, this::onProductionOval);
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
 	}
 
@@ -189,6 +191,7 @@ public class Game extends Partita {
 	}
 
 	private UpdateStats onMarket(RemotePlayer remotePlayer, UpdateStats update) {
+
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
@@ -197,12 +200,22 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onProduction(RemotePlayer remotePlayer, UpdateStats update) {
+	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) {
 		// TODO: implement here
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
-	private UpdateStats onHarvest(RemotePlayer remotePlayer, UpdateStats update) {
+	private UpdateStats onHarvestRound(RemotePlayer remotePlayer, UpdateStats update) {
+		// TODO: implement here
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
+
+	private UpdateStats onHarvestOval(RemotePlayer remotePlayer, UpdateStats update) {
+		// TODO: implement here
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
+
+	private UpdateStats onProductionOval(RemotePlayer remotePlayer, UpdateStats update) {
 		// TODO: implement here
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}

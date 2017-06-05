@@ -28,12 +28,12 @@ public class Client implements IClient {
 	private static final String SERVER_ADDRESS = Costants.SERVER_ADDRESS;
 
 	/**
-	 * Porta in cui è aperta la comunicazione Socket.
+	 * Porta in cui ï¿½ aperta la comunicazione Socket.
 	 */
 	private static final int SERVER_SOCKET_PORT = Costants.SOCKET_PORT;
 
 	/**
-	 * Porta in cui è aperta la comunicazione RMI.
+	 * Porta in cui ï¿½ aperta la comunicazione RMI.
 	 */
 	private static final int SERVER_RMI_PORT = Costants.RMI_PORT;
 
@@ -87,11 +87,14 @@ public class Client implements IClient {
 		responseMap.put(EFasiDiGioco.MossaGiocatore, this::onPlayerMove);
 		responseMap.put(EFasiDiGioco.SostegnoChiesa, this::onChurchSupport);
 
-		// responseMap.put(EAzioniGiocatore.Mercato, this::);
-		// responseMap.put(EAzioniGiocatore.PalazzoConsiglio, this::);
-		// responseMap.put(EAzioniGiocatore.Produzione, this::);
-		// responseMap.put(EAzioniGiocatore.Raccolto, this::);
-		// responseMap.put(EAzioniGiocatore.Torre, this::);
+		responseMap.put(EAzioniGiocatore.Mercato, this::onMarket);
+		responseMap.put(EAzioniGiocatore.PalazzoConsiglio, this::onCouncilPalace);
+		responseMap.put(EAzioniGiocatore.Produzione, this::onProductionRound);
+		responseMap.put(EAzioniGiocatore.Raccolto, this::onHarvestRound);
+		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
+		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
+		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
+
 	}
 
 	/**
@@ -151,9 +154,9 @@ public class Client implements IClient {
 	 * @param serverAddress
 	 *            indirizzo Server sui cui le comunicazioni sono aperte
 	 * @param socketPort
-	 *            porta in cui è aperta la comunicazione Socket.
+	 *            porta in cui ï¿½ aperta la comunicazione Socket.
 	 * @param rmiPort
-	 *            porta in cui è aperta la comunicazione RMI.
+	 *            porta in cui ï¿½ aperta la comunicazione RMI.
 	 * @throws ClientException
 	 *             se si verifica un errore.
 	 */
@@ -174,7 +177,7 @@ public class Client implements IClient {
 	 * @param serverAddress
 	 *            indirizzo del Server su cui avviare la connessione.
 	 * @param rmiPort
-	 *            porta in cui è aperta la comunicazione RMI.
+	 *            porta in cui ï¿½ aperta la comunicazione RMI.
 	 * 
 	 * @throws ClientException
 	 *             se si verifica un errore.
@@ -234,7 +237,7 @@ public class Client implements IClient {
 	 * Callback per inviare un messaggio sulla chat.
 	 * 
 	 * @param nickname
-	 *            del ricevitore del ricevitore se è un messaggio privato,
+	 *            del ricevitore del ricevitore se ï¿½ un messaggio privato,
 	 *            altrimenti null.
 	 * @param messaggio
 	 *            da inviare.
@@ -262,10 +265,10 @@ public class Client implements IClient {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notifica che è arrivato un nuovo messaggio dalla chat.
+	 * Notifica che ï¿½ arrivato un nuovo messaggio dalla chat.
 	 * 
 	 * @param privateMessage
-	 *            "True" se il messaggio è privato, "False" se pubblico.
+	 *            "True" se il messaggio ï¿½ privato, "False" se pubblico.
 	 * @param author
 	 *            autore del messaggio.
 	 * @param message
@@ -405,5 +408,33 @@ public class Client implements IClient {
 		 *            (vedi {@link UpdateStats}).
 		 */
 		void handle(UpdateStats update);
+	}
+
+	public void onMarket(UpdateStats update) {
+		// TODO
+	}
+
+	public void onTower(UpdateStats update) {
+		// TODO
+	}
+
+	public void onCouncilPalace(UpdateStats update) {
+		// TODO
+	}
+
+	public void onHarvestRound(UpdateStats update) {
+		// TODO
+	}
+
+	public void onProductionRound(UpdateStats update) {
+		// TODO
+	}
+
+	public void onHarvestOval(UpdateStats update) {
+		// TODO
+	}
+
+	public void onProductionOval(UpdateStats update) {
+		// TODO
 	}
 }
