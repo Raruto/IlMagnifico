@@ -14,6 +14,7 @@ import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EColoriPedine;
 import main.model.enums.EFasiDiGioco;
 import main.model.enums.EPunti;
 import main.model.enums.ERisorse;
@@ -35,22 +36,21 @@ public class UpdateStats implements Serializable {
 	 */
 	private String nomeGiocatore;
 
+	private HashMap<EColoriPedine, Integer> spostamentoPedina;
+
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
 	 */
 	private HashMap<EPunti, Integer> puntiGiocatore;
-	// private Punti puntiGiocatore;
 
 	/**
 	 * {@link Risorsa} del giocatore che ha eseguito l'azione
 	 */
 	private HashMap<ERisorse, Integer> risorseGiocatore;
-	// private Risorsa risorseGiocatore;
 
 	/**
 	 * {@link Plancia} del giocatore che ha eseguito l'azione.
 	 */
-	// private Plancia planciaGiocatore;
 	private ArrayList<Edificio> edifici;
 	private ArrayList<Impresa> imprese;
 	private ArrayList<Personaggio> personaggi;
@@ -72,19 +72,13 @@ public class UpdateStats implements Serializable {
 	 */
 	private SpazioAzione spazioAzione;
 
-	private UpdateStats() {
-		nomiGiocatori = new ArrayList<String>();
-	}
-
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
 	 * 
 	 * @param azioneRichiesta
 	 */
 	public UpdateStats(EAzioniGiocatore azioneRichiesta) {
-		this();
 		this.azioneGiocatore = azioneRichiesta;
-
 	}
 
 	/**
@@ -93,7 +87,6 @@ public class UpdateStats implements Serializable {
 	 * @param faseDiGioco
 	 */
 	public UpdateStats(EFasiDiGioco faseDiGioco) {
-		this();
 		this.faseDiGioco = faseDiGioco;
 	}
 
@@ -154,10 +147,6 @@ public class UpdateStats implements Serializable {
 		return azioneGiocatore;
 	}
 
-	public void setAzioneGiocatore(EAzioniGiocatore azioneGiocatore) {
-		this.azioneGiocatore = azioneGiocatore;
-	}
-
 	public String getNomeGiocatore() {
 		return nomeGiocatore;
 	}
@@ -165,31 +154,6 @@ public class UpdateStats implements Serializable {
 	public void setNomeGiocatore(String nomeGiocatore) {
 		this.nomeGiocatore = nomeGiocatore;
 	}
-
-	/*
-	 * public Punti getPuntiGiocatore() { return puntiGiocatore; }
-	 * 
-	 * public void setPuntiGiocatore(Punti punti) { this.puntiGiocatore = punti;
-	 * }
-	 */
-
-	/*
-	 * public Risorsa getRisorseGiocatore() { return risorseGiocatore; }
-	 * 
-	 * public void setRisorseGiocatore(Risorsa risorse) { this.risorseGiocatore
-	 * = risorse; }
-	 */
-
-	/*
-	 * public Plancia getPlanciaGiocatore() { return planciaGiocatore; }
-	 * 
-	 * public void setPlanciaGiocatore(Plancia plancia) { this.planciaGiocatore
-	 * = plancia; }
-	 */
-
-	/*
-	 * public PlayerColors getColore() { return player.getColore(); }
-	 */
 
 	public SpazioAzione getSpazioAzione() {
 		return spazioAzione;
@@ -215,6 +179,10 @@ public class UpdateStats implements Serializable {
 		return risorseGiocatore;
 	}
 
+	public HashMap<EColoriPedine, Integer> getSpostamentoPedina() {
+		return spostamentoPedina;
+	}
+
 	public ArrayList<Edificio> getEdificiGiocatore() {
 		return edifici;
 	}
@@ -232,6 +200,10 @@ public class UpdateStats implements Serializable {
 	}
 
 	public void addToNomiGiocatori(String nomeGiocatore) {
+		
+		if (nomiGiocatori == null)
+			nomiGiocatori = new ArrayList<String>();
+		
 		this.nomiGiocatori.add(nomeGiocatore);
 	}
 
