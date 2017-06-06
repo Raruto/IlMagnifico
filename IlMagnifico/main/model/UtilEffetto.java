@@ -351,6 +351,18 @@ public class UtilEffetto implements Serializable {
 		giocatore.getPunti().cambiaPuntiVittoria(-(giocatore.getPunti().getPuntiMilitari()));
 	}
 
+	public void scontoUnaMoneta(Object o[]){//metodo numero 23
+		//TODO:implementare
+	}
+	
+	public void scontoLegnoEPietra(Object o[]){//metodo numero 24
+		//TODO:implementare
+	}
+	
+	public void prendiCartaSenzaFamigliareQuattro(Object o[]){//metodo numero 24
+		
+	}
+	
 	/**
 	 * Metodo che implementa la scomunica dove il giocatore perde un punto
 	 * vittoria per ogni risorsa in proprio possesso
