@@ -1,24 +1,27 @@
 package main.model.enums;
 
+import java.util.ArrayList;
+
 public enum EAzioniGiocatore {
-	// ho inserito le costanti che servono per
-	// controllare le attivazioni degli effetti
-	// delle carte. Se qua ti danno fastidio si può
-	// fare un altro enum
 
 	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre, SostegnoChiesa;
 
-	
-	public static String stringify(){
+	public static String stringify() {
+		return stringify(new ArrayList<EAzioniGiocatore>());
+	}
+
+	public static String stringify(ArrayList<EAzioniGiocatore> hidedElements) {
 		EAzioniGiocatore[] a = EAzioniGiocatore.values();
-		String s="";
+		String s = "";
 
 		for (int i = 0; i < a.length; i++) {
-			s+="[" + a[i].toString() + "] ";
-			if (i % 7 == 0 && i != 0)
-				s+="\n";
+			if (!hidedElements.contains(a[i])) {
+				s += "[" + a[i].toString() + "] ";
+				if (i % 7 == 0 && i != 0)
+					s += "\n";
+			}
 		}
-		return s;		
+		return s;
 	}
 
 }

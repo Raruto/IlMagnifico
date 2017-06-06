@@ -1,9 +1,11 @@
 package main.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
+import main.model.enums.ETipiCarte;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;
@@ -217,27 +219,42 @@ public class FakeUI {
 
 		EAzioniGiocatore action = chooseGameAction();
 
+		EAzioniGiocatore nestedAction;
+		Integer nestedPosition;
+
 		switch (action) {
 		case Mercato:
-			movePawn(action);
+			nestedPosition = chooseMarketArea();
+			if (nestedPosition != null) {
+				movePawn(action, nestedPosition);
+			}
 			break;
 		case Produzione:
-			movePawn(action);
+			nestedAction = chooseProductionArea();
+			if (nestedAction != null) {
+				movePawn(nestedAction,0);
+			}
 			break;
 		case ProduzioneOvale:
-			movePawn(action);
+			movePawn(action,0);
 			break;
 		case Raccolto:
-			movePawn(action);
+			nestedAction = chooseHarvestArea();
+			if (nestedAction != null) {
+				movePawn(nestedAction,0);
+			}
 			break;
 		case RaccoltoOvale:
-			movePawn(action);
+			movePawn(action,0);
 			break;
 		case PalazzoConsiglio:
-			movePawn(action);
+			movePawn(action,0);
 			break;
 		case Torre:
-			movePawn(action);
+			nestedPosition = chooseTowerArea();
+			if (nestedPosition != null) {
+				movePawn(action, nestedPosition);
+			}
 			break;
 		case SostegnoChiesa:
 			supportChurch();
@@ -248,6 +265,143 @@ public class FakeUI {
 			break;
 		}
 
+	}
+
+	private static EAzioniGiocatore chooseProductionArea() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Available Production areas [1] [2]: ");
+
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					if (number == 1) {
+						return EAzioniGiocatore.Produzione;
+					} else if (number == 2) {
+						return EAzioniGiocatore.ProduzioneOvale;
+					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static EAzioniGiocatore chooseHarvestArea() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Available Harvest areas [1] [2]: ");
+
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					if (number == 1) {
+						return EAzioniGiocatore.Raccolto;
+					} else if (number == 2) {
+						return EAzioniGiocatore.RaccoltoOvale;
+					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseMarketArea() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Available Market areas [1..4]: ");
+
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					return number - 1;
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseTowerArea() {
+		boolean ok = false;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Available Tower areas: ");
+			System.out.println(ETipiCarte.stringify());
+
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				for (ETipiCarte car : ETipiCarte.values()) {
+					if (inText.equals(car.toString().toLowerCase())) {
+						return chooseTowerFloor(car);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseTowerFloor(ETipiCarte tower) {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Available floors: [1..4] ");
+
+			inText = scanner.nextLine().toLowerCase();
+
+			if (inText.equals("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+
+					switch (tower) {
+					case Territorio:
+						// [0..3]
+						return number - 1;
+					case Personaggio:
+						// [4..7]
+						return (number + 4) - 1;
+					case Edificio:
+						// [8..11]
+						return (number + 8) - 1;
+					case Impresa:
+						// [12..15]
+						return (number + 12) - 1;
+					}
+					return number - 1;
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
 	}
 
 	private static void supportChurch() {
@@ -261,31 +415,32 @@ public class FakeUI {
 				ok = true;
 			} else if (inText.equalsIgnoreCase("y")) {
 				client.supportChurch(true);
-				ok=true;
-			}else if (inText.equalsIgnoreCase("n")) {
+				ok = true;
+			} else if (inText.equalsIgnoreCase("n")) {
 				client.supportChurch(false);
-				ok=true;
+				ok = true;
 			}
 		}
-
 	}
 
-	private static void movePawn(EAzioniGiocatore action) {
+	private static void movePawn(EAzioniGiocatore action, Integer position) {
 		EColoriPedine color = choosePawnColor();
 		if (color != null) {
-			Integer position = choosePosition(action);
-			if (position != null) {
-				client.movePawn(action, color, position);
-			}
+			client.movePawn(action, color, position);
 		}
 	}
 
 	private static EAzioniGiocatore chooseGameAction() {
+		ArrayList<EAzioniGiocatore> hidedElements = new ArrayList<EAzioniGiocatore>();
+		hidedElements.add(EAzioniGiocatore.ProduzioneOvale);
+		hidedElements.add(EAzioniGiocatore.RaccoltoOvale);
+
 		boolean ok = false;
+
 		while (!ok) {
 			System.out.println("'q' to quit\n");
 			System.out.println("Available actions: ");
-			System.out.println(EAzioniGiocatore.stringify());
+			System.out.println(EAzioniGiocatore.stringify(hidedElements));
 			inText = scanner.nextLine().toLowerCase();
 
 			if (inText.equals("q")) {
@@ -316,55 +471,6 @@ public class FakeUI {
 					if (inText.equals(col.toString().toLowerCase())) {
 						return col;
 					}
-				}
-			}
-		}
-		return null;
-	}
-
-	private static Integer choosePosition(EAzioniGiocatore action) {
-		boolean ok = false;
-		int number;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.print("Available Positions: ");
-			switch (action) {
-			case Mercato:
-				System.out.println("[0..4]");
-				break;
-			case Produzione:
-				System.out.println("[0]");
-				break;
-			case ProduzioneOvale:
-				System.out.println("[0..*]");
-				break;
-			case Raccolto:
-				System.out.println("[0]");
-				break;
-			case RaccoltoOvale:
-				System.out.println("[0..*]");
-				break;
-			case PalazzoConsiglio:
-				System.out.println("[0..*]");
-				break;
-			case Torre:
-				System.out.println("[0..15]");
-				break;
-
-			default:
-				System.out.println(ANSI.YELLOW + "Not implmented" + ANSI.RESET);
-				break;
-			}
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-					return number;
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
 				}
 			}
 		}
