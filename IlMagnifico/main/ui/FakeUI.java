@@ -217,6 +217,400 @@ public class FakeUI {
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Command: [chat]
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Client command: send chat messages.
+	 */
+	public static void sendChatMessages() {
+		Client client = getClient();
+		String receiver = null;
+
+		System.out.println("'q' to quit\n");
+		System.out.println("Send text messages: ");
+
+		boolean quit = false;
+
+		while (!quit) {
+			System.out.println(">");
+			inText = scanner.nextLine();
+			if (inText.toLowerCase().equals("q")) {
+				quit = true;
+			} else {
+				System.out.println("to [playerName]: ");
+				receiver = scanner.nextLine().trim();
+				if (receiver.length() == 0)
+					receiver = null;
+				client.sendChatMessage(receiver, inText);
+			}
+		}
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Command: [action]
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Client command: Game Action chooser.
+	 */
+	public static void performGameAction() {
+		EAzioniGiocatore action;
+		EAzioniGiocatore nestedAction;
+		Integer nestedPosition;
+
+		boolean quit = false;
+		boolean nestedQuit = false;
+
+		while (!quit) {
+			try {
+				action = chooseGameAction();
+				printDices(true, false);
+
+				switch (action) {
+				case Mercato:
+					while (!nestedQuit) {
+						printMarketArea(true, true);
+						nestedPosition = chooseMarketArea();
+						if (nestedPosition != null) {
+							try {
+								movePawn(action, nestedPosition);
+								quit = true;
+								nestedQuit = true;
+							} catch (QuitException e) {
+								nestedQuit = false;
+							}
+						} else
+							nestedQuit = true;
+					}
+					break;
+				case Produzione:
+					while (!nestedQuit) {
+						printProductionArea(true, true);
+						nestedAction = chooseProductionArea();
+						if (nestedAction != null) {
+							try {
+								movePawn(nestedAction, 0);
+								quit = true;
+								nestedQuit = true;
+							} catch (QuitException e) {
+								nestedQuit = false;
+							}
+						} else
+							nestedQuit = true;
+					}
+					break;
+				case ProduzioneOvale:
+					try {
+						movePawn(action, 0);
+						quit = true;
+					} catch (QuitException e) {
+					}
+					break;
+				case Raccolto:
+					while (!nestedQuit) {
+						printHarvestArea(true, true);
+						nestedAction = chooseHarvestArea();
+						if (nestedAction != null) {
+							try {
+								movePawn(nestedAction, 0);
+								quit = true;
+								nestedQuit = true;
+							} catch (QuitException e) {
+								nestedQuit = false;
+							}
+						} else
+							nestedQuit = true;
+					}
+					break;
+				case RaccoltoOvale:
+					try {
+						movePawn(action, 0);
+						quit = true;
+					} catch (QuitException e) {
+					}
+					break;
+				case PalazzoConsiglio:
+					printCouncilArea(true, true);
+					try {
+						movePawn(action, 0);
+						quit = true;
+					} catch (QuitException e) {
+					}
+					break;
+				case Torre:
+					while (!nestedQuit) {
+						printTowerArea(true, true);
+						nestedPosition = chooseTowerArea();
+						if (nestedPosition != null) {
+							try {
+								movePawn(action, nestedPosition);
+								quit = true;
+								nestedQuit = true;
+							} catch (QuitException e) {
+								nestedQuit = false;
+							}
+						} else
+							nestedQuit = true;
+					}
+					break;
+				case SostegnoChiesa:
+					try {
+						supportChurch();
+						quit = true;
+					} catch (QuitException e) {
+					}
+					break;
+
+				default:
+					System.out.println(ANSI.YELLOW + "Not yet implemented" + ANSI.RESET);
+					break;
+				}
+			} catch (QuitException e) {
+				quit = true;
+			}
+			nestedQuit = false;
+		}
+
+	}
+
+	private static EAzioniGiocatore chooseGameAction() throws QuitException {
+		ArrayList<EAzioniGiocatore> hidedElements = new ArrayList<EAzioniGiocatore>();
+		hidedElements.add(EAzioniGiocatore.ProduzioneOvale);
+		hidedElements.add(EAzioniGiocatore.RaccoltoOvale);
+
+		boolean ok = false;
+
+		while (!ok) {
+			System.out.println("'q' to quit\n");
+			System.out.println("Available actions: ");
+			System.out.println(EAzioniGiocatore.stringify(hidedElements));
+			inText = scanner.nextLine();
+
+			if (inText.equals("q")) {
+				throw new QuitException();
+			} else {
+				for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
+					if (inText.equalsIgnoreCase(act.toString())) {
+						return act;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private static EAzioniGiocatore chooseProductionArea() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Production area: [1] [2] ");
+
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					if (number == 1) {
+						return EAzioniGiocatore.Produzione;
+					} else if (number == 2) {
+						return EAzioniGiocatore.ProduzioneOvale;
+					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static EAzioniGiocatore chooseHarvestArea() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Harvest area: [1] [2] ");
+
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					if (number == 1) {
+						return EAzioniGiocatore.Raccolto;
+					} else if (number == 2) {
+						return EAzioniGiocatore.RaccoltoOvale;
+					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseMarketArea() {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Market area: [1..4] ");
+
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				ok = true;
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					return number - 1;
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseTowerArea() {
+		Integer floor;
+		boolean ok = false;
+		boolean nestedQuit = false;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Tower area: ");
+			System.out.println(ETipiCarte.stringify());
+
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				ok = true;
+			} else {
+				for (ETipiCarte car : ETipiCarte.values()) {
+					if (inText.equalsIgnoreCase(car.toString())) {
+						while (!nestedQuit) {
+							try {
+								floor = chooseTowerFloor(car);
+								return floor;
+							} catch (QuitException e) {
+								nestedQuit = true;
+							}
+						}
+						nestedQuit = false;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private static Integer chooseTowerFloor(ETipiCarte tower) throws QuitException {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a floor: [1..4] ");
+
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				// ok = true;
+				throw new QuitException();
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+
+					switch (tower) {
+					case Territorio:
+						// [0..3]
+						return number - 1;
+					case Personaggio:
+						// [4..7]
+						return (number + 4) - 1;
+					case Edificio:
+						// [8..11]
+						return (number + 8) - 1;
+					case Impresa:
+						// [12..15]
+						return (number + 12) - 1;
+					}
+					return number - 1;
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
+	private static void supportChurch() throws QuitException {
+		boolean ok = false;
+		while (!ok) {
+			System.out.println("'q' to quit\n");
+			System.out.println("Support the Church? [y/n]: ");
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				// ok = true;
+				throw new QuitException();
+			} else if (inText.equalsIgnoreCase("y")) {
+				client.supportChurch(true);
+				ok = true;
+			} else if (inText.equalsIgnoreCase("n")) {
+				client.supportChurch(false);
+				ok = true;
+			}
+		}
+	}
+
+	private static void movePawn(EAzioniGiocatore action, Integer position) throws QuitException {
+		EColoriPedine color = choosePawnColor();
+		if (color != null) {
+			client.movePawn(action, color, position);
+		}
+	}
+
+	private static EColoriPedine choosePawnColor() throws QuitException {
+		boolean ok = false;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a Pawn Color: ");
+			System.out.println(EColoriPedine.stringify());
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				throw new QuitException();
+			} else {
+				for (EColoriPedine col : EColoriPedine.values()) {
+					if (inText.equalsIgnoreCase(col.toString())) {
+						return col;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Command: [board]
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	private static void printBoard() {
+		printDices(true, false);
+		printTowerArea(true, false);
+		printProductionArea(true, false);
+		printHarvestArea(true, false);
+		printMarketArea(true, false);
+		printCouncilArea(true, true);
+	}
+
 	private static void printDices(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
@@ -377,314 +771,5 @@ public class FakeUI {
 
 		if (printSep2)
 			System.out.println(Costants.ROW_SEPARATOR);
-	}
-
-	private static void printBoard() {
-		printDices(true, false);
-		printTowerArea(true, false);
-		printProductionArea(true, false);
-		printHarvestArea(true, false);
-		printMarketArea(true, false);
-		printCouncilArea(true, true);
-	}
-
-	/**
-	 * Client command: Game Action chooser.
-	 */
-	public static void performGameAction() {
-		Client client = getClient();
-
-		EAzioniGiocatore action = chooseGameAction();
-
-		EAzioniGiocatore nestedAction;
-		Integer nestedPosition;
-
-		printDices(true, false);
-		switch (action) {
-		case Mercato:
-			printMarketArea(true, true);
-			nestedPosition = chooseMarketArea();
-			if (nestedPosition != null) {
-				movePawn(action, nestedPosition);
-			}
-			break;
-		case Produzione:
-			printProductionArea(true, true);
-			nestedAction = chooseProductionArea();
-			if (nestedAction != null) {
-				movePawn(nestedAction, 0);
-			}
-			break;
-		case ProduzioneOvale:
-			movePawn(action, 0);
-			break;
-		case Raccolto:
-			printHarvestArea(true, true);
-			nestedAction = chooseHarvestArea();
-			if (nestedAction != null) {
-				movePawn(nestedAction, 0);
-			}
-			break;
-		case RaccoltoOvale:
-			movePawn(action, 0);
-			break;
-		case PalazzoConsiglio:
-			printCouncilArea(true, true);
-			movePawn(action, 0);
-			break;
-		case Torre:
-			printTowerArea(true, true);
-			nestedPosition = chooseTowerArea();
-			if (nestedPosition != null) {
-				movePawn(action, nestedPosition);
-			}
-			break;
-		case SostegnoChiesa:
-			supportChurch();
-			break;
-
-		default:
-			System.out.println(ANSI.YELLOW + "Not yet implemented" + ANSI.RESET);
-			break;
-		}
-
-	}
-
-	private static EAzioniGiocatore chooseProductionArea() {
-		boolean ok = false;
-		int number;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println("Available Production areas [1] [2]: ");
-
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-					if (number == 1) {
-						return EAzioniGiocatore.Produzione;
-					} else if (number == 2) {
-						return EAzioniGiocatore.ProduzioneOvale;
-					}
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
-				}
-			}
-		}
-		return null;
-	}
-
-	private static EAzioniGiocatore chooseHarvestArea() {
-		boolean ok = false;
-		int number;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println("Available Harvest areas [1] [2]: ");
-
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-					if (number == 1) {
-						return EAzioniGiocatore.Raccolto;
-					} else if (number == 2) {
-						return EAzioniGiocatore.RaccoltoOvale;
-					}
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
-				}
-			}
-		}
-		return null;
-	}
-
-	private static Integer chooseMarketArea() {
-		boolean ok = false;
-		int number;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println("Available Market areas [1..4]: ");
-
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-					return number - 1;
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
-				}
-			}
-		}
-		return null;
-	}
-
-	private static Integer chooseTowerArea() {
-		boolean ok = false;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println("Available Tower areas: ");
-			System.out.println(ETipiCarte.stringify());
-
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				for (ETipiCarte car : ETipiCarte.values()) {
-					if (inText.equals(car.toString().toLowerCase())) {
-						return chooseTowerFloor(car);
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	private static Integer chooseTowerFloor(ETipiCarte tower) {
-		boolean ok = false;
-		int number;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println("Available floors: [1..4] ");
-
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-
-					switch (tower) {
-					case Territorio:
-						// [0..3]
-						return number - 1;
-					case Personaggio:
-						// [4..7]
-						return (number + 4) - 1;
-					case Edificio:
-						// [8..11]
-						return (number + 8) - 1;
-					case Impresa:
-						// [12..15]
-						return (number + 12) - 1;
-					}
-					return number - 1;
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
-				}
-			}
-		}
-		return null;
-	}
-
-	private static void supportChurch() {
-		boolean ok = false;
-		while (!ok) {
-			System.out.println("'q' to quit\n");
-			System.out.println("Support the Church? [y/n]: ");
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else if (inText.equalsIgnoreCase("y")) {
-				client.supportChurch(true);
-				ok = true;
-			} else if (inText.equalsIgnoreCase("n")) {
-				client.supportChurch(false);
-				ok = true;
-			}
-		}
-	}
-
-	private static void movePawn(EAzioniGiocatore action, Integer position) {
-		EColoriPedine color = choosePawnColor();
-		if (color != null) {
-			client.movePawn(action, color, position);
-		}
-	}
-
-	private static EAzioniGiocatore chooseGameAction() {
-		ArrayList<EAzioniGiocatore> hidedElements = new ArrayList<EAzioniGiocatore>();
-		hidedElements.add(EAzioniGiocatore.ProduzioneOvale);
-		hidedElements.add(EAzioniGiocatore.RaccoltoOvale);
-
-		boolean ok = false;
-
-		while (!ok) {
-			System.out.println("'q' to quit\n");
-			System.out.println("Available actions: ");
-			System.out.println(EAzioniGiocatore.stringify(hidedElements));
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				for (EAzioniGiocatore act : EAzioniGiocatore.values()) {
-					if (inText.equals(act.toString().toLowerCase())) {
-						return act;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	private static EColoriPedine choosePawnColor() {
-		boolean ok = false;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Pawn Color: ");
-			System.out.println(EColoriPedine.stringify());
-			inText = scanner.nextLine().toLowerCase();
-
-			if (inText.equals("q")) {
-				ok = true;
-			} else {
-				for (EColoriPedine col : EColoriPedine.values()) {
-					if (inText.equals(col.toString().toLowerCase())) {
-						return col;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Client command: send chat messages.
-	 */
-	public static void sendChatMessages() {
-		Client client = getClient();
-		String receiver = null;
-
-		System.out.println("'q' to quit\n");
-		System.out.println("Send text messages: ");
-
-		boolean quit = false;
-
-		while (!quit) {
-			System.out.println(">");
-			inText = scanner.nextLine();
-			if (inText.toLowerCase().equals("q")) {
-				quit = true;
-			} else {
-				System.out.println("to [playerName]: ");
-				receiver = scanner.nextLine().trim();
-				if (receiver.length() == 0)
-					receiver = null;
-				client.sendChatMessage(receiver, inText);
-			}
-		}
-
 	}
 }
