@@ -29,12 +29,12 @@ public class Client implements IClient {
 	private static final String SERVER_ADDRESS = Costants.SERVER_ADDRESS;
 
 	/**
-	 * Porta in cui � aperta la comunicazione Socket.
+	 * Porta in cui e' aperta la comunicazione Socket.
 	 */
 	private static final int SERVER_SOCKET_PORT = Costants.SOCKET_PORT;
 
 	/**
-	 * Porta in cui � aperta la comunicazione RMI.
+	 * Porta in cui e' aperta la comunicazione RMI.
 	 */
 	private static final int SERVER_RMI_PORT = Costants.RMI_PORT;
 
@@ -102,7 +102,7 @@ public class Client implements IClient {
 	 * Metodo statico per eseguire il client.
 	 * 
 	 * @param args
-	 *            parametri per la connessione (TODO: FINIRE DI IMPLEMENTARE).
+	 *            parametri per la connessione.
 	 */
 	public static void main(String[] args) {
 		String serverAddress = SERVER_ADDRESS;
@@ -139,7 +139,7 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Nome scelto dal giocatore durante la fase di login e approvato dal server
+	 * Nome scelto dal giocatore durante la fase di login e approvato dal server.
 	 * 
 	 * @return String nickname
 	 */
@@ -155,9 +155,9 @@ public class Client implements IClient {
 	 * @param serverAddress
 	 *            indirizzo Server sui cui le comunicazioni sono aperte
 	 * @param socketPort
-	 *            porta in cui � aperta la comunicazione Socket.
+	 *            porta in cui e' aperta la comunicazione Socket.
 	 * @param rmiPort
-	 *            porta in cui � aperta la comunicazione RMI.
+	 *            porta in cui e' aperta la comunicazione RMI.
 	 * @throws ClientException
 	 *             se si verifica un errore.
 	 */
@@ -178,7 +178,7 @@ public class Client implements IClient {
 	 * @param serverAddress
 	 *            indirizzo del Server su cui avviare la connessione.
 	 * @param rmiPort
-	 *            porta in cui � aperta la comunicazione RMI.
+	 *            porta in cui e' aperta la comunicazione RMI.
 	 * 
 	 * @throws ClientException
 	 *             se si verifica un errore.
@@ -213,7 +213,7 @@ public class Client implements IClient {
 	 * Metodo per effettuare il login presso il Server.
 	 * 
 	 * @param nickname
-	 *            nnickname da usare per il login presso il Server.
+	 *            nickname da usare per il login presso il Server.
 	 */
 	public void loginPlayer(String nickname) {
 		boolean success = false;
@@ -238,7 +238,7 @@ public class Client implements IClient {
 	 * Callback per inviare un messaggio sulla chat.
 	 * 
 	 * @param nickname
-	 *            del ricevitore del ricevitore se � un messaggio privato,
+	 *            del ricevitore del ricevitore se e' un messaggio privato,
 	 *            altrimenti null.
 	 * @param messaggio
 	 *            da inviare.
@@ -277,10 +277,10 @@ public class Client implements IClient {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notifica che � arrivato un nuovo messaggio dalla chat.
+	 * Notifica che e' arrivato un nuovo messaggio dalla chat.
 	 * 
 	 * @param privateMessage
-	 *            "True" se il messaggio � privato, "False" se pubblico.
+	 *            "True" se il messaggio e' privato, "False" se pubblico.
 	 * @param author
 	 *            autore del messaggio.
 	 * @param message
