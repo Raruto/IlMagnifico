@@ -3,6 +3,7 @@ package main.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ETipiCarte;
@@ -188,7 +189,7 @@ public class FakeUI {
 
 		while (!quit) {
 			System.out.println("'q' to exit\n");
-			System.out.println("Available commands: [chat], [action]");
+			System.out.println("Available commands: [chat], [action], [board]");
 
 			System.out.println(">");
 			inText = scanner.nextLine();
@@ -205,10 +206,39 @@ public class FakeUI {
 				FakeUI.performGameAction();
 				break;
 
+			case "board":
+				FakeUI.printBoard();
+				break;
+
 			default:
 				break;
 			}
 		}
+	}
+
+	private static void printBoard() {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+		String playerName;
+		for (int i = 0; i < 15; i++) {
+			if (i == 0)
+				System.out.println("Territorio: ");
+
+			else if (i == 4)
+				System.out.println("Personaggio: ");
+
+			else if (i == 8)
+				System.out.println("Edificio: ");
+
+			else if (i == 12)
+				System.out.println("Impresa: ");
+			if (board.getFamigliareTorre(i) != null)
+				System.out.println((i % 4) + ": " + board.getFamigliareTorre(i).getGiocatore().getNome());
+			else
+				System.out.println((i % 4) + ": null");
+		}
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
@@ -232,23 +262,23 @@ public class FakeUI {
 		case Produzione:
 			nestedAction = chooseProductionArea();
 			if (nestedAction != null) {
-				movePawn(nestedAction,0);
+				movePawn(nestedAction, 0);
 			}
 			break;
 		case ProduzioneOvale:
-			movePawn(action,0);
+			movePawn(action, 0);
 			break;
 		case Raccolto:
 			nestedAction = chooseHarvestArea();
 			if (nestedAction != null) {
-				movePawn(nestedAction,0);
+				movePawn(nestedAction, 0);
 			}
 			break;
 		case RaccoltoOvale:
-			movePawn(action,0);
+			movePawn(action, 0);
 			break;
 		case PalazzoConsiglio:
-			movePawn(action,0);
+			movePawn(action, 0);
 			break;
 		case Torre:
 			nestedPosition = chooseTowerArea();

@@ -3,6 +3,7 @@ package main.network.client;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
+import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.EFasiDiGioco;
@@ -58,6 +59,14 @@ public class Client implements IClient {
 	 * del server.
 	 */
 	private final HashMap<Object, ResponseHandler> responseMap;
+
+	private SpazioAzione board;
+
+	public SpazioAzione getBoard() {
+		return this.board;
+	}
+	
+
 
 	/**
 	 * Crea una nuova istanza della classe.
@@ -309,9 +318,11 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
+		this.board = update.getSpazioAzione();
+		
 		if (update.getAzioneGiocatore() != null) {
 			// if (update.getNomeGiocatore() != null)
-			if (!update.getNomeGiocatore().equals(nickname))
+			//if (!update.getNomeGiocatore().equals(nickname))
 				System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
 						+ update.getAzioneGiocatore().toString());
 		} else if (update.getAzioneServer() != null) {
