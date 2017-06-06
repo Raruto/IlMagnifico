@@ -3,6 +3,7 @@ package main.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import main.model.Famigliare;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
@@ -216,29 +217,175 @@ public class FakeUI {
 		}
 	}
 
-	private static void printBoard() {
+	private static void printDices(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
-		String playerName;
-		for (int i = 0; i < 15; i++) {
-			if (i == 0)
-				System.out.println("Territorio: ");
 
-			else if (i == 4)
-				System.out.println("Personaggio: ");
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
 
-			else if (i == 8)
-				System.out.println("Edificio: ");
+		int[] dadi = board.getValoreDadi();
+		System.out.print(ANSI.YELLOW + "Dadi: " + ANSI.RESET);
+		System.out.format("%14s%18s%15s\n", "Nero = " + dadi[0], "Arancione = " + dadi[1], "Bianco = " + dadi[2]);
 
-			else if (i == 12)
-				System.out.println("Impresa: ");
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
+	}
+
+	private static void printTowerArea(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+		String row;
+		String col1, col2, col3, col4;
+
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
+
+		System.out.format(ANSI.YELLOW + "%15s%15s%13s%14s\n" + ANSI.RESET, "Territorio: ", "Personaggio: ",
+				"Edificio: ", "Impresa: ");
+		for (int i = 3; i >= 0; i--) {
 			if (board.getFamigliareTorre(i) != null)
-				System.out.println((i % 4) + ": " + board.getFamigliareTorre(i).getGiocatore().getNome());
+				col1 = board.getFamigliareTorre(i).getGiocatore().getNome();
 			else
-				System.out.println((i % 4) + ": null");
-		}
-		// TODO Auto-generated method stub
+				col1 = null;
 
+			if (board.getFamigliareTorre(i + 4) != null)
+				col2 = board.getFamigliareTorre(i + 4).getGiocatore().getNome();
+			else
+				col2 = null;
+
+			if (board.getFamigliareTorre(i + 8) != null)
+				col3 = board.getFamigliareTorre(i + 8).getGiocatore().getNome();
+			else
+				col3 = null;
+			if (board.getFamigliareTorre(i + 12) != null)
+				col4 = board.getFamigliareTorre(i + 12).getGiocatore().getNome();
+			else
+				col4 = null;
+			row = ((i % 4) + 1) + ": ";
+			System.out.format("%12s%14s%15s%14s\n", row + col1, row + col2, row + col3, row + col4);
+		}
+
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
+	}
+
+	private static void printProductionArea(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+		Famigliare zona1;
+		ArrayList<Famigliare> zona2;
+
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
+
+		System.out.println(ANSI.YELLOW + "Produzione: " + ANSI.RESET);
+
+		System.out.print("Zona 1: ");
+		zona1 = board.getZonaProduzioneRotonda();
+		if (zona1 != null)
+			System.out.println(board.getZonaProduzioneRotonda().getGiocatore().getNome());
+		else
+			System.out.println(null + "");
+
+		System.out.print("Zona 2: ");
+		zona2 = board.getZonaProduzioneOvale();
+		for (int i = 0; i < zona2.size(); i++) {
+			System.out.print(zona2.get(i).getGiocatore().getNome() + ", ");
+		}
+		System.out.println();
+
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
+	}
+
+	private static void printHarvestArea(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+
+		Famigliare zona1;
+		ArrayList<Famigliare> zona2;
+
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
+
+		System.out.println(ANSI.YELLOW + "Raccolto: " + ANSI.RESET);
+
+		System.out.print("Zona 1: ");
+		zona1 = board.getZonaRaccoltoRotonda();
+		if (zona1 != null)
+			System.out.println(board.getZonaRaccoltoRotonda().getGiocatore().getNome());
+		else
+			System.out.println(null + "");
+
+		System.out.print("Zona 2: ");
+		zona2 = board.getZonaRaccoltoOvale();
+		for (int i = 0; i < zona2.size(); i++) {
+			System.out.print(zona2.get(i).getGiocatore().getNome() + ", ");
+		}
+		System.out.println();
+
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
+	}
+
+	private static void printMarketArea(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+
+		Famigliare[] zona;
+
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
+
+		System.out.println(ANSI.YELLOW + "Mercato: " + ANSI.RESET);
+
+		zona = board.getMercato();
+
+		for (int i = 0; i < zona.length; i++) {
+			if (zona[i] != null)
+				System.out.print(zona[i].getGiocatore().getNome() + ", ");
+			else
+				System.out.print(null + ", ");
+		}
+		System.out.println();
+
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
+	}
+
+	private static void printCouncilArea(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+
+		ArrayList<Famigliare> zona;
+
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
+
+		System.out.println(ANSI.YELLOW + "Palazzo del Consiglio: " + ANSI.RESET);
+
+		zona = board.getPalazzoDelConsiglio();
+
+		for (int i = 0; i < zona.size(); i++) {
+			if (zona.get(i) != null)
+				System.out.print(zona.get(i).getGiocatore().getNome() + ", ");
+			else
+				System.out.print(null + ", ");
+		}
+		System.out.println();
+
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
+	}
+
+	private static void printBoard() {
+		printDices(true, false);
+		printTowerArea(true, false);
+		printProductionArea(true, false);
+		printHarvestArea(true, false);
+		printMarketArea(true, false);
+		printCouncilArea(true, true);
 	}
 
 	/**
@@ -252,14 +399,17 @@ public class FakeUI {
 		EAzioniGiocatore nestedAction;
 		Integer nestedPosition;
 
+		printDices(true, false);
 		switch (action) {
 		case Mercato:
+			printMarketArea(true, true);
 			nestedPosition = chooseMarketArea();
 			if (nestedPosition != null) {
 				movePawn(action, nestedPosition);
 			}
 			break;
 		case Produzione:
+			printProductionArea(true, true);
 			nestedAction = chooseProductionArea();
 			if (nestedAction != null) {
 				movePawn(nestedAction, 0);
@@ -269,6 +419,7 @@ public class FakeUI {
 			movePawn(action, 0);
 			break;
 		case Raccolto:
+			printHarvestArea(true, true);
 			nestedAction = chooseHarvestArea();
 			if (nestedAction != null) {
 				movePawn(nestedAction, 0);
@@ -278,9 +429,11 @@ public class FakeUI {
 			movePawn(action, 0);
 			break;
 		case PalazzoConsiglio:
+			printCouncilArea(true, true);
 			movePawn(action, 0);
 			break;
 		case Torre:
+			printTowerArea(true, true);
 			nestedPosition = chooseTowerArea();
 			if (nestedPosition != null) {
 				movePawn(action, nestedPosition);

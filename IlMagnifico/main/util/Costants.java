@@ -16,11 +16,13 @@ public class Costants {
 	public static final String SERVER = "SERVER";
 	public static final String ROOM = "ROOM";
 	public static final String GAME = "GAME";
-	
-	//Server
-	public static final String SOCKET_SERVER_ID = ANSI.WHITE + "[Socket " + SERVER.substring(0, 1).toUpperCase() + SERVER.substring(1).toLowerCase() + "]" + ANSI.RESET;
-	public static final String RMI_SERVER_ID = ANSI.WHITE + "[RMI " + SERVER.substring(0, 1).toUpperCase() + SERVER.substring(1).toLowerCase() + "]" + ANSI.RESET;
-	
+
+	// Server
+	public static final String SOCKET_SERVER_ID = ANSI.WHITE + "[Socket " + SERVER.substring(0, 1).toUpperCase()
+			+ SERVER.substring(1).toLowerCase() + "]" + ANSI.RESET;
+	public static final String RMI_SERVER_ID = ANSI.WHITE + "[RMI " + SERVER.substring(0, 1).toUpperCase()
+			+ SERVER.substring(1).toLowerCase() + "]" + ANSI.RESET;
+
 	// Stanza
 	public static final int ROOM_MIN_PLAYERS = 2;
 	public static final int ROOM_MAX_PLAYERS = 4;
@@ -30,6 +32,9 @@ public class Costants {
 	// Gioco
 	public static final String GAME_ID = ANSI.CYAN + "[" + GAME + "]" + ANSI.RESET;
 	public static final String ROOM_ID = ANSI.YELLOW + "[" + ROOM + "]" + ANSI.RESET;
+
+	// CLI
+	public static final String ROW_SEPARATOR = "---------------------------------------------------------------";
 
 	/**
 	 * Costruttore privato.
