@@ -27,7 +27,7 @@ public class Room {
 	private static int roomNumber = 0;
 
 	/**
-	 * Numero minimo di giocatori affinchè possa partire una partita.
+	 * Numero minimo di giocatori affinchï¿½ possa partire una partita.
 	 */
 	private int minPlayers = Costants.ROOM_MIN_PLAYERS;
 
@@ -67,7 +67,7 @@ public class Room {
 	private Timer timer;
 
 	/**
-	 * Flag usato per indicare quando una Stanza è ancora aperta (True) o chiusa
+	 * Flag usato per indicare quando una Stanza ï¿½ ancora aperta (True) o chiusa
 	 * (False) all'aggiunta di nuovi giocatori.
 	 */
 	private boolean canJoin;
@@ -128,7 +128,7 @@ public class Room {
 	 *            riferimento al giocatore che da aggiugere alla Stanza (vedi
 	 *            {@link RemotePlayer}).
 	 * @throws RoomFullException
-	 *             se la stanza è chiusa e nessun altro giocatore può
+	 *             se la stanza ï¿½ chiusa e nessun altro giocatore puï¿½
 	 *             partecipare.
 	 */
 	public void joinPlayer(RemotePlayer player) throws RoomFullException {
@@ -248,7 +248,7 @@ public class Room {
 		}
 	}
 
-	/*public*/ void dispatchGameUpdate(UpdateStats update) {
+	/* public */ void dispatchGameUpdate(UpdateStats update) {
 		players.stream().forEach(p -> {
 			try {
 				p.onGameUpdate(update);
@@ -264,6 +264,8 @@ public class Room {
 		} catch (NullPointerException e) {
 			if (game == null)
 				throw new GameException(Errors.GAME_NOT_STARTED.toString());
+			else
+			e.printStackTrace();
 		}
 	}
 
@@ -345,7 +347,7 @@ public class Room {
 		private int interval;
 
 		/**
-		 * Giocatore a cui notificare il countdown (se null verrà notificato a
+		 * Giocatore a cui notificare il countdown (se null verrï¿½ notificato a
 		 * tutti i giocatori della Stanza).
 		 */
 		private RemotePlayer player;
@@ -359,7 +361,7 @@ public class Room {
 		 *            thread da eseguire allo scadere del countdown.
 		 * @param player
 		 *            {@link RemotePlayer} a cui notificare il countdown (se
-		 *            null verrà notificato a tutti i giocatori della Stanza).
+		 *            null verrï¿½ notificato a tutti i giocatori della Stanza).
 		 */
 		public RoomCountDownHandler(int interval, Runnable runnable, RemotePlayer player) {
 			this.interval = interval;

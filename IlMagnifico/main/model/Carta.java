@@ -234,4 +234,8 @@ public abstract class Carta implements Serializable {
 	public int getValoreNecessarioEffettoPermanente() {
 		return this.valoreNecessarioEffettoPermanente;
 	}
+
+	public String getNome() {
+		return this.nome;
+	}
 }

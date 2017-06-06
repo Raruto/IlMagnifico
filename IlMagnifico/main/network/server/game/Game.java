@@ -302,13 +302,13 @@ public class Game extends Partita {
 			throw new GameException(Errors.NO_ENOUGH_RESOURCES.toString());
 		} catch (NoMoneyException e4) {
 			throw new GameException(Errors.NO_MONEY_EXCEPTION.toString());
-		} catch (InvalidPositionException e4) {
+		} catch (InvalidPositionException e5) {
 			throw new GameException(Errors.INVALID_POSTITION.toString());
-		} catch (SameAreaException e1) {
+		} catch (SameAreaException e6) {
 			throw new GameException(Errors.SAME_AREA.toString());
-		} catch (SpazioOccupatoException e2) {
+		} catch (SpazioOccupatoException e7) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
-		} catch (FamigliareSpostatoException e2) {
+		} catch (FamigliareSpostatoException e8) {
 			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);

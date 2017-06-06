@@ -71,6 +71,7 @@ public class Famigliare implements Serializable {
 			SameAreaException, InvalidPositionException, InsufficientValueException, NoMoneyException,
 			NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
 		int identificativoTorre = 0;
+		System.out.println("è partito il metodo");
 
 		if (posizione < 0 | posizione > 15)
 			throw new InvalidPositionException();
@@ -85,29 +86,30 @@ public class Famigliare implements Serializable {
 
 		if (spazioAzione.getCartaTorre(posizione) == null)
 			throw new NullCardException();
-
+		System.out.println("eccezioni superate");
 		identificativoTorre = posizione / 4;
+		System.out.println(identificativoTorre);
 		// mi dice esattamente in quale torre si trova la mia pedina:
 		// 0=territorio, 1=personaggio
 		// 2=edificio, 3=impresa
 
 		controlloSameTower(identificativoTorre, spazioAzione);
-
+		System.out.println("superato il controllo sametower");
 		controlloMaxCardsReached(identificativoTorre);
 
 		// creo un famigliare temporaneo su cui fare tutti i calcoli derivanti
 		// da effetti
 		Famigliare famigliareTemporaneo = clonaFamigliare();
-
+		System.out.println("superata la clonazione");
 		// Controllo tutti gli effetti permanenti delle carte personaggio e
 		// delle scomuniche
 		controlloMalusEffettiPermanentiTorre(identificativoTorre, famigliareTemporaneo);
 		controlloMalusScomunicheTorre(identificativoTorre, famigliareTemporaneo);
-
+		System.out.println("superati controlli su carte e scomuniche");
 		// controllo che il famigliare abbia un valore sufficiente per l'azione
 		if (famigliareTemporaneo.valore < (1 + 2 * (posizione % 4)))
 			throw new InsufficientValueException();
-
+		System.out.println("superato il controllo sul valore");
 		// guardo se c'e' un'altra pedina e nel caso pago 3 monete
 		controlloAltroFamigliareNellaTorre(identificativoTorre, famigliareTemporaneo, spazioAzione);
 
@@ -116,19 +118,21 @@ public class Famigliare implements Serializable {
 
 		// controllo le carte personaggio per applicare eventuali sconti
 		controlloScontiEffettoPermanente(identificativoTorre, famigliareTemporaneo, spazioAzione, posizione);
-
+		System.out.println("superati vari controlli");
 		// controllo se posso pagare la carta. Se posso, effettuo il pagamento,
 		// prendo la carta, eseguo l'effetto immediato e posiziono il famigliare
 		if (!spazioAzione.getCartaTorre(posizione).acquisibile(famigliareTemporaneo.giocatoreAppartenenza))
 			throw new NoEnoughResourcesException();
 		else {
 			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza);
-
+			System.out.println("superata l'acquisizione");
 			// devo applicare tutte le modifiche al mio giocatore di partenza
 			mergeFamigliari(famigliareTemporaneo);
-
+			System.out.println("superata la merge dei famigliari");
 			prendiCartaDallaTorre(identificativoTorre, spazioAzione, posizione);
+			System.out.println("superato il metodo che prende una carta dalla torre");
 			spazioAzione.setFamigliareTorre(this, posizione);
+			System.out.println("superato il metodo che mette il famigliare nella torre");
 			this.posizionato = true;
 		}
 	}
@@ -141,12 +145,15 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void controlloSameTower(int identificativoTorre, SpazioAzione spazioAzione) throws SameAreaException {
-		for (int i = 4 * identificativoTorre; i < identificativoTorre + 4; i++) {
+		for (int i = 4 * identificativoTorre; i < (identificativoTorre * 4) + 4; i++) {
 			// controllo che il giocatore sulla stessa torre non abbia due
 			// famigliari colorati
-			if ((spazioAzione.getFamigliareTorre(i).getGiocatore() == this.giocatoreAppartenenza)
-					&& (spazioAzione.getFamigliareTorre(i).getNeutralita() == false) && (this.neutro == false))
-				throw new SameAreaException();
+			System.out.println("entrato nel ciclo");
+			if (spazioAzione.getFamigliareTorre(i) != null)
+				if ((spazioAzione.getFamigliareTorre(i).getGiocatore().equals(this.giocatoreAppartenenza))
+						&& (spazioAzione.getFamigliareTorre(i).getNeutralita() == false) && (this.neutro == false))
+					throw new SameAreaException();
+			System.out.println("fatto il controllo");
 		}
 	}
 
