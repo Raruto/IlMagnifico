@@ -66,19 +66,21 @@ public enum ECostiCarte {
 		costi.get(0)[9] = 0;
 		costi.get(0)[10] = 0;
 		costi.get(0)[11] = 0;
-		costi.add(new Object[13]);
-		for (int i = 0; i < 13; i++) {
-			costi.get(1)[i] = new Object();
+		if (this.costoPM > 0) {
+			costi.add(new Object[13]);
+			for (int i = 0; i < 13; i++) {
+				costi.get(1)[i] = new Object();
+			}
+			costi.get(1)[0] = 2;
+			costi.get(1)[10] = this.costoPM;
+			costi.get(0)[5] = 0;
+			costi.get(0)[6] = 0;
+			costi.get(0)[7] = 0;
+			costi.get(0)[8] = 0;
+			costi.get(0)[9] = 0;
+			costi.get(0)[10] = 0;
+			costi.get(0)[11] = 0;
 		}
-		costi.get(1)[0] = 2;
-		costi.get(1)[10] = this.costoPM;
-		costi.get(0)[5] = 0;
-		costi.get(0)[6] = 0;
-		costi.get(0)[7] = 0;
-		costi.get(0)[8] = 0;
-		costi.get(0)[9] = 0;
-		costi.get(0)[10] = 0;
-		costi.get(0)[11] = 0;
 		return costi;
 	}
 }
