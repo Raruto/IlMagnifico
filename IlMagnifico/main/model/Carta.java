@@ -41,12 +41,12 @@ public abstract class Carta implements Serializable {
 	/**
 	 * 
 	 */
-	protected ArrayList<Object[]> acquisizione;
+	protected transient ArrayList<Object[]> acquisizione;
 
 	/**
 	 * 
 	 */
-	protected ArrayList<Object[]> effettoImmediato;
+	protected transient ArrayList<Object[]> effettoImmediato;
 
 	/**
 	 * 
@@ -61,7 +61,7 @@ public abstract class Carta implements Serializable {
 	/**
 	 * 
 	 */
-	protected ArrayList<Object[]> effettoPermanente;
+	protected transient ArrayList<Object[]> effettoPermanente;
 
 	/**
 	 * Metodo che controlla se il giocatore ha abbastanza punti militari o

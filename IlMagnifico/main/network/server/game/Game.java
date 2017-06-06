@@ -84,7 +84,7 @@ public class Game extends Partita {
 		dispatchGameUpdate(update);
 
 		// turnazione
-		// posizionaCarteSuTorre();
+		posizionaCarteSuTorre();
 		lanciaDadi();
 		update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
 		dispatchGameUpdate(update);
