@@ -338,11 +338,19 @@ public class UtilEffetto implements Serializable {
 	}
 
 	public void scontoUnaMoneta(Object o[]) {// metodo numero 23
-		// TODO:implementare
+		Carta carta = (Carta) (o[4]);
+		Giocatore giocatore = (Giocatore) (o[1]);
+		if ((int) (carta.getAcquisizione().get(0)[5]) > 0)
+			giocatore.getRisorse().cambiaMonete(1);
 	}
 
 	public void scontoLegnoEPietra(Object o[]) {// metodo numero 24
-		// TODO:implementare
+		Carta carta = (Carta) (o[4]);
+		Giocatore giocatore = (Giocatore) (o[1]);
+		if ((int) (carta.getAcquisizione().get(0)[6]) > 0)
+			giocatore.getRisorse().cambiaLegno(1);
+		if ((int) (carta.getAcquisizione().get(0)[7]) > 0)
+			giocatore.getRisorse().cambiaPietre(1);
 	}
 
 	public void prendiCartaSenzaFamigliareQuattro(Object o[]) {// metodo numero
@@ -354,7 +362,7 @@ public class UtilEffetto implements Serializable {
 	 * Metodo che implementa la scomunica dove il giocatore perde un punto
 	 * vittoria per ogni risorsa in proprio possesso
 	 */
-	public void perdiPVxRisorse(Object o[]) {//metodo numero 26
+	public void perdiPVxRisorse(Object o[]) {// metodo numero 26
 		Giocatore giocatore = (Giocatore) (o[1]);
 		Risorsa risorse = giocatore.getRisorse();
 		giocatore.getPunti().cambiaPuntiVittoria(
