@@ -65,8 +65,6 @@ public class Client implements IClient {
 	public SpazioAzione getBoard() {
 		return this.board;
 	}
-	
-
 
 	/**
 	 * Crea una nuova istanza della classe.
@@ -148,7 +146,8 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Nome scelto dal giocatore durante la fase di login e approvato dal server.
+	 * Nome scelto dal giocatore durante la fase di login e approvato dal
+	 * server.
 	 * 
 	 * @return String nickname
 	 */
@@ -318,13 +317,15 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
+		// update local game copy
 		this.board = update.getSpazioAzione();
-		
+
+		// handle server response
 		if (update.getAzioneGiocatore() != null) {
 			// if (update.getNomeGiocatore() != null)
-			//if (!update.getNomeGiocatore().equals(nickname))
-				System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
-						+ update.getAzioneGiocatore().toString());
+			// if (!update.getNomeGiocatore().equals(nickname))
+			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
+					+ update.getAzioneGiocatore().toString());
 		} else if (update.getAzioneServer() != null) {
 			System.out.println(Costants.GAME_ID + " ACTION: " + update.getAzioneServer().toString());
 		}

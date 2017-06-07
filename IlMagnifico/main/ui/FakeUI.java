@@ -485,7 +485,7 @@ public class FakeUI {
 		boolean nestedQuit = false;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Tower area: ");
+			System.out.print("Choose a Tower area: ");
 			System.out.println(ETipiCarte.stringify());
 
 			inText = scanner.nextLine();
@@ -581,7 +581,7 @@ public class FakeUI {
 		boolean ok = false;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Pawn Color: ");
+			System.out.print("Choose a Pawn Color: ");
 			System.out.println(EColoriPedine.stringify());
 			inText = scanner.nextLine();
 
@@ -634,35 +634,50 @@ public class FakeUI {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
 		String row;
-		String col1, col2, col3, col4;
+		String col1 = "", col2 = "", col3 = "", col4 = "";
+		String col1_2 = "", col2_2 = "", col3_2 = "", col4_2 = "";
 
 		try {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.format(ANSI.YELLOW + "%15s%15s%13s%14s\n" + ANSI.RESET, "Territorio: ", "Personaggio: ",
+			System.out.format(ANSI.YELLOW + "     %-30s%-30s%-30s%-30s\n" + ANSI.RESET, "Territorio: ", "Personaggio: ",
 					"Edificio: ", "Impresa: ");
 			for (int i = 3; i >= 0; i--) {
-				if (board.getFamigliareTorre(i) != null)
+
+				// Territorio
+				if (board.getCartaTorre(i) != null)
+					col1 = board.getCartaTorre(i).getNome();
+				else if (board.getFamigliareTorre(i) != null)
 					col1 = board.getFamigliareTorre(i).getGiocatore().getNome();
 				else
 					col1 = null;
 
-				if (board.getFamigliareTorre(i + 4) != null)
+				// Personaggio
+				if (board.getCartaTorre(i + 4) != null)
+					col2 = board.getCartaTorre(i + 4).getNome();
+				else if (board.getFamigliareTorre(i + 4) != null)
 					col2 = board.getFamigliareTorre(i + 4).getGiocatore().getNome();
 				else
 					col2 = null;
 
-				if (board.getFamigliareTorre(i + 8) != null)
+				// Edificio
+				if (board.getCartaTorre(i + 8) != null)
+					col3 = board.getCartaTorre(i + 8).getNome();
+				else if (board.getFamigliareTorre(i + 8) != null)
 					col3 = board.getFamigliareTorre(i + 8).getGiocatore().getNome();
 				else
 					col3 = null;
-				if (board.getFamigliareTorre(i + 12) != null)
+
+				// Impresa
+				if (board.getCartaTorre(i + 12) != null)
+					col4 = board.getCartaTorre(i + 12).getNome();
+				else if (board.getFamigliareTorre(i + 12) != null)
 					col4 = board.getFamigliareTorre(i + 12).getGiocatore().getNome();
 				else
 					col4 = null;
 				row = ((i % 4) + 1) + ": ";
-				System.out.format("%12s%14s%15s%14s\n", row + col1, row + col2, row + col3, row + col4);
+				System.out.format("  %-30s%-30s%-30s%-30s\n", row + col1, row + col2, row + col3, row + col4);
 			}
 
 			if (printSep2)
