@@ -346,7 +346,7 @@ public class UtilEffetto implements Serializable {
 	}
 
 	public void prendiCartaSenzaFamigliareQuattro(Object o[]) {// metodo numero
-																// 24
+																// 25
 
 	}
 
@@ -354,7 +354,7 @@ public class UtilEffetto implements Serializable {
 	 * Metodo che implementa la scomunica dove il giocatore perde un punto
 	 * vittoria per ogni risorsa in proprio possesso
 	 */
-	public void perdiPVxRisorse(Object o[]) {
+	public void perdiPVxRisorse(Object o[]) {//metodo numero 26
 		Giocatore giocatore = (Giocatore) (o[1]);
 		Risorsa risorse = giocatore.getRisorse();
 		giocatore.getPunti().cambiaPuntiVittoria(
