@@ -18,6 +18,7 @@ import main.model.enums.EColoriPedine;
 import main.model.enums.EFasiDiGioco;
 import main.model.enums.EPunti;
 import main.model.enums.ERisorse;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 
 public class UpdateStats implements Serializable {
 
@@ -40,6 +41,8 @@ public class UpdateStats implements Serializable {
 	private EColoriPedine colorePedinaSpostata;
 
 	private int posizionePedinaSpostata;
+	
+	private ESceltePrivilegioDelConsiglio[];
 
 	private boolean supportoChiesa;
 

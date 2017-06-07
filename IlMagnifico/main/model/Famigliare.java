@@ -3,6 +3,7 @@ package main.model;
 import java.io.Serializable;
 
 import main.model.enums.EAzioniGioco;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.exceptions.*;
 
 /**
@@ -548,8 +549,9 @@ public class Famigliare implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoMercato(int posizione) throws InvalidPositionException, FamigliareSpostatoException,
-			SpazioOccupatoException, MarketNotAvailableException, InsufficientValueException {
+	public void eseguiSpostamentoMercato(int posizione, ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio)
+			throws InvalidPositionException, FamigliareSpostatoException, SpazioOccupatoException,
+			MarketNotAvailableException, InsufficientValueException, InvalidChoiceException {
 		if (posizione < 0 || posizione > 3)
 			throw new InvalidPositionException();
 
@@ -569,7 +571,7 @@ public class Famigliare implements Serializable {
 
 		spazioAzione.setMercato(this, posizione);
 		this.posizionato = true;
-		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, posizione);
+		spazioAzione.eseguiEffettoMercato(giocatoreAppartenenza, posizione, sceltePrivilegiConsiglio);
 	}
 
 	/**

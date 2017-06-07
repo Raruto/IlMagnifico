@@ -3,6 +3,9 @@ package main.model;
 import java.io.Serializable;
 import java.util.*;
 
+import main.model.enums.ESceltePrivilegioDelConsiglio;
+import main.model.exceptions.InvalidChoiceException;
+
 /**
  * 
  */
@@ -157,7 +160,8 @@ public class SpazioAzione implements Serializable {
 	 * 
 	 * 
 	 */
-	public void eseguiEffettoMercato(Giocatore giocatore, int posizione) {
+	public void eseguiEffettoMercato(Giocatore giocatore, int posizione,
+			ESceltePrivilegioDelConsiglio[] sceltaPrivilegiConsiglio) throws InvalidChoiceException {
 		if (posizione == 0)
 			giocatore.getRisorse().cambiaMonete(5);
 		else if (posizione == 1)
@@ -166,6 +170,22 @@ public class SpazioAzione implements Serializable {
 			giocatore.getRisorse().cambiaMonete(2);
 			giocatore.getPunti().cambiaPuntiMilitari(3);
 		} else if (posizione == 3) {
+			if (sceltaPrivilegiConsiglio[0] == sceltaPrivilegiConsiglio[1])
+				throw new InvalidChoiceException();
+			for (int i = 0; i < sceltaPrivilegiConsiglio.length; i++) {
+				if (sceltaPrivilegiConsiglio[i] == ESceltePrivilegioDelConsiglio.LegnoEPietra) {
+					giocatore.getRisorse().cambiaLegno(1);
+					giocatore.getRisorse().cambiaPietre(1);
+				}
+				if (sceltaPrivilegiConsiglio[i] == ESceltePrivilegioDelConsiglio.Monete)
+					giocatore.getRisorse().cambiaMonete(2);
+				if (sceltaPrivilegiConsiglio[i] == ESceltePrivilegioDelConsiglio.Servitori)
+					giocatore.getRisorse().cambiaServitori(2);
+				if (sceltaPrivilegiConsiglio[i] == ESceltePrivilegioDelConsiglio.PuntiMilitari)
+					giocatore.getPunti().cambiaPuntiMilitari(2);
+				if (sceltaPrivilegiConsiglio[i] == ESceltePrivilegioDelConsiglio.PuntoFede)
+					giocatore.getPunti().cambiaPuntiFede(1);
+			}
 			// TODO:qua ci vuole il metodo che permette al giocatore di ottenere
 			// un
 			// doppio privilegio del consiglio
