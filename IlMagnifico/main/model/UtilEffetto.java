@@ -98,45 +98,31 @@ public class UtilEffetto implements Serializable {
 	 * segnalato con un commento
 	 */
 	public void eseguiPrivilegioDelConsiglio(Object o[]) {// metodo numero 3
-		Giocatore giocatore = (Giocatore) (o[1]);
-		int numeroIterazioni = (int) (o[12]);
-		String[] scelte = new String[numeroIterazioni];
-		String scelta = new String();
-		boolean controllo = false;
-		for (int i = 0; i < numeroIterazioni; i++) {
-			// TODO: finire di implementare
-			/* scelta= */
-			// richiesto che il giocatore inserisca una stringa tra le possibili
-			// scelte standard del privilegio del consiglio
+		/*
+		 * Giocatore giocatore = (Giocatore) (o[1]); int numeroIterazioni =
+		 * (int) (o[12]); String[] scelte = new String[numeroIterazioni]; String
+		 * scelta = new String(); boolean controllo = false; for (int i = 0; i <
+		 * numeroIterazioni; i++) { // TODO: finire di implementare /* scelta=
+		 */
+		// richiesto che il giocatore inserisca una stringa tra le possibili
+		// scelte standard del privilegio del consiglio
 
-			for (int j = 0; j < i; j++) { // controllo sulle scelte precedenti
-				if (scelta == scelte[j])
-					controllo = true;
-			}
-			if (controllo = true) {
-				// viene notificato all'utente che la scelta non e' valida
-				controllo = false;
-				i--;// ripeto la iterazione
-			} else
-				scelte[i] = scelta;
-		}
-		for (int i = 0; i < numeroIterazioni; i++) {// anziche' chiamare i
-													// metodi cambia e'
-													// possibile chiamare il
-													// metodo 0 di UtilEffetto
-			if (scelte[i] == "monete")
-				giocatore.getRisorse().cambiaMonete(2);
-			if (scelte[i] == "legno&pietra") {
-				giocatore.getRisorse().cambiaLegno(1);
-				giocatore.getRisorse().cambiaPietre(1);
-			}
-			if (scelte[i] == "servitori")
-				giocatore.getRisorse().cambiaServitori(2);
-			if (scelte[i] == "punti militari")
-				giocatore.getPunti().cambiaPuntiMilitari(2);
-			if (scelte[i] == "punti fede")
-				giocatore.getPunti().cambiaPuntiFede(1);
-		}
+		/*
+		 * for (int j = 0; j < i; j++) { // controllo sulle scelte precedenti if
+		 * (scelta == scelte[j]) controllo = true; } if (controllo = true) { //
+		 * viene notificato all'utente che la scelta non e' valida controllo =
+		 * false; i--;// ripeto la iterazione } else scelte[i] = scelta; } for
+		 * (int i = 0; i < numeroIterazioni; i++) {// anziche' chiamare i //
+		 * metodi cambia e' // possibile chiamare il // metodo 0 di UtilEffetto
+		 * if (scelte[i] == "monete") giocatore.getRisorse().cambiaMonete(2); if
+		 * (scelte[i] == "legno&pietra") {
+		 * giocatore.getRisorse().cambiaLegno(1);
+		 * giocatore.getRisorse().cambiaPietre(1); } if (scelte[i] ==
+		 * "servitori") giocatore.getRisorse().cambiaServitori(2); if (scelte[i]
+		 * == "punti militari") giocatore.getPunti().cambiaPuntiMilitari(2); if
+		 * (scelte[i] == "punti fede") giocatore.getPunti().cambiaPuntiFede(1);
+		 * }
+		 */
 	}
 
 	/**
