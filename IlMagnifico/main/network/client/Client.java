@@ -7,6 +7,7 @@ import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.EFasiDiGioco;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.errors.Errors;
 import main.network.NetworkException;
 import main.network.client.rmi.RMIClient;
@@ -267,6 +268,14 @@ public class Client implements IClient {
 		} catch (NetworkException e) {
 			System.err.println("Cannot perform action request");
 		}
+	}
+
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
+			ESceltePrivilegioDelConsiglio[] privileges) {
+		UpdateStats requestedAction = new UpdateStats(action);
+		requestedAction.spostaPedina(color, position);
+		requestedAction.setSceltePrivilegiConsiglio(privileges);
+		performGameAction(requestedAction);
 	}
 
 	public void movePawn(EAzioniGiocatore action, EColoriPedine color, int position) {

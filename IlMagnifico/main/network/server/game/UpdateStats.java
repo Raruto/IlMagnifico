@@ -37,13 +37,24 @@ public class UpdateStats implements Serializable {
 	 */
 	private String nomeGiocatore;
 
-	// private HashMap<EColoriPedine, Integer> spostamentoPedina;
+	/**
+	 * Colore della pedina spostata dal giocatore.
+	 */
 	private EColoriPedine colorePedinaSpostata;
 
+	/**
+	 * Posizione dove il giocatore ha spostato la pedina.
+	 */
 	private int posizionePedinaSpostata;
 
+	/**
+	 * Privilegio/i del Consiglio scelti dal giocatore (vedi {@link ESceltePrivilegioDelConsiglio}). 
+	 */
 	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
 
+	/**
+	 * True se la Chiesa è stata supportata dal giocatore.
+	 */
 	private boolean supportoChiesa;
 
 	/**

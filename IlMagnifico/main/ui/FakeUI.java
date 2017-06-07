@@ -1,12 +1,15 @@
 package main.ui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import main.model.Famigliare;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
 import main.network.client.Client;
 import main.network.client.ClientException;
@@ -259,6 +262,7 @@ public class FakeUI {
 	public static void performGameAction() {
 		EAzioniGiocatore action;
 		EAzioniGiocatore nestedAction;
+		ESceltePrivilegioDelConsiglio[] privileges;
 		Integer nestedPosition;
 
 		boolean quit = false;
@@ -271,12 +275,28 @@ public class FakeUI {
 
 				switch (action) {
 				case Mercato:
+					privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
 					while (!nestedQuit) {
 						printMarketArea(true, true);
 						nestedPosition = chooseMarketArea();
 						if (nestedPosition != null) {
 							try {
-								movePawn(action, nestedPosition);
+								// movePawn(action, nestedPosition, privilege);
+								EColoriPedine color = choosePawnColor();
+
+								if (color != null) {
+									if (nestedPosition == 3) {
+										privileges[0] = chooseCouncilPrivilege(
+												new ArrayList<ESceltePrivilegioDelConsiglio>());
+										privileges[1] = chooseCouncilPrivilege(Arrays.asList(privileges));
+									}
+
+									// if (privileges[0] != null &&
+									// privileges[1] != null) {
+									client.movePawn(action, color, nestedPosition, privileges);
+									// }
+								}
+
 								quit = true;
 								nestedQuit = true;
 							} catch (QuitException e) {
@@ -479,6 +499,33 @@ public class FakeUI {
 		return null;
 	}
 
+	private static ESceltePrivilegioDelConsiglio chooseCouncilPrivilege(List<ESceltePrivilegioDelConsiglio> hided)
+			throws QuitException {
+		boolean ok = false;
+		int number;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println("Choose a privilege: ");
+			System.out.println(ESceltePrivilegioDelConsiglio.stringify(hided));
+			inText = scanner.nextLine();
+
+			if (inText.equals("q")) {
+				throw new QuitException();
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					for (ESceltePrivilegioDelConsiglio priv : ESceltePrivilegioDelConsiglio.values()) {
+						if (number == priv.ordinal())
+							return priv;
+					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+
 	private static Integer chooseTowerArea() {
 		Integer floor;
 		boolean ok = false;
@@ -570,6 +617,14 @@ public class FakeUI {
 		}
 	}
 
+	private static void movePawn(EAzioniGiocatore action, Integer position, ESceltePrivilegioDelConsiglio[] privileges)
+			throws QuitException {
+		EColoriPedine color = choosePawnColor();
+		if (color != null) {
+			client.movePawn(action, color, position, privileges);
+		}
+	}
+
 	private static void movePawn(EAzioniGiocatore action, Integer position) throws QuitException {
 		EColoriPedine color = choosePawnColor();
 		if (color != null) {
@@ -634,7 +689,7 @@ public class FakeUI {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
 		String col1 = "", col2 = "", col3 = "", col4 = "";
-		String row;		
+		String row;
 
 		try {
 			if (printSep1)
