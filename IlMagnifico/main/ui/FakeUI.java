@@ -621,7 +621,7 @@ public class FakeUI {
 
 			int[] dadi = board.getValoreDadi();
 			System.out.print(ANSI.YELLOW + "Dadi: " + ANSI.RESET);
-			System.out.format("%14s%18s%15s\n", "Nero = " + dadi[0], "Arancione = " + dadi[1], "Bianco = " + dadi[2]);
+			System.out.format("%40s%18s%15s\n", "Nero = " + dadi[0], "Arancione = " + dadi[1], "Bianco = " + dadi[2]);
 
 			if (printSep2)
 				System.out.println(Costants.ROW_SEPARATOR);
@@ -633,9 +633,8 @@ public class FakeUI {
 	private static void printTowerArea(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
-		String row;
 		String col1 = "", col2 = "", col3 = "", col4 = "";
-		String col1_2 = "", col2_2 = "", col3_2 = "", col4_2 = "";
+		String row;		
 
 		try {
 			if (printSep1)
@@ -644,38 +643,14 @@ public class FakeUI {
 			System.out.format(ANSI.YELLOW + "     %-30s%-30s%-30s%-30s\n" + ANSI.RESET, "Territorio: ", "Personaggio: ",
 					"Edificio: ", "Impresa: ");
 			for (int i = 3; i >= 0; i--) {
-
 				// Territorio
-				if (board.getCartaTorre(i) != null)
-					col1 = board.getCartaTorre(i).getNome();
-				else if (board.getFamigliareTorre(i) != null)
-					col1 = board.getFamigliareTorre(i).getGiocatore().getNome();
-				else
-					col1 = null;
-
+				col1 = getTowerFloor(board, i);
 				// Personaggio
-				if (board.getCartaTorre(i + 4) != null)
-					col2 = board.getCartaTorre(i + 4).getNome();
-				else if (board.getFamigliareTorre(i + 4) != null)
-					col2 = board.getFamigliareTorre(i + 4).getGiocatore().getNome();
-				else
-					col2 = null;
-
+				col2 = getTowerFloor(board, i + 4);
 				// Edificio
-				if (board.getCartaTorre(i + 8) != null)
-					col3 = board.getCartaTorre(i + 8).getNome();
-				else if (board.getFamigliareTorre(i + 8) != null)
-					col3 = board.getFamigliareTorre(i + 8).getGiocatore().getNome();
-				else
-					col3 = null;
-
+				col3 = getTowerFloor(board, i + 8);
 				// Impresa
-				if (board.getCartaTorre(i + 12) != null)
-					col4 = board.getCartaTorre(i + 12).getNome();
-				else if (board.getFamigliareTorre(i + 12) != null)
-					col4 = board.getFamigliareTorre(i + 12).getGiocatore().getNome();
-				else
-					col4 = null;
+				col4 = getTowerFloor(board, i + 12);
 				row = ((i % 4) + 1) + ": ";
 				System.out.format("  %-30s%-30s%-30s%-30s\n", row + col1, row + col2, row + col3, row + col4);
 			}
@@ -685,6 +660,17 @@ public class FakeUI {
 		} catch (NullPointerException e) {
 			System.err.println("EXCPETION:" + e.getMessage());
 		}
+	}
+
+	private static String getTowerFloor(SpazioAzione board, int floor) {
+		String col;
+		if (board.getCartaTorre(floor) != null)
+			col = board.getCartaTorre(floor).getNome();
+		else if (board.getFamigliareTorre(floor) != null)
+			col = board.getFamigliareTorre(floor).getGiocatore().getNome();
+		else
+			col = null;
+		return col;
 	}
 
 	private static void printProductionArea(boolean printSep1, boolean printSep2) {
