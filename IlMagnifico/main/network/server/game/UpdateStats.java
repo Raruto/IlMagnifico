@@ -19,6 +19,8 @@ import main.model.enums.EFasiDiGioco;
 import main.model.enums.EPunti;
 import main.model.enums.ERisorse;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
+import main.model.enums.PlayerColors;
+import res.old.main.model.game.players.PuntiGiocatore;
 
 public class UpdateStats implements Serializable {
 
@@ -48,7 +50,8 @@ public class UpdateStats implements Serializable {
 	private int posizionePedinaSpostata;
 
 	/**
-	 * Privilegio/i del Consiglio scelti dal giocatore (vedi {@link ESceltePrivilegioDelConsiglio}). 
+	 * Privilegio/i del Consiglio scelti dal giocatore (vedi
+	 * {@link ESceltePrivilegioDelConsiglio}).
 	 */
 	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
 
@@ -60,12 +63,19 @@ public class UpdateStats implements Serializable {
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
 	 */
-	private HashMap<EPunti, Integer> puntiGiocatore;
+	// private HashMap<EPunti, Integer> puntiGiocatore;
+	private Punti puntiGiocatore;
 
 	/**
 	 * {@link Risorsa} del giocatore che ha eseguito l'azione
 	 */
-	private HashMap<ERisorse, Integer> risorseGiocatore;
+	// private HashMap<ERisorse, Integer> risorseGiocatore;
+	private Risorsa risorseGiocatore;
+
+	/**
+	 * {@link Plancia} del giocatore che ha eseguito l'azione
+	 */
+	private Plancia planciaGiocatore;
 
 	/**
 	 * {@link Plancia} del giocatore che ha eseguito l'azione.
@@ -90,6 +100,8 @@ public class UpdateStats implements Serializable {
 	 * {@link SpazioAzione} aggiornata.
 	 */
 	private SpazioAzione spazioAzione;
+
+	private PlayerColors coloreGiocatore;
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -125,27 +137,28 @@ public class UpdateStats implements Serializable {
 	public UpdateStats(Giocatore giocatore, EAzioniGiocatore azione, SpazioAzione spazioAzione) {
 		this.azioneGiocatore = azione;
 		this.nomeGiocatore = giocatore.getNome();
+		this.coloreGiocatore = giocatore.getColore();
 
-		// this.puntiGiocatore = giocatore.getPunti();
-		this.puntiGiocatore = new HashMap<EPunti, Integer>();
-		Punti p = giocatore.getPunti();
-		this.puntiGiocatore.put(EPunti.Fede, p.getPuntiFede());
-		this.puntiGiocatore.put(EPunti.Militare, p.getPuntiMilitari());
-		this.puntiGiocatore.put(EPunti.Vittoria, p.getPuntiVittoria());
+		this.puntiGiocatore = giocatore.getPunti();
+		// this.puntiGiocatore = new HashMap<EPunti, Integer>();
+		// Punti p = giocatore.getPunti();
+		// this.puntiGiocatore.put(EPunti.Fede, p.getPuntiFede());
+		// this.puntiGiocatore.put(EPunti.Militare, p.getPuntiMilitari());
+		// this.puntiGiocatore.put(EPunti.Vittoria, p.getPuntiVittoria());
 
-		// this.risorseGiocatore = giocatore.getRisorse();
-		this.risorseGiocatore = new HashMap<ERisorse, Integer>();
-		Risorsa r = giocatore.getRisorse();
-		this.risorseGiocatore.put(ERisorse.Legno, r.getLegno());
-		this.risorseGiocatore.put(ERisorse.Moneta, r.getMonete());
-		this.risorseGiocatore.put(ERisorse.Pietra, r.getPietre());
-		this.risorseGiocatore.put(ERisorse.Servitore, r.getServitori());
+		this.risorseGiocatore = giocatore.getRisorse();
+		// this.risorseGiocatore = new HashMap<ERisorse, Integer>();
+		// Risorsa r = giocatore.getRisorse();
+		// this.risorseGiocatore.put(ERisorse.Legno, r.getLegno());
+		// this.risorseGiocatore.put(ERisorse.Moneta, r.getMonete());
+		// this.risorseGiocatore.put(ERisorse.Pietra, r.getPietre());
+		// this.risorseGiocatore.put(ERisorse.Servitore, r.getServitori());
 
-		// this.planciaGiocatore = giocatore.getPlancia();
-		this.edifici = giocatore.getPlancia().getEdifici();
-		this.imprese = giocatore.getPlancia().getImprese();
-		this.personaggi = giocatore.getPlancia().getPersonaggi();
-		this.territori = giocatore.getPlancia().getTerritori();
+		this.planciaGiocatore = giocatore.getPlancia();
+		// this.edifici = giocatore.getPlancia().getEdifici();
+		// this.imprese = giocatore.getPlancia().getImprese();
+		// this.personaggi = giocatore.getPlancia().getPersonaggi();
+		// this.territori = giocatore.getPlancia().getTerritori();
 
 		this.spazioAzione = spazioAzione;
 	}
@@ -170,6 +183,10 @@ public class UpdateStats implements Serializable {
 		return nomeGiocatore;
 	}
 
+	public PlayerColors getColoreGiocatore() {
+		return coloreGiocatore;
+	}
+
 	public void setNomeGiocatore(String nomeGiocatore) {
 		this.nomeGiocatore = nomeGiocatore;
 	}
@@ -190,13 +207,21 @@ public class UpdateStats implements Serializable {
 		this.faseDiGioco = azioneServer;
 	}
 
-	public HashMap<EPunti, Integer> getPuntiGiocatore() {
-		return puntiGiocatore;
+	public Punti getPuntiGiocatore() {
+		return this.puntiGiocatore;
 	}
+	/*
+	 * public HashMap<EPunti, Integer> getPuntiGiocatore() { return
+	 * puntiGiocatore; }
+	 */
 
-	public HashMap<ERisorse, Integer> getRisorseGiocatore() {
-		return risorseGiocatore;
+	public Risorsa getRisorseGiocatore() {
+		return this.risorseGiocatore;
 	}
+	/*
+	 * public HashMap<ERisorse, Integer> getRisorseGiocatore() { return
+	 * risorseGiocatore; }
+	 */
 
 	public int getPosizioneSpostamentoPedina() {
 		return this.posizionePedinaSpostata;

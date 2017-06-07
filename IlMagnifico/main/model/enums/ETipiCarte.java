@@ -8,7 +8,7 @@ public enum ETipiCarte {
 		String s = "";
 
 		for (int i = 0; i < c.length; i++) {
-			s += "[" + c[i].toString() + "] ";
+			s += "[" + i + ": " + c[i].toString() + "] ";
 			if (i % 7 == 0 && i != 0)
 				s += "\n";
 		}

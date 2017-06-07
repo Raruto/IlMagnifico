@@ -520,6 +520,11 @@ public class FakeUI {
 					}
 				} catch (NumberFormatException e) {
 					// TODO: handle exception
+					for (ESceltePrivilegioDelConsiglio priv : ESceltePrivilegioDelConsiglio.values()) {
+						if (inText.equalsIgnoreCase(priv.toString())) {
+							return priv;
+						}
+					}
 				}
 			}
 		}
@@ -528,6 +533,7 @@ public class FakeUI {
 
 	private static Integer chooseTowerArea() {
 		Integer floor;
+		int number;
 		boolean ok = false;
 		boolean nestedQuit = false;
 		while (!ok) {
@@ -540,19 +546,42 @@ public class FakeUI {
 			if (inText.equalsIgnoreCase("q")) {
 				ok = true;
 			} else {
-				for (ETipiCarte car : ETipiCarte.values()) {
-					if (inText.equalsIgnoreCase(car.toString())) {
-						while (!nestedQuit) {
-							try {
-								floor = chooseTowerFloor(car);
-								return floor;
-							} catch (QuitException e) {
-								nestedQuit = true;
+				try {
+					number = Integer.parseInt(inText);
+
+					for (ETipiCarte car : ETipiCarte.values()) {
+						if (number == car.ordinal()) {
+							while (!nestedQuit) {
+								try {
+									floor = chooseTowerFloor(car);
+									return floor;
+								} catch (QuitException e) {
+									nestedQuit = true;
+								}
 							}
+							nestedQuit = false;
+
 						}
-						nestedQuit = false;
 					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+
+					for (ETipiCarte car : ETipiCarte.values()) {
+						if (inText.equalsIgnoreCase(car.toString())) {
+							while (!nestedQuit) {
+								try {
+									floor = chooseTowerFloor(car);
+									return floor;
+								} catch (QuitException e1) {
+									nestedQuit = true;
+								}
+							}
+							nestedQuit = false;
+						}
+					}
+
 				}
+
 			}
 		}
 		return null;
@@ -617,13 +646,12 @@ public class FakeUI {
 		}
 	}
 
-	private static void movePawn(EAzioniGiocatore action, Integer position, ESceltePrivilegioDelConsiglio[] privileges)
-			throws QuitException {
-		EColoriPedine color = choosePawnColor();
-		if (color != null) {
-			client.movePawn(action, color, position, privileges);
-		}
-	}
+	/*
+	 * private static void movePawn(EAzioniGiocatore action, Integer position,
+	 * ESceltePrivilegioDelConsiglio[] privileges) throws QuitException {
+	 * EColoriPedine color = choosePawnColor(); if (color != null) {
+	 * client.movePawn(action, color, position, privileges); } }
+	 */
 
 	private static void movePawn(EAzioniGiocatore action, Integer position) throws QuitException {
 		EColoriPedine color = choosePawnColor();
@@ -633,6 +661,7 @@ public class FakeUI {
 	}
 
 	private static EColoriPedine choosePawnColor() throws QuitException {
+		int number;
 		boolean ok = false;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
@@ -643,9 +672,19 @@ public class FakeUI {
 			if (inText.equalsIgnoreCase("q")) {
 				throw new QuitException();
 			} else {
-				for (EColoriPedine col : EColoriPedine.values()) {
-					if (inText.equalsIgnoreCase(col.toString())) {
-						return col;
+				try {
+					number = Integer.parseInt(inText);
+					for (EColoriPedine col : EColoriPedine.values()) {
+						if (number == col.ordinal()) {
+							return col;
+						}
+					}
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+					for (EColoriPedine col : EColoriPedine.values()) {
+						if (inText.equalsIgnoreCase(col.toString())) {
+							return col;
+						}
 					}
 				}
 			}
@@ -686,8 +725,6 @@ public class FakeUI {
 	}
 
 	private static void printTowerArea(boolean printSep1, boolean printSep2) {
-		Client client = getClient();
-		SpazioAzione board = client.getBoard();
 		String col1 = "", col2 = "", col3 = "", col4 = "";
 		String row;
 
@@ -699,13 +736,13 @@ public class FakeUI {
 					"Edificio: ", "Impresa: ");
 			for (int i = 3; i >= 0; i--) {
 				// Territorio
-				col1 = getTowerFloor(board, i);
+				col1 = getTowerFloor(i);
 				// Personaggio
-				col2 = getTowerFloor(board, i + 4);
+				col2 = getTowerFloor(i + 4);
 				// Edificio
-				col3 = getTowerFloor(board, i + 8);
+				col3 = getTowerFloor(i + 8);
 				// Impresa
-				col4 = getTowerFloor(board, i + 12);
+				col4 = getTowerFloor(i + 12);
 				row = ((i % 4) + 1) + ": ";
 				System.out.format("  %-30s%-30s%-30s%-30s\n", row + col1, row + col2, row + col3, row + col4);
 			}
@@ -717,15 +754,23 @@ public class FakeUI {
 		}
 	}
 
-	private static String getTowerFloor(SpazioAzione board, int floor) {
+	private static String getTowerFloor(int floor) {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+
 		String col;
 		if (board.getCartaTorre(floor) != null)
 			col = board.getCartaTorre(floor).getNome();
 		else if (board.getFamigliareTorre(floor) != null)
-			col = board.getFamigliareTorre(floor).getGiocatore().getNome();
+			col = getStringifiedPawn(board.getFamigliareTorre(floor));
 		else
 			col = null;
 		return col;
+	}
+
+	private static String getStringifiedPawn(Famigliare fam) {
+		return fam.getGiocatore().getColore().getANSIBackground() + fam.getColoreFamigliare().getANSICode() + "♜  "
+				+ fam.getGiocatore().getNome() + ANSI.RESET;
 	}
 
 	private static void printProductionArea(boolean printSep1, boolean printSep2) {
@@ -743,14 +788,14 @@ public class FakeUI {
 			System.out.print("Zona 1: ");
 			zona1 = board.getZonaProduzioneRotonda();
 			if (zona1 != null)
-				System.out.println(board.getZonaProduzioneRotonda().getGiocatore().getNome());
+				System.out.println(getStringifiedPawn(zona1));
 			else
 				System.out.println(null + "");
 
 			System.out.print("Zona 2: ");
 			zona2 = board.getZonaProduzioneOvale();
 			for (int i = 0; i < zona2.size(); i++) {
-				System.out.print(zona2.get(i).getGiocatore().getNome() + ", ");
+				System.out.print(getStringifiedPawn(zona2.get(i)) + ", ");
 			}
 			System.out.println();
 
@@ -777,14 +822,14 @@ public class FakeUI {
 			System.out.print("Zona 1: ");
 			zona1 = board.getZonaRaccoltoRotonda();
 			if (zona1 != null)
-				System.out.println(board.getZonaRaccoltoRotonda().getGiocatore().getNome());
+				System.out.println(getStringifiedPawn(zona1));
 			else
 				System.out.println(null + "");
 
 			System.out.print("Zona 2: ");
 			zona2 = board.getZonaRaccoltoOvale();
 			for (int i = 0; i < zona2.size(); i++) {
-				System.out.print(zona2.get(i).getGiocatore().getNome() + ", ");
+				System.out.print(getStringifiedPawn(zona2.get(i)) + ", ");
 			}
 			System.out.println();
 
@@ -811,7 +856,7 @@ public class FakeUI {
 
 			for (int i = 0; i < zona.length; i++) {
 				if (zona[i] != null)
-					System.out.print(zona[i].getGiocatore().getNome() + ", ");
+					System.out.print(getStringifiedPawn(zona[i]) + ", ");
 				else
 					System.out.print(null + ", ");
 			}
@@ -840,7 +885,7 @@ public class FakeUI {
 
 			for (int i = 0; i < zona.size(); i++) {
 				if (zona.get(i) != null)
-					System.out.print(zona.get(i).getGiocatore().getNome() + ", ");
+					System.out.print(getStringifiedPawn(zona.get(i)) + ", ");
 				else
 					System.out.print(null + ", ");
 			}
