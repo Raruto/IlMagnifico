@@ -41,8 +41,8 @@ public class UpdateStats implements Serializable {
 	private EColoriPedine colorePedinaSpostata;
 
 	private int posizionePedinaSpostata;
-	
-	private ESceltePrivilegioDelConsiglio[];
+
+	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
 
 	private boolean supportoChiesa;
 
@@ -234,5 +234,9 @@ public class UpdateStats implements Serializable {
 
 	public ArrayList<String> getNomiGiocatori() {
 		return this.nomiGiocatori;
+	}
+
+	public ESceltePrivilegioDelConsiglio[] getSceltePrivilegiConsiglio() {
+		return this.sceltePrivilegiConsiglio;
 	}
 }

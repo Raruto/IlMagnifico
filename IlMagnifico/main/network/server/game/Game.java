@@ -213,8 +213,8 @@ public class Game extends Partita {
 
 	private UpdateStats onMarket(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
-			remotePlayer.getFamigliare(update.getIndiceColorePedina())
-					.eseguiSpostamentoMercato(update.getPosizioneSpostamentoPedina());
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoMercato(
+					update.getPosizioneSpostamentoPedina(), update.getSceltePrivilegiConsiglio());
 		} catch (InsufficientValueException e) {
 			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
 		} catch (MarketNotAvailableException e1) {
