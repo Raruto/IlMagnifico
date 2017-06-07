@@ -99,7 +99,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void eseguiPrivilegioDelConsiglio(Object o[]) {// metodo numero 3
 		Giocatore giocatore = (Giocatore) (o[1]);
-		int numeroIterazioni = (int) (o[2]);
+		int numeroIterazioni = (int) (o[12]);
 		String[] scelte = new String[numeroIterazioni];
 		String scelta = new String();
 		boolean controllo = false;
@@ -351,18 +351,19 @@ public class UtilEffetto implements Serializable {
 		giocatore.getPunti().cambiaPuntiVittoria(-(giocatore.getPunti().getPuntiMilitari()));
 	}
 
-	public void scontoUnaMoneta(Object o[]){//metodo numero 23
-		//TODO:implementare
+	public void scontoUnaMoneta(Object o[]) {// metodo numero 23
+		// TODO:implementare
 	}
-	
-	public void scontoLegnoEPietra(Object o[]){//metodo numero 24
-		//TODO:implementare
+
+	public void scontoLegnoEPietra(Object o[]) {// metodo numero 24
+		// TODO:implementare
 	}
-	
-	public void prendiCartaSenzaFamigliareQuattro(Object o[]){//metodo numero 24
-		
+
+	public void prendiCartaSenzaFamigliareQuattro(Object o[]) {// metodo numero
+																// 24
+
 	}
-	
+
 	/**
 	 * Metodo che implementa la scomunica dove il giocatore perde un punto
 	 * vittoria per ogni risorsa in proprio possesso
