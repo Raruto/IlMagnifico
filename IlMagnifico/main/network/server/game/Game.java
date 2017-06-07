@@ -6,10 +6,12 @@ import main.model.Giocatore;
 import main.model.Partita;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EFasiDiGioco;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
 import main.model.exceptions.FamigliareSpostatoException;
 import main.model.exceptions.InsufficientValueException;
+import main.model.exceptions.InvalidChoiceException;
 import main.model.exceptions.InvalidPositionException;
 import main.model.exceptions.MarketNotAvailableException;
 import main.model.exceptions.MaxCardsReachedException;
@@ -174,8 +176,10 @@ public class Game extends Partita {
 	private void dispatchGameUpdate(UpdateStats update) {
 		room.dispatchGameUpdate(update);
 	}
+
 	/**
-	 * Metodo interno usato per il Log sul Server (abilitato da: LOG_ENABLED in {@link Room})
+	 * Metodo interno usato per il Log sul Server (abilitato da: LOG_ENABLED in
+	 * {@link Room})
 	 * 
 	 * @param message
 	 */
@@ -221,6 +225,8 @@ public class Game extends Partita {
 			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
 		} catch (InvalidPositionException e4) {
 			throw new GameException(Errors.INVALID_POSTITION.toString());
+		} catch (InvalidChoiceException e5) {
+			throw new GameException(Errors.INVALID_CHOICE.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
