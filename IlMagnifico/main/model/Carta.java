@@ -277,4 +277,8 @@ public abstract class Carta implements Serializable {
 	public String getNome() {
 		return this.nome;
 	}
+
+	public ArrayList<Object[]> getAcquisizione() {
+		return this.acquisizione;
+	}
 }
