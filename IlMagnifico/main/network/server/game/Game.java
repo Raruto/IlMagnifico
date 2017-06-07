@@ -233,7 +233,10 @@ public class Game extends Partita {
 
 	private UpdateStats onCouncilPalace(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
-			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoPalazzoConsiglio();
+			remotePlayer.getFamigliare(update.getIndiceColorePedina())
+					.eseguiSpostamentoPalazzoConsiglio(update.getSceltePrivilegiConsiglio()[0]);
+			// nell'array restituito da update prendo solamente il primo
+			// elemento
 		} catch (InsufficientValueException e) {
 			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
 		} catch (FamigliareSpostatoException e1) {

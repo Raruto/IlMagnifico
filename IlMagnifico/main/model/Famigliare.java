@@ -580,7 +580,8 @@ public class Famigliare implements Serializable {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoPalazzoConsiglio() throws FamigliareSpostatoException, InsufficientValueException {
+	public void eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio scelta)
+			throws FamigliareSpostatoException, InsufficientValueException {
 
 		if (this.posizionato == true)
 			throw new FamigliareSpostatoException();
@@ -591,7 +592,7 @@ public class Famigliare implements Serializable {
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		spazioAzione.setPalazzoDelConsiglio(this);
 		this.posizionato = true;
-		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza);
+		spazioAzione.eseguiEffettoPalazzoConsiglio(giocatoreAppartenenza, scelta);
 	}
 
 	public boolean getNeutralita() {

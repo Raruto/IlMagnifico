@@ -239,4 +239,8 @@ public class UpdateStats implements Serializable {
 	public ESceltePrivilegioDelConsiglio[] getSceltePrivilegiConsiglio() {
 		return this.sceltePrivilegiConsiglio;
 	}
+
+	public void setSceltePrivilegiConsiglio(ESceltePrivilegioDelConsiglio[] scelte) {
+		this.sceltePrivilegiConsiglio = scelte;
+	}
 }

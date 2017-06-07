@@ -202,7 +202,19 @@ public class SpazioAzione implements Serializable {
 	 * 
 	 * 
 	 */
-	public void eseguiEffettoPalazzoConsiglio(Giocatore giocatore) {
+	public void eseguiEffettoPalazzoConsiglio(Giocatore giocatore, ESceltePrivilegioDelConsiglio scelta) {
+		if (scelta == ESceltePrivilegioDelConsiglio.LegnoEPietra) {
+			giocatore.getRisorse().cambiaLegno(1);
+			giocatore.getRisorse().cambiaPietre(1);
+		}
+		if (scelta == ESceltePrivilegioDelConsiglio.Monete)
+			giocatore.getRisorse().cambiaMonete(2);
+		if (scelta == ESceltePrivilegioDelConsiglio.Servitori)
+			giocatore.getRisorse().cambiaServitori(2);
+		if (scelta == ESceltePrivilegioDelConsiglio.PuntiMilitari)
+			giocatore.getPunti().cambiaPuntiMilitari(2);
+		if (scelta == ESceltePrivilegioDelConsiglio.PuntoFede)
+			giocatore.getPunti().cambiaPuntiFede(1);
 		// TODO: metodo per fare scegliere al giocatore l'effetto del privilegio
 		// del
 		// consiglio
