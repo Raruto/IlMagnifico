@@ -3,6 +3,7 @@ package main.model;
 import java.io.Serializable;
 
 import main.model.enums.EAzioniGioco;
+import main.model.enums.EColoriPedine;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.exceptions.*;
 
@@ -617,5 +618,27 @@ public class Famigliare implements Serializable {
 
 	public int getValore() {
 		return this.valore;
+	}
+
+	/**
+	 * Metodo che restituisce il colore del famigliare.In caso di errore
+	 * restituisce un null
+	 * 
+	 * @return
+	 */
+	public EColoriPedine getColoreFamigliare() {
+		for (int i = 0; i < 4; i++) {
+			if (this.giocatoreAppartenenza.getFamigliare(i) == this) {
+				if (i == 0)
+					return EColoriPedine.Nera;
+				if (i == 1)
+					return EColoriPedine.Arancione;
+				if (i == 2)
+					return EColoriPedine.Bianca;
+				if (i == 3)
+					return EColoriPedine.Neutrale;
+			}
+		}
+		return null;
 	}
 }
