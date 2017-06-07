@@ -68,7 +68,7 @@ public class Famigliare implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoTorre(int posizione) throws FamigliareSpostatoException, SpazioOccupatoException,
+	public void eseguiSpostamentoTorre(int posizione) throws FamiliarAlreadyUsedException, SpazioOccupatoException,
 			SameAreaException, InvalidPositionException, InsufficientValueException, NoMoneyException,
 			NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
 		int identificativoTorre = 0;
@@ -77,7 +77,7 @@ public class Famigliare implements Serializable {
 			throw new InvalidPositionException();
 
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 
@@ -387,9 +387,9 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void eseguiSpostamentoRaccoltoRotondo()
-			throws SpazioOccupatoException, InsufficientValueException, FamigliareSpostatoException {
+			throws SpazioOccupatoException, InsufficientValueException, FamiliarAlreadyUsedException {
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		// controllo se l'area e' occupata
@@ -425,9 +425,9 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void eseguiSpostamentoRaccoltoOvale()
-			throws FamigliareSpostatoException, SameAreaException, InsufficientValueException {
+			throws FamiliarAlreadyUsedException, SameAreaException, InsufficientValueException {
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		Famigliare famigliareTemporaneo = new Famigliare(null, 0, false);
 		// controllo che non ci sia un famigliare dello stesso colore
@@ -468,9 +468,9 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void eseguiSpostamentoProduzioneRotondo()
-			throws SpazioOccupatoException, InsufficientValueException, FamigliareSpostatoException {
+			throws SpazioOccupatoException, InsufficientValueException, FamiliarAlreadyUsedException {
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		// controllo se l'area e' occupata
@@ -506,9 +506,9 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void eseguiSpostamentoProduzioneOvale()
-			throws FamigliareSpostatoException, SameAreaException, InsufficientValueException {
+			throws FamiliarAlreadyUsedException, SameAreaException, InsufficientValueException {
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 		SpazioAzione spazioAzione = giocatoreAppartenenza.getSpazioAzione();
 		Famigliare famigliareTemporaneo = new Famigliare(null, 0, false);
 		// controllo che non ci sia un famigliare dello stesso colore
@@ -550,13 +550,13 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void eseguiSpostamentoMercato(int posizione, ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio)
-			throws InvalidPositionException, FamigliareSpostatoException, SpazioOccupatoException,
+			throws InvalidPositionException, FamiliarAlreadyUsedException, SpazioOccupatoException,
 			MarketNotAvailableException, InsufficientValueException, InvalidChoiceException {
 		if (posizione < 0 || posizione > 3)
 			throw new InvalidPositionException();
 
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 
 		SpazioAzione spazioAzione = this.giocatoreAppartenenza.getSpazioAzione();
 		if (spazioAzione.zonaMercatoLibera(posizione) == false)
@@ -581,10 +581,10 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio scelta)
-			throws FamigliareSpostatoException, InsufficientValueException {
+			throws FamiliarAlreadyUsedException, InsufficientValueException {
 
 		if (this.posizionato == true)
-			throw new FamigliareSpostatoException();
+			throw new FamiliarAlreadyUsedException();
 
 		if (valore < 1)
 			throw new InsufficientValueException();

@@ -9,7 +9,7 @@ import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
-import main.model.exceptions.FamigliareSpostatoException;
+import main.model.exceptions.FamiliarAlreadyUsedException;
 import main.model.exceptions.InsufficientValueException;
 import main.model.exceptions.InvalidChoiceException;
 import main.model.exceptions.InvalidPositionException;
@@ -216,13 +216,13 @@ public class Game extends Partita {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoMercato(
 					update.getPosizioneSpostamentoPedina(), update.getSceltePrivilegiConsiglio());
 		} catch (InsufficientValueException e) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (MarketNotAvailableException e1) {
 			throw new GameException(Errors.MARKET_NOT_AVAILABLE.toString());
 		} catch (SpazioOccupatoException e2) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
-		} catch (FamigliareSpostatoException e3) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (FamiliarAlreadyUsedException e3) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		} catch (InvalidPositionException e4) {
 			throw new GameException(Errors.INVALID_POSTITION.toString());
 		} catch (InvalidChoiceException e5) {
@@ -238,9 +238,9 @@ public class Game extends Partita {
 			// nell'array restituito da update prendo solamente il primo
 			// elemento
 		} catch (InsufficientValueException e) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
-		} catch (FamigliareSpostatoException e1) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
+		} catch (FamiliarAlreadyUsedException e1) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
@@ -248,10 +248,10 @@ public class Game extends Partita {
 	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneRotondo();
-		} catch (FamigliareSpostatoException e) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (FamiliarAlreadyUsedException e) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		} catch (InsufficientValueException e1) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (SpazioOccupatoException e2) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
 		}
@@ -261,10 +261,10 @@ public class Game extends Partita {
 	private UpdateStats onHarvestRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoRotondo();
-		} catch (FamigliareSpostatoException e) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (FamiliarAlreadyUsedException e) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		} catch (InsufficientValueException e1) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (SpazioOccupatoException e2) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
 		}
@@ -275,11 +275,11 @@ public class Game extends Partita {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoOvale();
 		} catch (InsufficientValueException e) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (SameAreaException e1) {
 			throw new GameException(Errors.SAME_AREA.toString());
-		} catch (FamigliareSpostatoException e) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (FamiliarAlreadyUsedException e) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
@@ -288,11 +288,11 @@ public class Game extends Partita {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneOvale();
 		} catch (InsufficientValueException e) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (SameAreaException e1) {
 			throw new GameException(Errors.SAME_AREA.toString());
-		} catch (FamigliareSpostatoException e2) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (FamiliarAlreadyUsedException e2) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
@@ -302,7 +302,7 @@ public class Game extends Partita {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina())
 					.eseguiSpostamentoTorre(update.getPosizioneSpostamentoPedina());
 		} catch (InsufficientValueException e) {
-			throw new GameException(Errors.INSUFFICIENT_VALUE.toString());
+			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (NullCardException e1) {
 			throw new GameException(Errors.NULL_CARD_EXCEPTION.toString());
 		} catch (MaxCardsReachedException e2) {
@@ -317,8 +317,8 @@ public class Game extends Partita {
 			throw new GameException(Errors.SAME_AREA.toString());
 		} catch (SpazioOccupatoException e7) {
 			throw new GameException(Errors.SPACE_TAKEN.toString());
-		} catch (FamigliareSpostatoException e8) {
-			throw new GameException(Errors.FAMIGLIARE_SPOSTATO.toString());
+		} catch (FamiliarAlreadyUsedException e8) {
+			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}

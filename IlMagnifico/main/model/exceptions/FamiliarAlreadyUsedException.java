@@ -5,8 +5,8 @@ package main.model.exceptions;
  * sul tabellone in precendenza nello stesso turno
  * 
  */
-public class FamigliareSpostatoException extends Exception {
-	public FamigliareSpostatoException() {
+public class FamiliarAlreadyUsedException extends Exception {
+	public FamiliarAlreadyUsedException() {
 		super();
 	}
 

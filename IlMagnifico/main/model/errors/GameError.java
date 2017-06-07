@@ -12,6 +12,6 @@ public class GameError {
 	}
 
 	public String toString() {
-		return e.toString();
+		return e.getDescription();
 	}
 }
