@@ -5,10 +5,10 @@ import java.util.List;
 
 public enum ECostiCarte {
 
-	CAPPELLA("cappella", 0, 2, 0, 0, 0, 0,""), ESATTORIA("esattoria", 0, 3, 1, 0, 0, 0,""), ZECCA("zecca", 0, 1, 3, 0, 0,
-			0,""), TEATRO("teatro", 2, 2, 0, 0, 0, 0,""), ARCO_DI_TRIONFO("arco di trionfo", 2, 0, 2, 0, 0, 0,""), TAGLIAPIETRE(
-					"tagliapietre", 1, 0, 2, 0, 0, 0,""), RESIDENZA("residenza", 0, 0, 2, 0, 0, 0,""), FALEGNAMERIA(
-							"falegnameria", 1, 2, 0, 0, 0, 0,""), SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 2, 1, 1, 0, 2,
+	CAPPELLA("cappella", 0, 2, 0, 0, 0, 0,"paga:2 legna"), ESATTORIA("esattoria", 0, 3, 1, 0, 0, 0,"paga:3 legna,1 pietra"), ZECCA("zecca", 0, 1, 3, 0, 0,
+			0,"paga:1 legna,3 pietra"), TEATRO("teatro", 2, 2, 0, 0, 0, 0,"paga:2 monete, 2 legna"), ARCO_DI_TRIONFO("arco di trionfo", 2, 0, 2, 0, 0, 0,"paga:2 monete,2 pietra"), TAGLIAPIETRE(
+					"tagliapietre", 1, 0, 2, 0, 0, 0,"paga:1 monete, 2 pietra"), RESIDENZA("residenza", 0, 0, 2, 0, 0, 0,"paga:2 pietra"), FALEGNAMERIA(
+							"falegnameria", 1, 2, 0, 0, 0, 0,"paga:1 monete,2 legna"), SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 2, 1, 1, 0, 2,
 									4,""), CAMPAGNA_MILITARE("campagna militare", 0, 0, 0, 0, 2, 3,""),
 	// TODO:devo implementare il controllo che i pm da pagare non sono quelli su
 	// cui si fa il controllo dei costi
@@ -62,7 +62,7 @@ public enum ECostiCarte {
 	public ArrayList<Object[]> getCosti() {
 		ArrayList<Object[]> costi = new ArrayList<Object[]>();
 		costi.add(new Object[14]);
-		if (this.costoMonete > 0 | this.costoLegno > 0 | this.costoPietra > 0 | this.costoServitori > 0) {
+		if (this.costoMonete > 0 || this.costoLegno > 0 || this.costoPietra > 0 || this.costoServitori > 0) {
 			for (int i = 0; i < 14; i++) {
 				costi.get(0)[i] = new Object();
 			}
