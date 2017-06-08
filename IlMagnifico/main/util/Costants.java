@@ -35,11 +35,12 @@ public class Costants {
 
 	// CLI
 	public static final String ROW_SEPARATOR = "------------------------------------------------------------------------------------------------------------------------------";
+	public static final boolean CLIENT_ENABLE_LOG = true;
 
 	/**
 	 * Costruttore privato.
 	 */
 	private Costants() {
-		// Questa classe non è stata progettata per essere istanziata.
+		// Questa classe non ï¿½ stata progettata per essere istanziata.
 	}
 }

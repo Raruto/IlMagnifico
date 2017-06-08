@@ -64,7 +64,7 @@ public class Game extends Partita {
 		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
 		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
-		responseMap.put(EAzioniGiocatore.AumentaValoreFamigliare, this::onPayServant);
+		responseMap.put(EAzioniGiocatore.Famigliare, this::onPayServant);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class Game extends Partita {
 		// TODO: decidere quali azioni vogliamo trasmettere...
 
 		inizializzaPartita();
-		update = new UpdateStats(EFasiDiGioco.InizioPartita);
+		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.giocatori);
 
 		for (Giocatore giocatore : this.giocatori) {
 			update.addToNomiGiocatori(giocatore.getNome());

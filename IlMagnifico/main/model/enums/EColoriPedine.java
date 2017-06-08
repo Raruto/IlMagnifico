@@ -25,7 +25,8 @@ public enum EColoriPedine {
 		String s = "";
 
 		for (int i = 0; i < c.length; i++) {
-			s += "[" + i + ": " + c[i].toString() + "] ";
+			s += "[" + i + ": " + c[i].getANSICode() + "♜"
+					+ ANSI.RESET /* .toString() */ + "] ";
 			if (i % 7 == 0 && i != 0)
 				s += "\n";
 		}

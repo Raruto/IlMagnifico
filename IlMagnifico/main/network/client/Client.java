@@ -3,6 +3,9 @@ package main.network.client;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
+import main.model.Famigliare;
+import main.model.Plancia;
+import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
@@ -63,8 +66,25 @@ public class Client implements IClient {
 
 	private SpazioAzione board;
 
+	private HashMap<String, Plancia> dashboards;
+
+	private HashMap<String, Famigliare[]> families;
+
+	/**
+	 * Flag usato per abilitare il Log sul Server.
+	 */
+	private final boolean LOG_ENABLED = Costants.CLIENT_ENABLE_LOG;
+
 	public SpazioAzione getBoard() {
 		return this.board;
+	}
+
+	public HashMap<String, Plancia> getDashboards() {
+		return this.dashboards;
+	}
+
+	public HashMap<String, Famigliare[]> getFamilies() {
+		return this.families;
 	}
 
 	/**
@@ -76,6 +96,9 @@ public class Client implements IClient {
 	public Client() throws ClientException {
 		nickname = "anonymous";
 		isLogged = false;
+
+		dashboards = new HashMap<>();
+		families = new HashMap<>();
 
 		responseMap = new HashMap<>();
 		loadResponses();
@@ -103,7 +126,7 @@ public class Client implements IClient {
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
 		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
 		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
-		responseMap.put(EAzioniGiocatore.AumentaValoreFamigliare, this::onPayServant);
+		responseMap.put(EAzioniGiocatore.Famigliare, this::onPayServant);
 
 	}
 
@@ -289,13 +312,12 @@ public class Client implements IClient {
 		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		requestedAction.supportaChiesa(isSupported);
 	}
-	
+
 	public void incrementPawnValue(EColoriPedine color, int servants) {
-		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.AumentaValoreFamigliare);
+		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.Famigliare);
 		requestedAction.aumentaValorePedina(color, servants);
 		performGameAction(requestedAction);
 	}
-
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)
@@ -334,17 +356,20 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
+		String playerName = update.getNomeGiocatore();
+
 		// update local game copy
 		this.board = update.getSpazioAzione();
+		if (update.getPlanciaGiocatore() != null)
+			this.dashboards.put(playerName, update.getPlanciaGiocatore());
+		if (update.getFamiglia() != null)
+			this.families.put(playerName, update.getFamiglia());
 
 		// handle server response
 		if (update.getAzioneGiocatore() != null) {
-			// if (update.getNomeGiocatore() != null)
-			// if (!update.getNomeGiocatore().equals(nickname))
-			System.out.println("[" + update.getNomeGiocatore().toUpperCase() + "]" + " ACTION: "
-					+ update.getAzioneGiocatore().toString());
+			log(playerName, "ACTION: " + update.getAzioneGiocatore().toString());
 		} else if (update.getAzioneServer() != null) {
-			System.out.println(Costants.GAME_ID + " ACTION: " + update.getAzioneServer().toString());
+			log(Costants.GAME_ID, "ACTION: " + update.getAzioneServer().toString());
 		}
 		handleResponse(update);
 	}
@@ -457,6 +482,22 @@ public class Client implements IClient {
 	@Override
 	public void onNotify(Object object) throws RemoteException {
 		System.out.println(object.toString());
+	}
+
+	/*
+	 * Metodo interno usato per il Log sul Client (abilitato da: LOG_ENABLED)
+	 * 
+	 * @param message
+	 */
+	public void log(String author, String message) {
+		if (LOG_ENABLED) {
+			String id;
+			if (author.contains("[") && author.contains("]"))
+				id = author;
+			else
+				id = "[" + author.toUpperCase() + "]";
+			System.out.println(id + " " + message);
+		}
 	}
 
 	/**

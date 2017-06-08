@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import main.model.Famigliare;
+import main.model.Plancia;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
@@ -201,7 +202,10 @@ public class FakeUI {
 
 			switch (inText.toLowerCase()) {
 			case "q":
-				quit = true;
+				System.out.println("Sure to exit? [y/n]");
+				if (scanner.nextLine().equalsIgnoreCase("y"))
+					quit = true;
+				// TODO: gestire terminazione corretta del programma!
 				break;
 			case "chat":
 				FakeUI.sendChatMessages();
@@ -387,7 +391,17 @@ public class FakeUI {
 					}
 					break;
 
-				//case AumentaValoreFamigliare:break;
+				case Famigliare:
+					try {
+						printPawns(false, true);
+						EColoriPedine color = choosePawnColor();
+						if (color != null) {
+							incrementPawn(color);
+							quit = true;
+						}
+					} catch (QuitException e) {
+					}
+					break;
 				default:
 					System.out.println(ANSI.YELLOW + "Not yet implemented" + ANSI.RESET);
 					break;
@@ -400,6 +414,39 @@ public class FakeUI {
 
 	}
 
+	private static void incrementPawn(EColoriPedine color) throws QuitException {
+		Integer value = numberChooser("Add Servants: [0..*]");
+		if (value != null) {
+			client.incrementPawnValue(color, value);
+		}
+	}
+
+	private static Integer numberChooser(String description) throws QuitException {
+		int number;
+		boolean ok = false;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println(description);
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				throw new QuitException();
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					if (number < 0) {
+						throw new NumberFormatException();
+					} else {
+						return null;
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("Insert a valid number");
+				}
+			}
+		}
+		return null;
+	}
+
 	private static ECostiCarte[] chooseCardCost(int position) throws QuitException {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
@@ -407,22 +454,23 @@ public class FakeUI {
 		List<ECostiCarte> choosed = new ArrayList<ECostiCarte>();
 
 		int number;
-		
+
 		if (board.getCartaTorre(position) != null) {
 			int choices = board.getCartaTorre(position).getNumeroScelteCosti();
 			System.out.println(choices);
-			
-			
+
 			if (choices > 1) {
-				costs = Arrays.asList(board.getCartaTorre(position).getCostiCarta());
-				//System.out.println(costs.get(0).toString());
+				// costs =
+				// Arrays.asList(board.getCartaTorre(position).getCostiCarta());
+				// System.out.println(costs.get(0).toString());
 				boolean ok = false;
 
 				while (!ok && choices > 0) {
 					// System.out.println("'q' to quit\n");
 					System.out.println("Select " + choices + " cost choice: ");
-					System.out.println(costs.get(0).getNome());
-					//System.out.println(ECostiCarte.stringify((ArrayList<ECostiCarte>) costs));
+					// System.out.println(costs.get(0).getNome());
+					// System.out.println(ECostiCarte.stringify((ArrayList<ECostiCarte>)
+					// costs));
 					inText = scanner.nextLine();
 					if (inText.equals("q")) {
 						throw new QuitException();
@@ -768,8 +816,59 @@ public class FakeUI {
 				System.out.println(Costants.ROW_SEPARATOR);
 
 			int[] dadi = board.getValoreDadi();
-			System.out.print(ANSI.YELLOW + "Dadi: " + ANSI.RESET);
-			System.out.format("%40s%18s%15s\n", "Nero = " + dadi[0], "Arancione = " + dadi[1], "Bianco = " + dadi[2]);
+			System.out.print(ANSI.YELLOW);
+			System.out.format("%-27s", "Dadi: ");
+			System.out.print(ANSI.RESET);
+			System.out.format(" " + " %-13s", "Nero = " + dadi[0]);
+			System.out.format(" " + " %-18s", "Arancione = " + dadi[1]);
+			System.out.format(" " + " %-15s", "Bianco = " + dadi[2]);
+			System.out.println();
+
+			if (printSep2)
+				System.out.println(Costants.ROW_SEPARATOR);
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
+	}
+
+	private static void printPawns(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+
+		try {
+			SpazioAzione board = client.getBoard();
+			int[] familyValues = new int[4];
+
+			try {
+				Famigliare[] family = client.getFamilies().get(client.getNickname());
+				for (int i = 0; i < family.length; i++) {
+					familyValues[i] = family[i].getValore();
+				}
+			} catch (NullPointerException e) {
+				int[] dadi = board.getValoreDadi();
+				for (int i = 0; i < dadi.length; i++) {
+					familyValues[i] = dadi[i];
+				}
+				familyValues[3] = 0;
+			}
+
+			if (printSep1)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+			System.out.print(ANSI.YELLOW);
+			System.out.format("%-30s", "Famigliari: ");
+			System.out.print(ANSI.RESET);
+			System.out.format(printPawn(EColoriPedine.Nera) + "%-17s", " = " + familyValues[0]);
+			System.out.format(printPawn(EColoriPedine.Arancione) + "%-17s", " = " + familyValues[1]);
+			System.out.format(printPawn(EColoriPedine.Bianca) + "%-15s", " = " + familyValues[2]);
+			System.out.format(printPawn(EColoriPedine.Neutrale) + "%-15s", " = " + familyValues[3]);
+			System.out.println();
+
+			// TODO: finire
+			// Famigliare fams = client.
+			// int[] dadi = board.getValoreDadi();
+			// System.out.print(ANSI.YELLOW + "Dadi: " + ANSI.RESET);
+			// System.out.format("%40s%18s%15s\n", "Nero = " + dadi[0],
+			// "Arancione = " + dadi[1], "Bianco = " + dadi[2]);
 
 			if (printSep2)
 				System.out.println(Costants.ROW_SEPARATOR);
@@ -780,10 +879,14 @@ public class FakeUI {
 
 	private static void printTowerArea(boolean printSep1, boolean printSep2) {
 		String col1 = "", col2 = "", col3 = "", col4 = "";
-		int pad = 30, cpad1 = pad, cpad2 = pad, cpad3 = pad, cpad4 = pad;
+		int pad = 25;
 		String row;
 
 		try {
+			Client client = getClient();
+			SpazioAzione board = client.getBoard();
+			Famigliare fam;
+
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
@@ -795,25 +898,24 @@ public class FakeUI {
 			for (int i = 3; i >= 0; i--) {
 				row = ((i % 4) + 1) + ": ";
 
+				System.out.print("    ");
 				// Territorio
-				col1 = row + getTowerFloor(i);
-				// cpad1 = pad - col1.length();
+				System.out.format(getANSITowerFloor(i) + "%-" + pad + "s", row + getTowerFloor(i));
+				System.out.print(ANSI.RESET);
+
 				// Personaggio
-				col2 = row + getTowerFloor(i + 4);
-				// cpad2 = pad - col2.length();
+				System.out.format(getANSITowerFloor(i + 4) + " %-" + pad + "s", row + getTowerFloor(i + 4));
+				System.out.print(ANSI.RESET);
+
 				// Edificio
-				col3 = row + getTowerFloor(i + 8);
-				// cpad3 = pad - col3.length();
+				System.out.format(getANSITowerFloor(i + 8) + " %-" + pad + "s", row + getTowerFloor(i + 8));
+				System.out.print(ANSI.RESET);
+
 				// Impresa
-				col4 = row + getTowerFloor(i + 12);
-				// cpad4 = pad - col4.length();
+				System.out.format(getANSITowerFloor(i + 12) + " %-" + pad + "s", row + getTowerFloor(i + 12));
+				System.out.print(ANSI.RESET);
 
-				// util = new StringAlign(30, Alignment.LEFT);
-				// System.out.println(" "+ util.format(col1) + util.format(col2)
-				// + util.format(col3) + util.format(col4));
-
-				System.out.format(" %-" + cpad1 + "s%-" + cpad2 + "s%-" + cpad3 + "s%-" + cpad4 + "s\n", col1, col2,
-						col3, col4);
+				System.out.println();
 			}
 
 			if (printSep2)
@@ -831,15 +933,29 @@ public class FakeUI {
 		if (board.getCartaTorre(floor) != null)
 			col = board.getCartaTorre(floor).getNome();
 		else if (board.getFamigliareTorre(floor) != null) {
-			col = getStringifiedPawn(board.getFamigliareTorre(floor));
+			col = board.getFamigliareTorre(floor).getGiocatore().getNome();
 		} else
 			col = null;
 		return col;
 	}
 
+	private static String getANSITowerFloor(int floor) {
+		return getANSIPawn(getClient().getBoard().getFamigliareTorre(floor));
+	}
+
+	private static String getANSIPawn(Famigliare fam) {
+		if (fam != null)
+			return fam.getGiocatore().getColore().getANSIBackground() + fam.getColoreFamigliare().getANSICode();
+		else
+			return "";
+	}
+
+	private static String printPawn(EColoriPedine color) {
+		return color.getANSICode() + "♜" + ANSI.RESET;
+	}
+
 	private static String getStringifiedPawn(Famigliare fam) {
-		return fam.getGiocatore().getColore().getANSIBackground() + fam.getColoreFamigliare().getANSICode() + "♜  "
-				+ fam.getGiocatore().getNome() + ANSI.RESET;
+		return getANSIPawn(fam) + printPawn(fam.getColoreFamigliare()) + ANSI.RESET;
 	}
 
 	private static void printProductionArea(boolean printSep1, boolean printSep2) {

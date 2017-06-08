@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import main.model.Edificio;
+import main.model.Famigliare;
 import main.model.Giocatore;
 import main.model.Impresa;
 import main.model.Personaggio;
@@ -78,6 +79,8 @@ public class UpdateStats implements Serializable {
 	 * {@link Plancia} del giocatore che ha eseguito l'azione
 	 */
 	private Plancia planciaGiocatore;
+
+	private Famigliare[] famiglia;
 
 	/**
 	 * {@link Plancia} del giocatore che ha eseguito l'azione.
@@ -168,6 +171,10 @@ public class UpdateStats implements Serializable {
 		// this.personaggi = giocatore.getPlancia().getPersonaggi();
 		// this.territori = giocatore.getPlancia().getTerritori();
 
+		for (int i = 0; i < 4; i++) {
+			this.famiglia[i] = giocatore.getFamigliare(i);
+		}
+
 		this.spazioAzione = spazioAzione;
 	}
 
@@ -183,6 +190,15 @@ public class UpdateStats implements Serializable {
 		this.spazioAzione = spazioAzione;
 	}
 
+	public UpdateStats(EFasiDiGioco fase, ArrayList<Giocatore> giocatori) {
+		this.faseDiGioco = fase;
+
+		this.nomiGiocatori = new ArrayList<String>();
+		for (Giocatore giocatore : giocatori) {
+			this.nomiGiocatori.add(giocatore.getNome());
+		}
+	}
+	
 	public EAzioniGiocatore getAzioneGiocatore() {
 		return azioneGiocatore;
 	}
@@ -311,5 +327,13 @@ public class UpdateStats implements Serializable {
 
 	public int getServitoriDaPagare() {
 		return this.servitoriDaPagare;
+	}
+
+	public Plancia getPlanciaGiocatore() {
+		return this.planciaGiocatore;
+	}
+
+	public Famigliare[] getFamiglia() {
+		return this.famiglia;
 	}
 }

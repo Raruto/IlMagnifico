@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public enum EAzioniGiocatore {
 
-	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre, SostegnoChiesa,AumentaValoreFamigliare;
+	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre, SostegnoChiesa, Famigliare;
 
 	public static String stringify() {
 		return stringify(new ArrayList<EAzioniGiocatore>());
@@ -17,7 +17,7 @@ public enum EAzioniGiocatore {
 		for (int i = 0; i < a.length; i++) {
 			if (!hidedElements.contains(a[i])) {
 				s += "[" + a[i].toString() + "] ";
-				if (i % 7 == 0 && i != 0)
+				if (i % 8 == 0 && i != 0)
 					s += "\n";
 			}
 		}
