@@ -83,14 +83,14 @@ public enum ECostiCarte {
 			}
 			costi.get(1)[0] = 2;
 			costi.get(1)[10] = this.costoPM;
-			costi.get(0)[5] = 0;
-			costi.get(0)[6] = 0;
-			costi.get(0)[7] = 0;
-			costi.get(0)[8] = 0;
-			costi.get(0)[9] = 0;
-			costi.get(0)[10] = 0;
-			costi.get(0)[11] = 0;
-			costi.get(0)[13]=this.sogliaPuntiMilitari;
+			costi.get(1)[5] = 0;
+			costi.get(1)[6] = 0;
+			costi.get(1)[7] = 0;
+			costi.get(1)[8] = 0;
+			costi.get(1)[9] = 0;
+			costi.get(1)[10] = 0;
+			costi.get(1)[11] = 0;
+			costi.get(1)[13]=this.sogliaPuntiMilitari;
 		}
 		return costi;
 	}
@@ -107,4 +107,7 @@ public enum ECostiCarte {
 		return s;
 	}
 
+	public String getDescrizione(){
+		return this.descrizione;
+	}
 }
