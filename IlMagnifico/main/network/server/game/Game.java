@@ -64,6 +64,7 @@ public class Game extends Partita {
 		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
 		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
+		responseMap.put(EAzioniGiocatore.AumentaValoreFamigliare, this::onPayServant);
 	}
 
 	/**
@@ -227,6 +228,16 @@ public class Game extends Partita {
 			throw new GameException(Errors.INVALID_POSTITION.toString());
 		} catch (InvalidChoiceException e5) {
 			throw new GameException(Errors.INVALID_CHOICE.toString());
+		}
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
+	}
+
+	private UpdateStats onPayServant(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			remotePlayer.pagaServitore(remotePlayer.getFamigliare(update.getIndiceColorePedina()),
+					update.getServitoriDaPagare());
+		} catch (NoEnoughResourcesException e) {
+			throw new GameException(Errors.NO_ENOUGH_RESOURCES.toString());
 		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}

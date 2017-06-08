@@ -84,11 +84,11 @@ public abstract class Partita {
 		// TOT. 2 Turni per periodo
 		this.turno = 1;
 
-		// TODO: come inizializzate il mazzo?
+		
 		inizializzaMazzo();
 		mescolaMazzo();
 
-		// TODO: aggiustare (scatena IllegalArgumentException)
+		
 		inizializzaScomunica();
 
 		inizializzaGiocatori();
@@ -469,7 +469,6 @@ public abstract class Partita {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			for (int j = 0; j < this.giocatori.size(); j++) {

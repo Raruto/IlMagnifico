@@ -103,6 +103,7 @@ public class Client implements IClient {
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
 		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
 		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
+		responseMap.put(EAzioniGiocatore.AumentaValoreFamigliare, this::onPayServant);
 
 	}
 
@@ -348,6 +349,10 @@ public class Client implements IClient {
 	}
 
 	public void onMarket(UpdateStats update) {
+		// TODO
+	}
+
+	public void onPayServant(UpdateStats update) {
 		// TODO
 	}
 

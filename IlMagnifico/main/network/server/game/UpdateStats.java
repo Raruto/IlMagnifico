@@ -107,6 +107,8 @@ public class UpdateStats implements Serializable {
 
 	private ECostiCarte[] scelteCosti;
 
+	private int servitoriDaPagare;
+
 	private EEffettiPermanenti[] scelteEffettiPermanenti;
 
 	/**
@@ -289,14 +291,24 @@ public class UpdateStats implements Serializable {
 	public ECostiCarte[] getScelteCosti() {
 		return this.scelteCosti;
 	}
+
 	public void setScelteCosti(ECostiCarte[] scelteCosti) {
 		this.scelteCosti = scelteCosti;
 	}
-	
-	public EEffettiPermanenti[] getScelteEffettiPermanenti(){
+
+	public EEffettiPermanenti[] getScelteEffettiPermanenti() {
 		return this.scelteEffettiPermanenti;
 	}
-	public void getScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti){
+
+	public void getScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti) {
 		this.scelteEffettiPermanenti = scelteEffettiPermanenti;
+	}
+
+	public void setServitoriDaPagare(int servitoriDaPagare) {
+		this.servitoriDaPagare = servitoriDaPagare;
+	}
+
+	public int getServitoriDaPagare() {
+		return this.servitoriDaPagare;
 	}
 }
