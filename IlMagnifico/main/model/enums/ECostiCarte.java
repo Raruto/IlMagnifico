@@ -1,6 +1,7 @@
 package main.model.enums;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public enum ECostiCarte {
 
@@ -93,4 +94,17 @@ public enum ECostiCarte {
 		}
 		return costi;
 	}
+	
+	public static String stringify(List<ECostiCarte> costs){
+		ECostiCarte[] c = costs.toArray(new ECostiCarte[costs.size()]);;
+		String s = "";
+
+		for (int i = 0; i < c.length; i++) {
+			s += "[" +i +": "+ c[i].getNome() + "] ";
+			if (i % 7 == 0 && i != 0)
+				s += "\n";
+		}
+		return s;
+	}
+
 }
