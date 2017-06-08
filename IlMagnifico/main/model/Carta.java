@@ -6,6 +6,7 @@ import java.util.*;
 import main.model.enums.EAzioniGioco;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
+import main.model.exceptions.NoEnoughResourcesException;
 
 /**
  * 
@@ -197,16 +198,19 @@ public abstract class Carta implements Serializable {
 	 * Metodo che effettua l'acquisto da parte di un giocatore di una carta
 	 * 
 	 */
-	public void acquisizione(Giocatore giocatore) {
+	public void acquisizione(Giocatore giocatore, ECostiCarte costoScelto) throws NoEnoughResourcesException {
 		// TODO:se il giocatore puo' pagare in un solo modo non ci sono
 		// problemi,
 		// ma se puo' pagare in tutti e due i modi deve potere decidere
-		for (int i = 0; i < acquisizione.size(); i++) {
-			if ((int) (acquisizione.get(i)[0]) == 0) {
-				utilEffetto.aggiungiRisorse(acquisizione.get(i));
-				return;
-			}
-		}
+		if (costoScelto == this.costiDellaCartaComunicazione[0])
+			if ((int) (acquisizione.get(0)[0]) == 0) {
+				utilEffetto.aggiungiRisorse(acquisizione.get(0));
+			} else
+				throw new NoEnoughResourcesException();
+		else if ((int) (acquisizione.get(1)[0]) == 0) {
+			utilEffetto.aggiungiRisorse(acquisizione.get(1));
+		} else
+			throw new NoEnoughResourcesException();
 	}
 
 	/**
