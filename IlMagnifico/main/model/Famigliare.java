@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import main.model.enums.EAzioniGioco;
 import main.model.enums.EColoriPedine;
+import main.model.enums.ECostiCarte;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.exceptions.*;
 
@@ -69,9 +70,9 @@ public class Famigliare implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoTorre(int posizione) throws FamiliarAlreadyUsedException, SpazioOccupatoException,
-			SameAreaException, InvalidPositionException, InsufficientValueException, NoMoneyException,
-			NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
+	public void eseguiSpostamentoTorre(int posizione, ECostiCarte[] costiScelti) throws FamiliarAlreadyUsedException,
+			SpazioOccupatoException, SameAreaException, InvalidPositionException, InsufficientValueException,
+			NoMoneyException, NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
 		int identificativoTorre = 0;
 
 		if (posizione < 0 | posizione > 15)
@@ -119,7 +120,8 @@ public class Famigliare implements Serializable {
 		if (!spazioAzione.getCartaTorre(posizione).acquisibile(famigliareTemporaneo.giocatoreAppartenenza))
 			throw new NoEnoughResourcesException();
 		else {
-			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza);
+			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza,
+					costiScelti[0]);
 			// devo applicare tutte le modifiche al mio giocatore di partenza
 			mergeFamigliari(famigliareTemporaneo);
 			prendiCartaDallaTorre(identificativoTorre, spazioAzione, posizione);

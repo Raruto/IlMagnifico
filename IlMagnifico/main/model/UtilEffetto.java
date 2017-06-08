@@ -83,8 +83,8 @@ public class UtilEffetto implements Serializable {
 	 */
 	public boolean cartaAcquisibilePunti(Object o[]) {// metodo numero 2
 		Giocatore giocatore = (Giocatore) (o[1]);
-		int puntiMilitari = (int) (o[10]);
-		if (giocatore.getPunti().getPuntiMilitari() >= puntiMilitari)
+		int sogliaPM = (int) (o[13]);
+		if (giocatore.getPunti().getPuntiMilitari() >= sogliaPM)
 			return true;
 		else
 			return false;
