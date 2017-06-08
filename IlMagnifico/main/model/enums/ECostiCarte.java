@@ -96,7 +96,7 @@ public enum ECostiCarte {
 	}
 	
 	public static String stringify(List<ECostiCarte> costs){
-		ECostiCarte[] c = costs.toArray(new ECostiCarte[costs.size()]);;
+		ECostiCarte[] c = costs.toArray(new ECostiCarte[costs.size()]);
 		String s = "";
 
 		for (int i = 0; i < c.length; i++) {
