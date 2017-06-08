@@ -204,8 +204,9 @@ public abstract class Carta implements Serializable {
 				utilEffetto.aggiungiRisorse(acquisizione.get(0));
 			} else
 				throw new NoEnoughResourcesException();
-		else if ((int) (acquisizione.get(1)[0]) == 0) {
-			utilEffetto.aggiungiRisorse(acquisizione.get(1));
+		else if (acquisizione.size() > 1) {
+			if ((int) (acquisizione.get(1)[0]) == 0)
+				utilEffetto.aggiungiRisorse(acquisizione.get(1));
 		} else if (costoScelto == null) {
 			if ((int) (acquisizione.get(0)[0]) == 0) {
 				utilEffetto.aggiungiRisorse(acquisizione.get(0));
@@ -331,5 +332,5 @@ public abstract class Carta implements Serializable {
 
 	public EEffettiPermanenti[] getEffettiPermanentiCarta() {
 		return effettiPermanentiDelleCarteComunicazione;
-	}	 
+	}
 }

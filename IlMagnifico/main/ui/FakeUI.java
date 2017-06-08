@@ -9,6 +9,7 @@ import main.model.Famigliare;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
+import main.model.enums.ECostiCarte;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
 import main.network.client.Client;
@@ -16,11 +17,9 @@ import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
-import main.network.server.game.UpdateStats;
 import main.util.ANSI;
 import main.util.Costants;
 import main.util.StringAlign;
-import main.util.StringAlign.Alignment;
 
 /**
  * Classe di comodo per simulare l'interazione da parte del CLIENT verso il
@@ -368,6 +367,8 @@ public class FakeUI {
 						nestedPosition = chooseTowerArea();
 						if (nestedPosition != null) {
 							try {
+								ECostiCarte[] costs = chooseCardCost(nestedPosition);
+
 								movePawn(action, nestedPosition);
 								quit = true;
 								nestedQuit = true;
@@ -396,6 +397,56 @@ public class FakeUI {
 			nestedQuit = false;
 		}
 
+	}
+
+	private static ECostiCarte[] chooseCardCost(int position) throws QuitException {
+		Client client = getClient();
+		SpazioAzione board = client.getBoard();
+		List<ECostiCarte> costs;
+		List<ECostiCarte> choosed = new ArrayList<ECostiCarte>();
+
+		int number;
+		
+		if (board.getCartaTorre(position) != null) {
+			int choices = board.getCartaTorre(position).getNumeroScelteCosti();
+			System.out.println(choices);
+			
+			
+			if (choices > 1) {
+				costs = Arrays.asList(board.getCartaTorre(position).getCostiCarta());
+				//System.out.println(costs.get(0).toString());
+				boolean ok = false;
+
+				while (!ok && choices > 0) {
+					// System.out.println("'q' to quit\n");
+					System.out.println("Select " + choices + " cost choice: ");
+					System.out.println(costs.get(0).getNome());
+					//System.out.println(ECostiCarte.stringify((ArrayList<ECostiCarte>) costs));
+					inText = scanner.nextLine();
+					if (inText.equals("q")) {
+						throw new QuitException();
+					} else {
+						try {
+							number = Integer.parseInt(inText);
+							for (ECostiCarte cost : ECostiCarte.values()) {
+								if (number == cost.ordinal()) {
+									choosed.add(cost);
+									choices--;
+								}
+							}
+						} catch (NumberFormatException e) {
+							for (ECostiCarte cost : ECostiCarte.values()) {
+								if (inText.equalsIgnoreCase(cost.toString())) {
+									choosed.add(cost);
+									choices--;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return choosed.toArray(new ECostiCarte[choosed.size()]);
 	}
 
 	private static EAzioniGiocatore chooseGameAction() throws QuitException {

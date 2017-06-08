@@ -95,12 +95,11 @@ public enum ECostiCarte {
 		return costi;
 	}
 	
-	public static String stringify(List<ECostiCarte> costs){
-		ECostiCarte[] c = costs.toArray(new ECostiCarte[costs.size()]);
+	public static String stringify(ArrayList<ECostiCarte> costs){
 		String s = "";
 
-		for (int i = 0; i < c.length; i++) {
-			s += "[" +i +": "+ c[i].getNome() + "] ";
+		for (int i = 0; i < costs.size(); i++) {
+			s += "[" +i +": "+ costs.get(i).getNome() + "] ";
 			if (i % 7 == 0 && i != 0)
 				s += "\n";
 		}
