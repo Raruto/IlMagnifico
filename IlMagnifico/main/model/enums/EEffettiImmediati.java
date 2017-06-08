@@ -24,7 +24,7 @@ public enum EEffettiImmediati {
 	ARTIGIANO("artigiano",-1,0,0,0,0,0,0,0,0), 
 	DAMA("dama",-1,0,0,0,0,0,0,0,0), 
 	BADESSA1("badessa",0,0,0,0,0,0,0,1,0), 
-	BADESSA2("badessa",24,0,0,0,0,0,0,0,0),
+	BADESSA2("badessa",-1,0,0,0,0,0,0,0,0),
 	CAVALIERE("cavaliere",3,0,0,0,0,0,0,0,0), 
 	PREDICATORE( "predicatore",0,0,0,0,0,0,0,4,0),
 	COSTRUTTORE("costruttore",-1,0,0,0,0,0,0,0,0), 

@@ -239,7 +239,12 @@ public class Giocatore implements Serializable {
 		this.risorse.cambiaLegno(1);
 		this.risorse.cambiaPietre(1);
 		this.risorse.cambiaServitori(1);
-		Carta carta = new Carta(null, null, null, null, 0, 0) {
+		Carta carta = new Carta(null, null, null, null, 0, 0, null, 0, null, 0) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -2805833778341801826L;
 		};
 		for (int i = 0; i < getPlancia().getTerritori().size(); i++) {
 			carta = getPlancia().getTerritori().get(i);
@@ -257,7 +262,12 @@ public class Giocatore implements Serializable {
 	public void produzione(int valoreAzione) {
 		this.risorse.cambiaMonete(2);
 		this.punti.cambiaPuntiMilitari(1);
-		Carta carta = new Carta(null, null, null, null, 0, 0) {
+		Carta carta = new Carta(null, null, null, null, 0, 0, null, 0, null, 0) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4625517524205122052L;
 		};
 		for (int i = 0; i < getPlancia().getEdifici().size(); i++) {
 			carta = getPlancia().getEdifici().get(i);

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 
 import main.model.enums.EAzioniGioco;
+import main.model.enums.ECostiCarte;
+import main.model.enums.EEffettiPermanenti;
 
 /**
  * 
@@ -19,7 +21,8 @@ public abstract class Carta implements Serializable {
 	 * Default constructor
 	 */
 	public Carta(String nome, ArrayList<Object[]> acquisizione, ArrayList<Object[]> effettoImmediato,
-			ArrayList<Object[]> effettoPermanente, int valoreNecessario, int periodo) {
+			ArrayList<Object[]> effettoPermanente, int valoreNecessario, int periodo, ECostiCarte[] costi,
+			int scelteCosti, EEffettiPermanenti[] effettiPermanenti, int scelteEffettiPermanenti) {
 		this.nome = nome;
 		this.acquisizione = acquisizione;
 		this.effettoImmediato = effettoImmediato;
@@ -27,6 +30,10 @@ public abstract class Carta implements Serializable {
 		this.valoreNecessarioEffettoPermanente = valoreNecessario;
 		this.periodoCarta = periodo;
 		this.utilEffetto = new UtilEffetto();
+		this.costiDellaCartaComunicazione = costi;
+		this.numeroScelteCostiComunicazione = scelteCosti;
+		this.effettiPermanentiDelleCarteComunicazione = effettiPermanenti;
+		this.numeroScelteEffettiPermanentiComunicazione = scelteEffettiPermanenti;
 	}
 
 	/**
@@ -57,6 +64,28 @@ public abstract class Carta implements Serializable {
 	 * Periodo associato alla carta
 	 */
 	protected int periodoCarta;
+
+	/**
+	 * enum utilizzato per selezionare una opzione tramite la parte di
+	 * comunicazione
+	 */
+	protected ECostiCarte[] costiDellaCartaComunicazione;
+
+	/**
+	 * intero che indica il numero di scelte da fare sui metodi di pagamento
+	 */
+	protected int numeroScelteCostiComunicazione;
+
+	/**
+	 * enum utilizzato per selezionare una opzione tramite la parte di
+	 * comunicazione
+	 */
+	protected EEffettiPermanenti[] effettiPermanentiDelleCarteComunicazione;
+
+	/**
+	 * intero che indica il numero di scelte da fare sugli effetti permanenti
+	 */
+	protected int numeroScelteEffettiPermanentiComunicazione;
 
 	/**
 	 * 

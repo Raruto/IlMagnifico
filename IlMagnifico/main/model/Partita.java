@@ -133,7 +133,7 @@ public abstract class Partita {
 	/**
 	 * Check dell'inizio Partita
 	 * 
-	 * @return true se la partita è finita
+	 * @return true se la partita ï¿½ finita
 	 */
 	protected boolean isPartitaIniziata() {
 		return this.periodo > 0;
@@ -142,7 +142,7 @@ public abstract class Partita {
 	/**
 	 * Check dello stato del Periodo
 	 * 
-	 * @return true se il periodo corrente è terminato
+	 * @return true se il periodo corrente ï¿½ terminato
 	 */
 	protected boolean isPeriodoTerminato() {
 		return (turno == 2 && isGiroDiTurniTerminato());
@@ -151,7 +151,7 @@ public abstract class Partita {
 	/**
 	 * Check del fine Partita
 	 * 
-	 * @return true se la partita è finita
+	 * @return true se la partita ï¿½ finita
 	 */
 	protected boolean isPartitaFinita() {
 		return partitaTerminata;
@@ -165,11 +165,11 @@ public abstract class Partita {
 	}
 
 	/**
-	 * Check per determinare dell'ammissibilità del giocatore di turno
+	 * Check per determinare dell'ammissibilitï¿½ del giocatore di turno
 	 * 
 	 * @param {@link
 	 * 			Giocatore} riferimento ad giocatore presente nella partita
-	 * @return true se il giocatore passato è quello cui spetta eseguire un
+	 * @return true se il giocatore passato ï¿½ quello cui spetta eseguire un
 	 *         azione
 	 */
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
@@ -179,7 +179,7 @@ public abstract class Partita {
 	/**
 	 * Check del fine Turno
 	 * 
-	 * @return true se il turno è terminato
+	 * @return true se il turno ï¿½ terminato
 	 */
 	protected boolean isGiroDiTurniTerminato() {
 		return this.giocatoreDiTurno.equals(null);
@@ -194,19 +194,23 @@ public abstract class Partita {
 			if (carte[i].getTipoCarta() == ETipiCarte.Territorio)
 				this.mazzo.add(new Territorio(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
 						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
-						carte[i].getPeriodo()));
+						carte[i].getPeriodo(), carte[i].getCostiCarta(), carte[i].getNumScelteCosti(),
+						carte[i].getEffettiCarta(), carte[i].getNumScelteEffPermanenti()));
 			if (carte[i].getTipoCarta() == ETipiCarte.Edificio)
 				this.mazzo.add(new Edificio(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
 						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
-						carte[i].getPeriodo()));
+						carte[i].getPeriodo(), carte[i].getCostiCarta(), carte[i].getNumScelteCosti(),
+						carte[i].getEffettiCarta(), carte[i].getNumScelteEffPermanenti()));
 			if (carte[i].getTipoCarta() == ETipiCarte.Personaggio)
 				this.mazzo.add(new Personaggio(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
 						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
-						carte[i].getPeriodo()));
+						carte[i].getPeriodo(), carte[i].getCostiCarta(), carte[i].getNumScelteCosti(),
+						carte[i].getEffettiCarta(), carte[i].getNumScelteEffPermanenti()));
 			if (carte[i].getTipoCarta() == ETipiCarte.Impresa)
 				this.mazzo.add(new Impresa(carte[i].getNome(), carte[i].getCosti(), carte[i].getEffettiImmediati(),
 						carte[i].getEffettiPermanenti(), carte[i].getvaloreNecessarioAttivazione(),
-						carte[i].getPeriodo()));
+						carte[i].getPeriodo(), carte[i].getCostiCarta(), carte[i].getNumScelteCosti(),
+						carte[i].getEffettiCarta(), carte[i].getNumScelteEffPermanenti()));
 		}
 	}
 

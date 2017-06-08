@@ -203,7 +203,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void duePVxedificio(Object o[]) {// metodo numero 9
 		Giocatore giocatore = (Giocatore) (o[1]);
-		moltiplicatorePuntiVittoria(giocatore, 2, new Edificio(null, null, null, null, 0, 0));
+		moltiplicatorePuntiVittoria(giocatore, 2, new Edificio(null, null, null, null, 0, 0, null, 0, null, 0));
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void duePVxpersonaggio(Object o[]) {// metodo numero 10
 		Giocatore giocatore = (Giocatore) (o[1]);
-		moltiplicatorePuntiVittoria(giocatore, 2, new Personaggio(null, null, null, null, 0, 0));
+		moltiplicatorePuntiVittoria(giocatore, 2, new Personaggio(null, null, null, null, 0, 0, null, 0, null, 0));
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void duePVximpresa(Object o[]) {// metodo numero 11
 		Giocatore giocatore = (Giocatore) (o[1]);
-		moltiplicatorePuntiVittoria(giocatore, 2, new Impresa(null, null, null, null, 0, 0));
+		moltiplicatorePuntiVittoria(giocatore, 2, new Impresa(null, null, null, null, 0, 0, null, 0, null, 0));
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void duePVxterritorio(Object o[]) {// metodo numero 12
 		Giocatore giocatore = (Giocatore) (o[1]);
-		moltiplicatorePuntiVittoria(giocatore, 2, new Territorio(null, null, null, null, 0, 0));
+		moltiplicatorePuntiVittoria(giocatore, 2, new Territorio(null, null, null, null, 0, 0, null, 0, null, 0));
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void unPVxpersonaggio(Object o[]) {// metodo numero 13
 		Giocatore giocatore = (Giocatore) (o[1]);
-		moltiplicatorePuntiVittoria(giocatore, 1, new Personaggio(null, null, null, null, 0, 0));
+		moltiplicatorePuntiVittoria(giocatore, 1, new Personaggio(null, null, null, null, 0, 0, null, 0, null, 0));
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class UtilEffetto implements Serializable {
 	 */
 	public void unPVximpresa(Object o[]) {// metodo numero 14
 		Giocatore giocatore = (Giocatore) (o[1]);
-		moltiplicatorePuntiVittoria(giocatore, 1, new Impresa(null, null, null, null, 0, 0));
+		moltiplicatorePuntiVittoria(giocatore, 1, new Impresa(null, null, null, null, 0, 0, null, 0, null, 0));
 	}
 
 	/**
