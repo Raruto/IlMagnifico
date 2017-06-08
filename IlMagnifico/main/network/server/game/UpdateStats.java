@@ -170,7 +170,8 @@ public class UpdateStats implements Serializable {
 		// this.imprese = giocatore.getPlancia().getImprese();
 		// this.personaggi = giocatore.getPlancia().getPersonaggi();
 		// this.territori = giocatore.getPlancia().getTerritori();
-
+		
+		this.famiglia = new Famigliare[4];
 		for (int i = 0; i < 4; i++) {
 			this.famiglia[i] = giocatore.getFamigliare(i);
 		}

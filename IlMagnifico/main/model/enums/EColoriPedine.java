@@ -20,6 +20,19 @@ public enum EColoriPedine {
 		return ANSICode;
 	}
 
+	public static String stringify(int[] values) {
+		EColoriPedine[] c = EColoriPedine.values();
+		String s = "";
+
+		for (int i = 0; i < c.length; i++) {
+			s += "[" + i + ": " + c[i].getANSICode() + "♜"
+					+ ANSI.RESET /* .toString() */ + " = " + values[c[i].getIndiceColore()] + "] ";
+			if (i % 7 == 0 && i != 0)
+				s += "\n";
+		}
+		return s;
+	}
+
 	public static String stringify() {
 		EColoriPedine[] c = EColoriPedine.values();
 		String s = "";

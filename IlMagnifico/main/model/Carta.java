@@ -109,6 +109,7 @@ public abstract class Carta implements Serializable {
 		boolean controlloPunti = false;
 		for (int i = 0; i < acquisizione.size(); i++) {
 			acquisizione.get(i)[1] = giocatore;
+			if(acquisizione.get(i)[0]!=null)
 			if ((int) acquisizione.get(i)[0] == 1)
 				if (utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i))) {
 					controlloRisorse = true;

@@ -276,6 +276,7 @@ public class FakeUI {
 			try {
 				action = chooseGameAction();
 				printDices(true, false);
+				printPawns(false, false);
 
 				switch (action) {
 				case Mercato:
@@ -830,25 +831,30 @@ public class FakeUI {
 		}
 	}
 
+	private static int[] getFamilyValues() throws NullPointerException {
+		int[] familyValues = new int[4];
+		SpazioAzione board = client.getBoard();
+		try {
+			Famigliare[] family = client.getFamilies().get(client.getNickname());
+			for (int i = 0; i < family.length; i++) {
+				familyValues[i] = family[i].getValore();
+			}
+		} catch (NullPointerException e) {
+			int[] dadi = board.getValoreDadi();
+			for (int i = 0; i < dadi.length; i++) {
+				familyValues[i] = dadi[i];
+			}
+			familyValues[3] = 0;
+		}
+		return familyValues;
+	}
+
 	private static void printPawns(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 
 		try {
-			SpazioAzione board = client.getBoard();
-			int[] familyValues = new int[4];
 
-			try {
-				Famigliare[] family = client.getFamilies().get(client.getNickname());
-				for (int i = 0; i < family.length; i++) {
-					familyValues[i] = family[i].getValore();
-				}
-			} catch (NullPointerException e) {
-				int[] dadi = board.getValoreDadi();
-				for (int i = 0; i < dadi.length; i++) {
-					familyValues[i] = dadi[i];
-				}
-				familyValues[3] = 0;
-			}
+			int[] familyValues = getFamilyValues();
 
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
@@ -877,9 +883,7 @@ public class FakeUI {
 	}
 
 	private static void printTowerArea(boolean printSep1, boolean printSep2) {
-		String col1 = "", col2 = "", col3 = "", col4 = "";
-		int pad = 25;
-		String row;
+		int pad = 30;
 
 		try {
 			Client client = getClient();
@@ -894,24 +898,19 @@ public class FakeUI {
 					"Territorio: ", "Personaggio: ", "Edificio: ", "Impresa: ");
 
 			for (int i = 3; i >= 0; i--) {
-				row = ((i % 4) + 1) + ": ";
+				System.out.print("     ");
 
-				System.out.print("    ");
 				// Territorio
-				System.out.format(getANSITowerFloor(i) + "%-" + pad + "s", row + getTowerFloor(i));
-				System.out.print(ANSI.RESET);
+				System.out.print(printFloor(i, pad));
 
 				// Personaggio
-				System.out.format(getANSITowerFloor(i + 4) + " %-" + pad + "s", row + getTowerFloor(i + 4));
-				System.out.print(ANSI.RESET);
+				System.out.print(printFloor(i + 4, pad));
 
 				// Edificio
-				System.out.format(getANSITowerFloor(i + 8) + " %-" + pad + "s", row + getTowerFloor(i + 8));
-				System.out.print(ANSI.RESET);
+				System.out.print(printFloor(i + 8, pad));
 
 				// Impresa
-				System.out.format(getANSITowerFloor(i + 12) + " %-" + pad + "s", row + getTowerFloor(i + 12));
-				System.out.print(ANSI.RESET);
+				System.out.print(printFloor(i + 12, pad));
 
 				System.out.println();
 			}
@@ -923,6 +922,31 @@ public class FakeUI {
 		}
 	}
 
+	private static String printFloor(int i, int pad) {
+		String pawn = getStringifiedTowerPawn(i);
+		String row = ((i % 4) + 1) + ": ";
+		String cell = row + pawn + " " + getTowerFloor(i);
+		if (pawn != "") {
+			cell = cell + ANSI.RESET;
+		}
+
+		int diff = pad - cell.length();
+		if (pawn != "")
+			diff = diff + 19;
+		if (diff < 0)
+			diff = 0;
+		cell = cell + printSpaces(diff);
+		return cell;
+	}
+
+	private static String printSpaces(int spaces) {
+		String s = "";
+		for (int i = 0; i < spaces; i++) {
+			s += " ";
+		}
+		return s;
+	}
+
 	private static String getTowerFloor(int floor) {
 		Client client = getClient();
 		SpazioAzione board = client.getBoard();
@@ -931,14 +955,24 @@ public class FakeUI {
 		if (board.getCartaTorre(floor) != null)
 			col = board.getCartaTorre(floor).getNome();
 		else if (board.getFamigliareTorre(floor) != null) {
-			col = board.getFamigliareTorre(floor).getGiocatore().getNome();
+			col = "";// board.getFamigliareTorre(floor).getGiocatore().getNome();
 		} else
 			col = null;
 		return col;
 	}
 
-	private static String getANSITowerFloor(int floor) {
-		return getANSIPawn(getClient().getBoard().getFamigliareTorre(floor));
+	private static String getStringifiedTowerPawn(int floor) {
+		SpazioAzione board = getClient().getBoard();
+		Famigliare fam = board.getFamigliareTorre(floor);
+		if (fam != null) {
+
+			return getStringifiedPawn(fam);
+			/*
+			 * String ansi = getANSIPawn(fam); String pawn = "♜"; return ansi +
+			 * pawn;
+			 */
+		}
+		return "";
 	}
 
 	private static String getANSIPawn(Famigliare fam) {
@@ -953,7 +987,7 @@ public class FakeUI {
 	}
 
 	private static String getStringifiedPawn(Famigliare fam) {
-		return getANSIPawn(fam) + printPawn(fam.getColoreFamigliare()) + ANSI.RESET;
+		return getANSIPawn(fam) + "♜" + " " + fam.getGiocatore().getNome() + ANSI.RESET;
 	}
 
 	private static void printProductionArea(boolean printSep1, boolean printSep2) {
