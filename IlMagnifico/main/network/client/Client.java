@@ -289,6 +289,13 @@ public class Client implements IClient {
 		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		requestedAction.supportaChiesa(isSupported);
 	}
+	
+	public void incrementPawnValue(EColoriPedine color, int servants) {
+		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.AumentaValoreFamigliare);
+		requestedAction.aumentaValorePedina(color, servants);
+		performGameAction(requestedAction);
+	}
+
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Metodi invocati sul Client Controller (vedi RMIClient, SocketClient)

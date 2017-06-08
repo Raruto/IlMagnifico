@@ -235,6 +235,11 @@ public class UpdateStats implements Serializable {
 		return this.posizionePedinaSpostata;
 	}
 
+	public void aumentaValorePedina(EColoriPedine color, int servants) {
+		this.colorePedinaSpostata = color;
+		this.servitoriDaPagare = servants;
+	}
+
 	public int getIndiceColorePedina() {
 		return this.colorePedinaSpostata.getIndiceColore();
 	}
@@ -302,10 +307,6 @@ public class UpdateStats implements Serializable {
 
 	public void getScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti) {
 		this.scelteEffettiPermanenti = scelteEffettiPermanenti;
-	}
-
-	public void setServitoriDaPagare(int servitoriDaPagare) {
-		this.servitoriDaPagare = servitoriDaPagare;
 	}
 
 	public int getServitoriDaPagare() {
