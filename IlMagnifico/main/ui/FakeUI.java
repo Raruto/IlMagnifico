@@ -20,7 +20,6 @@ import main.network.server.Server;
 import main.network.server.ServerException;
 import main.util.ANSI;
 import main.util.Costants;
-import main.util.StringAlign;
 
 /**
  * Classe di comodo per simulare l'interazione da parte del CLIENT verso il
@@ -894,7 +893,6 @@ public class FakeUI {
 					ANSI.YELLOW + "     %-" + pad + "s%-" + pad + "s%-" + pad + "s%-" + pad + "s\n" + ANSI.RESET,
 					"Territorio: ", "Personaggio: ", "Edificio: ", "Impresa: ");
 
-			StringAlign util;
 			for (int i = 3; i >= 0; i--) {
 				row = ((i % 4) + 1) + ": ";
 
