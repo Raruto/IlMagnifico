@@ -55,17 +55,19 @@ public enum ECostiCarte {
 	public ArrayList<Object[]> getCosti() {
 		ArrayList<Object[]> costi = new ArrayList<Object[]>();
 		costi.add(new Object[13]);
-		for (int i = 0; i < 13; i++) {
-			costi.get(0)[i] = new Object();
+		if (this.costoMonete > 0 | this.costoLegno > 0 | this.costoPietra > 0 | this.costoServitori > 0) {
+			for (int i = 0; i < 13; i++) {
+				costi.get(0)[i] = new Object();
+			}
+			costi.get(0)[0] = 1;
+			costi.get(0)[5] = this.costoMonete;
+			costi.get(0)[6] = this.costoLegno;
+			costi.get(0)[7] = this.costoPietra;
+			costi.get(0)[8] = this.costoServitori;
+			costi.get(0)[9] = 0;
+			costi.get(0)[10] = 0;
+			costi.get(0)[11] = 0;
 		}
-		costi.get(0)[0] = 1;
-		costi.get(0)[5] = this.costoMonete;
-		costi.get(0)[6] = this.costoLegno;
-		costi.get(0)[7] = this.costoPietra;
-		costi.get(0)[8] = this.costoServitori;
-		costi.get(0)[9] = 0;
-		costi.get(0)[10] = 0;
-		costi.get(0)[11] = 0;
 		if (this.costoPM > 0) {
 			costi.add(new Object[13]);
 			for (int i = 0; i < 13; i++) {
