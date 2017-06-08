@@ -210,23 +210,20 @@ public enum ECarte {
 	}
 
 	public ArrayList<ECostiCarte> getCostiCarta() {
-		int j = 0;
-		ECostiCarte[] arrayCosti = new ECostiCarte[2];
+		ArrayList<ECostiCarte> arrayCosti = new ArrayList<ECostiCarte>();
 		for (int i = 0; i < ECostiCarte.values().length; i++) {
 			if (ECostiCarte.values()[i].getNome() == this.nome) {
-				arrayCosti[j] = ECostiCarte.values()[i];
+				arrayCosti.add(ECostiCarte.values()[i]);
 			}
 		}
 		return arrayCosti;
 	}
-	
-	public EEffettiPermanenti[] getEffettiCarta(){
-		int j = 0;
-		EEffettiPermanenti[] arrayCosti = new EEffettiPermanenti[2];
+
+	public ArrayList<EEffettiPermanenti> getEffettiCarta() {
+		ArrayList<EEffettiPermanenti> arrayCosti = new ArrayList<EEffettiPermanenti>();
 		for (int i = 0; i < EEffettiPermanenti.values().length; i++) {
 			if (EEffettiPermanenti.values()[i].getNome() == this.nome) {
-				arrayCosti[j] = EEffettiPermanenti.values()[i];
-				j++;
+				arrayCosti.add(EEffettiPermanenti.values()[i]);
 			}
 		}
 		return arrayCosti;

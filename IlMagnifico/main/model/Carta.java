@@ -22,8 +22,8 @@ public abstract class Carta implements Serializable {
 	 * Default constructor
 	 */
 	public Carta(String nome, ArrayList<Object[]> acquisizione, ArrayList<Object[]> effettoImmediato,
-			ArrayList<Object[]> effettoPermanente, int valoreNecessario, int periodo, ECostiCarte[] costi,
-			int scelteCosti, EEffettiPermanenti[] effettiPermanenti, int scelteEffettiPermanenti) {
+			ArrayList<Object[]> effettoPermanente, int valoreNecessario, int periodo, ArrayList<ECostiCarte> costi,
+			int scelteCosti, ArrayList<EEffettiPermanenti> effettiPermanenti, int scelteEffettiPermanenti) {
 		this.nome = nome;
 		this.acquisizione = acquisizione;
 		this.effettoImmediato = effettoImmediato;
@@ -70,7 +70,7 @@ public abstract class Carta implements Serializable {
 	 * enum utilizzato per selezionare una opzione tramite la parte di
 	 * comunicazione
 	 */
-	protected ECostiCarte[] costiDellaCartaComunicazione;
+	protected ArrayList<ECostiCarte> costiDellaCartaComunicazione;
 
 	/**
 	 * intero che indica il numero di scelte da fare sui metodi di pagamento
@@ -81,7 +81,7 @@ public abstract class Carta implements Serializable {
 	 * enum utilizzato per selezionare una opzione tramite la parte di
 	 * comunicazione
 	 */
-	protected EEffettiPermanenti[] effettiPermanentiDelleCarteComunicazione;
+	protected ArrayList<EEffettiPermanenti> effettiPermanentiDelleCarteComunicazione;
 
 	/**
 	 * intero che indica il numero di scelte da fare sugli effetti permanenti

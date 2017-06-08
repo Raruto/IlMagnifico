@@ -17,7 +17,8 @@ public class Personaggio extends Carta {
 
 	public Personaggio(String nome, ArrayList<Object[]> acquisizione, ArrayList<Object[]> effettoImmediato,
 			ArrayList<Object[]> effettoPermanente, int valoreNecessarioeffettoPermanente, int periodoCarta,
-			ECostiCarte[] costi, int scelteCosti, EEffettiPermanenti[] effettiPermanenti, int scelteEffettiPermanenti) {
+			ArrayList<ECostiCarte> costi, int scelteCosti, ArrayList<EEffettiPermanenti> effettiPermanenti,
+			int scelteEffettiPermanenti) {
 		super(nome, acquisizione, effettoImmediato, effettoPermanente, valoreNecessarioeffettoPermanente, periodoCarta,
 				costi, scelteCosti, effettiPermanenti, scelteEffettiPermanenti);
 	}
