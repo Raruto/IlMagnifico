@@ -466,6 +466,12 @@ public abstract class Partita {
 		Random random = new Random();
 		for (int i = 0; i < 3; i++) {
 			valoreDado = random.nextInt(6) + 1;
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			for (int j = 0; j < this.giocatori.size(); j++) {
 				this.giocatori.get(j).setValore(i, valoreDado);
 				this.spazioAzione.setValoreDadi(valoreDado, i);
