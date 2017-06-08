@@ -19,6 +19,8 @@ import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
 import main.util.ANSI;
 import main.util.Costants;
+import main.util.StringAlign;
+import main.util.StringAlign.Alignment;
 
 /**
  * Classe di comodo per simulare l'interazione da parte del CLIENT verso il
@@ -726,25 +728,40 @@ public class FakeUI {
 
 	private static void printTowerArea(boolean printSep1, boolean printSep2) {
 		String col1 = "", col2 = "", col3 = "", col4 = "";
+		int pad = 30, cpad1 = pad, cpad2 = pad, cpad3 = pad, cpad4 = pad;
 		String row;
 
 		try {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.format(ANSI.YELLOW + "     %-30s%-30s%-30s%-30s\n" + ANSI.RESET, "Territorio: ", "Personaggio: ",
-					"Edificio: ", "Impresa: ");
+			System.out.format(
+					ANSI.YELLOW + "     %-" + pad + "s%-" + pad + "s%-" + pad + "s%-" + pad + "s\n" + ANSI.RESET,
+					"Territorio: ", "Personaggio: ", "Edificio: ", "Impresa: ");
+
+			StringAlign util;
 			for (int i = 3; i >= 0; i--) {
-				// Territorio
-				col1 = getTowerFloor(i);
-				// Personaggio
-				col2 = getTowerFloor(i + 4);
-				// Edificio
-				col3 = getTowerFloor(i + 8);
-				// Impresa
-				col4 = getTowerFloor(i + 12);
 				row = ((i % 4) + 1) + ": ";
-				System.out.format("  %-30s%-30s%-30s%-30s\n", row + col1, row + col2, row + col3, row + col4);
+
+				// Territorio
+				col1 = row + getTowerFloor(i);
+				// cpad1 = pad - col1.length();
+				// Personaggio
+				col2 = row + getTowerFloor(i + 4);
+				// cpad2 = pad - col2.length();
+				// Edificio
+				col3 = row + getTowerFloor(i + 8);
+				// cpad3 = pad - col3.length();
+				// Impresa
+				col4 = row + getTowerFloor(i + 12);
+				// cpad4 = pad - col4.length();
+
+				// util = new StringAlign(30, Alignment.LEFT);
+				// System.out.println(" "+ util.format(col1) + util.format(col2)
+				// + util.format(col3) + util.format(col4));
+
+				System.out.format(" %-" + cpad1 + "s%-" + cpad2 + "s%-" + cpad3 + "s%-" + cpad4 + "s\n", col1, col2,
+						col3, col4);
 			}
 
 			if (printSep2)
@@ -761,9 +778,9 @@ public class FakeUI {
 		String col;
 		if (board.getCartaTorre(floor) != null)
 			col = board.getCartaTorre(floor).getNome();
-		else if (board.getFamigliareTorre(floor) != null)
+		else if (board.getFamigliareTorre(floor) != null) {
 			col = getStringifiedPawn(board.getFamigliareTorre(floor));
-		else
+		} else
 			col = null;
 		return col;
 	}

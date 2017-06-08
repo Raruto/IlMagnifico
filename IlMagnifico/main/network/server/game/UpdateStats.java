@@ -15,6 +15,8 @@ import main.model.SpazioAzione;
 import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
+import main.model.enums.ECostiCarte;
+import main.model.enums.EEffettiPermanenti;
 import main.model.enums.EFasiDiGioco;
 import main.model.enums.EPunti;
 import main.model.enums.ERisorse;
@@ -56,7 +58,7 @@ public class UpdateStats implements Serializable {
 	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
 
 	/**
-	 * True se la Chiesa è stata supportata dal giocatore.
+	 * True se la Chiesa ï¿½ stata supportata dal giocatore.
 	 */
 	private boolean supportoChiesa;
 
@@ -102,6 +104,10 @@ public class UpdateStats implements Serializable {
 	private SpazioAzione spazioAzione;
 
 	private PlayerColors coloreGiocatore;
+
+	private ECostiCarte[] scelteCosti;
+
+	private EEffettiPermanenti[] scelteEffettiPermanenti;
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -278,5 +284,19 @@ public class UpdateStats implements Serializable {
 
 	public void setSceltePrivilegiConsiglio(ESceltePrivilegioDelConsiglio[] scelte) {
 		this.sceltePrivilegiConsiglio = scelte;
+	}
+
+	public ECostiCarte[] getScelteCosti() {
+		return this.scelteCosti;
+	}
+	public void setScelteCosti(ECostiCarte[] scelteCosti) {
+		this.scelteCosti = scelteCosti;
+	}
+	
+	public EEffettiPermanenti[] getScelteEffettiPermanenti(){
+		return this.scelteEffettiPermanenti;
+	}
+	public void getScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti){
+		this.scelteEffettiPermanenti = scelteEffettiPermanenti;
 	}
 }

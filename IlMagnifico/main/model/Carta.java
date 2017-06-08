@@ -310,4 +310,13 @@ public abstract class Carta implements Serializable {
 	public ArrayList<Object[]> getAcquisizione() {
 		return this.acquisizione;
 	}
+
+	
+	public int getNumeroScelteCosti() {
+		return this.numeroScelteCostiComunicazione;
+	}
+	
+	public int getNumeroScelteEffettiPermanentiComunicazione(){
+		return this.numeroScelteEffettiPermanentiComunicazione;
+	}
 }
