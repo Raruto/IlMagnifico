@@ -209,13 +209,12 @@ public enum ECarte {
 		return this.numScelteEffPermanenti;
 	}
 
-	public ECostiCarte[] getCostiCarta() {
+	public ArrayList<ECostiCarte> getCostiCarta() {
 		int j = 0;
 		ECostiCarte[] arrayCosti = new ECostiCarte[2];
 		for (int i = 0; i < ECostiCarte.values().length; i++) {
 			if (ECostiCarte.values()[i].getNome() == this.nome) {
 				arrayCosti[j] = ECostiCarte.values()[i];
-				j++;
 			}
 		}
 		return arrayCosti;

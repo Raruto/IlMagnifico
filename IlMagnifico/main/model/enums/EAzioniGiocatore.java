@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public enum EAzioniGiocatore {
 
-	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre, SostegnoChiesa;
+	Produzione, ProduzioneOvale, RaccoltoOvale, Raccolto, Mercato, PalazzoConsiglio, Torre, SostegnoChiesa,AumentaValoreFamigliare;
 
 	public static String stringify() {
 		return stringify(new ArrayList<EAzioniGiocatore>());

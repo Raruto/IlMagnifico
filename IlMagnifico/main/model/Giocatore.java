@@ -141,11 +141,11 @@ public class Giocatore implements Serializable {
 	/**
 	 * @return
 	 */
-	public void pagaServitore(Famigliare famigliare) throws NoEnoughResourcesException {
-		int servitoriDaPagare = 1;
+	public void pagaServitore(Famigliare famigliare, int valore) throws NoEnoughResourcesException {
+		int servitoriDaPagare = valore;
 		if (this.scomuniche[1] != null)
 			if (this.scomuniche[1].attivaOnPagaServitore())
-				servitoriDaPagare++;
+				servitoriDaPagare = servitoriDaPagare * 2;
 		if (this.risorse.getServitori() < servitoriDaPagare)
 			throw new NoEnoughResourcesException();
 		else {
