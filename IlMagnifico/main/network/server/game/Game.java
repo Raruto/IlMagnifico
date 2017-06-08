@@ -300,7 +300,7 @@ public class Game extends Partita {
 	private UpdateStats onTower(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina())
-					.eseguiSpostamentoTorre(update.getPosizioneSpostamentoPedina());
+					.eseguiSpostamentoTorre(update.getPosizioneSpostamentoPedina(), update.getScelteCosti());
 		} catch (InsufficientValueException e) {
 			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (NullCardException e1) {

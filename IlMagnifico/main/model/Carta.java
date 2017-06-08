@@ -199,9 +199,6 @@ public abstract class Carta implements Serializable {
 	 * 
 	 */
 	public void acquisizione(Giocatore giocatore, ECostiCarte costoScelto) throws NoEnoughResourcesException {
-		// TODO:se il giocatore puo' pagare in un solo modo non ci sono
-		// problemi,
-		// ma se puo' pagare in tutti e due i modi deve potere decidere
 		if (costoScelto == this.costiDellaCartaComunicazione[0])
 			if ((int) (acquisizione.get(0)[0]) == 0) {
 				utilEffetto.aggiungiRisorse(acquisizione.get(0));
@@ -209,8 +206,13 @@ public abstract class Carta implements Serializable {
 				throw new NoEnoughResourcesException();
 		else if ((int) (acquisizione.get(1)[0]) == 0) {
 			utilEffetto.aggiungiRisorse(acquisizione.get(1));
+		} else if (costoScelto == null) {
+			if ((int) (acquisizione.get(0)[0]) == 0) {
+				utilEffetto.aggiungiRisorse(acquisizione.get(0));
+			}
 		} else
 			throw new NoEnoughResourcesException();
+
 	}
 
 	/**
@@ -315,12 +317,11 @@ public abstract class Carta implements Serializable {
 		return this.acquisizione;
 	}
 
-	
 	public int getNumeroScelteCosti() {
 		return this.numeroScelteCostiComunicazione;
 	}
-	
-	public int getNumeroScelteEffettiPermanentiComunicazione(){
+
+	public int getNumeroScelteEffettiPermanentiComunicazione() {
 		return this.numeroScelteEffettiPermanentiComunicazione;
 	}
 }

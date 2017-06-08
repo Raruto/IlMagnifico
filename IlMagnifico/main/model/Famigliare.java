@@ -70,7 +70,7 @@ public class Famigliare implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void eseguiSpostamentoTorre(int posizione, ECostiCarte costoScelto) throws FamiliarAlreadyUsedException,
+	public void eseguiSpostamentoTorre(int posizione, ECostiCarte[] costiScelti) throws FamiliarAlreadyUsedException,
 			SpazioOccupatoException, SameAreaException, InvalidPositionException, InsufficientValueException,
 			NoMoneyException, NoEnoughResourcesException, MaxCardsReachedException, NullCardException {
 		int identificativoTorre = 0;
@@ -120,7 +120,8 @@ public class Famigliare implements Serializable {
 		if (!spazioAzione.getCartaTorre(posizione).acquisibile(famigliareTemporaneo.giocatoreAppartenenza))
 			throw new NoEnoughResourcesException();
 		else {
-			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza, costoScelto);
+			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza,
+					costiScelti[0]);
 			// devo applicare tutte le modifiche al mio giocatore di partenza
 			mergeFamigliari(famigliareTemporaneo);
 			prendiCartaDallaTorre(identificativoTorre, spazioAzione, posizione);
