@@ -326,11 +326,11 @@ public abstract class Carta implements Serializable {
 		return this.numeroScelteEffettiPermanentiComunicazione;
 	}
 
-	public ECostiCarte[] getCostiCarta() {
+	public ArrayList<ECostiCarte> getCostiCarta() {
 		return costiDellaCartaComunicazione;
 	}
 
-	public EEffettiPermanenti[] getEffettiPermanentiCarta() {
+	public ArrayList<EEffettiPermanenti> getEffettiPermanentiCarta() {
 		return effettiPermanentiDelleCarteComunicazione;
 	}
 }
