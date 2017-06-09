@@ -121,9 +121,9 @@ public class Game extends Partita {
 	 * passando al giocatore successivo) inviando una notifica sullo stato della
 	 * partita (es. fine periodo, fine partita...)
 	 */
-	private void andvanceInGameLogic() {
+	private void andvanceInGameLogic(EAzioniGiocatore azione) {
 		UpdateStats update;
-
+if(azione!=EAzioniGiocatore.Famigliare){
 		if (!isGiroDiTurniTerminato()) {
 			avanzaDiTurno();
 			update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
@@ -158,7 +158,7 @@ public class Game extends Partita {
 					// terminaPartita();
 					update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
 					dispatchGameUpdate(update);
-
+				}
 				}
 			}
 		}
@@ -202,7 +202,7 @@ public class Game extends Partita {
 			// Se tutto va a buon fine (azione valida = non scatena nessuna
 			// eccezione), fa avanzare lo stato interno della partita
 			// (es. notifico al prossimo giocatore che e' il suo turno).
-			andvanceInGameLogic();
+			andvanceInGameLogic(update.getAzioneGiocatore());
 		} else {
 			throw new GameException(e.toString());
 		}
