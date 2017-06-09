@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import main.model.Famigliare;
 import main.model.Plancia;
+import main.model.Punti;
 import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
@@ -70,6 +71,10 @@ public class Client implements IClient {
 
 	private HashMap<String, Famigliare[]> families;
 	
+	private HashMap<String, Risorsa> resources;
+	
+	private HashMap<String, Punti> points;
+	
 	private String playerTurn;
 
 	/**
@@ -77,16 +82,24 @@ public class Client implements IClient {
 	 */
 	private final boolean LOG_ENABLED = Costants.CLIENT_ENABLE_LOG;
 
-	public SpazioAzione getBoard() {
+	public SpazioAzione getGameBoard() {
 		return this.board;
 	}
 
-	public HashMap<String, Plancia> getDashboards() {
+	public HashMap<String, Plancia> getPlayersDashboards() {
 		return this.dashboards;
 	}
 
-	public HashMap<String, Famigliare[]> getFamilies() {
+	public HashMap<String, Famigliare[]> getPlayersFamilies() {
 		return this.families;
+	}
+
+	public HashMap<String, Risorsa> getPlayersResources() {
+		return this.resources;
+	}
+
+	public HashMap<String, Punti> getPlayersPoints() {
+		return this.points;
 	}
 
 	public String getPlayerTurn() {
@@ -105,6 +118,8 @@ public class Client implements IClient {
 
 		dashboards = new HashMap<>();
 		families = new HashMap<>();
+		resources= new HashMap<>();
+		points = new HashMap<>();
 
 		responseMap = new HashMap<>();
 		loadResponses();
@@ -368,8 +383,14 @@ public class Client implements IClient {
 		this.board = update.getSpazioAzione();
 		if (update.getPlanciaGiocatore() != null)
 			this.dashboards.put(playerName, update.getPlanciaGiocatore());
-		if (update.getFamiglia() != null)
-			this.families.put(playerName, update.getFamiglia());
+		if (update.getFamigliaGiocatore() != null)
+			this.families.put(playerName, update.getFamigliaGiocatore());
+		
+		if (update.getRisorseGiocatore() != null)
+			this.resources.put(playerName, update.getRisorseGiocatore());
+		if (update.getPuntiGiocatore() != null)
+			this.points.put(playerName, update.getPuntiGiocatore());
+
 
 		// handle server response
 		if (update.getAzioneGiocatore() != null) {
@@ -470,6 +491,11 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
+		this.resources = update.getRisorseGiocatori();
+		this.points = update.getPuntiGiocatori();
+		this.families = update.getFamiglieGiocatori();
+		this.dashboards = update.getPlanceGiocatori();
+		
 		System.out.print("(" + update.getNomiGiocatori().size() + "G): ");
 		for (String s : update.getNomiGiocatori()) {
 			System.out.print(s + ", ");

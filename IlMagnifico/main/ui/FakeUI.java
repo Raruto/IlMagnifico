@@ -11,6 +11,8 @@ import main.model.Famigliare;
 import main.model.Impresa;
 import main.model.Personaggio;
 import main.model.Plancia;
+import main.model.Punti;
+import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
@@ -226,7 +228,7 @@ public class FakeUI {
 				break;
 
 			case "dash":
-				FakeUI.printDashBoard(true, true);
+				FakeUI.printDashBoard();
 				break;
 
 			case "cards":
@@ -291,6 +293,7 @@ public class FakeUI {
 				action = chooseGameAction();
 				printDices(true, false);
 				printPawns(false, false);
+				printPointsAndResources(true, false);
 
 				switch (action) {
 				case Mercato:
@@ -459,7 +462,7 @@ public class FakeUI {
 
 	private static ECostiCarte[] chooseCardCost(int position) throws QuitException {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 		List<ECostiCarte> costs;
 		List<ECostiCarte> choosed = new ArrayList<ECostiCarte>();
 
@@ -840,7 +843,7 @@ public class FakeUI {
 
 	private static void printDices(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 
 		try {
 			if (printSep1)
@@ -864,9 +867,9 @@ public class FakeUI {
 
 	private static int[] getFamilyValues() throws NullPointerException {
 		int[] familyValues = new int[4];
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 		try {
-			Famigliare[] family = client.getFamilies().get(client.getNickname());
+			Famigliare[] family = client.getPlayersFamilies().get(client.getNickname());
 			for (int i = 0; i < family.length; i++) {
 				familyValues[i] = family[i].getValore();
 			}
@@ -969,7 +972,7 @@ public class FakeUI {
 
 	private static String getTowerFloor(int floor) {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 
 		String col;
 		if (board.getCartaTorre(floor) != null)
@@ -982,7 +985,7 @@ public class FakeUI {
 	}
 
 	private static String getStringifiedTowerPawn(int floor) {
-		SpazioAzione board = getClient().getBoard();
+		SpazioAzione board = getClient().getGameBoard();
 		Famigliare fam = board.getFamigliareTorre(floor);
 		if (fam != null) {
 			return getStringifiedPawn(fam);
@@ -1007,7 +1010,7 @@ public class FakeUI {
 
 	private static void printProductionArea(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 		Famigliare zona1;
 		ArrayList<Famigliare> zona2;
 
@@ -1040,7 +1043,7 @@ public class FakeUI {
 
 	private static void printHarvestArea(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 
 		Famigliare zona1;
 		ArrayList<Famigliare> zona2;
@@ -1074,7 +1077,7 @@ public class FakeUI {
 
 	private static void printMarketArea(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 
 		Famigliare[] zona;
 
@@ -1103,7 +1106,7 @@ public class FakeUI {
 
 	private static void printCouncilArea(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
-		SpazioAzione board = client.getBoard();
+		SpazioAzione board = client.getGameBoard();
 
 		ArrayList<Famigliare> zona;
 
@@ -1134,13 +1137,18 @@ public class FakeUI {
 	// Command: [dash]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	private static void printDashBoard(boolean printSep1, boolean printSep2) {
+	private static void printDashBoard() {
+		printDashboardsCards(true, false);
+		printPointsAndResources(true, true);
+	}
+
+	private static void printDashboardsCards(boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		try {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			Plancia dash = client.getDashboards().get(client.getNickname());
+			Plancia dash = client.getPlayersDashboards().get(client.getNickname());
 			if (dash != null) {
 				ArrayList<Territorio> territori = dash.getTerritori();
 				ArrayList<Personaggio> personaggi = dash.getPersonaggi();
@@ -1173,6 +1181,38 @@ public class FakeUI {
 				System.out.println(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
 				System.out.println(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
 			}
+			if (printSep2)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
+	}
+
+	private static void printPointsAndResources(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		try {
+			if (printSep1)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+			Punti points = client.getPlayersPoints().get(client.getNickname());
+			Risorsa resources = client.getPlayersResources().get(client.getNickname());
+
+			if (points != null && resources != null) {
+				System.out.print(ANSI.YELLOW);
+				System.out.format("%-18s", "Risorse e Punti: ");
+				System.out.print(ANSI.RESET);
+				System.out.format("Legno%-7s", " = " + resources.getLegno());
+				System.out.format("Monete%-7s", " = " + resources.getMonete());
+				System.out.format("Pietre%-7s", " = " + resources.getPietre());
+				System.out.format("Servitori%-7s", " = " + resources.getServitori());
+
+				System.out.format("PuntiFede%-7s", " = " + points.getPuntiFede());
+				System.out.format("PuntiMilitari%-7s", " = " + points.getPuntiMilitari());
+				System.out.format("PuntiVittoria%-7s", " = " + points.getPuntiVittoria());
+				System.out.println();
+			}
+
 			if (printSep2)
 				System.out.println(Costants.ROW_SEPARATOR);
 

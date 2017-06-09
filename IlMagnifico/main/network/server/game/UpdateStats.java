@@ -19,11 +19,8 @@ import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
 import main.model.enums.EFasiDiGioco;
-import main.model.enums.EPunti;
-import main.model.enums.ERisorse;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.PlayerColors;
-import res.old.main.model.game.players.PuntiGiocatore;
 
 public class UpdateStats implements Serializable {
 
@@ -66,13 +63,11 @@ public class UpdateStats implements Serializable {
 	/**
 	 * {@link Punti} del giocatore che ha eseguito l'azione
 	 */
-	// private HashMap<EPunti, Integer> puntiGiocatore;
 	private Punti puntiGiocatore;
 
 	/**
 	 * {@link Risorsa} del giocatore che ha eseguito l'azione
 	 */
-	// private HashMap<ERisorse, Integer> risorseGiocatore;
 	private Risorsa risorseGiocatore;
 
 	/**
@@ -80,15 +75,11 @@ public class UpdateStats implements Serializable {
 	 */
 	private Plancia planciaGiocatore;
 
-	private Famigliare[] famiglia;
-
 	/**
-	 * {@link Plancia} del giocatore che ha eseguito l'azione.
+	 * Famigliari del giocatore che ha eseguito l'azione (vedi
+	 * {@link Famigliare}).
 	 */
-	private ArrayList<Edificio> edifici;
-	private ArrayList<Impresa> imprese;
-	private ArrayList<Personaggio> personaggi;
-	private ArrayList<Territorio> territori;
+	private Famigliare[] famigliaGiocatore;
 
 	/**
 	 * Fase di gioco eseguita dal server (vedi {@link EFasiDiGioco}).
@@ -100,6 +91,26 @@ public class UpdateStats implements Serializable {
 	 * notificare giocatori connessi).
 	 */
 	private ArrayList<String> nomiGiocatori;
+
+	/**
+	 * Punti dei giocatori (vedi {@link Punti}).
+	 */
+	private HashMap<String, Punti> puntiGiocatori;
+
+	/**
+	 * Risorse dei giocatori (vedi {@link Risorsa}).
+	 */
+	private HashMap<String, Risorsa> risorseGiocatori;
+
+	/**
+	 * Plance dei giocatori (vedi {@link Plancia}).
+	 */
+	private HashMap<String, Plancia> planceGiocatori;
+
+	/**
+	 * Famigliari dei giocatori (vedi {@link Famigliare}).
+	 */
+	private HashMap<String, Famigliare[]> famiglieGiocatori;
 
 	/**
 	 * {@link SpazioAzione} aggiornata.
@@ -147,33 +158,17 @@ public class UpdateStats implements Serializable {
 	 */
 	public UpdateStats(Giocatore giocatore, EAzioniGiocatore azione, SpazioAzione spazioAzione) {
 		this.azioneGiocatore = azione;
+
 		this.nomeGiocatore = giocatore.getNome();
 		this.coloreGiocatore = giocatore.getColore();
 
 		this.puntiGiocatore = giocatore.getPunti();
-		// this.puntiGiocatore = new HashMap<EPunti, Integer>();
-		// Punti p = giocatore.getPunti();
-		// this.puntiGiocatore.put(EPunti.Fede, p.getPuntiFede());
-		// this.puntiGiocatore.put(EPunti.Militare, p.getPuntiMilitari());
-		// this.puntiGiocatore.put(EPunti.Vittoria, p.getPuntiVittoria());
-
 		this.risorseGiocatore = giocatore.getRisorse();
-		// this.risorseGiocatore = new HashMap<ERisorse, Integer>();
-		// Risorsa r = giocatore.getRisorse();
-		// this.risorseGiocatore.put(ERisorse.Legno, r.getLegno());
-		// this.risorseGiocatore.put(ERisorse.Moneta, r.getMonete());
-		// this.risorseGiocatore.put(ERisorse.Pietra, r.getPietre());
-		// this.risorseGiocatore.put(ERisorse.Servitore, r.getServitori());
-
 		this.planciaGiocatore = giocatore.getPlancia();
-		// this.edifici = giocatore.getPlancia().getEdifici();
-		// this.imprese = giocatore.getPlancia().getImprese();
-		// this.personaggi = giocatore.getPlancia().getPersonaggi();
-		// this.territori = giocatore.getPlancia().getTerritori();
-		
-		this.famiglia = new Famigliare[4];
+
+		this.famigliaGiocatore = new Famigliare[4];
 		for (int i = 0; i < 4; i++) {
-			this.famiglia[i] = giocatore.getFamigliare(i);
+			this.famigliaGiocatore[i] = giocatore.getFamigliare(i);
 		}
 
 		this.spazioAzione = spazioAzione;
@@ -195,11 +190,29 @@ public class UpdateStats implements Serializable {
 		this.faseDiGioco = fase;
 
 		this.nomiGiocatori = new ArrayList<String>();
+
+		this.puntiGiocatori = new HashMap<String, Punti>();
+		this.risorseGiocatori = new HashMap<String, Risorsa>();
+		this.planceGiocatori = new HashMap<String, Plancia>();
+		this.famiglieGiocatori = new HashMap<String, Famigliare[]>();
+
+		Famigliare[] famiglia;
+		String nome;
 		for (Giocatore giocatore : giocatori) {
-			this.nomiGiocatori.add(giocatore.getNome());
+			this.nomiGiocatori.add(nome = giocatore.getNome());
+
+			this.puntiGiocatori.put(nome, giocatore.getPunti());
+			this.risorseGiocatori.put(nome, giocatore.getRisorse());
+			this.planceGiocatori.put(nome, giocatore.getPlancia());
+			famiglia = new Famigliare[4];
+			for (int i = 0; i < 4; i++) {
+				famiglia[i] = giocatore.getFamigliare(i);
+			}
+
+			this.famiglieGiocatori.put(nome, famiglia);
 		}
 	}
-	
+
 	public EAzioniGiocatore getAzioneGiocatore() {
 		return azioneGiocatore;
 	}
@@ -220,33 +233,25 @@ public class UpdateStats implements Serializable {
 		return spazioAzione;
 	}
 
-	public void setSpazioAzione(SpazioAzione spazioAzione) {
-		this.spazioAzione = spazioAzione;
-	}
-
 	public EFasiDiGioco getAzioneServer() {
 		return faseDiGioco;
-	}
-
-	public void setAzioneServer(EFasiDiGioco azioneServer) {
-		this.faseDiGioco = azioneServer;
 	}
 
 	public Punti getPuntiGiocatore() {
 		return this.puntiGiocatore;
 	}
-	/*
-	 * public HashMap<EPunti, Integer> getPuntiGiocatore() { return
-	 * puntiGiocatore; }
-	 */
 
 	public Risorsa getRisorseGiocatore() {
 		return this.risorseGiocatore;
 	}
-	/*
-	 * public HashMap<ERisorse, Integer> getRisorseGiocatore() { return
-	 * risorseGiocatore; }
-	 */
+
+	public Plancia getPlanciaGiocatore() {
+		return this.planciaGiocatore;
+	}
+
+	public Famigliare[] getFamigliaGiocatore() {
+		return this.famigliaGiocatore;
+	}
 
 	public int getPosizioneSpostamentoPedina() {
 		return this.posizionePedinaSpostata;
@@ -272,22 +277,6 @@ public class UpdateStats implements Serializable {
 
 	public void supportaChiesa(boolean supportoChiesa) {
 		this.supportoChiesa = supportoChiesa;
-	}
-
-	public ArrayList<Edificio> getEdificiGiocatore() {
-		return edifici;
-	}
-
-	public ArrayList<Impresa> getImpreseGiocatore() {
-		return imprese;
-	}
-
-	public ArrayList<Personaggio> getPersonaggiGiocatore() {
-		return personaggi;
-	}
-
-	public ArrayList<Territorio> getTerritoriGiocatore() {
-		return territori;
 	}
 
 	public void addToNomiGiocatori(String nomeGiocatore) {
@@ -330,11 +319,20 @@ public class UpdateStats implements Serializable {
 		return this.servitoriDaPagare;
 	}
 
-	public Plancia getPlanciaGiocatore() {
-		return this.planciaGiocatore;
+	public HashMap<String, Punti> getPuntiGiocatori() {
+		return this.puntiGiocatori;
 	}
 
-	public Famigliare[] getFamiglia() {
-		return this.famiglia;
+	public HashMap<String, Risorsa> getRisorseGiocatori() {
+		return this.risorseGiocatori;
 	}
+
+	public HashMap<String, Plancia> getPlanceGiocatori() {
+		return this.planceGiocatori;
+	}
+
+	public HashMap<String, Famigliare[]> getFamiglieGiocatori() {
+		return this.famiglieGiocatori;
+	}
+
 }
