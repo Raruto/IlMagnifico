@@ -2,10 +2,9 @@ package main.model.enums;
 
 public enum EEffettiScomuniche {
 
-	RICEVI_MENO_PM("ricevi meno pm", -1, EAzioniGioco.RiceviPM, 0, 0, 0, 0, 0, -1, 0,
-			0), MENO_QUATTRO_ON_TERRITORIO("meno quattro on territorio", 18, EAzioniGioco.PrendiTerritorio, 0, 0, 0,
-					0, 0, 0, 0, 0), NO_PV_PERSONAGGIO("no pv personaggio", -1, EAzioniGioco.PersonaggiFinePartita,
-							0, 0, 0, 0, 0, 0, 0, 0);
+	RICEVI_MENO_PM("ricevi meno pm", -1, EAzioniGioco.RiceviPM, 0, 0, 0, 0, 0, -1, 0, 0), 
+	MENO_QUATTRO_ON_TERRITORIO("meno quattro on territorio", 18, EAzioniGioco.PrendiTerritorio, 0, 0, 0, 0, 0, 0, 0, 0), 
+	NO_PV_PERSONAGGIO("no pv personaggio", -1, EAzioniGioco.PersonaggiFinePartita, 0, 0, 0, 0, 0, 0, 0, 0);
 
 	private String nome;
 	private int numeroEffetto;
