@@ -33,17 +33,25 @@ public enum EColoriPedine {
 		return s;
 	}
 
-	public static String stringify() {
+	public static String stringify(boolean startsWithZero) {
 		EColoriPedine[] c = EColoriPedine.values();
 		String s = "";
 
+		int inc = 0;
+		if (!startsWithZero)
+			inc = 1;
+
 		for (int i = 0; i < c.length; i++) {
-			s += "[" + i + ": " + c[i].getANSICode() + "♜"
+			s += "[" + (i + inc) + ": " + c[i].getANSICode() + "♜"
 					+ ANSI.RESET /* .toString() */ + "] ";
 			if (i % 7 == 0 && i != 0)
 				s += "\n";
 		}
 		return s;
+	}
+
+	public static String stringify() {
+		return stringify(true);
 	}
 
 }

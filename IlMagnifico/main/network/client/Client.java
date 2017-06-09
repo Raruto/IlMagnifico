@@ -69,6 +69,8 @@ public class Client implements IClient {
 	private HashMap<String, Plancia> dashboards;
 
 	private HashMap<String, Famigliare[]> families;
+	
+	private String playerTurn;
 
 	/**
 	 * Flag usato per abilitare il Log sul Server.
@@ -85,6 +87,10 @@ public class Client implements IClient {
 
 	public HashMap<String, Famigliare[]> getFamilies() {
 		return this.families;
+	}
+
+	public String getPlayerTurn() {
+		return playerTurn;
 	}
 
 	/**
@@ -433,13 +439,9 @@ public class Client implements IClient {
 	@Override
 	public void onPlayerMove(UpdateStats update) {
 		// if (update.getNomeGiocatore() != null)
-
-		if (update.getNomeGiocatore().equals(this.nickname))
-			System.out.print(ANSI.BACKGROUND_GREEN + "E' il tuo turno");
-		else
-			System.out.print(ANSI.BACKGROUND_RED + "E' il turno di: " + update.getNomeGiocatore());
-
-		System.out.println(ANSI.RESET);
+		
+		this.playerTurn=update.getNomeGiocatore();
+		FakeUI.printPlayerTurn(true);
 	}
 
 	@Override
@@ -521,6 +523,8 @@ public class Client implements IClient {
 			handler.handle(update);
 		}
 	}
+
+
 
 	/**
 	 * Interfaccia utilizzata "come" l'interfaccia {@link Runnable}.
