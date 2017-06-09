@@ -52,7 +52,7 @@ public class Famigliare implements Serializable {
 	 * @return
 	 */
 	public void cambiaValore(int variazione) {
-		valore += variazione;
+		this.valore = this.valore + variazione;
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class Famigliare implements Serializable {
 			throw new NoEnoughResourcesException();
 		else {
 			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza,
-					costiScelti==null?null:costiScelti[0]);
+					costiScelti == null ? null : costiScelti[0]);
 			// devo applicare tutte le modifiche al mio giocatore di partenza
 			mergeFamigliari(famigliareTemporaneo);
 			prendiCartaDallaTorre(identificativoTorre, spazioAzione, posizione);
