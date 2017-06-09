@@ -77,10 +77,6 @@ public class Game extends Partita {
 
 		inizializzaPartita();
 		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.giocatori);
-
-		for (Giocatore giocatore : this.giocatori) {
-			update.addToNomiGiocatori(giocatore.getNome());
-		}
 		dispatchGameUpdate(update);
 
 		update = new UpdateStats(EFasiDiGioco.InizioPeriodo);
