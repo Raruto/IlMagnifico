@@ -109,16 +109,16 @@ public abstract class Carta implements Serializable {
 		boolean controlloPunti = false;
 		for (int i = 0; i < acquisizione.size(); i++) {
 			acquisizione.get(i)[1] = giocatore;
-			if(acquisizione.get(i)[0]!=null)
-			if ((int) acquisizione.get(i)[0] == 1)
-				if (utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i))) {
-					controlloRisorse = true;
-					acquisizione.get(i)[0] = 0;
-				} else if ((int) acquisizione.get(i)[0] == 2)
-					if (utilEffetto.cartaAcquisibilePunti(acquisizione.get(i))) {
-						controlloPunti = true;
+			if (acquisizione.get(i)[0] != null)
+				if ((int) acquisizione.get(i)[0] == 1)
+					if (utilEffetto.cartaAcquisibileRisorse(acquisizione.get(i))) {
+						controlloRisorse = true;
 						acquisizione.get(i)[0] = 0;
-					}
+					} else if ((int) acquisizione.get(i)[0] == 2)
+						if (utilEffetto.cartaAcquisibilePunti(acquisizione.get(i))) {
+							controlloPunti = true;
+							acquisizione.get(i)[0] = 0;
+						}
 		}
 		if (controlloRisorse | controlloPunti)
 			// se almeno con i punti o con le risorse posso pagare, allora la
@@ -156,19 +156,20 @@ public abstract class Carta implements Serializable {
 	 * @param Object
 	 * @return
 	 */
-	public void effettoPermanente(Giocatore giocatore, Famigliare famigliare, Carta carta) {
-		for (int i = 0; i < effettoPermanente.size(); i++) {
-			effettoPermanente.get(i)[1] = giocatore;
-			effettoPermanente.get(i)[3] = famigliare;
-			effettoPermanente.get(i)[4] = carta;
-			attivaEffettoSingolo(effettoPermanente.get(i));
-			/*
-			 * if ((int) effettoPermanente.get(i)[0] == 0)
-			 * utilEffetto.aggiungiRisorse(effettoPermanente.get(i)); else if
-			 * ((int) effettoPermanente.get(i)[0] == 3)
-			 * utilEffetto.eseguiPrivilegioDelConsiglio(effettoImmediato.get(i))
-			 * ;
-			 */
+	public void effettoPermanente(Giocatore giocatore, Famigliare famigliare, Carta carta,
+			EEffettiPermanenti effettoScelto) {
+		if (effettoScelto == this.effettiPermanentiDelleCarteComunicazione.get(0))
+			attivaEffettoSingolo(effettoPermanente.get(0));
+		else if (effettoScelto == this.effettiPermanentiDelleCarteComunicazione.get(1))
+			attivaEffettoSingolo(effettoPermanente.get(1));
+		else if (effettoScelto == null) {
+
+			for (int i = 0; i < effettoPermanente.size(); i++) {
+				effettoPermanente.get(i)[1] = giocatore;
+				effettoPermanente.get(i)[3] = famigliare;
+				effettoPermanente.get(i)[4] = carta;
+				attivaEffettoSingolo(effettoPermanente.get(i));
+			}
 		}
 	}
 

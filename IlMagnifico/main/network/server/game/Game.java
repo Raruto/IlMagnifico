@@ -254,7 +254,8 @@ public class Game extends Partita {
 
 	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
-			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneRotondo();
+			remotePlayer.getFamigliare(update.getIndiceColorePedina())
+					.eseguiSpostamentoProduzioneRotondo(update.getScelteEffettiPermanenti()[0]);
 		} catch (FamiliarAlreadyUsedException e) {
 			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		} catch (InsufficientValueException e1) {
@@ -293,7 +294,8 @@ public class Game extends Partita {
 
 	private UpdateStats onProductionOval(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
-			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneOvale();
+			remotePlayer.getFamigliare(update.getIndiceColorePedina())
+					.eseguiSpostamentoProduzioneOvale(update.getScelteEffettiPermanenti()[0]);
 		} catch (InsufficientValueException e) {
 			throw new GameException(Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
 		} catch (SameAreaException e1) {

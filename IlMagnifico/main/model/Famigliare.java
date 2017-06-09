@@ -5,6 +5,7 @@ import java.io.Serializable;
 import main.model.enums.EAzioniGioco;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
+import main.model.enums.EEffettiPermanenti;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.exceptions.*;
 
@@ -470,7 +471,7 @@ public class Famigliare implements Serializable {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoProduzioneRotondo()
+	public void eseguiSpostamentoProduzioneRotondo(EEffettiPermanenti effettoScelto)
 			throws SpazioOccupatoException, InsufficientValueException, FamiliarAlreadyUsedException {
 		if (this.posizionato == true)
 			throw new FamiliarAlreadyUsedException();
@@ -498,7 +499,7 @@ public class Famigliare implements Serializable {
 			mergeFamigliari(famigliareTemporaneo);
 			spazioAzione.setZonaProduzioneRotonda(this);
 			this.posizionato = true;
-			this.giocatoreAppartenenza.produzione(this.valore);
+			this.giocatoreAppartenenza.produzione(this.valore, effettoScelto);
 		}
 	}
 
@@ -508,7 +509,7 @@ public class Famigliare implements Serializable {
 	 * 
 	 * @return
 	 */
-	public void eseguiSpostamentoProduzioneOvale()
+	public void eseguiSpostamentoProduzioneOvale(EEffettiPermanenti effettoScelto)
 			throws FamiliarAlreadyUsedException, SameAreaException, InsufficientValueException {
 		if (this.posizionato == true)
 			throw new FamiliarAlreadyUsedException();
@@ -540,7 +541,7 @@ public class Famigliare implements Serializable {
 			mergeFamigliari(famigliareTemporaneo);
 			spazioAzione.setZonaProduzioneOvale(this);
 			this.posizionato = true;
-			this.giocatoreAppartenenza.produzione(this.valore);
+			this.giocatoreAppartenenza.produzione(this.valore, effettoScelto);
 
 		}
 	}

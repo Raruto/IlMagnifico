@@ -2,6 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
+import main.model.enums.EEffettiPermanenti;
 import main.model.enums.PlayerColors;
 import main.model.exceptions.NoEnoughResourcesException;
 
@@ -249,7 +250,7 @@ public class Giocatore implements Serializable {
 		for (int i = 0; i < getPlancia().getTerritori().size(); i++) {
 			carta = getPlancia().getTerritori().get(i);
 			if (valoreAzione >= carta.getValoreNecessarioEffettoPermanente())
-				carta.effettoPermanente(this, null, null);
+				carta.effettoPermanente(this, null, null, null);
 		}
 	}
 
@@ -259,7 +260,7 @@ public class Giocatore implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void produzione(int valoreAzione) {
+	public void produzione(int valoreAzione, EEffettiPermanenti effettoScelto) {
 		this.risorse.cambiaMonete(2);
 		this.punti.cambiaPuntiMilitari(1);
 		Carta carta = new Carta(null, null, null, null, 0, 0, null, 0, null, 0) {
@@ -272,7 +273,7 @@ public class Giocatore implements Serializable {
 		for (int i = 0; i < getPlancia().getEdifici().size(); i++) {
 			carta = getPlancia().getEdifici().get(i);
 			if (valoreAzione >= carta.getValoreNecessarioEffettoPermanente())
-				carta.effettoPermanente(this, null, null);
+				carta.effettoPermanente(this, null, null, effettoScelto);
 		}
 	}
 
@@ -301,7 +302,7 @@ public class Giocatore implements Serializable {
 		// attivo gli effetti delle carte impresa
 		if (!getScomunica(2).attivaOnImpreseFinePartita()) {
 			for (int i = 0; i < getPlancia().getImprese().size(); i++) {
-				getPlancia().getImprese().get(i).effettoPermanente(this, null, null);
+				getPlancia().getImprese().get(i).effettoPermanente(this, null, null, null);
 			}
 		}
 		// ricevo un punto vittoria ogni 5 risorse

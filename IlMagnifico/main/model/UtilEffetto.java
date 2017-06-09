@@ -177,7 +177,7 @@ public class UtilEffetto implements Serializable {
 		if (famigliare.getGiocatore().getScomunica(0) != null)
 			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGioco.Produzione, famigliare, null);
 		if (famigliare.getValore() > 0)
-			famigliare.getGiocatore().produzione(famigliare.getValore());
+			famigliare.getGiocatore().produzione(famigliare.getValore(), null);
 
 	}
 
@@ -193,7 +193,7 @@ public class UtilEffetto implements Serializable {
 		if (famigliare.getGiocatore().getScomunica(0) != null)
 			famigliare.getGiocatore().getScomunica(0).attivaOnAzione(null, EAzioniGioco.Produzione, famigliare, null);
 		if (famigliare.getValore() > 0)
-			famigliare.getGiocatore().produzione(famigliare.getValore());
+			famigliare.getGiocatore().produzione(famigliare.getValore(), null);
 
 	}
 
