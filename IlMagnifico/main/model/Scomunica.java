@@ -8,7 +8,7 @@ import main.model.enums.EAzioniGioco;
 /**
  * 
  */
-public class Scomunica implements Serializable{
+public class Scomunica implements Serializable {
 
 	/**
 	 * 
@@ -58,11 +58,18 @@ public class Scomunica implements Serializable{
 	}
 
 	public void attivaEffettoSingolo(Object[] parametri) {
-		if ((int) parametri[0] == 0)
-			utilEffetto.aggiungiRisorse(parametri);
-		else if ((int) parametri[0] == 3)
-			utilEffetto.eseguiPrivilegioDelConsiglio(parametri);
-		// TODO:finire di elencare i metodi possibili
+		if ((int) parametri[0] == 18)
+			utilEffetto.decrementaDiQuattroAzione(parametri);
+		else if ((int) parametri[0] == 19)
+			utilEffetto.decrementaDiTreAzione(parametri);
+		else if ((int) parametri[0] == 20)
+			utilEffetto.decrementaDiUnoAzione(parametri);
+		else if ((int) parametri[0] == 21)
+			utilEffetto.perdiPvxcinquePV(parametri);
+		else if ((int) parametri[0] == 22)
+			utilEffetto.perdiPvxPM(parametri);
+		else if ((int) parametri[0] == 26)
+			utilEffetto.perdiPVxRisorse(parametri);
 	}
 
 	public void attivaOnAzione(Giocatore giocatore, EAzioniGioco azione, Famigliare famigliare, Carta carta) {
