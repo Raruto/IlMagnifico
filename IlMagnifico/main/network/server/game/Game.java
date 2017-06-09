@@ -255,7 +255,7 @@ public class Game extends Partita {
 	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina())
-					.eseguiSpostamentoProduzioneRotondo(update.getScelteEffettiPermanenti()[0]);
+					.eseguiSpostamentoProduzioneRotondo(null);//qua ci va messa l'azione scelta dal giocatore come parametro
 		} catch (FamiliarAlreadyUsedException e) {
 			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		} catch (InsufficientValueException e1) {
