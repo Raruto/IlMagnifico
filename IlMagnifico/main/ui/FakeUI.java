@@ -14,6 +14,7 @@ import main.model.Plancia;
 import main.model.SpazioAzione;
 import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.ECarte;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
@@ -199,7 +200,7 @@ public class FakeUI {
 
 		while (!quit) {
 			System.out.println("'q' to exit\n");
-			System.out.println("Available commands: [chat], [action], [board], [dash]");
+			System.out.println("Available commands: [chat], [action], [board], [dash], [cards]");
 
 			System.out.println(">");
 			inText = scanner.nextLine();
@@ -228,6 +229,10 @@ public class FakeUI {
 				FakeUI.printDashBoard(true, true);
 				break;
 
+			case "cards":
+				FakeUI.printCards(true, true);
+				break;
+
 			default:
 				break;
 			}
@@ -237,7 +242,6 @@ public class FakeUI {
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Command: [chat]
 	/////////////////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * Client command: send chat messages.
 	 */
@@ -815,53 +819,6 @@ public class FakeUI {
 		printCouncilArea(true, true);
 	}
 
-	private static void printDashBoard(boolean printSep1, boolean printSep2) {
-		Client client = getClient();
-		try {
-			if (printSep1)
-				System.out.println(Costants.ROW_SEPARATOR);
-
-			Plancia dash = client.getDashboards().get(client.getNickname());
-			if (dash != null) {
-				ArrayList<Territorio> territori = dash.getTerritori();
-				ArrayList<Personaggio> personaggi = dash.getPersonaggi();
-				ArrayList<Edificio> edifici = dash.getEdifici();
-				ArrayList<Impresa> imprese = dash.getImprese();
-
-				System.out.print(ANSI.YELLOW + "Territori: " + ANSI.RESET);
-				for (Territorio ter : territori) {
-					System.out.print(ter.getNome() + ", ");
-				}
-				System.out.println();
-				System.out.print(ANSI.YELLOW + "Personaggi: " + ANSI.RESET);
-				for (Personaggio per : personaggi) {
-					System.out.print(per.getNome() + ", ");
-				}
-				System.out.println();
-				System.out.print(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
-				for (Edificio edi : edifici) {
-					System.out.print(edi.getNome() + ", ");
-				}
-				System.out.println();
-				System.out.print(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
-				for (Impresa imp : imprese) {
-					System.out.print(imp.getNome() + ", ");
-				}
-				System.out.println();
-			} else {
-				System.out.println(ANSI.YELLOW + "Territori: " + ANSI.RESET);
-				System.out.println(ANSI.YELLOW + "Personaggi: " + ANSI.RESET);
-				System.out.println(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
-				System.out.println(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
-			}
-			if (printSep2)
-				System.out.println(Costants.ROW_SEPARATOR);
-
-		} catch (NullPointerException e) {
-			System.err.println("EXCPETION:" + e.getMessage());
-		}
-	}
-
 	public static void printPlayerTurn(boolean printAndAddNewLine) {
 		Client client = getClient();
 		try {
@@ -871,7 +828,7 @@ public class FakeUI {
 				System.out.print(ANSI.BACKGROUND_RED + "E' il turno di: " + client.getPlayerTurn());
 			else
 				System.out.print(ANSI.BACKGROUND_RED + "In attesa di altri giocatori");
-			
+
 			if (printAndAddNewLine)
 				System.out.println(ANSI.RESET);
 			else
@@ -1171,5 +1128,69 @@ public class FakeUI {
 		} catch (NullPointerException e) {
 			System.err.println("EXCPETION:" + e.getMessage());
 		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Command: [dash]
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	private static void printDashBoard(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		try {
+			if (printSep1)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+			Plancia dash = client.getDashboards().get(client.getNickname());
+			if (dash != null) {
+				ArrayList<Territorio> territori = dash.getTerritori();
+				ArrayList<Personaggio> personaggi = dash.getPersonaggi();
+				ArrayList<Edificio> edifici = dash.getEdifici();
+				ArrayList<Impresa> imprese = dash.getImprese();
+
+				System.out.print(ANSI.YELLOW + "Territori: " + ANSI.RESET);
+				for (Territorio ter : territori) {
+					System.out.print(ter.getNome() + ", ");
+				}
+				System.out.println();
+				System.out.print(ANSI.YELLOW + "Personaggi: " + ANSI.RESET);
+				for (Personaggio per : personaggi) {
+					System.out.print(per.getNome() + ", ");
+				}
+				System.out.println();
+				System.out.print(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
+				for (Edificio edi : edifici) {
+					System.out.print(edi.getNome() + ", ");
+				}
+				System.out.println();
+				System.out.print(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
+				for (Impresa imp : imprese) {
+					System.out.print(imp.getNome() + ", ");
+				}
+				System.out.println();
+			} else {
+				System.out.println(ANSI.YELLOW + "Territori: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Personaggi: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
+			}
+			if (printSep2)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Command: [cards]
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	private static void printCards(boolean printSep1, boolean printSep2) {
+		if (printSep1)
+			System.out.println(Costants.ROW_SEPARATOR);
+		System.out.println(ECarte.stringify(false));
+
+		if (printSep2)
+			System.out.println(Costants.ROW_SEPARATOR);
 	}
 }
