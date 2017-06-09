@@ -186,9 +186,7 @@ public class SpazioAzione implements Serializable {
 				if (sceltaPrivilegiConsiglio[i] == ESceltePrivilegioDelConsiglio.PuntoFede)
 					giocatore.getPunti().cambiaPuntiFede(1);
 			}
-			// TODO:qua ci vuole il metodo che permette al giocatore di ottenere
-			// un
-			// doppio privilegio del consiglio
+
 		}
 
 	}
@@ -215,9 +213,6 @@ public class SpazioAzione implements Serializable {
 			giocatore.getPunti().cambiaPuntiMilitari(2);
 		if (scelta == ESceltePrivilegioDelConsiglio.PuntoFede)
 			giocatore.getPunti().cambiaPuntiFede(1);
-		// TODO: metodo per fare scegliere al giocatore l'effetto del privilegio
-		// del
-		// consiglio
 		giocatore.getRisorse().cambiaMonete(1);
 	}
 
