@@ -84,11 +84,9 @@ public abstract class Partita {
 		// TOT. 2 Turni per periodo
 		this.turno = 1;
 
-		
 		inizializzaMazzo();
 		mescolaMazzo();
 
-		
 		inizializzaScomunica();
 
 		inizializzaGiocatori();
@@ -519,5 +517,19 @@ public abstract class Partita {
 	 */
 	public void avanzaDiTurno() {
 		this.giocatoreDiTurno = giocatoreDelTurnoSuccessivo(giocatoreDiTurno);
+	}
+
+	/**
+	 * Metodo che restituisce true se il giocatore ha la possibilita di
+	 * sostenere la Chiesa, false altrimenti
+	 * 
+	 * @param
+	 * @return
+	 */
+	public boolean puoSostenereChiesa(Giocatore giocatore) {
+		if (giocatore.getPunti().getPuntiFede() < (this.periodo + 2))
+			return false;
+		else
+			return true;
 	}
 }
