@@ -150,7 +150,7 @@ public class Giocatore implements Serializable {
 			throw new NoEnoughResourcesException();
 		else {
 			this.risorse.cambiaServitori(-servitoriDaPagare);
-			famigliare.cambiaValore(1);
+			famigliare.cambiaValore(valore);
 		}
 	}
 
