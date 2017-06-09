@@ -447,7 +447,7 @@ public class FakeUI {
 					if (number < 0) {
 						throw new NumberFormatException();
 					} else {
-						return null;
+						return number;
 					}
 				} catch (NumberFormatException e) {
 					System.out.println("Insert a valid number");
