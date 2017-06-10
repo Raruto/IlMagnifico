@@ -35,7 +35,9 @@ public class GiocatoreTest {
 		giocatore.getRisorse().cambiaPietre(5);
 		giocatore.getRisorse().cambiaServitori(5);
 
-		assertTrue(giocatore.getPunti().getPuntiVittoria() == 4);
+		giocatore.calcolaPVFinali();
+
+		assertTrue((giocatore.getPunti().getPuntiVittoria() == 4) == true);
 	}
 
 }

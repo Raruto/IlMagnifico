@@ -15,13 +15,14 @@ public class PartitaTest extends Partita {
 
 	@Override
 	public void log(String message) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Test
 	public void testScegliOrdine() {
 		spazioAzione = new SpazioAzione();
+		Giocatore giocatoreTemp1 = new Giocatore();
+		Giocatore giocatoreTemp2 = new Giocatore();
 		for (int i = 0; i < 4; i++) {
 			this.giocatori.add(new Giocatore());
 		}
@@ -32,7 +33,7 @@ public class PartitaTest extends Partita {
 			this.giocatori.get(3).getFamigliare(0)
 					.eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 		} catch (FamiliarAlreadyUsedException | InsufficientValueException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		try {
@@ -42,10 +43,24 @@ public class PartitaTest extends Partita {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		giocatoreTemp1 = this.giocatori.get(0);
+		giocatoreTemp2 = this.giocatori.get(1);
 		scegliOrdine();
 
 		assertTrue(this.giocatori.get(0) == this.spazioAzione.getGiocatoriPalazzoDelConsiglio().get(0));
 		assertTrue(this.giocatori.get(1) == this.spazioAzione.getGiocatoriPalazzoDelConsiglio().get(1));
+		assertTrue(this.giocatori.get(2) == giocatoreTemp1);
+		assertTrue(this.giocatori.get(3) == giocatoreTemp2);
 	}
 
+	@Test
+	public void testCalcolaClassificaFinale() {
+		for (int i = 0; i < 2; i++) {
+			this.giocatori.add(new Giocatore());
+		}
+		this.giocatori.get(0).getPunti().cambiaPuntiMilitari(5);
+		assertTrue(this.giocatori.get(0) == calcolaClassificaFinale().get(0));
+		this.giocatori.get(1).getPunti().cambiaPuntiVittoria(10);
+		assertTrue(this.giocatori.get(1) == calcolaClassificaFinale().get(0));
+	}
 }
