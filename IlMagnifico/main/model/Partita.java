@@ -421,12 +421,19 @@ public abstract class Partita {
 						.getPuntiMilitari()) {
 					classifica.add(j, this.giocatori.get(i));
 					break;
-				} else if (j == classifica.size() - 1)
+				} else if (j == classifica.size() - 1) {
 					classifica.add(giocatori.get(i));
+					break;
+				}
+
 			}
 		}
-		classifica.get(0).getPunti().cambiaPuntiVittoria(5);
-		classifica.get(1).getPunti().cambiaPuntiVittoria(2);
+		for (int i = 0; i < this.giocatori.size(); i++) {
+			if (giocatori.get(i) == classifica.get(0))
+				giocatori.get(i).getPunti().cambiaPuntiVittoria(5);
+			if (giocatori.get(i) == classifica.get(1))
+				giocatori.get(i).getPunti().cambiaPuntiVittoria(2);
+		}
 		classifica.removeAll(classifica);
 		// attivo gli effetti delle scomuniche di terzo periodo
 		for (int i = 0; i < giocatori.size(); i++) {
@@ -445,8 +452,10 @@ public abstract class Partita {
 						.getPuntiVittoria()) {
 					classifica.add(j, this.giocatori.get(i));
 					break;
-				} else if (j == classifica.size() - 1)
+				} else if (j == classifica.size() - 1) {
 					classifica.add(giocatori.get(i));
+					break;
+				}
 			}
 		}
 		return classifica;
