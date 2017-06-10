@@ -291,12 +291,16 @@ public class FakeUI {
 		while (!quit) {
 			try {
 				action = chooseGameAction();
-				printPointsAndResources(true, false);
-				printPawns(true, false);
+				// printPointsAndResources(true, false);
+				// printPawns(true, false);
 
 				switch (action) {
 				case Mercato:
 					privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
+
+					printPointsAndResources(true, false);
+					printPawns(true, false);
+
 					while (!nestedQuit) {
 						printMarketArea(true, true);
 						nestedPosition = chooseMarketArea();
@@ -324,6 +328,10 @@ public class FakeUI {
 					}
 					break;
 				case Produzione:
+
+					printPointsAndResources(true, false);
+					printPawns(true, false);
+
 					while (!nestedQuit) {
 						printProductionArea(true, true);
 						nestedAction = chooseProductionArea();
@@ -347,6 +355,10 @@ public class FakeUI {
 					}
 					break;
 				case Raccolto:
+
+					printPointsAndResources(true, false);
+					printPawns(true, false);
+
 					while (!nestedQuit) {
 						printHarvestArea(true, true);
 						nestedAction = chooseHarvestArea();
@@ -370,6 +382,10 @@ public class FakeUI {
 					}
 					break;
 				case PalazzoConsiglio:
+
+					printPointsAndResources(true, false);
+					printPawns(true, false);
+
 					printCouncilArea(true, true);
 					try {
 						movePawn(action, 0);
@@ -379,13 +395,13 @@ public class FakeUI {
 					break;
 				case Torre:
 					while (!nestedQuit) {
-						printTowerArea(true, true);
+						// printTowerArea(true, true);
 						nestedPosition = chooseTowerArea();
 						if (nestedPosition != null) {
 							try {
 								ECostiCarte[] costs = chooseCardCost(nestedPosition);
 
-								movePawn(action, nestedPosition);
+								movePawn(action, nestedPosition, true);
 								quit = true;
 								nestedQuit = true;
 							} catch (QuitException e) {
@@ -430,6 +446,12 @@ public class FakeUI {
 
 	}
 
+	private static void movePawn(EAzioniGiocatore action, Integer position, boolean printPawns) throws QuitException {
+		if (printPawns)
+			printPawns(true, true);
+		movePawn(action, position);
+	}
+
 	private static void printCardInfo(Carta card) {
 		String s = "";
 		String desc = "";
@@ -438,7 +460,7 @@ public class FakeUI {
 			desc += cost.getDescrizione() + ", ";
 		}
 
-		s += String.format("%-20s%-25s%-15s%-30s", "Selected Card: ", "[" + card.getNome() + "] ",
+		s += String.format("%-20s%-25s%-15s%-30s", "Selected: ", "[" + card.getNome() + "] ",
 				"Periodo: " + card.getPeriodoCarta(), "Costi: " + desc);
 		System.out.println(s);
 
@@ -501,7 +523,7 @@ public class FakeUI {
 					// System.out.println("'q' to quit\n");
 					System.out.println("Choose #" + choices + ": ");
 					System.out.println(costs.get(0).getNome());
-					System.out.println(ECostiCarte.stringify((ArrayList<ECostiCarte>) costs));
+					System.out.println(ECarte.stringify(costs, false));
 					inText = scanner.nextLine();
 					if (inText.equals("q")) {
 						throw new QuitException();
@@ -672,6 +694,12 @@ public class FakeUI {
 		boolean ok = false;
 		boolean nestedQuit = false;
 		while (!ok) {
+
+			printPointsAndResources(true, false);
+			printPawns(true, false);
+
+			printTowerArea(true, true);
+
 			// System.out.println("'q' to quit\n");
 			System.out.print("Choose a Tower area: ");
 			System.out.print(ETipiCarte.stringify(false) + " ");
@@ -689,7 +717,8 @@ public class FakeUI {
 							while (!nestedQuit) {
 								try {
 									floor = chooseTowerFloor(car);
-									printCardInfo(getClient().getGameBoard().getCartaTorre(floor));
+									//System.out.println();
+									//printCardInfo(getClient().getGameBoard().getCartaTorre(floor));
 									return floor;
 								} catch (QuitException e) {
 									nestedQuit = true;
@@ -723,10 +752,27 @@ public class FakeUI {
 		return null;
 	}
 
+	private static void printTowerCards(ETipiCarte tower) {
+		try {
+			System.out.println();
+			ArrayList<Carta> ecards = new ArrayList<Carta>();
+			for (int i = 1; i <= 4; i++) {
+				ecards.add((getClient().getGameBoard().getCartaTorre(getConvertedTowerFloor(tower, i))));
+			}
+			System.out.print(ECarte.stringify(ecards, false, false));
+			System.out.println(Costants.ROW_SEPARATOR);
+		} catch (NumberFormatException e) {
+		}
+	}
+
 	private static Integer chooseTowerFloor(ETipiCarte tower) throws QuitException {
 		boolean ok = false;
 		int number;
+
+		printTowerCards(tower);
+
 		while (!ok) {
+
 			// System.out.println("'q' to quit\n");
 			System.out.print("Choose a floor: [1..4] ");
 
@@ -738,28 +784,35 @@ public class FakeUI {
 			} else {
 				try {
 					number = Integer.parseInt(inText);
-
-					switch (tower) {
-					case Territorio:
-						// [0..3]
-						return number - 1;
-					case Personaggio:
-						// [4..7]
-						return (number + 4) - 1;
-					case Edificio:
-						// [8..11]
-						return (number + 8) - 1;
-					case Impresa:
-						// [12..15]
-						return (number + 12) - 1;
-					}
-					return number - 1;
+					number = getConvertedTowerFloor(tower, number);
+					return number;
 				} catch (NumberFormatException e) {
-					// TODO: handle exception
+					System.out.println("Insert a valid number");
 				}
 			}
 		}
 		return null;
+	}
+
+	private static Integer getConvertedTowerFloor(ETipiCarte tower, int number) throws NumberFormatException {
+		if (number < 1 || number > 4)
+			throw new NumberFormatException();
+
+		switch (tower) {
+		case Territorio:
+			// [0..3]
+			return number - 1;
+		case Personaggio:
+			// [4..7]
+			return (number + 4) - 1;
+		case Edificio:
+			// [8..11]
+			return (number + 8) - 1;
+		case Impresa:
+			// [12..15]
+			return (number + 12) - 1;
+		}
+		throw new NumberFormatException();
 	}
 
 	private static void supportChurch() throws QuitException {
