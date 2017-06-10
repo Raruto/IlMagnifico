@@ -213,6 +213,11 @@ public class UpdateStats implements Serializable {
 		}
 	}
 
+	public UpdateStats(EFasiDiGioco fase, ArrayList<Giocatore> giocatori, SpazioAzione spazioAzione) {
+		this(fase, giocatori);
+		this.spazioAzione = spazioAzione;
+	}
+
 	public EAzioniGiocatore getAzioneGiocatore() {
 		return azioneGiocatore;
 	}

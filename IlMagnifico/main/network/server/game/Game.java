@@ -85,7 +85,7 @@ public class Game extends Partita {
 		// turnazione
 		posizionaCarteSuTorre();
 		lanciaDadi();
-		update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
+		update = new UpdateStats(EFasiDiGioco.InizioTurno, this.giocatori, this.spazioAzione);
 		dispatchGameUpdate(update);
 
 		//
@@ -141,7 +141,7 @@ public class Game extends Partita {
 					// avanzaGiroDiTurni();
 					posizionaCarteSuTorre();
 					lanciaDadi();
-					update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
+					update = new UpdateStats(EFasiDiGioco.InizioTurno, this.giocatori, this.spazioAzione);
 					dispatchGameUpdate(update);
 				} else {
 
