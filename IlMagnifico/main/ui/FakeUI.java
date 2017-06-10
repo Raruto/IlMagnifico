@@ -283,175 +283,229 @@ public class FakeUI {
 	 */
 	public static void performGameAction() {
 		EAzioniGiocatore action;
-		EAzioniGiocatore nestedAction;
-		ESceltePrivilegioDelConsiglio[] privileges;
-		Integer nestedPosition;
-
 		boolean quit = false;
-		boolean nestedQuit = false;
 
 		while (!quit) {
 			try {
 				action = chooseGameAction();
-				// printPointsAndResources(true, false);
-				// printPawns(true, false);
-
-				switch (action) {
-				case Mercato:
-					privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
-
-					printPointsAndResources(true, false);
-					printPawns(true, false);
-
-					while (!nestedQuit) {
-						printMarketArea(true, true);
-						nestedPosition = chooseMarketArea();
-						if (nestedPosition != null) {
-							try {
-								// movePawn(action, nestedPosition, privilege);
-								EColoriPedine color = choosePawnColor();
-
-								if (color != null) {
-									if (nestedPosition == 3) {
-										privileges[0] = chooseCouncilPrivilege(
-												new ArrayList<ESceltePrivilegioDelConsiglio>());
-										privileges[1] = chooseCouncilPrivilege(Arrays.asList(privileges));
-									}
-									client.movePawn(action, color, nestedPosition, privileges);
-								}
-
-								quit = true;
-								nestedQuit = true;
-							} catch (QuitException e) {
-								nestedQuit = false;
-							}
-						} else
-							nestedQuit = true;
-					}
-					break;
-				case Produzione:
-
-					printPointsAndResources(true, false);
-					printPawns(true, false);
-
-					while (!nestedQuit) {
-						printProductionArea(true, true);
-						nestedAction = chooseProductionArea();
-						if (nestedAction != null) {
-							try {
-								movePawn(nestedAction, 0);
-								quit = true;
-								nestedQuit = true;
-							} catch (QuitException e) {
-								nestedQuit = false;
-							}
-						} else
-							nestedQuit = true;
-					}
-					break;
-				case ProduzioneOvale:
-					try {
-						movePawn(action, 0);
-						quit = true;
-					} catch (QuitException e) {
-					}
-					break;
-				case Raccolto:
-
-					printPointsAndResources(true, false);
-					printPawns(true, false);
-
-					while (!nestedQuit) {
-						printHarvestArea(true, true);
-						nestedAction = chooseHarvestArea();
-						if (nestedAction != null) {
-							try {
-								movePawn(nestedAction, 0);
-								quit = true;
-								nestedQuit = true;
-							} catch (QuitException e) {
-								nestedQuit = false;
-							}
-						} else
-							nestedQuit = true;
-					}
-					break;
-				case RaccoltoOvale:
-					try {
-						movePawn(action, 0);
-						quit = true;
-					} catch (QuitException e) {
-					}
-					break;
-				case PalazzoConsiglio:
-
-					printPointsAndResources(true, false);
-					printPawns(true, false);
-
-					printCouncilArea(true, true);
-					try {
-						movePawn(action, 0);
-						quit = true;
-					} catch (QuitException e) {
-					}
-					break;
-				case Torre:
-					while (!nestedQuit) {
-						// printTowerArea(true, true);
-						nestedPosition = chooseTowerArea();
-						if (nestedPosition != null) {
-							try {
-								ECostiCarte[] costs = chooseCardCost(nestedPosition);
-
-								movePawn(action, nestedPosition, true);
-								quit = true;
-								nestedQuit = true;
-							} catch (QuitException e) {
-								nestedQuit = false;
-							}
-						} else
-							nestedQuit = true;
-					}
-					break;
-				case SostegnoChiesa:
-					try {
-						supportChurch();
-						quit = true;
-					} catch (QuitException e) {
-					}
-					break;
-
-				case Famigliare:
-					try {
-						printDices(true, true);
-
-						// System.out.println(Costants.ROW_SEPARATOR);
-
-						// printPawns(false, true);
-						EColoriPedine color = choosePawnColor();
-						if (color != null) {
-							incrementPawn(color);
-							quit = true;
-						}
-					} catch (QuitException e) {
-					}
-					break;
-				default:
-					System.out.println(ANSI.YELLOW + "Not yet implemented" + ANSI.RESET);
-					break;
-				}
+				handleGameAction(action);
 			} catch (QuitException e) {
 				quit = true;
 			}
-			nestedQuit = false;
 		}
+	}
+
+	private static void handleGameAction(EAzioniGiocatore action) throws QuitException {
+		switch (action) {
+		case Mercato:
+			handleMarket();
+			break;
+		case Produzione:
+			handleProduction();
+			break;
+		case ProduzioneOvale:
+			handleOvalProduction();
+			break;
+		case Raccolto:
+			handleHarvest();
+			break;
+		case RaccoltoOvale:
+			handleOvalHarvest();
+			break;
+		case PalazzoConsiglio:
+			handleCouncilPalace();
+			break;
+		case Torre:
+			handleTowers();
+			break;
+		case SostegnoChiesa:
+			handleChurchSupport();
+			break;
+		case Famigliare:
+			handleFamiliar();
+			break;
+		default:
+			System.out.println(ANSI.YELLOW + "Not yet implemented" + ANSI.RESET);
+			break;
+		}
+	}
+
+	private static void handleOvalProduction() throws QuitException {
+		try {
+			movePawn(EAzioniGiocatore.ProduzioneOvale, 0);
+			// quit = true;
+		} catch (QuitException e) {
+		}
+		throw new QuitException();
+	}
+
+	private static void handleOvalHarvest() throws QuitException {
+		try {
+			movePawn(EAzioniGiocatore.RaccoltoOvale, 0);
+			// quit = true;
+		} catch (QuitException e) {
+		}
+		throw new QuitException();
+	}
+
+	private static void handleFamiliar() throws QuitException {
+		try {
+			printDices(true, true);
+
+			// System.out.println(Costants.ROW_SEPARATOR);
+
+			// printPawns(false, true);
+			EColoriPedine color = choosePawnColor();
+			if (color != null) {
+				incrementPawn(color);
+				// quit = true;
+			}
+		} catch (QuitException e) {
+		}
+		throw new QuitException();
 
 	}
 
-	private static void movePawn(EAzioniGiocatore action, Integer position, boolean printPawns) throws QuitException {
-		if (printPawns)
-			printPawns(true, true);
-		movePawn(action, position);
+	private static void handleChurchSupport() throws QuitException {
+		try {
+			supportChurch();
+			// quit = true;
+		} catch (QuitException e) {
+		}
+		throw new QuitException();
+	}
+
+	private static void handleTowers() throws QuitException {
+
+		boolean nestedQuit = false;
+		Integer nestedPosition;
+
+		while (!nestedQuit) {
+			// printTowerArea(true, true);
+			nestedPosition = chooseTowerArea();
+			if (nestedPosition != null) {
+				try {
+					ECostiCarte[] costs = chooseCardCost(nestedPosition);
+
+					if (costs == null) {
+						movePawn(EAzioniGiocatore.Torre, nestedPosition, true);
+					} else {
+						EColoriPedine color = choosePawnColor();
+
+						if (color != null) {
+							client.movePawn(EAzioniGiocatore.Torre, color, nestedPosition, costs);
+						}
+
+					}
+
+					// quit = true;
+					nestedQuit = true;
+				} catch (QuitException e) {
+					nestedQuit = false;
+				}
+			} else
+				nestedQuit = true;
+		}
+		throw new QuitException();
+	}
+
+	private static void handleCouncilPalace() throws QuitException {
+
+		printPointsAndResources(true, false);
+		printPawns(true, false);
+
+		printCouncilArea(true, true);
+
+		try {
+			movePawn(EAzioniGiocatore.PalazzoConsiglio, 0);
+			// quit = true;
+		} catch (QuitException e) {
+		}
+		throw new QuitException();
+
+	}
+
+	private static void handleHarvest() throws QuitException {
+		printPointsAndResources(true, false);
+		printPawns(true, false);
+
+		boolean nestedQuit = false;
+
+		while (!nestedQuit) {
+			printHarvestArea(true, true);
+			EAzioniGiocatore nestedAction = chooseHarvestArea();
+			if (nestedAction != null) {
+				try {
+					movePawn(nestedAction, 0);
+					// quit = true;
+					nestedQuit = true;
+				} catch (QuitException e) {
+					nestedQuit = false;
+				}
+			} else
+				nestedQuit = true;
+		}
+		throw new QuitException();
+	}
+
+	private static void handleProduction() throws QuitException {
+
+		printPointsAndResources(true, false);
+		printPawns(true, false);
+
+		boolean nestedQuit = false;
+
+		while (!nestedQuit) {
+			printProductionArea(true, true);
+			EAzioniGiocatore nestedAction = chooseProductionArea();
+			if (nestedAction != null) {
+				try {
+					movePawn(nestedAction, 0);
+					// quit = true;
+					nestedQuit = true;
+				} catch (QuitException e) {
+					nestedQuit = false;
+				}
+			} else
+				nestedQuit = true;
+		}
+		throw new QuitException();
+	}
+
+	private static void handleMarket() throws QuitException {
+		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
+
+		printPointsAndResources(true, false);
+		printPawns(true, false);
+
+		Integer nestedPosition;
+		boolean nestedQuit = false;
+
+		while (!nestedQuit) {
+			printMarketArea(true, true);
+			nestedPosition = chooseMarketArea();
+			if (nestedPosition != null) {
+				try {
+					// movePawn(action, nestedPosition, privilege);
+					EColoriPedine color = choosePawnColor();
+
+					if (color != null) {
+						if (nestedPosition == 3) {
+							privileges[0] = chooseCouncilPrivilege(new ArrayList<ESceltePrivilegioDelConsiglio>());
+							privileges[1] = chooseCouncilPrivilege(Arrays.asList(privileges));
+						}
+						client.movePawn(EAzioniGiocatore.Mercato, color, nestedPosition, privileges);
+					}
+
+					nestedQuit = true;
+					// quit = true;
+				} catch (QuitException e) {
+					nestedQuit = false;
+				}
+			} else
+				nestedQuit = true;
+		}
+		throw new QuitException();
 	}
 
 	private static void incrementPawn(EColoriPedine color) throws QuitException {
@@ -485,7 +539,7 @@ public class FakeUI {
 					printCardInfo(board.getCartaTorre(position));
 
 					System.out.println("Available costs options: " + costs.size());
-					System.out.print("\n (" + (nCosts - choices) + " choices left) Choose a cost #: [1..*] ");
+					System.out.print("\n (" + (nCosts - choices - 1) + " choices left) Choose a cost #: [1..*] ");
 
 					inText = scanner.nextLine();
 					if (inText.equals("q")) {
@@ -776,11 +830,22 @@ public class FakeUI {
 	// }
 	// }
 
+	private static void movePawn(EAzioniGiocatore action, Integer position, boolean printPawns) throws QuitException {
+		if (printPawns)
+			printPawns(true, true);
+		movePawn(action, position);
+	}
+
 	private static void movePawn(EAzioniGiocatore action, Integer position) throws QuitException {
 		EColoriPedine color = choosePawnColor();
 		if (color != null) {
 			client.movePawn(action, color, position);
 		}
+	}
+
+	private static void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
+			ECostiCarte[] choosedCosts) {
+
 	}
 
 	private static EColoriPedine choosePawnColor() throws QuitException {
@@ -1066,9 +1131,9 @@ public class FakeUI {
 		printDashboardsCards(true, true);
 
 		System.out.print("Also print other dashes? [y/n] ");
-		
+
 		inText = scanner.nextLine();
-		
+
 		if (inText.equalsIgnoreCase("y"))
 			printOtherPlayersDashInfo();
 	}
