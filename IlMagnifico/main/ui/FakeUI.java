@@ -481,7 +481,9 @@ public class FakeUI {
 
 					System.out.println(Costants.ROW_SEPARATOR);
 					printCardInfo(board.getCartaTorre(position));
-					System.out.print("\n (" + (nCosts+1 - choices) + " choices left) Choose a cost #: [1..*]");
+
+					System.out.println("Available costs options: " + costs.size());
+					System.out.print("\n (" + (nCosts - choices) + " choices left) Choose a cost #: [1..*] ");
 
 					inText = scanner.nextLine();
 					if (inText.equals("q")) {
@@ -489,20 +491,23 @@ public class FakeUI {
 					} else {
 						try {
 							number = Integer.parseInt(inText);
-							number++;
-							for (ECostiCarte cost : ECostiCarte.values()) {
-								if (number == cost.ordinal()) {
-									choosed.add(cost);
-									choices--;
-								}
-							}
+
+							if (number <= 0 || number > costs.size())
+								throw new NumberFormatException();
+
+							choosed.add(costs.get(number - 1));
+							choices--;
+							/*
+							 * for (ECostiCarte cost : ECostiCarte.values()) {
+							 * if (number == cost.ordinal()) {
+							 * choosed.add(cost); choices--; } }
+							 */
 						} catch (NumberFormatException e) {
-							for (ECostiCarte cost : ECostiCarte.values()) {
-								if (inText.equalsIgnoreCase(cost.toString())) {
-									choosed.add(cost);
-									choices--;
-								}
-							}
+							/*
+							 * for (ECostiCarte cost : ECostiCarte.values()) {
+							 * if (inText.equalsIgnoreCase(cost.toString())) {
+							 * choosed.add(cost); choices--; } }
+							 */
 						}
 					}
 				}
