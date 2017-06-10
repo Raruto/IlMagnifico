@@ -123,42 +123,42 @@ public class Game extends Partita {
 	 */
 	private void andvanceInGameLogic(EAzioniGiocatore azione) {
 		UpdateStats update;
-if(azione!=EAzioniGiocatore.Famigliare){
-		if (!isGiroDiTurniTerminato()) {
-			avanzaDiTurno();
-			update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
-			update.setNomeGiocatore(giocatoreDiTurno.getNome());
-			dispatchGameUpdate(update);
-
-		} else {
-
-			// terminaGiroDiTurni();
-			resetPerNuovoTurno();
-			update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
-			dispatchGameUpdate(update);
-
-			if (!isPeriodoTerminato()) {
-				// avanzaGiroDiTurni();
-				posizionaCarteSuTorre();
-				lanciaDadi();
-				update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
+		if (azione != EAzioniGiocatore.Famigliare) {
+			if (!isGiroDiTurniTerminato()) {
+				avanzaDiTurno();
+				update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
+				update.setNomeGiocatore(giocatoreDiTurno.getNome());
 				dispatchGameUpdate(update);
+
 			} else {
 
-				// terminaPeriodo();
-				update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
+				// terminaGiroDiTurni();
+				resetPerNuovoTurno();
+				update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 				dispatchGameUpdate(update);
 
-				if (!isPartitaFinita()) {
-					// avanzaPeriodo();
-					update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+				if (!isPeriodoTerminato()) {
+					// avanzaGiroDiTurni();
+					posizionaCarteSuTorre();
+					lanciaDadi();
+					update = new UpdateStats(EFasiDiGioco.InizioTurno, this.spazioAzione);
 					dispatchGameUpdate(update);
 				} else {
 
-					// terminaPartita();
-					update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+					// terminaPeriodo();
+					update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 					dispatchGameUpdate(update);
-				}
+
+					if (!isPartitaFinita()) {
+						// avanzaPeriodo();
+						update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+						dispatchGameUpdate(update);
+					} else {
+
+						// terminaPartita();
+						update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+						dispatchGameUpdate(update);
+					}
 				}
 			}
 		}
@@ -254,8 +254,8 @@ if(azione!=EAzioniGiocatore.Famigliare){
 
 	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
-			remotePlayer.getFamigliare(update.getIndiceColorePedina())
-					.eseguiSpostamentoProduzioneRotondo(null);//qua ci va messa l'azione scelta dal giocatore come parametro
+			// qua ci va messa l'azione scelta dal giocatore come parametro
+			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneRotondo(null);
 		} catch (FamiliarAlreadyUsedException e) {
 			throw new GameException(Errors.FAMILIAR_ALREADY_USED.toString());
 		} catch (InsufficientValueException e1) {

@@ -2,10 +2,10 @@ package main.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import main.model.Carta;
 import main.model.Edificio;
 import main.model.Famigliare;
 import main.model.Impresa;
@@ -291,9 +291,8 @@ public class FakeUI {
 		while (!quit) {
 			try {
 				action = chooseGameAction();
-				printDices(true, false);
-				printPawns(false, false);
 				printPointsAndResources(true, false);
+				printPawns(true, false);
 
 				switch (action) {
 				case Mercato:
@@ -406,6 +405,10 @@ public class FakeUI {
 
 				case Famigliare:
 					try {
+						printDices(true, true);
+
+						// System.out.println(Costants.ROW_SEPARATOR);
+
 						// printPawns(false, true);
 						EColoriPedine color = choosePawnColor();
 						if (color != null) {
@@ -424,6 +427,20 @@ public class FakeUI {
 			}
 			nestedQuit = false;
 		}
+
+	}
+
+	private static void printCardInfo(Carta card) {
+		String s = "";
+		String desc = "";
+
+		for (ECostiCarte cost : card.getCostiCarta()) {
+			desc += cost.getDescrizione() + ", ";
+		}
+
+		s += String.format("%-20s%-25s%-15s%-30s", "Selected Card: ","[" + card.getNome() + "] ", "Periodo: " + card.getPeriodoCarta(),
+				"Costi: " + desc);
+		System.out.println(s);
 
 	}
 
@@ -470,7 +487,7 @@ public class FakeUI {
 
 		if (board.getCartaTorre(position) != null) {
 			int choices = board.getCartaTorre(position).getNumeroScelteCosti();
-			System.out.println(choices);
+			System.out.println("This card has " + choices + " cost choices: ");
 
 			if (choices > 1) {
 				// costs =
@@ -543,7 +560,7 @@ public class FakeUI {
 		int number;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Production area: [1] [2] ");
+			System.out.print("Choose a Production area: [1] [2] ");
 
 			inText = scanner.nextLine();
 
@@ -570,7 +587,7 @@ public class FakeUI {
 		int number;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Harvest area: [1] [2] ");
+			System.out.print("Choose a Harvest area: [1] [2] ");
 
 			inText = scanner.nextLine();
 
@@ -597,7 +614,7 @@ public class FakeUI {
 		int number;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a Market area: [1..4] ");
+			System.out.print("Choose a Market area: [1..4] ");
 
 			inText = scanner.nextLine();
 
@@ -655,7 +672,7 @@ public class FakeUI {
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
 			System.out.print("Choose a Tower area: ");
-			System.out.println(ETipiCarte.stringify(false));
+			System.out.print(ETipiCarte.stringify(false) + " ");
 
 			inText = scanner.nextLine();
 
@@ -670,6 +687,7 @@ public class FakeUI {
 							while (!nestedQuit) {
 								try {
 									floor = chooseTowerFloor(car);
+									printCardInfo(getClient().getGameBoard().getCartaTorre(floor));
 									return floor;
 								} catch (QuitException e) {
 									nestedQuit = true;
@@ -708,7 +726,7 @@ public class FakeUI {
 		int number;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a floor: [1..4] ");
+			System.out.print("Choose a floor: [1..4] ");
 
 			inText = scanner.nextLine();
 
@@ -782,7 +800,7 @@ public class FakeUI {
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
 			System.out.print("Choose a Pawn Color: ");
-			System.out.println(EColoriPedine.stringify(false));
+			System.out.print(EColoriPedine.stringify(false) + " ");
 			inText = scanner.nextLine();
 
 			if (inText.equalsIgnoreCase("q")) {
@@ -813,7 +831,7 @@ public class FakeUI {
 	// Command: [board]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	private static void printBoard() {
+	public static void printBoard() {
 		printDices(true, false);
 		printTowerArea(true, false);
 		printProductionArea(true, false);
@@ -865,27 +883,7 @@ public class FakeUI {
 		}
 	}
 
-	private static int[] getFamilyValues() throws NullPointerException {
-		int[] familyValues = new int[4];
-		SpazioAzione board = client.getGameBoard();
-		try {
-			Famigliare[] family = client.getPlayersFamilies().get(client.getNickname());
-			for (int i = 0; i < family.length; i++) {
-				familyValues[i] = family[i].getValore();
-			}
-		} catch (NullPointerException e) {
-			int[] dadi = board.getValoreDadi();
-			for (int i = 0; i < dadi.length; i++) {
-				familyValues[i] = dadi[i];
-			}
-			familyValues[3] = 0;
-		}
-		return familyValues;
-	}
-
 	private static void printPawns(boolean printSep1, boolean printSep2) {
-		Client client = getClient();
-
 		try {
 
 			int[] familyValues = getFamilyValues();
@@ -896,10 +894,10 @@ public class FakeUI {
 			System.out.print(ANSI.YELLOW);
 			System.out.format("%-30s", "Famigliari: ");
 			System.out.print(ANSI.RESET);
-			System.out.format(printPawn(EColoriPedine.Nera) + "%-17s", " = " + familyValues[0]);
-			System.out.format(printPawn(EColoriPedine.Arancione) + "%-17s", " = " + familyValues[1]);
-			System.out.format(printPawn(EColoriPedine.Bianca) + "%-15s", " = " + familyValues[2]);
-			System.out.format(printPawn(EColoriPedine.Neutrale) + "%-15s", " = " + familyValues[3]);
+			System.out.format(getStringifiedPawn(EColoriPedine.Nera) + "%-17s", " = " + familyValues[0]);
+			System.out.format(getStringifiedPawn(EColoriPedine.Arancione) + "%-17s", " = " + familyValues[1]);
+			System.out.format(getStringifiedPawn(EColoriPedine.Bianca) + "%-15s", " = " + familyValues[2]);
+			System.out.format(getStringifiedPawn(EColoriPedine.Neutrale) + "%-15s", " = " + familyValues[3]);
 			System.out.println();
 
 			if (printSep2)
@@ -924,16 +922,16 @@ public class FakeUI {
 				System.out.print("     ");
 
 				// Territorio
-				System.out.print(printFloor(i, pad));
+				System.out.print(getFloor(i, pad));
 
 				// Personaggio
-				System.out.print(printFloor(i + 4, pad));
+				System.out.print(getFloor(i + 4, pad));
 
 				// Edificio
-				System.out.print(printFloor(i + 8, pad));
+				System.out.print(getFloor(i + 8, pad));
 
 				// Impresa
-				System.out.print(printFloor(i + 12, pad));
+				System.out.print(getFloor(i + 12, pad));
 
 				System.out.println();
 			}
@@ -943,69 +941,6 @@ public class FakeUI {
 		} catch (NullPointerException e) {
 			System.err.println("EXCPETION:" + e.getMessage());
 		}
-	}
-
-	private static String printFloor(int i, int pad) {
-		String pawn = getStringifiedTowerPawn(i);
-		String row = ((i % 4) + 1) + ": ";
-		String cell = row + pawn + " " + getTowerFloor(i);
-		if (pawn != "") {
-			cell = cell + ANSI.RESET;
-		}
-
-		int diff = pad - cell.length();
-		if (pawn != "")
-			diff = diff + 19;
-		if (diff < 0)
-			diff = 0;
-		cell = cell + printSpaces(diff);
-		return cell;
-	}
-
-	private static String printSpaces(int spaces) {
-		String s = "";
-		for (int i = 0; i < spaces; i++) {
-			s += " ";
-		}
-		return s;
-	}
-
-	private static String getTowerFloor(int floor) {
-		Client client = getClient();
-		SpazioAzione board = client.getGameBoard();
-
-		String col;
-		if (board.getCartaTorre(floor) != null)
-			col = board.getCartaTorre(floor).getNome();
-		else if (board.getFamigliareTorre(floor) != null) {
-			col = "";// board.getFamigliareTorre(floor).getGiocatore().getNome();
-		} else
-			col = null;
-		return col;
-	}
-
-	private static String getStringifiedTowerPawn(int floor) {
-		SpazioAzione board = getClient().getGameBoard();
-		Famigliare fam = board.getFamigliareTorre(floor);
-		if (fam != null) {
-			return getStringifiedPawn(fam);
-		}
-		return "";
-	}
-
-	private static String getANSIPawn(Famigliare fam) {
-		if (fam != null)
-			return fam.getGiocatore().getColore().getANSIBackground() + fam.getColoreFamigliare().getANSICode();
-		else
-			return "";
-	}
-
-	private static String printPawn(EColoriPedine color) {
-		return color.getANSICode() + "♜" + ANSI.RESET;
-	}
-
-	private static String getStringifiedPawn(Famigliare fam) {
-		return getANSIPawn(fam) + "♜" + " " + fam.getGiocatore().getNome() + ANSI.RESET;
 	}
 
 	private static void printProductionArea(boolean printSep1, boolean printSep2) {
@@ -1023,14 +958,14 @@ public class FakeUI {
 			System.out.print("Zona 1: ");
 			zona1 = board.getZonaProduzioneRotonda();
 			if (zona1 != null)
-				System.out.println(getStringifiedPawn(zona1));
+				System.out.println(getStringifiedPawnAndPlayer(zona1));
 			else
 				System.out.println(null + "");
 
 			System.out.print("Zona 2: ");
 			zona2 = board.getZonaProduzioneOvale();
 			for (int i = 0; i < zona2.size(); i++) {
-				System.out.print(getStringifiedPawn(zona2.get(i)) + ", ");
+				System.out.print(getStringifiedPawnAndPlayer(zona2.get(i)) + ", ");
 			}
 			System.out.println();
 
@@ -1057,14 +992,14 @@ public class FakeUI {
 			System.out.print("Zona 1: ");
 			zona1 = board.getZonaRaccoltoRotonda();
 			if (zona1 != null)
-				System.out.println(getStringifiedPawn(zona1));
+				System.out.println(getStringifiedPawnAndPlayer(zona1));
 			else
 				System.out.println(null + "");
 
 			System.out.print("Zona 2: ");
 			zona2 = board.getZonaRaccoltoOvale();
 			for (int i = 0; i < zona2.size(); i++) {
-				System.out.print(getStringifiedPawn(zona2.get(i)) + ", ");
+				System.out.print(getStringifiedPawnAndPlayer(zona2.get(i)) + ", ");
 			}
 			System.out.println();
 
@@ -1091,7 +1026,7 @@ public class FakeUI {
 
 			for (int i = 0; i < zona.length; i++) {
 				if (zona[i] != null)
-					System.out.print(getStringifiedPawn(zona[i]) + ", ");
+					System.out.print(getStringifiedPawnAndPlayer(zona[i]) + ", ");
 				else
 					System.out.print(null + ", ");
 			}
@@ -1120,7 +1055,7 @@ public class FakeUI {
 
 			for (int i = 0; i < zona.size(); i++) {
 				if (zona.get(i) != null)
-					System.out.print(getStringifiedPawn(zona.get(i)) + ", ");
+					System.out.print(getStringifiedPawnAndPlayer(zona.get(i)) + ", ");
 				else
 					System.out.print(null + ", ");
 			}
@@ -1137,9 +1072,9 @@ public class FakeUI {
 	// Command: [dash]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	private static void printDashBoard() {
-		printDashboardsCards(true, false);
-		printPointsAndResources(true, true);
+	public static void printDashBoard() {
+		printPointsAndResources(true, false);
+		printDashboardsCards(true, true);
 	}
 
 	private static void printDashboardsCards(boolean printSep1, boolean printSep2) {
@@ -1225,7 +1160,7 @@ public class FakeUI {
 	// Command: [cards]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	private static void printCards(boolean printSep1, boolean printSep2) {
+	public static void printCards(boolean printSep1, boolean printSep2) {
 		if (printSep1)
 			System.out.println(Costants.ROW_SEPARATOR);
 		System.out.println(ECarte.stringify(false));
@@ -1233,4 +1168,82 @@ public class FakeUI {
 		if (printSep2)
 			System.out.println(Costants.ROW_SEPARATOR);
 	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Various
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	private static String getFloor(int i, int pad) {
+		String pawn = getStringifiedTowerPawnAndPlayer(i);
+		String row = ((i % 4) + 1) + ": ";
+		String cell = row + pawn + " " + getStringifiedTowerFloor(i);
+		if (pawn != "") {
+			cell = cell + ANSI.RESET;
+		}
+
+		int diff = pad - cell.length();
+		if (pawn != "")
+			diff = diff + 19;
+		if (diff < 0)
+			diff = 0;
+		cell = cell + getSpaces(diff);
+		return cell;
+	}
+
+	private static String getSpaces(int spaces) {
+		String s = "";
+		for (int i = 0; i < spaces; i++) {
+			s += " ";
+		}
+		return s;
+	}
+
+	private static String getStringifiedTowerFloor(int floor) {
+		SpazioAzione board = getClient().getGameBoard();
+
+		if (board.getCartaTorre(floor) != null)
+			return board.getCartaTorre(floor).getNome();
+		else
+			return "";
+	}
+
+	private static String getStringifiedTowerPawnAndPlayer(int floor) {
+		SpazioAzione board = getClient().getGameBoard();
+		Famigliare fam = board.getFamigliareTorre(floor);
+		if (fam != null) {
+			return getStringifiedPawnAndPlayer(fam);
+		}
+		return "";
+	}
+
+	private static String getStringifiedPawn(EColoriPedine color) {
+		return color.getANSICode() + "♜" + ANSI.RESET;
+	}
+
+	private static String getStringifiedPawnAndPlayer(Famigliare fam) {
+		String ANSIPawn = "";
+		if (fam != null)
+			ANSIPawn = fam.getGiocatore().getColore().getANSIBackground() + fam.getColoreFamigliare().getANSICode();
+
+		return ANSIPawn + "♜" + " " + fam.getGiocatore().getNome() + ANSI.RESET;
+	}
+
+	private static int[] getFamilyValues() throws NullPointerException {
+		int[] familyValues = new int[4];
+		SpazioAzione board = client.getGameBoard();
+		try {
+			Famigliare[] family = client.getPlayersFamilies().get(client.getNickname());
+			for (int i = 0; i < family.length; i++) {
+				familyValues[i] = family[i].getValore();
+			}
+		} catch (NullPointerException e) {
+			int[] dadi = board.getValoreDadi();
+			for (int i = 0; i < dadi.length; i++) {
+				familyValues[i] = dadi[i];
+			}
+			familyValues[3] = 0;
+		}
+		return familyValues;
+	}
+
 }

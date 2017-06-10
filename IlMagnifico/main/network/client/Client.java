@@ -67,13 +67,13 @@ public class Client implements IClient {
 
 	private SpazioAzione board;
 
-	private HashMap<String, Plancia> dashboards;
+	private HashMap<String, Plancia> playersDashboards;
 
-	private HashMap<String, Famigliare[]> families;
+	private HashMap<String, Famigliare[]> playersFamilies;
 	
-	private HashMap<String, Risorsa> resources;
+	private HashMap<String, Risorsa> playersResources;
 	
-	private HashMap<String, Punti> points;
+	private HashMap<String, Punti> playersPoints;
 	
 	private String playerTurn;
 
@@ -87,19 +87,19 @@ public class Client implements IClient {
 	}
 
 	public HashMap<String, Plancia> getPlayersDashboards() {
-		return this.dashboards;
+		return this.playersDashboards;
 	}
 
 	public HashMap<String, Famigliare[]> getPlayersFamilies() {
-		return this.families;
+		return this.playersFamilies;
 	}
 
 	public HashMap<String, Risorsa> getPlayersResources() {
-		return this.resources;
+		return this.playersResources;
 	}
 
 	public HashMap<String, Punti> getPlayersPoints() {
-		return this.points;
+		return this.playersPoints;
 	}
 
 	public String getPlayerTurn() {
@@ -116,10 +116,10 @@ public class Client implements IClient {
 		nickname = "anonymous";
 		isLogged = false;
 
-		dashboards = new HashMap<>();
-		families = new HashMap<>();
-		resources= new HashMap<>();
-		points = new HashMap<>();
+		playersDashboards = new HashMap<>();
+		playersFamilies = new HashMap<>();
+		playersResources= new HashMap<>();
+		playersPoints = new HashMap<>();
 
 		responseMap = new HashMap<>();
 		loadResponses();
@@ -382,14 +382,14 @@ public class Client implements IClient {
 		// update local game copy
 		this.board = update.getSpazioAzione();
 		if (update.getPlanciaGiocatore() != null)
-			this.dashboards.put(playerName, update.getPlanciaGiocatore());
+			this.playersDashboards.put(playerName, update.getPlanciaGiocatore());
 		if (update.getFamigliaGiocatore() != null)
-			this.families.put(playerName, update.getFamigliaGiocatore());
+			this.playersFamilies.put(playerName, update.getFamigliaGiocatore());
 		
 		if (update.getRisorseGiocatore() != null)
-			this.resources.put(playerName, update.getRisorseGiocatore());
+			this.playersResources.put(playerName, update.getRisorseGiocatore());
 		if (update.getPuntiGiocatore() != null)
-			this.points.put(playerName, update.getPuntiGiocatore());
+			this.playersPoints.put(playerName, update.getPuntiGiocatore());
 
 
 		// handle server response
@@ -467,6 +467,8 @@ public class Client implements IClient {
 
 	@Override
 	public void onTurnStarted(UpdateStats update) {
+		this.playersFamilies = update.getFamiglieGiocatori();
+		
 		int[] dadi = update.getSpazioAzione().getValoreDadi();
 		String s = "";
 		for (int i = 0; i < dadi.length; i++) {
@@ -491,10 +493,10 @@ public class Client implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
-		this.resources = update.getRisorseGiocatori();
-		this.points = update.getPuntiGiocatori();
-		this.families = update.getFamiglieGiocatori();
-		this.dashboards = update.getPlanceGiocatori();
+		this.playersResources = update.getRisorseGiocatori();
+		this.playersPoints = update.getPuntiGiocatori();
+		this.playersFamilies = update.getFamiglieGiocatori();
+		this.playersDashboards = update.getPlanceGiocatori();
 		
 		System.out.print("(" + update.getNomiGiocatori().size() + "G): ");
 		for (String s : update.getNomiGiocatori()) {
