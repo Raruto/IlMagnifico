@@ -394,4 +394,20 @@ public class UtilEffetto implements Serializable {
 	public void cambiaValoreAzione(int variazione, Famigliare famigliare) {
 		famigliare.cambiaValore(variazione);
 	}
+
+	/**
+	 * Metodo che perpara i parametri per effettuare il pagamento
+	 * 
+	 * @param
+	 */
+	public void preparaPagamento(Object[] o) {
+		o[5] = -(int) o[5];
+		o[6] = -(int) o[6];
+		o[7] = -(int) o[7];
+		o[8] = -(int) o[8];
+		o[9] = -(int) o[9];
+		o[10] = -(int) o[10];
+		o[11] = -(int) o[11];
+		aggiungiRisorse(o);
+	}
 }

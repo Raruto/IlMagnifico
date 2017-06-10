@@ -203,15 +203,15 @@ public abstract class Carta implements Serializable {
 	public void acquisizione(Giocatore giocatore, ECostiCarte costoScelto) throws NoEnoughResourcesException {
 		if (costoScelto == this.costiDellaCartaComunicazione.get(0))
 			if ((int) (acquisizione.get(0)[0]) == 0) {
-				utilEffetto.aggiungiRisorse(acquisizione.get(0));
+				utilEffetto.preparaPagamento(acquisizione.get(0));
 			} else
 				throw new NoEnoughResourcesException();
 		else if (acquisizione.size() > 1) {
 			if ((int) (acquisizione.get(1)[0]) == 0)
-				utilEffetto.aggiungiRisorse(acquisizione.get(1));
+				utilEffetto.preparaPagamento(acquisizione.get(1));
 		} else if (costoScelto == null) {
 			if ((int) (acquisizione.get(0)[0]) == 0) {
-				utilEffetto.aggiungiRisorse(acquisizione.get(0));
+				utilEffetto.preparaPagamento(acquisizione.get(0));
 			}
 		} else
 			throw new NoEnoughResourcesException();
