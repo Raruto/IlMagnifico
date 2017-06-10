@@ -68,7 +68,7 @@ public enum ECarte {
 	public void inizializzaCosti() {
 		for (ECostiCarte e : ECostiCarte.values()) {
 			if (this.nome.equals(e.getNome())) {
-				this.costi = e.getCosti();
+				this.costi.add(e.getCosto());
 			}
 		}
 	}
