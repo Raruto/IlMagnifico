@@ -20,6 +20,7 @@ import main.network.client.rmi.RMIClient;
 import main.network.client.socket.SocketClient;
 import main.network.exceptions.LoginException;
 import main.network.protocol.ConnectionTypes;
+import main.network.server.game.Game;
 import main.network.server.game.UpdateStats;
 import main.ui.FakeUI;
 import main.util.ANSI;
@@ -521,6 +522,18 @@ public class Client implements IClient {
 		}
 	}
 
+	/**
+	 * Metodo invocato dal Server ogni qualvolta l'azione richiesta dal
+	 * giocatore è stata accettata (vedi
+	 * {@link Client#performGameAction(UpdateStats)}) oppure si è verificato
+	 * un'avanzamento nello stato della logica della partita (vedi
+	 * {@link Game}).
+	 * 
+	 * @param update
+	 *            oggetto aggiornamento contenente tutte le informazioni
+	 *            relative all'avanzamento della partita (vedi
+	 *            {@link UpdateStats}).
+	 */
 	@Override
 	public void onGameUpdate(UpdateStats update) {
 		String playerName = update.getNomeGiocatore();
