@@ -2,6 +2,8 @@ package main.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -471,9 +473,9 @@ public class FakeUI {
 			int choices = board.getCartaTorre(position).getNumeroScelteCosti();
 
 			if (choices > 0) {
-				int nCosts = board.getCartaTorre(position).getCostiCarta().size();
-
 				costs = board.getCartaTorre(position).getCostiCarta();
+				int nCosts = costs.size();
+
 				boolean ok = false;
 
 				while (!ok && choices > 0) {
@@ -1062,15 +1064,42 @@ public class FakeUI {
 	public static void printDashBoard() {
 		printPointsAndResources(true, false);
 		printDashboardsCards(true, true);
+
+		System.out.print("Also print other dashes? [y/n] ");
+		
+		inText = scanner.nextLine();
+		
+		if (inText.equalsIgnoreCase("y"))
+			printOtherPlayersDashInfo();
+	}
+
+	private static void printOtherPlayersDashInfo() {
+		try {
+			HashMap<String, Plancia> playersDashboards = getClient().getPlayersDashboards();
+
+			for (String key : playersDashboards.keySet()) {
+				if (!key.equals(getClient().getNickname())) {
+					System.out.println("\nPlancia del Giocatore: \"" + key + "\"");
+					printPointsAndResources(key, true, false);
+					printDashboardsCards(key, true, true);
+				}
+			}
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
 	}
 
 	private static void printDashboardsCards(boolean printSep1, boolean printSep2) {
+		printDashboardsCards(client.getNickname(), printSep1, printSep2);
+	}
+
+	private static void printDashboardsCards(String nickname, boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		try {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			Plancia dash = client.getPlayersDashboards().get(client.getNickname());
+			Plancia dash = client.getPlayersDashboards().get(nickname);
 			if (dash != null) {
 				ArrayList<Territorio> territori = dash.getTerritori();
 				ArrayList<Personaggio> personaggi = dash.getPersonaggi();
@@ -1112,13 +1141,17 @@ public class FakeUI {
 	}
 
 	private static void printPointsAndResources(boolean printSep1, boolean printSep2) {
+		printPointsAndResources(getClient().getNickname(), printSep1, printSep2);
+	}
+
+	private static void printPointsAndResources(String nickname, boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		try {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			Punti points = client.getPlayersPoints().get(client.getNickname());
-			Risorsa resources = client.getPlayersResources().get(client.getNickname());
+			Punti points = client.getPlayersPoints().get(nickname);
+			Risorsa resources = client.getPlayersResources().get(nickname);
 
 			if (points != null && resources != null) {
 				System.out.print(ANSI.YELLOW);
