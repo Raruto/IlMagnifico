@@ -6,7 +6,7 @@ import main.model.enums.EAzioniGioco;
 import main.model.enums.ECarte;
 import main.model.enums.EScomuniche;
 import main.model.enums.ETipiCarte;
-import main.model.enums.PlayerColors;
+import main.model.enums.EColoriGiocatori;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
 import main.network.server.game.Game;
@@ -261,13 +261,13 @@ public abstract class Partita {
 			this.giocatori.get(i).getRisorse().cambiaMonete(contatoreMonete + 1);
 			this.giocatori.get(i).setSpazioAzione(this.spazioAzione);
 			if (i == 0)
-				this.giocatori.get(i).setColore(PlayerColors.BLUE);
+				this.giocatori.get(i).setColore(EColoriGiocatori.BLUE);
 			if (i == 1)
-				this.giocatori.get(i).setColore(PlayerColors.GREEN);
+				this.giocatori.get(i).setColore(EColoriGiocatori.GREEN);
 			if (i == 2)
-				this.giocatori.get(i).setColore(PlayerColors.RED);
+				this.giocatori.get(i).setColore(EColoriGiocatori.RED);
 			if (i == 3)
-				this.giocatori.get(i).setColore(PlayerColors.YELLOW);
+				this.giocatori.get(i).setColore(EColoriGiocatori.YELLOW);
 		}
 
 	}

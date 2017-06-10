@@ -20,7 +20,7 @@ import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
 import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
-import main.model.enums.PlayerColors;
+import main.model.enums.EColoriGiocatori;
 
 public class UpdateStats implements Serializable {
 
@@ -117,7 +117,7 @@ public class UpdateStats implements Serializable {
 	 */
 	private SpazioAzione spazioAzione;
 
-	private PlayerColors coloreGiocatore;
+	private EColoriGiocatori coloreGiocatore;
 
 	private ECostiCarte[] scelteCosti;
 
@@ -226,7 +226,7 @@ public class UpdateStats implements Serializable {
 		return nomeGiocatore;
 	}
 
-	public PlayerColors getColoreGiocatore() {
+	public EColoriGiocatori getColoreGiocatore() {
 		return coloreGiocatore;
 	}
 

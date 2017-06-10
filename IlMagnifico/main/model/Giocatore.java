@@ -3,7 +3,7 @@ package main.model;
 import java.io.Serializable;
 
 import main.model.enums.EEffettiPermanenti;
-import main.model.enums.PlayerColors;
+import main.model.enums.EColoriGiocatori;
 import main.model.exceptions.NoEnoughResourcesException;
 
 /**
@@ -24,7 +24,7 @@ public class Giocatore implements Serializable {
 	/**
 	 * Colore del giocatore.
 	 */
-	private PlayerColors colore;
+	private EColoriGiocatori colore;
 
 	/**
 	 * 
@@ -56,7 +56,7 @@ public class Giocatore implements Serializable {
 	/**
 	 * Default constructor
 	 */
-	public Giocatore(String nome, PlayerColors colore, Risorsa risorse, Plancia plancia, Punti punti,
+	public Giocatore(String nome, EColoriGiocatori colore, Risorsa risorse, Plancia plancia, Punti punti,
 			SpazioAzione spazioAzione) {
 		this.nome = nome;
 		this.colore = colore;
@@ -126,16 +126,16 @@ public class Giocatore implements Serializable {
 	 * @param colore
 	 *            colore da assegnare al giocatore.
 	 */
-	public void setColore(PlayerColors colore) {
+	public void setColore(EColoriGiocatori colore) {
 		this.colore = colore;
 	}
 
 	/**
 	 * Ritorna il colore associato al giocatore.
 	 * 
-	 * @return {@link PlayerColors} colore del giocatore.
+	 * @return {@link EColoriGiocatori} colore del giocatore.
 	 */
-	public PlayerColors getColore() {
+	public EColoriGiocatori getColore() {
 		return this.colore;
 	}
 
