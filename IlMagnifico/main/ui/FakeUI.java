@@ -471,9 +471,9 @@ public class FakeUI {
 			int choices = board.getCartaTorre(position).getNumeroScelteCosti();
 
 			if (choices > 0) {
-				int nCosts = board.getCartaTorre(position).getCostiCarta().size();
-
 				costs = board.getCartaTorre(position).getCostiCarta();
+				int nCosts = costs.size();
+				
 				boolean ok = false;
 
 				while (!ok && choices > 0) {
