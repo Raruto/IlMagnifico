@@ -9,6 +9,7 @@ import main.model.Punti;
 import main.model.Risorsa;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.ECarte;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EFasiDiGioco;
@@ -66,46 +67,46 @@ public class Client implements IClient {
 	 */
 	private final HashMap<Object, ResponseHandler> responseMap;
 
+	/**
+	 * {@link SpazioAzione} aggiornato all'ultimo aggiornamento ricevuto dal
+	 * Server (vedi {@link UpdateStats}).
+	 */
 	private SpazioAzione board;
 
+	/**
+	 * Plance dei giocatori ("Nome","Plancia") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Plancia}).
+	 */
 	private HashMap<String, Plancia> playersDashboards;
 
+	/**
+	 * Famigliari dei giocatori ("Nome","Famigliare[]") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Famigliare}).
+	 */
 	private HashMap<String, Famigliare[]> playersFamilies;
 
+	/**
+	 * Risorse dei giocatori ("Nome","Risorsa") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Risorsa}).
+	 */
 	private HashMap<String, Risorsa> playersResources;
 
+	/**
+	 * Risorse dei giocatori ("Nome","Punti") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Punti}).
+	 */
 	private HashMap<String, Punti> playersPoints;
 
+	/**
+	 * Nome del giocatore attualmente di turno, aggiornato all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link UpdateStats}).
+	 */
 	private String playerTurn;
 
 	/**
 	 * Flag usato per abilitare il Log sul Server.
 	 */
 	private final boolean LOG_ENABLED = Costants.CLIENT_ENABLE_LOG;
-
-	public SpazioAzione getGameBoard() {
-		return this.board;
-	}
-
-	public HashMap<String, Plancia> getPlayersDashboards() {
-		return this.playersDashboards;
-	}
-
-	public HashMap<String, Famigliare[]> getPlayersFamilies() {
-		return this.playersFamilies;
-	}
-
-	public HashMap<String, Risorsa> getPlayersResources() {
-		return this.playersResources;
-	}
-
-	public HashMap<String, Punti> getPlayersPoints() {
-		return this.playersPoints;
-	}
-
-	public String getPlayerTurn() {
-		return playerTurn;
-	}
 
 	/**
 	 * Crea una nuova istanza della classe.
@@ -264,6 +265,62 @@ public class Client implements IClient {
 		System.out.println();
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// "Getters" (per verificare lo stato del Client, in Locale).
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Ritorna lo {@link SpazioAzione} aggiornato all'ultimo aggiornamento
+	 * ricevuto dal Server (vedi {@link UpdateStats}).
+	 */
+	public SpazioAzione getGameBoard() {
+		return this.board;
+	}
+
+	/**
+	 * Ritorna le Plance dei giocatori ("Nome","Plancia") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Plancia}).
+	 */
+	public HashMap<String, Plancia> getPlayersDashboards() {
+		return this.playersDashboards;
+	}
+
+	/**
+	 * Ritorna i Famigliari dei giocatori ("Nome","Famigliare[]") aggiornate
+	 * all'ultimo aggiornamento ricevuto dal Server (vedi {@link Famigliare}).
+	 */
+	public HashMap<String, Famigliare[]> getPlayersFamilies() {
+		return this.playersFamilies;
+	}
+
+	/**
+	 * Ritorna le Risorse dei giocatori ("Nome","Risorsa") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Risorsa}).
+	 */
+	public HashMap<String, Risorsa> getPlayersResources() {
+		return this.playersResources;
+	}
+
+	/**
+	 * Ritorna le Risorse dei giocatori ("Nome","Punti") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Punti}).
+	 */
+	public HashMap<String, Punti> getPlayersPoints() {
+		return this.playersPoints;
+	}
+
+	/**
+	 * Ritorna il Nome del giocatore attualmente di turno, aggiornato all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link UpdateStats}).
+	 */
+	public String getPlayerTurn() {
+		return playerTurn;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// "Senders" (per l'invio di informazioni verso il Server, in Remoto).
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Metodo per effettuare il login presso il Server.
 	 * 
@@ -298,7 +355,6 @@ public class Client implements IClient {
 	 * @param messaggio
 	 *            da inviare.
 	 */
-	// @Override
 	public void sendChatMessage(String receiver, String message) {
 		try {
 			client.sendChatMessage(receiver, message);
@@ -307,7 +363,12 @@ public class Client implements IClient {
 		}
 	}
 
-	// @Override
+	/**
+	 * Callback per inviare una richiesta da parte del giocatore per svolgere
+	 * una "azione giocatore" (vedi {@link EAzioniGiocatore}).
+	 * 
+	 * @param requestedAction
+	 */
 	public void performGameAction(UpdateStats requestedAction) {
 		try {
 			client.sendGameActionRequest(requestedAction);
@@ -316,6 +377,21 @@ public class Client implements IClient {
 		}
 	}
 
+	/**
+	 * Invia una richiesta di spostamento di una pedina sopra una zona Mercato
+	 * che richiede la scelta di privilegi del consiglio (Area 4).
+	 * 
+	 * @param action
+	 *            tipicamente {@link EAzioniGiocatore#Mercato}.
+	 * @param color
+	 *            colore della pedina da spostare (vedi {@link EColoriPedine}).
+	 * @param position
+	 *            posizione all'interno della zona selezionata (per l'Area 4 del
+	 *            mercato position == 3).
+	 * @param choosedPrivileges
+	 *            array di {@link ESceltePrivilegioDelConsiglio} contenenti i
+	 *            privilegi del consiglio scelti.
+	 */
 	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
 			ESceltePrivilegioDelConsiglio[] choosedPrivileges) {
 		UpdateStats requestedAction = new UpdateStats(action);
@@ -323,26 +399,78 @@ public class Client implements IClient {
 		requestedAction.setSceltePrivilegiConsiglio(choosedPrivileges);
 		performGameAction(requestedAction);
 	}
-	
-	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
-			ECostiCarte[] choosedCosts) {
+
+	/**
+	 * Invia una richiesta di spostamento di una pedina sopra una zona Torre che
+	 * richiede la scelta di un costo opzionale (es.
+	 * {@link ECarte#SOSTEGNO_AL_VESCOVO}).
+	 * 
+	 * @param action
+	 *            tipicamente {@link EAzioniGiocatore#Torre}.
+	 * @param color
+	 *            colore della pedina da spostare (vedi {@link EColoriPedine}).
+	 * @param position
+	 *            posizione all'interno della zona selezionata (le torri vanno
+	 *            da 0 a 15, [0..3] = Territorio, [4..7] = Personaggio, [8..11]
+	 *            = Edificio, [12..15] = Impresa), per esempio: (position == 1)
+	 *            è il Secondo Piano della Torre Territorio.
+	 * @param choosedCosts
+	 *            array di {@link ECostiCarte} contenenti i costi scelti (nel
+	 *            qual caso ci siano, per esempio
+	 *            {@link ECarte#SOSTEGNO_AL_VESCOVO} ha due costi possibili:
+	 *            {@link ECostiCarte#SOSTEGNO_AL_VESCOVO1},
+	 *            {@link ECostiCarte#SOSTEGNO_AL_VESCOVO2}).
+	 */
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position, ECostiCarte[] choosedCosts) {
 		UpdateStats requestedAction = new UpdateStats(action);
 		requestedAction.spostaPedina(color, position);
-		requestedAction.setScelteCosti(choosedCosts);;
+		requestedAction.setScelteCosti(choosedCosts);
+		;
 		performGameAction(requestedAction);
 	}
 
+	/**
+	 * Invia una richiesta di spostamento di una pedina sopra una zona Torre che
+	 * NON richiede la scelta di un costo opzionale (es. {@link ECarte#BOSCO}).
+	 * 
+	 * @param action
+	 *            tipicamente {@link EAzioniGiocatore#Torre}.
+	 * @param color
+	 *            colore della pedina da spostare (vedi {@link EColoriPedine}).
+	 * @param position
+	 *            posizione all'interno della zona selezionata (le torri vanno
+	 *            da 0 a 15, [0..3] = Territorio, [4..7] = Personaggio, [8..11]
+	 *            = Edificio, [12..15] = Impresa), per esempio: (position == 1)
+	 *            è il Secondo Piano della Torre Territorio.
+	 */
 	public void movePawn(EAzioniGiocatore action, EColoriPedine color, int position) {
 		UpdateStats requestedAction = new UpdateStats(action);
 		requestedAction.spostaPedina(color, position);
 		performGameAction(requestedAction);
 	}
 
+	/**
+	 * Invia una richiesta di supportare o meno il Vaticano ().
+	 * 
+	 * @param isSupported
+	 *            se True il Vaticano sarà supportato dal giocatore, False
+	 *            altrimenti.
+	 */
 	public void supportChurch(boolean isSupported) {
 		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		requestedAction.supportaChiesa(isSupported);
 	}
 
+	/**
+	 * Invia una richiesta di aumentare il valore di una Pedina pagando con i
+	 * servitori posseduti.
+	 * 
+	 * @param color
+	 *            colore della pedina selezionata (vedi {@link EColoriPedine}).
+	 * @param servants
+	 *            numero di servitori spesi per aumentare il valore della pedina
+	 *            (1 Servitore = +1).
+	 */
 	public void incrementPawnValue(EColoriPedine color, int servants) {
 		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.Famigliare);
 		requestedAction.aumentaValorePedina(color, servants);
@@ -374,6 +502,15 @@ public class Client implements IClient {
 		// mUi.showChatMessage(privateMessage, author, message);
 	}
 
+	/**
+	 * Metodo invocato dal Server ogni qualvolta si presenta un errore (es.
+	 * azione illegale) a seguito di una richiesta del giocatore (vedi
+	 * {@link Client#performGameAction(UpdateStats)})
+	 * 
+	 * @param errorCode
+	 *            stringa contenenti informazioni sull'errore (vedi
+	 *            {@link Errors}).
+	 */
 	@Override
 	public void onActionNotValid(String errorCode) {
 		try {
