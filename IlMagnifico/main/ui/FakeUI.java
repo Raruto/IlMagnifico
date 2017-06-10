@@ -354,9 +354,11 @@ public class FakeUI {
 
 			// System.out.println(Costants.ROW_SEPARATOR);
 
-			// printPawns(false, true);
+			printPawns(false, true);
 			EColoriPedine color = choosePawnColor();
 			if (color != null) {
+				System.out.println();
+				printPointsAndResources(false, true);
 				incrementPawn(color);
 				// quit = true;
 			}
