@@ -23,4 +23,19 @@ public class GiocatoreTest {
 		assertTrue(giocatore.checkPosizionato() == true);
 	}
 
+	@Test
+	public void calcolaPVFinali() {
+		Giocatore giocatore = new Giocatore();
+		giocatore.calcolaPVFinali();
+
+		assertTrue(giocatore.getPunti().getPuntiVittoria() == 0);
+
+		giocatore.getRisorse().cambiaLegno(5);
+		giocatore.getRisorse().cambiaMonete(5);
+		giocatore.getRisorse().cambiaPietre(5);
+		giocatore.getRisorse().cambiaServitori(5);
+
+		assertTrue(giocatore.getPunti().getPuntiVittoria() == 4);
+	}
+
 }
