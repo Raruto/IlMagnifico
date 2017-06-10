@@ -480,34 +480,35 @@ public class FakeUI {
 	private static ECostiCarte[] chooseCardCost(int position) throws QuitException {
 		Client client = getClient();
 		SpazioAzione board = client.getGameBoard();
-		List<ArrayList<ECostiCarte>> costs;
+		ArrayList<ECostiCarte> costs;
 		List<ECostiCarte> choosed = new ArrayList<ECostiCarte>();
 
 		int number;
 
 		if (board.getCartaTorre(position) != null) {
 			int choices = board.getCartaTorre(position).getNumeroScelteCosti();
-			int nCosts = board.getCartaTorre(position).getCostiCarta().size();
-			System.out.println("This card has " + nCosts + " costs: ");
-			System.out.println("This card has " + choices + " cost choices: ");
 
 			if (choices > 0) {
-				costs = Arrays.asList(board.getCartaTorre(position).getCostiCarta());
-				System.out.println(costs.get(0).toString());
+				int nCosts = board.getCartaTorre(position).getCostiCarta().size();
+
+				System.out.println("This card has " + nCosts + " costs: ");
+				System.out.println("This card has " + choices + " cost choices: ");
+
+				costs = board.getCartaTorre(position).getCostiCarta();
 				boolean ok = false;
 
 				while (!ok && choices > 0) {
 					// System.out.println("'q' to quit\n");
-					System.out.println("Select " + choices + " cost choice: ");
-					// System.out.println(costs.get(0).getNome());
-					// System.out.println(ECostiCarte.stringify((ArrayList<ECostiCarte>)
-					// costs));
+					System.out.println("Choose #" + choices + ": ");
+					System.out.println(costs.get(0).getNome());
+					System.out.println(ECostiCarte.stringify((ArrayList<ECostiCarte>) costs));
 					inText = scanner.nextLine();
 					if (inText.equals("q")) {
 						throw new QuitException();
 					} else {
 						try {
 							number = Integer.parseInt(inText);
+							number++;
 							for (ECostiCarte cost : ECostiCarte.values()) {
 								if (number == cost.ordinal()) {
 									choosed.add(cost);
