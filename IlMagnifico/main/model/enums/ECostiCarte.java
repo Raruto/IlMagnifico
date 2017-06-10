@@ -13,7 +13,7 @@ public enum ECostiCarte {
 	TAGLIAPIETRE("tagliapietre", 1, 0, 2, 0, 0, 0,"paga: 1 monete, 2 pietra"), 
 	RESIDENZA("residenza", 0, 0, 2, 0, 0, 0,"paga: 2 pietra"), 
 	FALEGNAMERIA("falegnameria", 1, 2, 0, 0, 0, 0,"paga: 1 monete, 2 legna"), 
-	SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 2, 1, 1, 0, 2, 4,"paga: 2 monete, 1 legna, 1 pietra oppure se hai 4 Punti vittoria pagane 2"), 
+	SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 2, 1, 1, 0, 2, 4,"paga: (2 monete, 1 legna, 1 pietra) oppure (se hai 4 Punti vittoria pagane 2)"), 
 	CAMPAGNA_MILITARE("campagna militare", 0, 0, 0, 0, 2, 3,"paga: se hai 3 punti militari pagane 2"),
 	INNALZARE_UNA_STATUA("innalzare una statua", 0, 2, 2, 0, 0, 0,"paga: 2 legna, 2 pietra"), 
 	COSTRUIRE_LE_MURA("costruire le mura", 0, 0, 3, 0, 0, 0,"paga: 3 pietre"), 

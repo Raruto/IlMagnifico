@@ -195,7 +195,7 @@ public class FakeUI {
 	}
 
 	/**
-	 * Client commmand chooser.
+	 * Client command chooser.
 	 */
 	public static void infiniteLoop() {
 		boolean quit = false;
@@ -452,51 +452,11 @@ public class FakeUI {
 		movePawn(action, position);
 	}
 
-	private static void printCardInfo(Carta card) {
-		String s = "";
-		String desc = "";
-
-		for (ECostiCarte cost : card.getCostiCarta()) {
-			desc += cost.getDescrizione() + ", ";
-		}
-
-		s += String.format("%-20s%-25s%-15s%-30s", "Selected: ", "[" + card.getNome() + "] ",
-				"Periodo: " + card.getPeriodoCarta(), "Costi: " + desc);
-		System.out.println(s);
-
-	}
-
 	private static void incrementPawn(EColoriPedine color) throws QuitException {
 		Integer value = numberChooser("Add Servants: [0..*]");
 		if (value != null) {
 			client.incrementPawnValue(color, value);
 		}
-	}
-
-	private static Integer numberChooser(String description) throws QuitException {
-		int number;
-		boolean ok = false;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.println(description);
-			inText = scanner.nextLine();
-
-			if (inText.equalsIgnoreCase("q")) {
-				throw new QuitException();
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-					if (number < 0) {
-						throw new NumberFormatException();
-					} else {
-						return number;
-					}
-				} catch (NumberFormatException e) {
-					System.out.println("Insert a valid number");
-				}
-			}
-		}
-		return null;
 	}
 
 	private static ECostiCarte[] chooseCardCost(int position) throws QuitException {
@@ -513,17 +473,16 @@ public class FakeUI {
 			if (choices > 0) {
 				int nCosts = board.getCartaTorre(position).getCostiCarta().size();
 
-				System.out.println("This card has " + nCosts + " costs: ");
-				System.out.println("This card has " + choices + " cost choices: ");
-
 				costs = board.getCartaTorre(position).getCostiCarta();
 				boolean ok = false;
 
 				while (!ok && choices > 0) {
 					// System.out.println("'q' to quit\n");
-					System.out.println("Choose #" + choices + ": ");
-					System.out.println(costs.get(0).getNome());
-					System.out.println(ECarte.stringify(costs, false));
+
+					System.out.println(Costants.ROW_SEPARATOR);
+					printCardInfo(board.getCartaTorre(position));
+					System.out.print("\n (" + (nCosts+1 - choices) + " choices left) Choose a cost #: [1..*]");
+
 					inText = scanner.nextLine();
 					if (inText.equals("q")) {
 						throw new QuitException();
@@ -717,8 +676,8 @@ public class FakeUI {
 							while (!nestedQuit) {
 								try {
 									floor = chooseTowerFloor(car);
-									//System.out.println();
-									//printCardInfo(getClient().getGameBoard().getCartaTorre(floor));
+									// System.out.println();
+									// printCardInfo(getClient().getGameBoard().getCartaTorre(floor));
 									return floor;
 								} catch (QuitException e) {
 									nestedQuit = true;
@@ -752,19 +711,6 @@ public class FakeUI {
 		return null;
 	}
 
-	private static void printTowerCards(ETipiCarte tower) {
-		try {
-			System.out.println();
-			ArrayList<Carta> ecards = new ArrayList<Carta>();
-			for (int i = 1; i <= 4; i++) {
-				ecards.add((getClient().getGameBoard().getCartaTorre(getConvertedTowerFloor(tower, i))));
-			}
-			System.out.print(ECarte.stringify(ecards, false, false));
-			System.out.println(Costants.ROW_SEPARATOR);
-		} catch (NumberFormatException e) {
-		}
-	}
-
 	private static Integer chooseTowerFloor(ETipiCarte tower) throws QuitException {
 		boolean ok = false;
 		int number;
@@ -794,27 +740,6 @@ public class FakeUI {
 		return null;
 	}
 
-	private static Integer getConvertedTowerFloor(ETipiCarte tower, int number) throws NumberFormatException {
-		if (number < 1 || number > 4)
-			throw new NumberFormatException();
-
-		switch (tower) {
-		case Territorio:
-			// [0..3]
-			return number - 1;
-		case Personaggio:
-			// [4..7]
-			return (number + 4) - 1;
-		case Edificio:
-			// [8..11]
-			return (number + 8) - 1;
-		case Impresa:
-			// [12..15]
-			return (number + 12) - 1;
-		}
-		throw new NumberFormatException();
-	}
-
 	private static void supportChurch() throws QuitException {
 		boolean ok = false;
 		while (!ok) {
@@ -835,12 +760,14 @@ public class FakeUI {
 		}
 	}
 
-	/*
-	 * private static void movePawn(EAzioniGiocatore action, Integer position,
-	 * ESceltePrivilegioDelConsiglio[] privileges) throws QuitException {
-	 * EColoriPedine color = choosePawnColor(); if (color != null) {
-	 * client.movePawn(action, color, position, privileges); } }
-	 */
+	// private static void movePawn(EAzioniGiocatore action, Integer position,
+	// ESceltePrivilegioDelConsiglio[] privileges)
+	// throws QuitException {
+	// EColoriPedine color = choosePawnColor();
+	// if (color != null) {
+	// client.movePawn(action, color, position, privileges);
+	// }
+	// }
 
 	private static void movePawn(EAzioniGiocatore action, Integer position) throws QuitException {
 		EColoriPedine color = choosePawnColor();
@@ -1224,6 +1151,33 @@ public class FakeUI {
 			System.out.println(Costants.ROW_SEPARATOR);
 	}
 
+	private static void printTowerCards(ETipiCarte tower) {
+		try {
+			System.out.println();
+			ArrayList<Carta> ecards = new ArrayList<Carta>();
+			for (int i = 1; i <= 4; i++) {
+				ecards.add((getClient().getGameBoard().getCartaTorre(getConvertedTowerFloor(tower, i))));
+			}
+			System.out.print(ECarte.stringify(ecards, false, true));
+			System.out.println(Costants.ROW_SEPARATOR);
+		} catch (NumberFormatException e) {
+		}
+	}
+
+	private static void printCardInfo(Carta card) {
+		String s = "";
+		String desc = "";
+
+		for (ECostiCarte cost : card.getCostiCarta()) {
+			desc += cost.getDescrizione() + ", ";
+		}
+
+		s += String.format("%-25s%-15s%-30s", "[" + card.getNome() + "] ", "Periodo: " + card.getPeriodoCarta(),
+				"Costi: " + desc);
+		System.out.println(ANSI.YELLOW + "Selected: " + ANSI.RESET + s);
+
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Various
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -1299,6 +1253,53 @@ public class FakeUI {
 			familyValues[3] = 0;
 		}
 		return familyValues;
+	}
+
+	private static Integer getConvertedTowerFloor(ETipiCarte tower, int number) throws NumberFormatException {
+		if (number < 1 || number > 4)
+			throw new NumberFormatException();
+
+		switch (tower) {
+		case Territorio:
+			// [0..3]
+			return number - 1;
+		case Personaggio:
+			// [4..7]
+			return (number + 4) - 1;
+		case Edificio:
+			// [8..11]
+			return (number + 8) - 1;
+		case Impresa:
+			// [12..15]
+			return (number + 12) - 1;
+		}
+		throw new NumberFormatException();
+	}
+
+	private static Integer numberChooser(String description) throws QuitException {
+		int number;
+		boolean ok = false;
+		while (!ok) {
+			// System.out.println("'q' to quit\n");
+			System.out.println(description);
+			inText = scanner.nextLine();
+
+			if (inText.equalsIgnoreCase("q")) {
+				throw new QuitException();
+			} else {
+				try {
+					number = Integer.parseInt(inText);
+					if (number < 0) {
+						throw new NumberFormatException();
+					} else {
+						return number;
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("Insert a valid number");
+				}
+			}
+		}
+		return null;
 	}
 
 }

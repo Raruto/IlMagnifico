@@ -15,6 +15,13 @@ public enum ECarte {
 	RESIDENZA("residenza", 1, 1, ETipiCarte.Edificio, 0, 0), 
 	FALEGNAMERIA("falegnameria", 1, 4, ETipiCarte.Edificio, 0, 1), 
 	SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 1, 0, ETipiCarte.Impresa, 1, 0), 
+	SOSTEGNO_AL_VESCOVO1("sostegno al vescovo1", 1, 0, ETipiCarte.Impresa, 1, 0),
+	SOSTEGNO_AL_VESCOVO2("sostegno al vescovo2", 1, 0, ETipiCarte.Impresa, 1, 0),
+	SOSTEGNO_AL_VESCOVO3("sostegno al vescovo3", 1, 0, ETipiCarte.Impresa, 1, 0),
+	SOSTEGNO_AL_VESCOVO4("sostegno al vescovo4", 1, 0, ETipiCarte.Impresa, 1, 0),
+	SOSTEGNO_AL_VESCOVO5("sostegno al vescovo5", 1, 0, ETipiCarte.Impresa, 1, 0),
+	SOSTEGNO_AL_VESCOVO6("sostegno al vescovo6", 1, 0, ETipiCarte.Impresa, 1, 0),
+	SOSTEGNO_AL_VESCOVO7("sostegno al vescovo7", 1, 0, ETipiCarte.Impresa, 1, 0),
 	CAMPAGNA_MILITARE("campagna militare", 1, 0, ETipiCarte.Impresa, 0, 0), 
 	INNALZARE_UNA_STATUA("innalzare una statua", 1, 0, ETipiCarte.Impresa, 0, 0), 
 	COSTRUIRE_LE_MURA("costruire le mura", 1, 0, ETipiCarte.Impresa, 0, 0), 
@@ -167,10 +174,10 @@ public enum ECarte {
 
 		// s += ANSI.YELLOW;
 		if (printHeader)
-			s += String.format("%-35s%-15s%-10s%-30s\n\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ");
+			s += String.format("%-35s%-15s%-10s%-30s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ");
 		// s += ANSI.RESET;
 		String desc = "";
-		for (int i = 0; i < ca.length; i++) {
+		for (int i = ca.length-1; i >=0 ; i--){
 			for (ECostiCarte cost : ECostiCarte.values()) {
 				if (ca[i].nome.equals(cost.getNome())) {
 					desc = cost.getDescrizione();
