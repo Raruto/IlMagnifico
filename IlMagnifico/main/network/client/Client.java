@@ -12,6 +12,7 @@ import main.model.enums.EAzioniGiocatore;
 import main.model.enums.ECarte;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
+import main.model.enums.EEffettiPermanenti;
 import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.errors.Errors;
@@ -427,6 +428,33 @@ public class Client implements IClient {
 		requestedAction.spostaPedina(color, position);
 		requestedAction.setScelteCosti(choosedCosts);
 		;
+		performGameAction(requestedAction);
+	}
+
+	/**
+	 * Invia una richiesta di spostamento di una pedina sopra una zona
+	 * Produzione o Mercato che richiede la scelta di attivazione degli effetti
+	 * permanenti (es. {@link ECarte#TAGLIAPIETRE},
+	 * {@link ECarte#FALEGNAMERIA}).
+	 * 
+	 * @param action
+	 *            tipicamente {@link EAzioniGiocatore#Mercato} oppure
+	 *            {@link EAzioniGiocatore#Produzione}.
+	 * @param color
+	 *            colore della pedina da spostare (vedi {@link EColoriPedine}).
+	 * @param position
+	 *            posizione all'interno della zona selezionata (tipicamente è
+	 *            position==0 per la prima posizione disponibile).
+	 * @param choosedEffects
+	 *            array di {@link EEffettiPermanenti} contenente tutti gli
+	 *            effetti permanenti delle carte presenti nella plancia
+	 *            giocatore che il giocatore ha scelto di attivare.
+	 */
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
+			EEffettiPermanenti[] choosedEffects) {
+		UpdateStats requestedAction = new UpdateStats(action);
+		requestedAction.spostaPedina(color, position);
+		requestedAction.getScelteEffettiPermanenti(choosedEffects);
 		performGameAction(requestedAction);
 	}
 

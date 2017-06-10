@@ -49,6 +49,7 @@ public enum ECarte {
 	private int numScelteCosti;
 	private int numScelteEffPermanenti;
 
+
 	private ECarte(String nome, int periodo, int valoreNecessario, ETipiCarte tipo, int numScelteCosti,
 			int numScelteEffPermanenti) {
 		this.nome = nome;
@@ -152,7 +153,7 @@ public enum ECarte {
 			ArrayList<ECarte> ecarte = new ArrayList<ECarte>();
 			for (int i = 0; i < cards.size(); i++) {
 				for (ECarte card : ca) {
-					if (card.getNome().equals(cards.get(i).getNome())) {
+					if (card != null && card.getNome().equals(cards.get(i).getNome())) {
 						ecarte.add(card);
 					}
 				}

@@ -21,6 +21,7 @@ import main.model.enums.EAzioniGiocatore;
 import main.model.enums.ECarte;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
+import main.model.enums.EEffettiPermanenti;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
 import main.network.client.Client;
@@ -438,7 +439,16 @@ public class FakeUI {
 			EAzioniGiocatore nestedAction = chooseHarvestArea();
 			if (nestedAction != null) {
 				try {
-					movePawn(nestedAction, 0);
+					EEffettiPermanenti[] effects = choosePermanentCardsEffects();
+					
+					if(effects == null)
+						movePawn(nestedAction, 0);
+					else {
+						EColoriPedine color = choosePawnColor();
+						if (color != null) {
+						client.movePawn(nestedAction, color, 0, effects);
+						}
+					}
 					// quit = true;
 					nestedQuit = true;
 				} catch (QuitException e) {
@@ -462,7 +472,16 @@ public class FakeUI {
 			EAzioniGiocatore nestedAction = chooseProductionArea();
 			if (nestedAction != null) {
 				try {
-					movePawn(nestedAction, 0);
+					EEffettiPermanenti[] effects = choosePermanentCardsEffects();
+					
+					if(effects == null)
+						movePawn(nestedAction, 0);
+					else {
+						EColoriPedine color = choosePawnColor();
+						if (color != null) {
+						client.movePawn(nestedAction, color, 0, effects);
+						}
+					}
 					// quit = true;
 					nestedQuit = true;
 				} catch (QuitException e) {
@@ -572,6 +591,25 @@ public class FakeUI {
 			}
 		}
 		return choosed.toArray(new ECostiCarte[choosed.size()]);
+	}
+
+	private static EEffettiPermanenti[] choosePermanentCardsEffects() throws QuitException {
+		Client client = getClient();
+		Plancia dash = client.getPlayersDashboards().get(client.getNickname());
+		EEffettiPermanenti[] effects = dash.getEffettiPermanenti();
+
+		ArrayList<EEffettiPermanenti> choosed = new ArrayList<EEffettiPermanenti>();
+		for (int i = 0; i < effects.length; i++) {
+			System.out.print("Vuoi anche attivare [" + effects[i].getNome() + "] : [y/n] ");
+			inText = scanner.nextLine();
+			if (inText.equalsIgnoreCase("q"))
+				throw new QuitException();
+			else if (!inText.equalsIgnoreCase("n")) {
+				choosed.add(effects[i]);
+			}
+		}
+
+		return choosed.toArray(new EEffettiPermanenti[choosed.size()]);
 	}
 
 	private static EAzioniGiocatore chooseGameAction() throws QuitException {
@@ -843,11 +881,6 @@ public class FakeUI {
 		if (color != null) {
 			client.movePawn(action, color, position);
 		}
-	}
-
-	private static void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
-			ECostiCarte[] choosedCosts) {
-
 	}
 
 	private static EColoriPedine choosePawnColor() throws QuitException {
@@ -1386,7 +1419,7 @@ public class FakeUI {
 		boolean ok = false;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println(description);
+			System.out.print(description +" ");
 			inText = scanner.nextLine();
 
 			if (inText.equalsIgnoreCase("q")) {
