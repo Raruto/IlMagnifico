@@ -63,4 +63,16 @@ public class PartitaTest extends Partita {
 		this.giocatori.get(1).getPunti().cambiaPuntiVittoria(10);
 		assertTrue(this.giocatori.get(1) == calcolaClassificaFinale().get(0));
 	}
+
+	@Test
+	public void testEseguiRapportoVaticano() {
+		this.periodo = 2;
+		inizializzaScomunica();
+		Giocatore giocatore = new Giocatore();
+		giocatore.getPunti().cambiaPuntiFede(4);
+		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
+		assertTrue(giocatore.getPunti().getPuntiFede() == 0 && giocatore.getPunti().getPuntiVittoria() == 4);
+		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
+		assertTrue(giocatore.getScomunica(1) == this.scomuniche[1]);
+	}
 }
