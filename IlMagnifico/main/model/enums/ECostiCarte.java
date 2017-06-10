@@ -13,7 +13,8 @@ public enum ECostiCarte {
 	TAGLIAPIETRE("tagliapietre", 1, 0, 2, 0, 0, 0,"paga: 1 monete, 2 pietra"), 
 	RESIDENZA("residenza", 0, 0, 2, 0, 0, 0,"paga: 2 pietra"), 
 	FALEGNAMERIA("falegnameria", 1, 2, 0, 0, 0, 0,"paga: 1 monete, 2 legna"), 
-	SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 2, 1, 1, 0, 2, 4,"paga: (2 monete, 1 legna, 1 pietra) oppure (se hai 4 Punti vittoria pagane 2)"), 
+	SOSTEGNO_AL_VESCOVO1("sostegno al vescovo", 2, 1, 1, 0, 0, 0,"paga: (2 monete, 1 legna, 1 pietra) oppure (se hai 4 Punti vittoria pagane 2)"), 
+	SOSTEGNO_AL_VESCOVO2("sostegno al vescovo", 0, 0, 0, 0, 2, 4,"paga: (2 monete, 1 legna, 1 pietra) oppure (se hai 4 Punti vittoria pagane 2)"), 
 	CAMPAGNA_MILITARE("campagna militare", 0, 0, 0, 0, 2, 3,"paga: se hai 3 punti militari pagane 2"),
 	INNALZARE_UNA_STATUA("innalzare una statua", 0, 2, 2, 0, 0, 0,"paga: 2 legna, 2 pietra"), 
 	COSTRUIRE_LE_MURA("costruire le mura", 0, 0, 3, 0, 0, 0,"paga: 3 pietre"), 
@@ -62,52 +63,52 @@ public enum ECostiCarte {
 		return this.nome;
 	}
 
-	public ArrayList<Object[]> getCosti() {
-		ArrayList<Object[]> costi = new ArrayList<Object[]>();
-		costi.add(new Object[14]);
+	public Object[] getCosto() {
+		Object[] costi = new Object[14];
 		if (this.costoMonete > 0 || this.costoLegno > 0 || this.costoPietra > 0 || this.costoServitori > 0) {
 			for (int i = 0; i < 14; i++) {
-				costi.get(0)[i] = new Object();
+				costi[i] = new Object();
 			}
-			costi.get(0)[0] = 1;
-			costi.get(0)[5] = this.costoMonete;
-			costi.get(0)[6] = this.costoLegno;
-			costi.get(0)[7] = this.costoPietra;
-			costi.get(0)[8] = this.costoServitori;
-			costi.get(0)[9] = 0;
-			costi.get(0)[10] = 0;
-			costi.get(0)[11] = 0;
-			costi.get(0)[13]=0;
-		}
+			costi[0] = 1;
+			costi[5] = this.costoMonete;
+			costi[6] = this.costoLegno;
+			costi[7] = this.costoPietra;
+			costi[8] = this.costoServitori;
+			costi[9] = 0;
+			costi[10] = 0;
+			costi[11] = 0;
+			costi[13]=0;
+		}else
 		if (this.costoMonete == 0 && this.costoLegno == 0 && this.costoPietra == 0 && this.costoServitori == 0 && this.costoPM==0) {
 			for (int i = 0; i < 14; i++) {
-				costi.get(0)[i] = new Object();
+				costi[i] = new Object();
 			}
-			costi.get(0)[0] = 1;
-			costi.get(0)[5] = this.costoMonete;
-			costi.get(0)[6] = this.costoLegno;
-			costi.get(0)[7] = this.costoPietra;
-			costi.get(0)[8] = this.costoServitori;
-			costi.get(0)[9] = 0;
-			costi.get(0)[10] = 0;
-			costi.get(0)[11] = 0;
-			costi.get(0)[13]=0;
+			costi[0] = 1;
+			costi[5] = this.costoMonete;
+			costi[6] = this.costoLegno;
+			costi[7] = this.costoPietra;
+			costi[8] = this.costoServitori;
+			costi[9] = 0;
+			costi[10] = 0;
+			costi[11] = 0;
+			costi[13]=0;
 		}
+		else
 		if (this.costoPM > 0) {
-			costi.add(new Object[14]);
+			
 			for (int i = 0; i < 14; i++) {
-				costi.get(1)[i] = new Object();
+				costi[i] = new Object();
 			}
-			costi.get(1)[0] = 2;
-			costi.get(1)[10] = this.costoPM;
-			costi.get(1)[5] = 0;
-			costi.get(1)[6] = 0;
-			costi.get(1)[7] = 0;
-			costi.get(1)[8] = 0;
-			costi.get(1)[9] = 0;
-			costi.get(1)[10] = 0;
-			costi.get(1)[11] = 0;
-			costi.get(1)[13]=this.sogliaPuntiMilitari;
+			costi[0] = 2;
+			costi[10] = this.costoPM;
+			costi[5] = 0;
+			costi[6] = 0;
+			costi[7] = 0;
+			costi[8] = 0;
+			costi[9] = 0;
+			costi[10] = 0;
+			costi[11] = 0;
+			costi[13]=this.sogliaPuntiMilitari;
 		}
 		return costi;
 	}
