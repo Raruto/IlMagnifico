@@ -281,7 +281,8 @@ public class Giocatore implements Serializable {
 		int numeroDiCarte = 0;
 		int numeroRisorse = 0;
 		// guadagno punti vittoria per le carte territorio
-		if (!getScomunica(2).attivaOnTerritoriFinePartita()) {
+
+		if (!getScomunica(2).attivaOnTerritoriFinePartita() || getScomunica(2) == null) {
 			numeroDiCarte = getPlancia().getTerritori().size();
 			if (numeroDiCarte == 3)
 				getPunti().cambiaPuntiVittoria(1);
@@ -293,14 +294,16 @@ public class Giocatore implements Serializable {
 				getPunti().cambiaPuntiVittoria(20);
 		}
 		// guadagno punti vittoria per le carte personaggio
-		if (!getScomunica(2).attivaOnPersonaggiFinePartita()) {
+
+		if (!getScomunica(2).attivaOnPersonaggiFinePartita() || getScomunica(2) == null) {
 			numeroDiCarte = getPlancia().getPersonaggi().size();
 			for (int j = 1; j <= numeroDiCarte; j++) {
 				getPunti().cambiaPuntiVittoria(j);
 			}
 		}
 		// attivo gli effetti delle carte impresa
-		if (!getScomunica(2).attivaOnImpreseFinePartita()) {
+
+		if (!getScomunica(2).attivaOnImpreseFinePartita() || getScomunica(2) == null) {
 			for (int i = 0; i < getPlancia().getImprese().size(); i++) {
 				getPlancia().getImprese().get(i).effettoPermanente(this, null, null, null);
 			}
@@ -308,7 +311,7 @@ public class Giocatore implements Serializable {
 		// ricevo un punto vittoria ogni 5 risorse
 		numeroRisorse = getRisorse().getLegno() + getRisorse().getMonete() + getRisorse().getPietre()
 				+ getRisorse().getServitori();
-		getPunti().cambiaPuntiVittoria(numeroRisorse / 5);
+		getPunti().cambiaPuntiVittoria((numeroRisorse / 5));
 
 	}
 }
