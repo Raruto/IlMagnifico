@@ -1,7 +1,6 @@
 package main.model.enums;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import main.model.Carta;
 import main.util.ANSI;

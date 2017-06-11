@@ -1,7 +1,6 @@
 package main.model.enums;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public enum ECostiCarte {
 
