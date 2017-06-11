@@ -1,12 +1,13 @@
 package main.network.client;
 
+import main.model.enums.EAzioniGiocatore;
 import main.network.NetworkException;
 import main.network.server.game.UpdateStats;
 
 /**
  * 
  * Classe che rappresenta l'astrazione necessaria per le comunicazioni col
- * server. Estendendo questa classe è possibile utilizzare qualsiasi tipo di
+ * server. Estendendo questa classe ï¿½ possibile utilizzare qualsiasi tipo di
  * connessione (es. RMI o Socket). L'interfaccia {@link IClient} funziona come
  * controller client e callback handler.
  */
@@ -80,7 +81,7 @@ public abstract class AbstractClient {
 	 * Metodo astratto, apre una connessione con il server.
 	 * 
 	 * @throws ClientConnectionException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non ï¿½ raggiungibile o qualcosa ï¿½ andato storto.
 	 */
 	public abstract void connect() throws ClientException;
 
@@ -90,9 +91,9 @@ public abstract class AbstractClient {
 	 * @param nickname
 	 *            nome del giocatore da utilizzare per identificarsi sul server.
 	 * @throws LoginException
-	 *             se il nome è già in uso sul server.
+	 *             se il nome ï¿½ giï¿½ in uso sul server.
 	 * @throws NetworkException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non ï¿½ raggiungibile o qualcosa ï¿½ andato storto.
 	 */
 	public abstract void sendLoginRequest(String nickname) throws NetworkException;
 
@@ -101,13 +102,22 @@ public abstract class AbstractClient {
 	 * 
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verrà inviato a tutti i giocatori.
+	 *            verrï¿½ inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non ï¿½ raggiungibile o qualcosa ï¿½ andato storto.
 	 */
 	public abstract void sendChatMessage(String receiver, String message) throws NetworkException;
 
+	/**
+	 * Invia al Server la richiesta di svolgere un'azione di gioco.
+	 * 
+	 * @param requestedAction
+	 *            oggetto {@link UpdateStats} contenete tutte le informazioni
+	 *            necessarie al server per comprendere il tipo di richiesta (es.
+	 *            deve contenere un {@link EAzioniGiocatore} che codifica il
+	 *            tipo di azione richiesta).
+	 */
 	public abstract void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException;
 }

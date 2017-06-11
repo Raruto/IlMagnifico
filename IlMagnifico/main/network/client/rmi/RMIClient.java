@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import main.model.enums.EAzioniGiocatore;
 import main.network.NetworkException;
 import main.network.client.AbstractClient;
 import main.network.client.ClientException;
@@ -48,7 +49,8 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * Apre una connessione con {@link RMIServer}.
 	 * 
 	 * @throws ClientException
-	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato
+	 *             storto.
 	 */
 	public void connect() throws ClientException {
 		try {
@@ -95,7 +97,8 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato
+	 *             storto.
 	 */
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
@@ -110,6 +113,19 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		}
 	}
 
+	/**
+	 * Invia al Server la richiesta di svolgere un'azione di gioco.
+	 * 
+	 * @param requestedAction
+	 *            oggetto {@link UpdateStats} contenete tutte le informazioni
+	 *            necessarie al server per comprendere il tipo di richiesta (es.
+	 *            deve contenere un {@link EAzioniGiocatore} che codifica il
+	 *            tipo di azione richiesta).
+	 * @throws NetworkException
+	 *             se il server non e' raggiungibile o qualcosa e' andato
+	 *             storto.
+	 * 
+	 */
 	@Override
 	public void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException {
 		try {
@@ -142,11 +158,23 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		getController().onChatMessage(privateMessage, author, message);
 	}
 
+	/**
+	 * Notifica aggiornamento stato partita
+	 * 
+	 * @param update
+	 * @throws RemoteException
+	 */
 	@Override
 	public void notifyGameUpdate(UpdateStats update) throws RemoteException {
 		getController().onGameUpdate(update);
 	}
 
+	/**
+	 * Metodo per il "debug"
+	 * 
+	 * @param object
+	 * @throws RemoteException
+	 */
 	@Override
 	public void notify(Object object) throws RemoteException {
 		getController().onNotify(object);

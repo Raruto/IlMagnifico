@@ -70,7 +70,7 @@ public class SocketClient extends AbstractClient {
 	 * {@link ClientProtocol}.
 	 * 
 	 * @throws ClientException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non ï¿½ raggiungibile o qualcosa ï¿½ andato storto.
 	 */
 	@Override
 	public void connect() throws ClientException {
@@ -119,7 +119,7 @@ public class SocketClient extends AbstractClient {
 	 * @param nickname
 	 *            nome da utilizzare per identificarsi al server.
 	 * @throws NetworkException
-	 *             se il server non è raggiungibile.
+	 *             se il server non ï¿½ raggiungibile.
 	 */
 	@Override
 	public void sendLoginRequest(String nickname) throws NetworkException {
@@ -145,11 +145,11 @@ public class SocketClient extends AbstractClient {
 	 * 
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verrà inviato a tutti i giocatori.
+	 *            verrï¿½ inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non ï¿½ raggiungibile o qualcosa ï¿½ andato storto.
 	 */
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
@@ -165,6 +165,14 @@ public class SocketClient extends AbstractClient {
 		}
 	}
 
+	/**
+	 * Invia una richiesta di esecuzione di un'azione di gioco.
+	 * 
+	 * @param requestedAction
+	 *            richiesta del giocatore (vedi {@link UpdateStats}).
+	 * @throws NetworkException
+	 *             se il server non ï¿½ raggiungibile o qualcosa ï¿½ andato storto.
+	 */
 	@Override
 	public void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException {
 		synchronized (OUTPUT_MUTEX) {
@@ -183,7 +191,7 @@ public class SocketClient extends AbstractClient {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notifica al giocatore che è stato ricevuto un nuovo messaggio sulla chat.
+	 * Notifica al giocatore che ï¿½ stato ricevuto un nuovo messaggio sulla chat.
 	 */
 	private void notifyChatMessage() {
 		try {
@@ -196,6 +204,9 @@ public class SocketClient extends AbstractClient {
 		}
 	}
 
+	/**
+	 * Notifica al giocatore un aggiornamento dello stato partita.
+	 */
 	private void notifyGameUpdate() {
 		try {
 			UpdateStats update = (UpdateStats) inputStream.readObject();
@@ -205,6 +216,10 @@ public class SocketClient extends AbstractClient {
 		}
 	}
 
+	/**
+	 * Notifica al giocatore l'impossibilitÃ  di compiere un'azione richiesta (ad
+	 * esempio perchÃ¨ si sta tentando di compiere un'azione illegale).
+	 */
 	private void notifyActionNotValid() {
 		try {
 			String errorCode = (String) inputStream.readObject();

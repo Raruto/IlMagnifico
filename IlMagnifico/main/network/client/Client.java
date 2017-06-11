@@ -624,6 +624,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onMarket(UpdateStats update) {
 		// TODO
 	}
@@ -637,6 +638,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onPayServant(UpdateStats update) {
 		// TODO
 	}
@@ -650,6 +652,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onTower(UpdateStats update) {
 		// TODO
 	}
@@ -663,6 +666,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onCouncilPalace(UpdateStats update) {
 		// TODO
 	}
@@ -676,6 +680,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onHarvestRound(UpdateStats update) {
 		// TODO
 	}
@@ -689,6 +694,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onProductionRound(UpdateStats update) {
 		// TODO
 	}
@@ -702,6 +708,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onHarvestOval(UpdateStats update) {
 		// TODO
 	}
@@ -715,6 +722,7 @@ public class Client implements IClient {
 	 *            contenente lo stato della partita con tutte le modifiche
 	 *            apportate allo stato della partita.
 	 */
+	@Override
 	public void onProductionOval(UpdateStats update) {
 		// TODO
 	}
