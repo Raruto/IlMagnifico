@@ -171,7 +171,7 @@ public abstract class Partita {
 	 *         azione
 	 */
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
-		return this.giocatoreDiTurno.equals(g);
+		return this.giocatoreDiTurno.getNome().equals(g.getNome());
 	}
 
 	/**
@@ -180,10 +180,11 @@ public abstract class Partita {
 	 * @return true se il turno � terminato
 	 */
 	protected boolean isGiroDiTurniTerminato() {
-		if(this.giocatoreDiTurno==null)
+		if (this.giocatoreDiTurno == null)
 			return true;
-		else return false;
-		//return this.giocatoreDiTurno.equals(null);
+		else
+			return false;
+		// return this.giocatoreDiTurno.equals(null);
 	}
 
 	/**
@@ -479,7 +480,7 @@ public abstract class Partita {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 			for (int j = 0; j < this.giocatori.size(); j++) {
 				this.giocatori.get(j).setValore(i, valoreDado);
