@@ -439,14 +439,14 @@ public class FakeUI {
 			EAzioniGiocatore nestedAction = chooseHarvestArea();
 			if (nestedAction != null) {
 				try {
-					EEffettiPermanenti[] effects = choosePermanentCardsEffects();
-					
-					if(effects == null)
+					EEffettiPermanenti[] effects = choosePermanentTerritoriesEffects();
+
+					if (effects == null)
 						movePawn(nestedAction, 0);
 					else {
 						EColoriPedine color = choosePawnColor();
 						if (color != null) {
-						client.movePawn(nestedAction, color, 0, effects);
+							client.movePawn(nestedAction, color, 0, effects);
 						}
 					}
 					// quit = true;
@@ -472,14 +472,14 @@ public class FakeUI {
 			EAzioniGiocatore nestedAction = chooseProductionArea();
 			if (nestedAction != null) {
 				try {
-					EEffettiPermanenti[] effects = choosePermanentCardsEffects();
-					
-					if(effects == null)
+					EEffettiPermanenti[] effects = choosePermanentBuildingsEffects();
+
+					if (effects == null)
 						movePawn(nestedAction, 0);
 					else {
 						EColoriPedine color = choosePawnColor();
 						if (color != null) {
-						client.movePawn(nestedAction, color, 0, effects);
+							client.movePawn(nestedAction, color, 0, effects);
 						}
 					}
 					// quit = true;
@@ -593,11 +593,23 @@ public class FakeUI {
 		return choosed.toArray(new ECostiCarte[choosed.size()]);
 	}
 
-	private static EEffettiPermanenti[] choosePermanentCardsEffects() throws QuitException {
+	private static EEffettiPermanenti[] choosePermanentBuildingsEffects() throws QuitException {
 		Client client = getClient();
 		Plancia dash = client.getPlayersDashboards().get(client.getNickname());
-		EEffettiPermanenti[] effects = dash.getEffettiPermanenti();
+		EEffettiPermanenti[] effects = dash.getEffettiPermanentiEdifici();
 
+		return choosePermanentCardsEffects(effects);
+	}
+
+	private static EEffettiPermanenti[] choosePermanentTerritoriesEffects() throws QuitException {
+		Client client = getClient();
+		Plancia dash = client.getPlayersDashboards().get(client.getNickname());
+		EEffettiPermanenti[] effects = dash.getEffettiPermanentiTerritori();
+
+		return choosePermanentCardsEffects(effects);
+	}
+
+	private static EEffettiPermanenti[] choosePermanentCardsEffects(EEffettiPermanenti[] effects) throws QuitException {
 		ArrayList<EEffettiPermanenti> choosed = new ArrayList<EEffettiPermanenti>();
 		for (int i = 0; i < effects.length; i++) {
 			System.out.print("Vuoi anche attivare [" + effects[i].getNome() + "] : [y/n] ");
@@ -1419,7 +1431,7 @@ public class FakeUI {
 		boolean ok = false;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.print(description +" ");
+			System.out.print(description + " ");
 			inText = scanner.nextLine();
 
 			if (inText.equalsIgnoreCase("q")) {

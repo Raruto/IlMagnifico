@@ -1,44 +1,131 @@
 package main.model.enums;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import main.model.Carta;
 import main.util.ANSI;
 
 public enum ECarte {
-	CAPPELLA("cappella", 1, 2, ETipiCarte.Edificio, 0, 0), 
-	ESATTORIA("esattoria", 1, 5, ETipiCarte.Edificio, 0,0), 
-	ZECCA("zecca", 1, 5, ETipiCarte.Edificio, 0, 0), 
-	TEATRO("teatro", 1, 6, ETipiCarte.Edificio, 0, 0), 
-	ARCO_DI_TRIONFO("arco di trionfo", 1, 6, ETipiCarte.Edificio, 0, 0), 
-	TAGLIAPIETRE("tagliapietre", 1, 3, ETipiCarte.Edificio, 0, 1), 
-	RESIDENZA("residenza", 1, 1, ETipiCarte.Edificio, 0, 0), 
-	FALEGNAMERIA("falegnameria", 1, 4, ETipiCarte.Edificio, 0, 1), 
-	SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 1, 0, ETipiCarte.Impresa, 1, 0), 
-	CAMPAGNA_MILITARE("campagna militare", 1, 0, ETipiCarte.Impresa, 0, 0), 
-	INNALZARE_UNA_STATUA("innalzare una statua", 1, 0, ETipiCarte.Impresa, 0, 0), 
-	COSTRUIRE_LE_MURA("costruire le mura", 1, 0, ETipiCarte.Impresa, 0, 0), 
-	COMBATTERE_LE_ERESIE("combattere le eresie", 1, 0, ETipiCarte.Impresa, 0, 0), 
-	INGAGGIARE_RECLUTE("ingaggiare reclute", 1, 0, ETipiCarte.Impresa, 0, 0), 
-	OSPITARE_I_MENDICANTI("ospitare i mendicanti", 1, 0, ETipiCarte.Impresa, 0,	0), 
-	RIPARARE_LA_CHIESA("riparare la chiesa",1, 0, ETipiCarte.Impresa, 0, 0), 
-	CONTADINO("contadino", 1, 0, ETipiCarte.Personaggio, 0,	0), 
-	CONDOTTIERO("condottiero", 1, 0, ETipiCarte.Personaggio, 0, 0), 
-	ARTIGIANO("artigiano", 1, 0, ETipiCarte.Personaggio, 0,	0), 
-	DAMA("dama", 1, 0, ETipiCarte.Personaggio, 0, 0), 
-	BADESSA("badessa", 1, 0, ETipiCarte.Personaggio, 0, 0), 
-	CAVALIERE("cavaliere", 1, 0, ETipiCarte.Personaggio, 0,	0), 
-	PREDICATORE("predicatore", 1, 0, ETipiCarte.Personaggio, 0, 0), 
-	COSTRUTTORE("costruttore", 1, 0, ETipiCarte.Personaggio, 0, 0), 
-	FORESTA("foresta", 1, 5, ETipiCarte.Territorio,	0, 0), 
-	BOSCO("bosco", 1, 2, ETipiCarte.Territorio,	0, 0), 
-	ROCCA("rocca", 1, 5, ETipiCarte.Territorio, 0, 0), 
-	BORGO("borgo", 1, 3, ETipiCarte.Territorio, 0, 0), 
-	CAVA_DI_GHIAIA("cava di ghiaia", 1, 4, ETipiCarte.Territorio, 0, 0), 
-	MONASTERO("monastero", 1, 6, ETipiCarte.Territorio, 0, 0), 
-	CITTA("citta", 1, 6, ETipiCarte.Territorio, 0, 0), 
-	AVAMPOSTO_COMMERCIALE("avamposto commerciale", 1, 1,ETipiCarte.Territorio, 0, 0);
-	
+	CAPPELLA("cappella", 1, 2, ETipiCarte.Edificio, 0, 0), ESATTORIA("esattoria", 1, 5, ETipiCarte.Edificio, 0,
+			0), ZECCA("zecca", 1, 5, ETipiCarte.Edificio, 0, 0), TEATRO("teatro", 1, 6, ETipiCarte.Edificio, 0,
+					0), ARCO_DI_TRIONFO("arco di trionfo", 1, 6, ETipiCarte.Edificio, 0, 0), TAGLIAPIETRE(
+							"tagliapietre", 1, 3, ETipiCarte.Edificio, 0,
+							1), RESIDENZA("residenza", 1, 1, ETipiCarte.Edificio, 0, 0), FALEGNAMERIA("falegnameria", 1,
+									4, ETipiCarte.Edificio, 0, 1), SOSTEGNO_AL_VESCOVO("sostegno al vescovo", 1, 0,
+											ETipiCarte.Impresa, 1, 0), CAMPAGNA_MILITARE("campagna militare", 1, 0,
+													ETipiCarte.Impresa, 0, 0), INNALZARE_UNA_STATUA(
+															"innalzare una statua", 1, 0, ETipiCarte.Impresa, 0,
+															0), COSTRUIRE_LE_MURA("costruire le mura", 1, 0,
+																	ETipiCarte.Impresa, 0,
+																	0), COMBATTERE_LE_ERESIE("combattere le eresie", 1,
+																			0, ETipiCarte.Impresa, 0,
+																			0), INGAGGIARE_RECLUTE("ingaggiare reclute",
+																					1, 0, ETipiCarte.Impresa, 0,
+																					0), OSPITARE_I_MENDICANTI(
+																							"ospitare i mendicanti", 1,
+																							0, ETipiCarte.Impresa, 0,
+																							0), RIPARARE_LA_CHIESA(
+																									"riparare la chiesa",
+																									1, 0,
+																									ETipiCarte.Impresa,
+																									0, 0), CONTADINO(
+																											"contadino",
+																											1, 0,
+																											ETipiCarte.Personaggio,
+																											0,
+																											0), CONDOTTIERO(
+																													"condottiero",
+																													1,
+																													0,
+																													ETipiCarte.Personaggio,
+																													0,
+																													0), ARTIGIANO(
+																															"artigiano",
+																															1,
+																															0,
+																															ETipiCarte.Personaggio,
+																															0,
+																															0), DAMA(
+																																	"dama",
+																																	1,
+																																	0,
+																																	ETipiCarte.Personaggio,
+																																	0,
+																																	0), BADESSA(
+																																			"badessa",
+																																			1,
+																																			0,
+																																			ETipiCarte.Personaggio,
+																																			0,
+																																			0), CAVALIERE(
+																																					"cavaliere",
+																																					1,
+																																					0,
+																																					ETipiCarte.Personaggio,
+																																					0,
+																																					0), PREDICATORE(
+																																							"predicatore",
+																																							1,
+																																							0,
+																																							ETipiCarte.Personaggio,
+																																							0,
+																																							0), COSTRUTTORE(
+																																									"costruttore",
+																																									1,
+																																									0,
+																																									ETipiCarte.Personaggio,
+																																									0,
+																																									0), FORESTA(
+																																											"foresta",
+																																											1,
+																																											5,
+																																											ETipiCarte.Territorio,
+																																											0,
+																																											0), BOSCO(
+																																													"bosco",
+																																													1,
+																																													2,
+																																													ETipiCarte.Territorio,
+																																													0,
+																																													0), ROCCA(
+																																															"rocca",
+																																															1,
+																																															5,
+																																															ETipiCarte.Territorio,
+																																															0,
+																																															0), BORGO(
+																																																	"borgo",
+																																																	1,
+																																																	3,
+																																																	ETipiCarte.Territorio,
+																																																	0,
+																																																	0), CAVA_DI_GHIAIA(
+																																																			"cava di ghiaia",
+																																																			1,
+																																																			4,
+																																																			ETipiCarte.Territorio,
+																																																			0,
+																																																			0), MONASTERO(
+																																																					"monastero",
+																																																					1,
+																																																					6,
+																																																					ETipiCarte.Territorio,
+																																																					0,
+																																																					0), CITTA(
+																																																							"citta",
+																																																							1,
+																																																							6,
+																																																							ETipiCarte.Territorio,
+																																																							0,
+																																																							0), AVAMPOSTO_COMMERCIALE(
+																																																									"avamposto commerciale",
+																																																									1,
+																																																									1,
+																																																									ETipiCarte.Territorio,
+																																																									0,
+																																																									0);
+
 	private String nome;
 	private int periodo;
 	private int valoreNecessarioAttivazione;
@@ -48,7 +135,6 @@ public enum ECarte {
 	private ETipiCarte tipoCarta;
 	private int numScelteCosti;
 	private int numScelteEffPermanenti;
-
 
 	private ECarte(String nome, int periodo, int valoreNecessario, ETipiCarte tipo, int numScelteCosti,
 			int numScelteEffPermanenti) {
@@ -149,12 +235,18 @@ public enum ECarte {
 	public static String stringify(ArrayList<Carta> cards, boolean startsWithZero, boolean printHeader) {
 		ECarte[] ca = ECarte.values();
 
+		HashMap<Integer, Integer> fakeinc = new HashMap<Integer, Integer>();
+
 		if (cards != null) {
 			ArrayList<ECarte> ecarte = new ArrayList<ECarte>();
 			for (int i = 0; i < cards.size(); i++) {
 				for (ECarte card : ca) {
-					if (card != null && card.getNome().equals(cards.get(i).getNome())) {
-						ecarte.add(card);
+					if (card != null && cards.get(i) != null) {
+						if (card.getNome().equals(cards.get(i).getNome())) {
+							ecarte.add(card);
+						}
+					} else {
+						fakeinc.put(i, 1);
 					}
 				}
 			}
@@ -171,13 +263,18 @@ public enum ECarte {
 			s += String.format("%-35s%-15s%-10s%-30s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ");
 		// s += ANSI.RESET;
 		String desc = "";
+		int index;
 		for (int i = ca.length - 1; i >= 0; i--) {
 			for (ECostiCarte cost : ECostiCarte.values()) {
 				if (ca[i].nome.equals(cost.getNome())) {
 					desc = cost.getDescrizione();
 				}
 			}
-			s += String.format("%-35s%-15s%-10s%-30s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
+			if (fakeinc.size() > 0 && fakeinc.get(i) !=null)
+				index = i + inc + fakeinc.get(i);
+			else
+				index = i + inc;
+			s += String.format("%-35s%-15s%-10s%-30s", "[" + (index) + ": " + ca[i].nome + "] ",
 					ca[i].tipoCarta.toString(), ca[i].periodo, desc);
 			// if (i % 7 == 0 && i != 0)
 			s += "\n";

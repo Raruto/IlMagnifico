@@ -94,34 +94,94 @@ public class Plancia implements Serializable {
 		return this.imprese;
 	}
 
+	/**
+	 * Ritorna tutti gli Effetti permanenti delle Carte presenti all'interno
+	 * della Plancia Giocatore.
+	 * 
+	 * @return {@link EEffettiPermanenti}[]
+	 */
 	public EEffettiPermanenti[] getEffettiPermanenti() {
 		ArrayList<EEffettiPermanenti> effetti = new ArrayList<EEffettiPermanenti>();
 
 		// Effetti permanenti delle carte Territorio
-		for (Territorio t : territori) {
-			for (EEffettiPermanenti tEffect : t.getEffettiPermanentiCarta()) {
-				effetti.add(tEffect);
-			}
+		for (EEffettiPermanenti tEffects : getEffettiPermanenti()) {
+			if (tEffects != null)
+				effetti.add(tEffects);
 		}
 
 		// Effetti permanenti delle carte Personaggio
-		for (Personaggio p : personaggi) {
-			for (EEffettiPermanenti pEffect : p.getEffettiPermanentiCarta()) {
-				effetti.add(pEffect);
-			}
+		for (EEffettiPermanenti pEffects : getEffettiPermanentiPersonaggi()) {
+			if (pEffects != null)
+				effetti.add(pEffects);
 		}
 
 		// Effetti permanenti delle carte Edificio
-		for (Edificio e : edifici) {
-			for (EEffettiPermanenti eEffect : e.getEffettiPermanentiCarta()) {
-				effetti.add(eEffect);
-			}
+		for (EEffettiPermanenti eEffects : getEffettiPermanentiEdifici()) {
+			if (eEffects != null)
+				effetti.add(eEffects);
 		}
 
 		// Effetti permanenti delle carte Impresa
+		for (EEffettiPermanenti iEffects : getEffettiPermanentiImprese()) {
+			if (iEffects != null)
+				effetti.add(iEffects);
+		}
+
+		return effetti.toArray(new EEffettiPermanenti[effetti.size()]);
+	}
+
+	/* Ritorna gli Effetti Permanenti delle carte Territorio */
+	public EEffettiPermanenti[] getEffettiPermanentiTerritori() {
+		ArrayList<EEffettiPermanenti> effetti = new ArrayList<EEffettiPermanenti>();
+
+		for (Territorio t : territori) {
+			for (EEffettiPermanenti tEffect : t.getEffettiPermanentiCarta()) {
+				if (tEffect != null)
+					effetti.add(tEffect);
+			}
+		}
+
+		return effetti.toArray(new EEffettiPermanenti[effetti.size()]);
+	}
+
+	/* Ritorna gli Effetti Permanenti delle carte Personaggio */
+	public EEffettiPermanenti[] getEffettiPermanentiPersonaggi() {
+		ArrayList<EEffettiPermanenti> effetti = new ArrayList<EEffettiPermanenti>();
+
+		for (Personaggio p : personaggi) {
+			for (EEffettiPermanenti pEffect : p.getEffettiPermanentiCarta()) {
+				if (pEffect != null)
+					effetti.add(pEffect);
+			}
+		}
+
+		return effetti.toArray(new EEffettiPermanenti[effetti.size()]);
+	}
+
+	/*
+	 * Ritorna gli Effetti Permanenti delle carte Edificio
+	 */
+	public EEffettiPermanenti[] getEffettiPermanentiEdifici() {
+		ArrayList<EEffettiPermanenti> effetti = new ArrayList<EEffettiPermanenti>();
+
+		for (Edificio e : edifici) {
+			for (EEffettiPermanenti eEffect : e.getEffettiPermanentiCarta()) {
+				if (eEffect != null)
+					effetti.add(eEffect);
+			}
+		}
+
+		return effetti.toArray(new EEffettiPermanenti[effetti.size()]);
+	}
+
+	/* Ritorna gli Effetti Permanenti delle carte Impresa */
+	public EEffettiPermanenti[] getEffettiPermanentiImprese() {
+		ArrayList<EEffettiPermanenti> effetti = new ArrayList<EEffettiPermanenti>();
+
 		for (Impresa i : imprese) {
 			for (EEffettiPermanenti iEffect : i.getEffettiPermanentiCarta()) {
-				effetti.add(iEffect);
+				if (iEffect != null)
+					effetti.add(iEffect);
 			}
 		}
 
