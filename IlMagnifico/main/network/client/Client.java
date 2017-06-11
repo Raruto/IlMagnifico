@@ -106,6 +106,12 @@ public class Client implements IClient {
 	private String playerTurn;
 
 	/**
+	 * Copi di "Backup" dell'ultimo aggiornamento {@link UpdateStats} ricevuto
+	 * dal Server.
+	 */
+	private UpdateStats latestUpdate;
+
+	/**
 	 * Flag usato per abilitare il Log sul Server.
 	 */
 	private final boolean LOG_ENABLED = Costants.CLIENT_ENABLE_LOG;
@@ -317,6 +323,14 @@ public class Client implements IClient {
 	 */
 	public String getPlayerTurn() {
 		return playerTurn;
+	}
+
+	/**
+	 * Ritorna l'ultimo oggetto aggiornamento ricevuto dal Server (vedi
+	 * {@link UpdateStats}).
+	 */
+	public UpdateStats getLatestUpdate() {
+		return this.latestUpdate;
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -567,6 +581,7 @@ public class Client implements IClient {
 		String playerName = update.getNomeGiocatore();
 
 		// update local game copy
+		this.latestUpdate = update;
 		this.board = update.getSpazioAzione();
 
 		if (update.getPlanciaGiocatore() != null)
@@ -580,9 +595,9 @@ public class Client implements IClient {
 
 		// handle server response
 		if (update.getAzioneGiocatore() != null) {
-			log(playerName, "ACTION: " + update.getAzioneGiocatore().toString());
+			log(playerName, "ACTION: " + ANSI.YELLOW + update.getAzioneGiocatore().toString() + ANSI.RESET);
 		} else if (update.getAzioneServer() != null) {
-			log(Costants.GAME_ID, "ACTION: " + update.getAzioneServer().toString());
+			log(Costants.GAME_ID, "UPDATE: " + ANSI.CYAN + update.getAzioneServer().toString() + ANSI.RESET);
 		}
 		handleResponse(update);
 	}
@@ -656,20 +671,7 @@ public class Client implements IClient {
 		if (update.getFamiglieGiocatori() != null)
 			this.playersFamilies = update.getFamiglieGiocatori();
 
-		int[] dadi = update.getSpazioAzione().getValoreDadi();
-		String s = "";
-		for (int i = 0; i < dadi.length; i++) {
-			if (i == 0)
-				s = "Nero";
-			else if (i == 1)
-				s = "Arancione";
-			else if (i == 2)
-				s = "Bianco";
-			else if (i == 3)
-				s = "Neutrale";
-			System.out.println(ANSI.YELLOW + "Dado " + s + ": " + dadi[i] + ANSI.RESET);
-		}
-
+		FakeUI.printDices(10, false, false);
 	}
 
 	@Override
@@ -689,12 +691,7 @@ public class Client implements IClient {
 		if (update.getPlanceGiocatori() != null)
 			this.playersDashboards = update.getPlanceGiocatori();
 
-		System.out.print("(" + update.getNomiGiocatori().size() + "G): ");
-		for (String s : update.getNomiGiocatori()) {
-			System.out.print(s + ", ");
-		}
-		System.out.println();
-
+		FakeUI.printPlayersNames(10, false, false);
 	}
 
 	/**
@@ -716,7 +713,7 @@ public class Client implements IClient {
 			if (author.contains("[") && author.contains("]"))
 				id = author;
 			else
-				id = "[" + author.toUpperCase() + "]";
+				id = ANSI.YELLOW + "[" + author.toUpperCase() + "]" + ANSI.RESET;
 			System.out.println(id + " " + message);
 		}
 	}

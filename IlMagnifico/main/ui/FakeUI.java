@@ -29,6 +29,7 @@ import main.network.client.ClientException;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
+import main.network.server.game.UpdateStats;
 import main.util.ANSI;
 import main.util.Costants;
 
@@ -968,6 +969,7 @@ public class FakeUI {
 	public static void printPlayerTurn(boolean printAndAddNewLine) {
 		Client client = getClient();
 		try {
+			System.out.println();
 			if (client.getNickname().equals(client.getPlayerTurn()))
 				System.out.print(ANSI.BACKGROUND_GREEN + "E' il tuo turno");
 			else if (client.getPlayerTurn() != null)
@@ -984,7 +986,33 @@ public class FakeUI {
 		}
 	}
 
-	private static void printDices(boolean printSep1, boolean printSep2) {
+	public static void printPlayersNames(int leftPadding, boolean printSep1, boolean printSep2) {
+		try {
+			UpdateStats update = getClient().getLatestUpdate();
+
+			if (printSep1)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+			System.out.print(ANSI.YELLOW);
+			System.out.format("%-" + leftPadding + "s", "Giocatori: ");
+			System.out.print(ANSI.RESET);
+			for (String s : update.getNomiGiocatori()) {
+				System.out.print("\"" + s + "\", ");
+			}
+			System.out.println();
+
+			if (printSep2)
+				System.out.println(Costants.ROW_SEPARATOR);
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
+	}
+
+	public static void printPlayersNames(boolean printSep1, boolean printSep2) {
+		printPlayersNames(10, printSep1, printSep2);
+	}
+
+	public static void printDices(int leftPadding, boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		SpazioAzione board = client.getGameBoard();
 
@@ -994,7 +1022,7 @@ public class FakeUI {
 
 			int[] dadi = board.getValoreDadi();
 			System.out.print(ANSI.YELLOW);
-			System.out.format("%-27s", "Dadi: ");
+			System.out.format("%-" + leftPadding + "s", "Dadi: ");
 			System.out.print(ANSI.RESET);
 			System.out.format(" " + " %-13s", "Nero = " + dadi[0]);
 			System.out.format(" " + " %-18s", "Arancione = " + dadi[1]);
@@ -1006,6 +1034,10 @@ public class FakeUI {
 		} catch (NullPointerException e) {
 			System.err.println("EXCPETION:" + e.getMessage());
 		}
+	}
+
+	public static void printDices(boolean printSep1, boolean printSep2) {
+		printDices(27, printSep1, printSep2);
 	}
 
 	private static void printPawns(boolean printSep1, boolean printSep2) {

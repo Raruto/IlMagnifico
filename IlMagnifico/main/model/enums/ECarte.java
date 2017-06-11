@@ -153,7 +153,6 @@ public enum ECarte {
 			ArrayList<ECarte> ecarte = new ArrayList<ECarte>();
 			for (int i = 0; i < cards.size(); i++) {
 				if (cards.get(i) != null) {
-					System.out.print(i+": "+cards.get(i).getNome());
 					for (ECarte card : ca) {
 						if (card.getNome().equals(cards.get(i).getNome())) {
 							ecarte.add(card);
