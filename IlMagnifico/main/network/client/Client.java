@@ -467,7 +467,7 @@ public class Client implements IClient {
 			EEffettiPermanenti[] choosedEffects) {
 		UpdateStats requestedAction = new UpdateStats(action);
 		requestedAction.spostaPedina(color, position);
-		requestedAction.getScelteEffettiPermanenti(choosedEffects);
+		requestedAction.setScelteEffettiPermanenti(choosedEffects);
 		performGameAction(requestedAction);
 	}
 
