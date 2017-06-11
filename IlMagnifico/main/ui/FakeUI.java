@@ -1351,7 +1351,9 @@ public class FakeUI {
 	public static void printCards(boolean printSep1, boolean printSep2) {
 		if (printSep1)
 			System.out.println(Costants.ROW_SEPARATOR);
+		
 		System.out.println(ECarte.stringify(false));
+		System.out.println(ECarte.printLegend());
 
 		if (printSep2)
 			System.out.println(Costants.ROW_SEPARATOR);

@@ -159,8 +159,7 @@ public enum ECarte {
 							break;
 						}
 					}
-				}
-				else{
+				} else {
 					ecarte.add(null);
 				}
 			}
@@ -174,23 +173,42 @@ public enum ECarte {
 
 		// s += ANSI.YELLOW;
 		if (printHeader)
-			s += String.format("%-35s%-15s%-10s%-30s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ");
+			s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ",
+					"effetti imm.: ", "effetti perm.: ");
 		// s += ANSI.RESET;
 		String desc = "";
-		for (int i = ca.length - 1; i >= 0; i--) {
-			if(ca[i]!=null){
-			for (ECostiCarte cost : ECostiCarte.values()) {
-				if (ca[i].nome.equals(cost.getNome())) {
-					desc = cost.getDescrizione();
-				}
-			}
+		String iEffects = "";
+		String pEffects = "";
 
-			s += String.format("%-35s%-15s%-10s%-30s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
-					ca[i].tipoCarta.toString(), ca[i].periodo, desc);
-			// if (i % 7 == 0 && i != 0)
-			s += "\n";
-			desc = "";
-		}}
+		for (int i = ca.length - 1; i >= 0; i--) {
+			if (ca[i] != null) {
+				desc = "";
+				for (ECostiCarte cost : ECostiCarte.values()) {
+					if (ca[i].nome.equals(cost.getNome()) && cost.getDescrizione() != "") {
+						desc += "(" + cost.getDescrizione() + "), ";
+					}
+				}
+				iEffects = "";
+				for (EEffettiImmediati iEff : EEffettiImmediati.values()) {
+					if (ca[i].nome.equals(iEff.getNome()) && iEff.getDescrizione() != "") {
+						iEffects += "(" + iEff.getDescrizione() + "), ";
+					}
+				}
+				pEffects = "";
+				for (EEffettiPermanenti pEff : EEffettiPermanenti.values()) {
+					if (ca[i].nome.equals(pEff.getNome()) && pEff.getDescrizione() != "") {
+						pEffects += "(" + pEff.getDescrizione() + "), ";
+					}
+				}
+
+				s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
+						ca[i].tipoCarta.toString(), ca[i].periodo, desc, iEffects, pEffects);
+				// if (i % 7 == 0 && i != 0)
+				s += "\n";
+
+				desc = "";
+			}
+		}
 		return s;
 	}
 
@@ -218,20 +236,40 @@ public enum ECarte {
 			inc = 1;
 
 		// s += ANSI.YELLOW;
-		s += String.format("%-35s%-15s%-10s%-30s\n\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ");
+		s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ",
+				"effetti imm.: ", "effetti perm.: ");
 		// s += ANSI.RESET;
 		String desc = "";
+		String iEffects = "";
+		String pEffects = "";
 		for (int i = 0; i < ca.length; i++) {
-			for (ECostiCarte cost : co) {
-				if (ca[i].nome.equals(cost.getNome())) {
-					desc = cost.getDescrizione();
+			if (ca[i] != null) {
+				desc = "";
+				for (ECostiCarte cost : co) {
+					if (ca[i].nome.equals(cost.getNome()) && cost.getDescrizione() != "") {
+						desc += "(" + cost.getDescrizione() + "), ";
+					}
 				}
+				iEffects = "";
+				for (EEffettiImmediati iEff : EEffettiImmediati.values()) {
+					if (ca[i].nome.equals(iEff.getNome()) && iEff.getDescrizione() != "") {
+						iEffects += "(" + iEff.getDescrizione() + "), ";
+					}
+				}
+				pEffects = "";
+				for (EEffettiPermanenti pEff : EEffettiPermanenti.values()) {
+					if (ca[i].nome.equals(pEff.getNome()) && pEff.getDescrizione() != "") {
+						pEffects += "(" + pEff.getDescrizione() + "), ";
+					}
+				}
+
+				s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
+						ca[i].tipoCarta.toString(), ca[i].periodo, desc, iEffects, pEffects);
+				// if (i % 7 == 0 && i != 0)
+				s += "\n";
+
+				desc = "";
 			}
-			s += String.format("%-35s%-15s%-10s%-30s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
-					ca[i].tipoCarta.toString(), ca[i].periodo, desc);
-			// if (i % 7 == 0 && i != 0)
-			s += "\n";
-			desc = "";
 		}
 		return s;
 	}
@@ -242,5 +280,9 @@ public enum ECarte {
 
 	public static String stringify() {
 		return stringify(null, true);
+	}
+
+	public static String printLegend() {
+		return ANSI.YELLOW + "Legenda:" + ANSI.RESET + "\nL = legno, M = moneta, P = pietra\nPF = punto fedo, PM = punto militare, PV = punto vittoria\nPDC = privilegio del consiglio\n\n"+ANSI.YELLOW + "Esempi:" + ANSI.RESET +"\n(4PV? -> -2) \t= solo se possiedi 4PV allora puoi scalare PV di 2 unità\n(+1S, +2PM) \t= guadagni 1S e 2PM\n(+2PM), (+1PDC) = scegli tra guadagnare 2PM o 1PDC";
 	}
 }
