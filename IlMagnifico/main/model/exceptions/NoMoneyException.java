@@ -6,6 +6,11 @@ package main.model.exceptions;
  * da pagare al banco
  */
 public class NoMoneyException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4533979576070023941L;
+
 	public NoMoneyException() {
 		super();
 	}

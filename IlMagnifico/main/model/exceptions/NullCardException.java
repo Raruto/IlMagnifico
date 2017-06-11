@@ -6,6 +6,11 @@ package main.model.exceptions;
  * 
  */
 public class NullCardException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5279225262835476529L;
+
 	public NullCardException() {
 		super();
 	}

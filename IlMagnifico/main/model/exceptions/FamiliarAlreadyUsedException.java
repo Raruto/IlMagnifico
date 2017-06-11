@@ -6,6 +6,11 @@ package main.model.exceptions;
  * 
  */
 public class FamiliarAlreadyUsedException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -814577438166400020L;
+
 	public FamiliarAlreadyUsedException() {
 		super();
 	}

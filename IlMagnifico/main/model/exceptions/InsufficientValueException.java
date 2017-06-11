@@ -5,6 +5,11 @@ package main.model.exceptions;
  * per compiere una determinata azione
  */
 public class InsufficientValueException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2320702365379945054L;
+
 	public InsufficientValueException() {
 		super();
 	}

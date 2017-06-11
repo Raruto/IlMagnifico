@@ -3,7 +3,6 @@ package main.model;
 import java.io.Serializable;
 import java.util.*;
 
-import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
 
 /**

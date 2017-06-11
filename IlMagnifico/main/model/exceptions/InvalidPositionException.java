@@ -6,6 +6,11 @@ package main.model.exceptions;
  * 
  */
 public class InvalidPositionException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2152027157032204464L;
+
 	public InvalidPositionException() {
 		super();
 	}
