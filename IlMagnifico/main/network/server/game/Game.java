@@ -371,4 +371,12 @@ public class Game extends Partita {
 		 */
 		UpdateStats handle(RemotePlayer remotePlayer, UpdateStats update) throws GameException;
 	}
+
+	public Giocatore getGiocatoreDiTurno(){
+		return this.giocatoreDiTurno;
+	}
+	
+	public int getTurno(){
+		return this.turno;
+	}
 }

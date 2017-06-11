@@ -340,4 +340,16 @@ public class UpdateStats implements Serializable {
 		return this.famiglieGiocatori;
 	}
 
+	public void setColorePedina(EColoriPedine colore){
+		this.colorePedinaSpostata=colore;
+	}
+	
+	public void setSceltaConsiglio(ESceltePrivilegioDelConsiglio scelta){
+		this.sceltePrivilegiConsiglio=new ESceltePrivilegioDelConsiglio[1];
+		this.sceltePrivilegiConsiglio[0]=scelta;
+	}
+	
+	public void setServitoriDaPagare(int servitori){
+		this.servitoriDaPagare=servitori;
+	}
 }
