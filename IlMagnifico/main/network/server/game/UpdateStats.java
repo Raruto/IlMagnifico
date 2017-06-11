@@ -4,16 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import main.model.Edificio;
 import main.model.Famigliare;
 import main.model.Giocatore;
-import main.model.Impresa;
-import main.model.Personaggio;
 import main.model.Plancia;
 import main.model.Punti;
 import main.model.Risorsa;
 import main.model.SpazioAzione;
-import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
@@ -31,92 +27,127 @@ public class UpdateStats implements Serializable {
 
 	/**
 	 * Azione eseguita dal giocatore (vedi {@link EAzioniGiocatore}).
+	 * (tipicamente settato lato Client per la Richiesta di svolgimento di
+	 * un'azione di gioco e lato Server per la notifica per la notifica agli
+	 * altri giocatori su quale azione è stata svolta).
 	 */
 	private EAzioniGiocatore azioneGiocatore;
 
 	/**
-	 * Nome del giocatore che ha eseguito l'azione.
+	 * Nome del giocatore che ha eseguito l'azione. (tipicamente settato lato
+	 * Server per la notifica per la notifica agli altri giocatori su chi ha
+	 * svolto l'azione).
 	 */
 	private String nomeGiocatore;
 
 	/**
-	 * Colore della pedina spostata dal giocatore.
+	 * Colore della pedina spostata dal giocatore. (tipicamente settato lato
+	 * Client per la richiesta di svolgimento di un'azione di gioco da parte di
+	 * un giocatore).
 	 */
 	private EColoriPedine colorePedinaSpostata;
 
 	/**
-	 * Posizione dove il giocatore ha spostato la pedina.
+	 * Posizione dove il giocatore ha spostato la pedina. (tipicamente settato
+	 * lato Client per la richiesta di svolgimento di un'azione di gioco da
+	 * parte di un giocatore).
 	 */
 	private int posizionePedinaSpostata;
 
 	/**
 	 * Privilegio/i del Consiglio scelti dal giocatore (vedi
-	 * {@link ESceltePrivilegioDelConsiglio}).
+	 * {@link ESceltePrivilegioDelConsiglio}). (tipicamente settato lato Client
+	 * per la richiesta di svolgimento di un'azione di gioco da parte di un
+	 * giocatore).
 	 */
 	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
 
 	/**
-	 * True se la Chiesa e' stata supportata dal giocatore.
+	 * True se la Chiesa e' stata supportata dal giocatore. (tipicamente settato
+	 * lato Client per la richiesta di supporto della chiesa e lato Server per
+	 * la notifica agli altri giocatori).
 	 */
 	private boolean supportoChiesa;
 
 	/**
-	 * {@link Punti} del giocatore che ha eseguito l'azione
+	 * {@link Punti} del giocatore che ha eseguito l'azione. (tipicamente
+	 * settato lato Server per la notifica agli altri giocatori
+	 * dell'aggiornamento dei punti del giocatore che ha svolto l'azione di
+	 * gioco presso il server).
 	 */
 	private Punti puntiGiocatore;
 
 	/**
-	 * {@link Risorsa} del giocatore che ha eseguito l'azione
+	 * {@link Risorsa} del giocatore che ha eseguito l'azione. (tipicamente
+	 * settato lato Server per la notifica per la notifica agli altri giocatori
+	 * dell'aggiornamento delle risorse del giocatore che ha svolto l'azione di
+	 * gioco presso il server).
 	 */
 	private Risorsa risorseGiocatore;
 
 	/**
-	 * {@link Plancia} del giocatore che ha eseguito l'azione
+	 * {@link Plancia} del giocatore che ha eseguito l'azione. (tipicamente
+	 * settato lato Server per la notifica agli altri giocatori
+	 * dell'aggiornamento delle carte presenti nella plancia del giocatore che
+	 * ha svolto l'azione di gioco presso il server).
 	 */
 	private Plancia planciaGiocatore;
 
 	/**
 	 * Famigliari del giocatore che ha eseguito l'azione (vedi
-	 * {@link Famigliare}).
+	 * {@link Famigliare}). (tipicamente settato lato Server per la notifica
+	 * agli altri giocatori delle posizione dei famigliari del giocatore che ha
+	 * svolto l'azione di gioco presso il server).
 	 */
 	private Famigliare[] famigliaGiocatore;
 
 	/**
 	 * Fase di gioco eseguita dal server (vedi {@link EFasiDiGioco}).
+	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
 	 */
 	private EFasiDiGioco faseDiGioco;
 
 	/**
 	 * Nomi dei giocatori che devono eseguire l'azione (usato anche per
-	 * notificare giocatori connessi).
+	 * notificare giocatori connessi). (tipicamente settato lato Server per la
+	 * notifica agli altri giocatori).
 	 */
 	private ArrayList<String> nomiGiocatori;
 
 	/**
-	 * Punti dei giocatori (vedi {@link Punti}).
+	 * Punti dei giocatori (vedi {@link Punti}). (tipicamente settato lato
+	 * Server per la notifica agli altri giocatori).
 	 */
 	private HashMap<String, Punti> puntiGiocatori;
 
 	/**
-	 * Risorse dei giocatori (vedi {@link Risorsa}).
+	 * Risorse dei giocatori (vedi {@link Risorsa}). (tipicamente settato lato
+	 * Server per la notifica agli altri giocatori).
 	 */
 	private HashMap<String, Risorsa> risorseGiocatori;
 
 	/**
-	 * Plance dei giocatori (vedi {@link Plancia}).
+	 * Plance dei giocatori (vedi {@link Plancia}). (tipicamente settato lato
+	 * Server per la notifica agli altri giocatori).
 	 */
 	private HashMap<String, Plancia> planceGiocatori;
 
 	/**
-	 * Famigliari dei giocatori (vedi {@link Famigliare}).
+	 * Famigliari dei giocatori (vedi {@link Famigliare}). (tipicamente settato
+	 * lato Server per la notifica agli altri giocatori).
 	 */
 	private HashMap<String, Famigliare[]> famiglieGiocatori;
 
 	/**
-	 * {@link SpazioAzione} aggiornata.
+	 * {@link SpazioAzione} aggiornato (tipicamente settato lato Server per la
+	 * notifica agli altri giocatori).
 	 */
 	private SpazioAzione spazioAzione;
 
+	/**
+	 * {@link EColoriGiocatori} del giocatore che ha effettuato l'azione
+	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
+	 */
 	private EColoriGiocatori coloreGiocatore;
 
 	private ECostiCarte[] scelteCosti;
@@ -340,16 +371,16 @@ public class UpdateStats implements Serializable {
 		return this.famiglieGiocatori;
 	}
 
-	public void setColorePedina(EColoriPedine colore){
-		this.colorePedinaSpostata=colore;
+	public void setColorePedina(EColoriPedine colore) {
+		this.colorePedinaSpostata = colore;
 	}
-	
-	public void setSceltaConsiglio(ESceltePrivilegioDelConsiglio scelta){
-		this.sceltePrivilegiConsiglio=new ESceltePrivilegioDelConsiglio[1];
-		this.sceltePrivilegiConsiglio[0]=scelta;
+
+	public void setSceltaConsiglio(ESceltePrivilegioDelConsiglio scelta) {
+		this.sceltePrivilegiConsiglio = new ESceltePrivilegioDelConsiglio[1];
+		this.sceltePrivilegiConsiglio[0] = scelta;
 	}
-	
-	public void setServitoriDaPagare(int servitori){
-		this.servitoriDaPagare=servitori;
+
+	public void setServitoriDaPagare(int servitori) {
+		this.servitoriDaPagare = servitori;
 	}
 }
