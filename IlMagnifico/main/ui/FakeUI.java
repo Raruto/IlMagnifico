@@ -3,7 +3,6 @@ package main.ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -262,7 +261,7 @@ public class FakeUI {
 	// Command: [chat]
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Client command: send chat messages.
+	 * Client command: [chat] (send chat messages).
 	 */
 	public static void sendChatMessages() {
 		Client client = getClient();
@@ -294,7 +293,7 @@ public class FakeUI {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Client command: Game Action chooser.
+	 * Client command: [action] (Game Action chooser).
 	 */
 	public static void performGameAction() {
 		EAzioniGiocatore action;
@@ -310,6 +309,11 @@ public class FakeUI {
 		}
 	}
 
+	/**
+	 * Available game commands: [Mercato], [Produzione], [ProduzioneOvale],
+	 * [Raccolto], [RaccoltoOvale], [PalazzoConsiglio], [Torre],
+	 * [SostegnoChiesa], [Famigliare]
+	 */
 	private static void handleGameAction(EAzioniGiocatore action) throws QuitException {
 		switch (action) {
 		case Mercato:
@@ -345,6 +349,9 @@ public class FakeUI {
 		}
 	}
 
+	/**
+	 * Game command: [ProduzioneOvale]
+	 */
 	private static void handleOvalProduction() throws QuitException {
 		try {
 			movePawn(EAzioniGiocatore.ProduzioneOvale, 0);
@@ -354,6 +361,9 @@ public class FakeUI {
 		throw new QuitException();
 	}
 
+	/**
+	 * Game command: [RaccoltoOvale]
+	 */
 	private static void handleOvalHarvest() throws QuitException {
 		try {
 			movePawn(EAzioniGiocatore.RaccoltoOvale, 0);
@@ -363,6 +373,9 @@ public class FakeUI {
 		throw new QuitException();
 	}
 
+	/**
+	 * Game command: [Famigliare]
+	 */
 	private static void handleFamiliar() throws QuitException {
 		try {
 			printDices(true, true);
@@ -383,6 +396,9 @@ public class FakeUI {
 
 	}
 
+	/**
+	 * Game command: [SostegnoChiesa]
+	 */
 	private static void handleChurchSupport() throws QuitException {
 		try {
 			supportChurch();
@@ -392,6 +408,9 @@ public class FakeUI {
 		throw new QuitException();
 	}
 
+	/**
+	 * Game command: [Torre]
+	 */
 	private static void handleTowers() throws QuitException {
 
 		boolean nestedQuit = false;
@@ -426,6 +445,9 @@ public class FakeUI {
 		throw new QuitException();
 	}
 
+	/**
+	 * Game command: [PalazzoConsiglio]
+	 */
 	private static void handleCouncilPalace() throws QuitException {
 		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null };
 
@@ -450,6 +472,9 @@ public class FakeUI {
 
 	}
 
+	/**
+	 * Game command: [Raccolto]
+	 */
 	private static void handleHarvest() throws QuitException {
 		printPointsAndResources(true, false);
 		printPawns(true, false);
@@ -482,6 +507,9 @@ public class FakeUI {
 		throw new QuitException();
 	}
 
+	/**
+	 * Game command: [Produzione]
+	 */
 	private static void handleProduction() throws QuitException {
 
 		printPointsAndResources(true, false);
@@ -515,6 +543,9 @@ public class FakeUI {
 		throw new QuitException();
 	}
 
+	/**
+	 * Game command: [Mercato]
+	 */
 	private static void handleMarket() throws QuitException {
 		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
 
@@ -957,6 +988,9 @@ public class FakeUI {
 	// Command: [board]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Client command: [board] (Game Board printer).
+	 */
 	public static void printBoard() {
 		printDices(true, false);
 		printTowerArea(true, false);
@@ -1229,6 +1263,9 @@ public class FakeUI {
 	// Command: [dash]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Client command: [dash] (Player Dash printer).
+	 */
 	public static void printDashBoard() {
 		printPointsAndResources(true, false);
 		printDashboardsCards(true, true);
@@ -1348,10 +1385,13 @@ public class FakeUI {
 	// Command: [cards]
 	/////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Client command: [cards] (Game Cards printer).
+	 */
 	public static void printCards(boolean printSep1, boolean printSep2) {
 		if (printSep1)
 			System.out.println(Costants.ROW_SEPARATOR);
-		
+
 		System.out.println(ECarte.stringify(false));
 		System.out.println(ECarte.printLegend());
 
