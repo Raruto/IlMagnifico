@@ -56,7 +56,7 @@ public class UpdateStats implements Serializable {
 	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
 
 	/**
-	 * True se la Chiesa � stata supportata dal giocatore.
+	 * True se la Chiesa e' stata supportata dal giocatore.
 	 */
 	private boolean supportoChiesa;
 
