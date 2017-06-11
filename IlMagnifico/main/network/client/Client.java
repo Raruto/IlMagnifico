@@ -441,7 +441,6 @@ public class Client implements IClient {
 		UpdateStats requestedAction = new UpdateStats(action);
 		requestedAction.spostaPedina(color, position);
 		requestedAction.setScelteCosti(choosedCosts);
-		;
 		performGameAction(requestedAction);
 	}
 
