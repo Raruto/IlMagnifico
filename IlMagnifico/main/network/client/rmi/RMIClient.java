@@ -25,7 +25,7 @@ import main.network.server.rmi.*;
 public class RMIClient extends AbstractClient implements RMIClientInterface {
 
 	/**
-	 * Interfaccia remota del client che verrà memorizzata dal server per la
+	 * Interfaccia remota del client che verra' memorizzata dal server per la
 	 * comunicazione SERVER-->CLIENT.
 	 */
 	private RMIServerInterface server;
@@ -48,7 +48,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * Apre una connessione con {@link RMIServer}.
 	 * 
 	 * @throws ClientException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
 	 */
 	public void connect() throws ClientException {
 		try {
@@ -73,7 +73,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * @param nickname
 	 *            nome da utilizzare per identificarsi al server.
 	 * @throws NetworkException
-	 *             se il server non è raggiungibile.
+	 *             se il server non ï¿½ raggiungibile.
 	 */
 	@Override
 	public void sendLoginRequest(String nickname) throws NetworkException {
@@ -91,11 +91,11 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * 
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verrà inviato a tutti i giocatori.
+	 *            verrï¿½ inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             se il server non è raggiungibile o qualcosa è andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
 	 */
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
@@ -126,16 +126,16 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notifica al giocatore che è stato ricevuto un nuovo messaggio sulla chat.
+	 * Notifica al giocatore che ï¿½ stato ricevuto un nuovo messaggio sulla chat.
 	 * 
 	 * @param author
 	 *            nome del giocatore che ha inviato il messaggio.
 	 * @param message
 	 *            corpo del messaggio ricevuto.
 	 * @param privateMessage
-	 *            True se il messaggio è privato, False se pubblico.
+	 *            True se il messaggio e' privato, False se pubblico.
 	 * @throws RemoteException
-	 *             se il giocatore non è raggiungibile dal server.
+	 *             se il giocatore non e' raggiungibile dal server.
 	 */
 	@Override
 	public void notifyChatMessage(String author, String message, boolean privateMessage) throws RemoteException {

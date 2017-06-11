@@ -198,6 +198,16 @@ public class FakeUI {
 	}
 
 	/**
+	 * Bye Bye World! to other players.
+	 */
+	public static void sayByeByeToPlayers() {
+		Client client = getClient();
+		client.sendChatMessage(null, "Bye Bye!");
+		client.sendChatMessage(null,
+				ANSI.YELLOW + "\"" + client.getNickname() + "\"" + " have logged out..." + ANSI.RESET);
+	}
+
+	/**
 	 * Client command chooser.
 	 */
 	public static void infiniteLoop() {
@@ -213,10 +223,13 @@ public class FakeUI {
 			switch (inText.toLowerCase()) {
 			case "q":
 				System.out.println("Sure to close connection with server? [y/n]");
-				if (scanner.nextLine().equalsIgnoreCase("y"))
+				if (scanner.nextLine().equalsIgnoreCase("y")) {
 					quit = true;
-				// TODO: gestire terminazione corretta del programma!
-				System.exit(0);
+					// TODO: gestire terminazione corretta del programma!
+					System.out.println(ANSI.YELLOW + "Exiting..." + ANSI.RESET);
+					FakeUI.sayByeByeToPlayers();
+					System.exit(0);
+				}
 				break;
 			case "chat":
 				FakeUI.sendChatMessages();
@@ -917,7 +930,7 @@ public class FakeUI {
 			while (!ok) {
 				// System.out.println("'q' to quit\n");
 				System.out.print("Choose a Pawn Color: ");
-				System.out.print(EColoriPedine.stringify(family,false) + " ");
+				System.out.print(EColoriPedine.stringify(family, false) + " ");
 				inText = scanner.nextLine();
 
 				if (inText.equalsIgnoreCase("q")) {

@@ -7,6 +7,7 @@ import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.RoomFullException;
+import main.util.ANSI;
 import main.util.Costants;
 
 /**
@@ -117,6 +118,15 @@ public class Room {
 		return roomNumber;
 	}
 
+	/*
+	 * Ritorna lo stato della Stanza.
+	 * 
+	 * @return canJoin
+	 */
+	public boolean isJoinable() {
+		return canJoin;
+	}
+
 	public ArrayList<RemotePlayer> getPlayers() {
 		return this.players;
 	}
@@ -184,7 +194,7 @@ public class Room {
 		try {
 			player.onChatMessage(ID, message, privateMessage);
 		} catch (NetworkException e) {
-			e.printStackTrace();
+			System.err.println("PLAYER_DISCONNECTED: \"" + player.getNome() + "\"\n(" + e.getMessage() + ")");
 		}
 	}
 
@@ -195,6 +205,14 @@ public class Room {
 	private void logToAllPlayers(String message) {
 		players.stream().forEach(remotePlayer -> {
 			logToPlayer(remotePlayer, message, false);
+		});
+		log(message);
+	}
+
+	private void logToAllPlayersExceptOne(RemotePlayer expectThisPlayer, String message) {
+		players.stream().forEach(remotePlayer -> {
+			if (!remotePlayer.equals(expectThisPlayer))
+				logToPlayer(remotePlayer, message, false);
 		});
 		log(message);
 	}
@@ -244,7 +262,8 @@ public class Room {
 		try {
 			player.onChatMessage(author, message, privateMessage);
 		} catch (NetworkException e) {
-			System.err.println("PLAYER_DISCONNECTED");
+			//System.err.println("PLAYER_DISCONNECTED: \"" + player.getNome() + "\"\n(" + e.getMessage() + ")");
+			logToAllPlayersExceptOne(player,"PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
 		}
 	}
 
@@ -253,7 +272,8 @@ public class Room {
 			try {
 				p.onGameUpdate(update);
 			} catch (NetworkException e) {
-				e.printStackTrace();
+				//System.err.println("PLAYER_DISCONNECTED: \"" + p.getNome() + "\"\n(" + e.getMessage() + ")");
+				logToAllPlayersExceptOne(p,ANSI.YELLOW+"PLAYER_DISCONNECTED: \"" + p.getNome() + "\""+ANSI.RESET);
 			}
 		});
 	}
@@ -265,7 +285,7 @@ public class Room {
 			if (game == null)
 				throw new GameException(Errors.GAME_NOT_STARTED.toString());
 			else
-			e.printStackTrace();
+				e.printStackTrace();
 		}
 	}
 

@@ -21,12 +21,12 @@ import main.util.Costants;
 public class Server implements IServer {
 
 	/**
-	 * Porta in cui è aperta la comunicazione Socket.
+	 * Porta in cui ï¿½ aperta la comunicazione Socket.
 	 */
 	public static final int SOCKET_PORT = Costants.SOCKET_PORT;
 
 	/**
-	 * Porta in cui è aperta la comunicazione RMI.
+	 * Porta in cui ï¿½ aperta la comunicazione RMI.
 	 */
 	public static final int RMI_PORT = Costants.RMI_PORT;
 
@@ -176,7 +176,7 @@ public class Server implements IServer {
 	 *            riferimento al giocatore che ha effettuato la richiesta (es.
 	 *            {@link RMIPlayer}, {@link SocketPlayer}).
 	 * @throws LoginException
-	 *             se esiste già un altro giocatore con il nome fornito.
+	 *             se esiste giï¿½ un altro giocatore con il nome fornito.
 	 */
 	@Override
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
@@ -213,7 +213,7 @@ public class Server implements IServer {
 	 * @param remotePlayer
 	 *            giocatore remoto da aggiungere.
 	 * @throws JoinRoomException
-	 *             se non è stata trovata alcuna stanza disponibile.
+	 *             se non ï¿½ stata trovata alcuna stanza disponibile.
 	 */
 	@Override
 	public void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException {
@@ -240,7 +240,7 @@ public class Server implements IServer {
 	 * @param player
 	 *            riferimento al giocatore che ha fatto la richiesta.
 	 * @throws RoomFullException
-	 *             se la Stanza è non disponibile.
+	 *             se la Stanza ï¿½ non disponibile.
 	 */
 	private void joinLastRoom(RemotePlayer player) throws RoomFullException {
 		Room lastRoom = rooms.isEmpty() ? null : rooms.get(rooms.size() - 1);
@@ -297,7 +297,7 @@ public class Server implements IServer {
 	 *            MITTENTE del messaggio.
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verrà inviato a tutti i giocatori.
+	 *            verrï¿½ inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
@@ -326,14 +326,21 @@ public class Server implements IServer {
 		}
 		/* Send a BROADCAST message */
 		else {
-			players.entrySet().stream().filter(remotePlayer -> remotePlayer.getValue() != player)
-					.forEach(remotePlayer -> {
-						try {
-							remotePlayer.getValue().onChatMessage(author, message, false);
-						} catch (NetworkException e) {
-							e.printStackTrace();
-						}
-					});
+			Room room = player.getRoom();
+			// Se il giocatore e' in una stanza invia in broadcast solamente ai
+			// giocatori della Stanza
+			if (room != null /* && !room.isJoinable() */)
+				room.sendChatMessage(player, receiver, message);
+			// Altrimenti invio a tutti i giocatori connessi
+			else
+				players.entrySet().stream().filter(remotePlayer -> (remotePlayer.getValue() != player))
+						.forEach(remotePlayer -> {
+							try {
+								remotePlayer.getValue().onChatMessage(author, message, false);
+							} catch (NetworkException e) {
+								e.printStackTrace();
+							}
+						});
 		}
 	}
 

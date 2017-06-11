@@ -27,7 +27,7 @@ import main.util.Costants;
 public class RMIServer extends AbstractServer implements RMIServerInterface {
 
 	/**
-	 * Mappa di tutti i giocatori che hanno eseguito il login al quale è stato
+	 * Mappa di tutti i giocatori che hanno eseguito il login al quale e' stato
 	 * un token di sessione univoco (necessario per identificare il giocatore
 	 * remoto ogni volta che fa una richiesta verso il Server).
 	 */
@@ -119,9 +119,9 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 * @return token di sessione che identifica in modo univoco l'utente sul
 	 *         Server.
 	 * @throws LoginException
-	 *             se esiste già un altro giocatore con il nome fornito.
+	 *             se esiste gia' un altro giocatore con il nome fornito.
 	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 */
 	@Override
 	public String sendLoginRequest(String nickname, RMIClientInterface player) throws IOException {
@@ -147,7 +147,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 *            (MITTENTE).
 	 * @param receiver
 	 *            nome del giocatore che dovrebbe ricevere il messaggio
-	 *            (DESTINATARIO). Se null il messaggio verrà inviato a tutti i
+	 *            (DESTINATARIO). Se null il messaggio verra' inviato a tutti i
 	 *            giocatori.
 	 * @param message
 	 *            messaggio da inviare.
@@ -155,7 +155,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 *             se il ricevitore non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 */
 	@Override
 	public void sendChatMessage(String sessionToken, String receiver, String message) throws IOException {
@@ -171,7 +171,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 * @param requestedAction
 	 *            richiesta del giocatore (vedi {@link UpdateStats}).
 	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 * @throws GameException
 	 *             se il giocatore sta tentando di eseguire un azione illegale.
 	 */
