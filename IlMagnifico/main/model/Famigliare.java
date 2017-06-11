@@ -90,7 +90,6 @@ public class Famigliare implements Serializable {
 		if (spazioAzione.getCartaTorre(posizione) == null)
 			throw new NullCardException();
 		identificativoTorre = posizione / 4;
-		System.out.println(identificativoTorre);
 		// mi dice esattamente in quale torre si trova la mia pedina:
 		// 0=territorio, 1=personaggio
 		// 2=edificio, 3=impresa

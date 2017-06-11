@@ -752,10 +752,10 @@ public class FakeUI {
 				try {
 					number = Integer.parseInt(inText);
 					number--;
-					
+
 					if (number < 0 || number > ESceltePrivilegioDelConsiglio.values().length)
 						throw new NumberFormatException();
-					
+
 					for (ESceltePrivilegioDelConsiglio priv : ESceltePrivilegioDelConsiglio.values()) {
 						if (number == priv.ordinal())
 							return priv;
@@ -911,32 +911,38 @@ public class FakeUI {
 	private static EColoriPedine choosePawnColor() throws QuitException {
 		int number;
 		boolean ok = false;
-		while (!ok) {
-			// System.out.println("'q' to quit\n");
-			System.out.print("Choose a Pawn Color: ");
-			System.out.print(EColoriPedine.stringify(false) + " ");
-			inText = scanner.nextLine();
+		try {
+			Famigliare[] family = client.getPlayersFamilies().get(client.getNickname());
 
-			if (inText.equalsIgnoreCase("q")) {
-				throw new QuitException();
-			} else {
-				try {
-					number = Integer.parseInt(inText);
-					number--;
-					for (EColoriPedine col : EColoriPedine.values()) {
-						if (number == col.ordinal()) {
-							return col;
+			while (!ok) {
+				// System.out.println("'q' to quit\n");
+				System.out.print("Choose a Pawn Color: ");
+				System.out.print(EColoriPedine.stringify(family,false) + " ");
+				inText = scanner.nextLine();
+
+				if (inText.equalsIgnoreCase("q")) {
+					throw new QuitException();
+				} else {
+					try {
+						number = Integer.parseInt(inText);
+						number--;
+						for (EColoriPedine col : EColoriPedine.values()) {
+							if (number == col.ordinal()) {
+								return col;
+							}
 						}
-					}
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
-					for (EColoriPedine col : EColoriPedine.values()) {
-						if (inText.equalsIgnoreCase(col.toString())) {
-							return col;
+					} catch (NumberFormatException e) {
+						// TODO: handle exception
+						for (EColoriPedine col : EColoriPedine.values()) {
+							if (inText.equalsIgnoreCase(col.toString())) {
+								return col;
+							}
 						}
 					}
 				}
 			}
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
 		}
 		return null;
 	}

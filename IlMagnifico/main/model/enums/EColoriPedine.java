@@ -1,5 +1,6 @@
 package main.model.enums;
 
+import main.model.Famigliare;
 import main.util.ANSI;
 
 public enum EColoriPedine {
@@ -33,7 +34,7 @@ public enum EColoriPedine {
 		return s;
 	}
 
-	public static String stringify(boolean startsWithZero) {
+	public static String stringify(Famigliare[] family, boolean startsWithZero) {
 		EColoriPedine[] c = EColoriPedine.values();
 		String s = "";
 
@@ -42,16 +43,18 @@ public enum EColoriPedine {
 			inc = 1;
 
 		for (int i = 0; i < c.length; i++) {
-			s += "[" + (i + inc) + ": " + c[i].getANSICode() + "♜"
-					+ ANSI.RESET /* .toString() */ + "] ";
-			if (i % 7 == 0 && i != 0)
-				s += "\n";
+			if (family == null || !family[i].getPosizionato()) {
+				s += "[" + (i + inc) + ": " + c[i].getANSICode() + "♜"
+						+ ANSI.RESET /* .toString() */ + "] ";
+				if (i % 7 == 0 && i != 0)
+					s += "\n";
+			}
 		}
 		return s;
 	}
 
 	public static String stringify() {
-		return stringify(true);
+		return stringify(null, true);
 	}
 
 }
