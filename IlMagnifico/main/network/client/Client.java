@@ -601,62 +601,174 @@ public class Client implements IClient {
 		handleResponse(update);
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#SostegnoChiesa}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onChurchSupport(UpdateStats update) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#Mercato}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onMarket(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#Famigliare}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onPayServant(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#Torre}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onTower(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#PalazzoConsiglio}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onCouncilPalace(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#Raccolto}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onHarvestRound(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#Produzione}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onProductionRound(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#RaccoltoOvale}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onHarvestOval(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server ha autorizzato un giocatore ad eseguire:
+	 * {@link EAzioniGiocatore#ProduzioneOvale}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	public void onProductionOval(UpdateStats update) {
 		// TODO
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#FineTurno}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onTurnEnd(UpdateStats update) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#FinePeriodo}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onPeriodEnd(UpdateStats update) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#FinePartita}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onGameEnd(UpdateStats update) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#MossaGiocatore}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onPlayerMove(UpdateStats update) {
 		// if (update.getNomeGiocatore() != null)
@@ -665,6 +777,14 @@ public class Client implements IClient {
 		FakeUI.printPlayerTurn(true);
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#InizioTurno}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onTurnStarted(UpdateStats update) {
 		if (update.getFamiglieGiocatori() != null)
@@ -673,12 +793,28 @@ public class Client implements IClient {
 		FakeUI.printDices(10, false, false);
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#InizioPeriodo}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onPeriodStarted(UpdateStats update) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Scatenato quando il server notifica {@link EFasiDiGioco#InizioPartita}.
+	 * 
+	 * @param update
+	 *            in ingresso un oggetto aggiornamento {@link UpdateStats}
+	 *            contenente lo stato della partita con tutte le modifiche
+	 *            apportate allo stato della partita.
+	 */
 	@Override
 	public void onGameStarted(UpdateStats update) {
 		if (update.getRisorseGiocatori() != null)
