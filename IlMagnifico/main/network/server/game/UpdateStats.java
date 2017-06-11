@@ -308,10 +308,6 @@ public class UpdateStats implements Serializable {
 		return coloreGiocatore;
 	}
 
-	public void setNomeGiocatore(String nomeGiocatore) {
-		this.nomeGiocatore = nomeGiocatore;
-	}
-
 	/**
 	 * Ritorna lo {@link SpazioAzione} aggiornato (tipicamente settato lato
 	 * Server per la notifica agli altri giocatori).
@@ -387,32 +383,6 @@ public class UpdateStats implements Serializable {
 		return this.posizionePedinaSpostata;
 	}
 
-	public void aumentaValorePedina(EColoriPedine color, int servants) {
-		this.colorePedinaSpostata = color;
-		this.servitoriDaPagare = servants;
-	}
-
-	public int getIndiceColorePedina() {
-		return this.colorePedinaSpostata.getIndiceColore();
-	}
-
-	public void spostaPedina(EColoriPedine color, int position) {
-		this.colorePedinaSpostata = color;
-		this.posizionePedinaSpostata = position;
-	}
-
-	public void supportaChiesa(boolean supportoChiesa) {
-		this.supportoChiesa = supportoChiesa;
-	}
-
-	public void addToNomiGiocatori(String nomeGiocatore) {
-
-		if (nomiGiocatori == null)
-			nomiGiocatori = new ArrayList<String>();
-
-		this.nomiGiocatori.add(nomeGiocatore);
-	}
-
 	/**
 	 * Ritorna i nomi dei giocatori che devono eseguire l'azione (usato anche
 	 * per notificare giocatori connessi). (tipicamente settato lato Server per
@@ -433,10 +403,6 @@ public class UpdateStats implements Serializable {
 		return this.sceltePrivilegiConsiglio;
 	}
 
-	public void setSceltePrivilegiConsiglio(ESceltePrivilegioDelConsiglio[] scelte) {
-		this.sceltePrivilegiConsiglio = scelte;
-	}
-
 	/**
 	 * Ritorna i costi della carta scelti dal giocatore (vedi
 	 * {@link ECostiCarte}). (tipicamente settato lato Client durante lo
@@ -449,10 +415,6 @@ public class UpdateStats implements Serializable {
 		return this.scelteCosti;
 	}
 
-	public void setScelteCosti(ECostiCarte[] scelteCosti) {
-		this.scelteCosti = scelteCosti;
-	}
-
 	/**
 	 * Ritorna gli effetti delle carte da attivare della plancia giocatore (vedi
 	 * {@link EEffettiPermanenti}). (tipicamente settato lato Client durante lo
@@ -461,10 +423,6 @@ public class UpdateStats implements Serializable {
 	 */
 	public EEffettiPermanenti[] getScelteEffettiPermanenti() {
 		return this.scelteEffettiPermanenti;
-	}
-
-	public void setScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti) {
-		this.scelteEffettiPermanenti = scelteEffettiPermanenti;
 	}
 
 	/**
@@ -508,6 +466,10 @@ public class UpdateStats implements Serializable {
 		return this.famiglieGiocatori;
 	}
 
+	///////////////////////////////////////////////////////////////////
+	// TODO: verificare quale dei seguenti metodi è possbile cancellare
+	///////////////////////////////////////////////////////////////////
+	
 	public void setColorePedina(EColoriPedine colore) {
 		this.colorePedinaSpostata = colore;
 	}
@@ -519,5 +481,47 @@ public class UpdateStats implements Serializable {
 
 	public void setServitoriDaPagare(int servitori) {
 		this.servitoriDaPagare = servitori;
+	}
+
+	public void setScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti) {
+		this.scelteEffettiPermanenti = scelteEffettiPermanenti;
+	}
+
+	public void setSceltePrivilegiConsiglio(ESceltePrivilegioDelConsiglio[] scelte) {
+		this.sceltePrivilegiConsiglio = scelte;
+	}
+
+	public void setScelteCosti(ECostiCarte[] scelteCosti) {
+		this.scelteCosti = scelteCosti;
+	}
+
+	public void aumentaValorePedina(EColoriPedine color, int servants) {
+		this.colorePedinaSpostata = color;
+		this.servitoriDaPagare = servants;
+	}
+
+	public int getIndiceColorePedina() {
+		return this.colorePedinaSpostata.getIndiceColore();
+	}
+
+	public void spostaPedina(EColoriPedine color, int position) {
+		this.colorePedinaSpostata = color;
+		this.posizionePedinaSpostata = position;
+	}
+
+	public void supportaChiesa(boolean supportoChiesa) {
+		this.supportoChiesa = supportoChiesa;
+	}
+
+	public void addToNomiGiocatori(String nomeGiocatore) {
+
+		if (nomiGiocatori == null)
+			nomiGiocatori = new ArrayList<String>();
+
+		this.nomiGiocatori.add(nomeGiocatore);
+	}
+
+	public void setNomeGiocatore(String nomeGiocatore) {
+		this.nomeGiocatore = nomeGiocatore;
 	}
 }
