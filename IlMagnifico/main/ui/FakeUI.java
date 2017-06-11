@@ -413,6 +413,7 @@ public class FakeUI {
 	}
 
 	private static void handleCouncilPalace() throws QuitException {
+		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null };
 
 		printPointsAndResources(true, false);
 		printPawns(true, false);
@@ -420,7 +421,14 @@ public class FakeUI {
 		printCouncilArea(true, true);
 
 		try {
-			movePawn(EAzioniGiocatore.PalazzoConsiglio, 0);
+			// movePawn(EAzioniGiocatore.PalazzoConsiglio, 0);
+			EColoriPedine color = choosePawnColor();
+
+			if (color != null) {
+				privileges[0] = chooseCouncilPrivilege(new ArrayList<ESceltePrivilegioDelConsiglio>());
+				client.movePawn(EAzioniGiocatore.PalazzoConsiglio, color, 0, privileges);
+			}
+
 			// quit = true;
 		} catch (QuitException e) {
 		}
@@ -735,7 +743,7 @@ public class FakeUI {
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
 			System.out.println("Choose a privilege: ");
-			System.out.println(ESceltePrivilegioDelConsiglio.stringify(hided));
+			System.out.println(ESceltePrivilegioDelConsiglio.stringify(hided, false));
 			inText = scanner.nextLine();
 
 			if (inText.equals("q")) {
@@ -743,6 +751,11 @@ public class FakeUI {
 			} else {
 				try {
 					number = Integer.parseInt(inText);
+					number--;
+					
+					if (number < 0 || number > ESceltePrivilegioDelConsiglio.values().length)
+						throw new NumberFormatException();
+					
 					for (ESceltePrivilegioDelConsiglio priv : ESceltePrivilegioDelConsiglio.values()) {
 						if (number == priv.ordinal())
 							return priv;
