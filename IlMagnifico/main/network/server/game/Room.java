@@ -2,11 +2,15 @@ package main.network.server.game;
 
 import java.util.*;
 
+import main.model.Giocatore;
+import main.model.enums.EAzioniGiocatore;
 import main.model.errors.Errors;
 import main.network.NetworkException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.RoomFullException;
+import main.network.server.rmi.RMIPlayer;
+import main.network.server.socket.SocketPlayer;
 import main.util.ANSI;
 import main.util.Costants;
 
@@ -127,6 +131,12 @@ public class Room {
 		return canJoin;
 	}
 
+	/**
+	 * Ritorna la lista dei giocatori (vedi {@link RemotePlayer}) attualmente
+	 * presenti nella Stanza.
+	 * 
+	 * @return ArrayList<RemotePlayer>
+	 */
 	public ArrayList<RemotePlayer> getPlayers() {
 		return this.players;
 	}
@@ -190,6 +200,16 @@ public class Room {
 				countDownDelay, countDownPeriod);
 	}
 
+	/**
+	 * Metodo usato per inviare un messaggio testuale di notifica, a UN SOLO
+	 * giocatore. Simile a
+	 * {@link #sendChatMessage(RemotePlayer, String, String)}, utile per
+	 * identificare la stanza attraverso il suo {@link #roomNumber}.
+	 * 
+	 * @param player
+	 * @param message
+	 * @param privateMessage
+	 */
 	private void logToPlayer(RemotePlayer player, String message, boolean privateMessage) {
 		try {
 			player.onChatMessage(ID, message, privateMessage);
@@ -198,10 +218,27 @@ public class Room {
 		}
 	}
 
+	/**
+	 * Metodo usato per inviare un messaggio testuale di notifica, a UN SOLO
+	 * giocatore. Simile a
+	 * {@link #sendChatMessage(RemotePlayer, String, String)}, utile per
+	 * identificare la stanza attraverso il suo {@link #roomNumber}.
+	 * 
+	 * @param player
+	 * @param message
+	 */
 	private void logToPlayer(RemotePlayer player, String message) {
 		logToPlayer(player, message, true);
 	}
 
+	/**
+	 * Metodo usato per inviare un messaggio testuale di notifica, a TUTTI
+	 * giocatori. Simile a
+	 * {@link #sendChatMessage(RemotePlayer, String, String)}, utile per
+	 * identificare la stanza attraverso il suo {@link #roomNumber}.
+	 * 
+	 * @param message
+	 */
 	private void logToAllPlayers(String message) {
 		players.stream().forEach(remotePlayer -> {
 			logToPlayer(remotePlayer, message, false);
@@ -209,6 +246,15 @@ public class Room {
 		log(message);
 	}
 
+	/**
+	 * Metodo usato per inviare un messaggio testuale di notifica, a TUTTI
+	 * TRANNE UN giocatore. Simile a
+	 * {@link #sendChatMessage(RemotePlayer, String, String)}, utile per
+	 * identificare la stanza attraverso il suo {@link #roomNumber}.
+	 * 
+	 * @param expectThisPlayer
+	 * @param message
+	 */
 	private void logToAllPlayersExceptOne(RemotePlayer expectThisPlayer, String message) {
 		players.stream().forEach(remotePlayer -> {
 			if (!remotePlayer.equals(expectThisPlayer))
@@ -262,8 +308,9 @@ public class Room {
 		try {
 			player.onChatMessage(author, message, privateMessage);
 		} catch (NetworkException e) {
-			//System.err.println("PLAYER_DISCONNECTED: \"" + player.getNome() + "\"\n(" + e.getMessage() + ")");
-			logToAllPlayersExceptOne(player,"PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
+			// System.err.println("PLAYER_DISCONNECTED: \"" + player.getNome() +
+			// "\"\n(" + e.getMessage() + ")");
+			logToAllPlayersExceptOne(player, "PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
 		}
 	}
 
@@ -272,12 +319,33 @@ public class Room {
 			try {
 				p.onGameUpdate(update);
 			} catch (NetworkException e) {
-				//System.err.println("PLAYER_DISCONNECTED: \"" + p.getNome() + "\"\n(" + e.getMessage() + ")");
-				logToAllPlayersExceptOne(p,ANSI.YELLOW+"PLAYER_DISCONNECTED: \"" + p.getNome() + "\""+ANSI.RESET);
+				// System.err.println("PLAYER_DISCONNECTED: \"" + p.getNome() +
+				// "\"\n(" + e.getMessage() + ")");
+				logToAllPlayersExceptOne(p, ANSI.YELLOW + "PLAYER_DISCONNECTED: \"" + p.getNome() + "\"" + ANSI.RESET);
 			}
 		});
 	}
 
+	/**
+	 * Metodo invocato dai Client ogni qualvolta vogliano eseguire un'azione di
+	 * gioco presso il server.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param requestedAction
+	 *            oggetto {@link UpdateStats} contenete tutte le informazioni
+	 *            necessarie al server per comprendere il tipo di richiesta (es.
+	 *            deve contenere un {@link EAzioniGiocatore} che codifica il
+	 *            tipo di azione richiesta).
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	public void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		try {
 			game.performGameAction(remotePlayer, requestedAction);
