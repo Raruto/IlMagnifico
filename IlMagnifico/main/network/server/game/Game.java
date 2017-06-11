@@ -20,7 +20,10 @@ import main.model.exceptions.NoMoneyException;
 import main.model.exceptions.NullCardException;
 import main.model.exceptions.SameAreaException;
 import main.model.exceptions.SpazioOccupatoException;
+import main.network.client.rmi.RMIClient;
 import main.network.server.game.exceptions.GameException;
+import main.network.server.rmi.RMIPlayer;
+import main.network.server.socket.SocketPlayer;
 
 public class Game extends Partita {
 
@@ -126,7 +129,7 @@ public class Game extends Partita {
 		if (azione != EAzioniGiocatore.Famigliare) {
 			avanzaDiTurno();
 			if (!isGiroDiTurniTerminato()) {
-				//avanzaDiTurno();
+				// avanzaDiTurno();
 				update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
 				update.setNomeGiocatore(giocatoreDiTurno.getNome());
 				dispatchGameUpdate(update);
@@ -138,7 +141,7 @@ public class Game extends Partita {
 				update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 				dispatchGameUpdate(update);
 				scegliOrdine();
-				this.giocatoreDiTurno=giocatori.get(0);
+				this.giocatoreDiTurno = giocatori.get(0);
 
 				if (!isPeriodoTerminato()) {
 					// avanzaGiroDiTurni();
@@ -212,6 +215,28 @@ public class Game extends Partita {
 		}
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#Mercato}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onMarket(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoMercato(
@@ -232,6 +257,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#Famigliare}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onPayServant(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.pagaServitore(remotePlayer.getFamigliare(update.getIndiceColorePedina()),
@@ -242,6 +289,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#PalazzoConsiglio}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onCouncilPalace(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina())
@@ -256,6 +325,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#Produzione}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onProductionRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			// qua ci va messa l'azione scelta dal giocatore come parametro
@@ -270,6 +361,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#Raccolto}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onHarvestRound(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoRotondo();
@@ -283,6 +396,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#RaccoltoOvale}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onHarvestOval(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoRaccoltoOvale();
@@ -296,6 +431,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#ProduzioneOvale}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onProductionOval(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina()).eseguiSpostamentoProduzioneOvale(
@@ -310,6 +467,28 @@ public class Game extends Partita {
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#Torre}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onTower(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			remotePlayer.getFamigliare(update.getIndiceColorePedina())
@@ -376,11 +555,11 @@ public class Game extends Partita {
 		UpdateStats handle(RemotePlayer remotePlayer, UpdateStats update) throws GameException;
 	}
 
-	public Giocatore getGiocatoreDiTurno(){
+	public Giocatore getGiocatoreDiTurno() {
 		return this.giocatoreDiTurno;
 	}
-	
-	public int getTurno(){
+
+	public int getTurno() {
 		return this.turno;
 	}
 }
