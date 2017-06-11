@@ -180,7 +180,10 @@ public abstract class Partita {
 	 * @return true se il turno � terminato
 	 */
 	protected boolean isGiroDiTurniTerminato() {
-		return this.giocatoreDiTurno.equals(null);
+		if(this.giocatoreDiTurno==null)
+			return true;
+		else return false;
+		//return this.giocatoreDiTurno.equals(null);
 	}
 
 	/**

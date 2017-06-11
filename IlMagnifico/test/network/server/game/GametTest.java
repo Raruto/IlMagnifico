@@ -122,8 +122,6 @@ public class GametTest {
 			update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 			update.setColorePedina(EColoriPedine.Neutrale);
 			update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-			update.setServitoriDaPagare(1);
-
 				try {
 					game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 				} catch (GameException e) {

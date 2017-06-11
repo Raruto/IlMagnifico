@@ -124,8 +124,9 @@ public class Game extends Partita {
 	private void andvanceInGameLogic(EAzioniGiocatore azione) {
 		UpdateStats update;
 		if (azione != EAzioniGiocatore.Famigliare) {
+			avanzaDiTurno();
 			if (!isGiroDiTurniTerminato()) {
-				avanzaDiTurno();
+				//avanzaDiTurno();
 				update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
 				update.setNomeGiocatore(giocatoreDiTurno.getNome());
 				dispatchGameUpdate(update);
@@ -136,6 +137,8 @@ public class Game extends Partita {
 				resetPerNuovoTurno();
 				update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 				dispatchGameUpdate(update);
+				scegliOrdine();
+				this.giocatoreDiTurno=giocatori.get(0);
 
 				if (!isPeriodoTerminato()) {
 					// avanzaGiroDiTurni();
@@ -161,6 +164,7 @@ public class Game extends Partita {
 					}
 				}
 			}
+			this.turno++;
 		}
 	}
 

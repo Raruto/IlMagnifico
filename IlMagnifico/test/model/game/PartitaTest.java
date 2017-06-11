@@ -75,4 +75,16 @@ public class PartitaTest extends Partita {
 		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
 		assertTrue(giocatore.getScomunica(1) == this.scomuniche[1]);
 	}
+
+	@Test
+	public void testFineTurno() {
+		for (int i = 0; i < 2; i++) {
+			this.giocatori.add(new Giocatore());
+			for (int j = 0; j < 4; j++) {
+				this.giocatori.get(i).getFamigliare(j).setPosizionato(true);
+			}
+		}
+		this.giocatoreDiTurno = this.giocatori.get(1);
+		assertTrue(this.giocatoreDelTurnoSuccessivo(giocatoreDiTurno) == null);
+	}
 }
