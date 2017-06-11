@@ -58,9 +58,35 @@ public class UpdateStats implements Serializable {
 	 * Privilegio/i del Consiglio scelti dal giocatore (vedi
 	 * {@link ESceltePrivilegioDelConsiglio}). (tipicamente settato lato Client
 	 * per la richiesta di svolgimento di un'azione di gioco da parte di un
-	 * giocatore).
+	 * giocatore, ad esempio durante lo svolgimento di una azione "Mercato"
+	 * all'interno della "Zona 4").
 	 */
 	private ESceltePrivilegioDelConsiglio[] sceltePrivilegiConsiglio;
+
+	/**
+	 * Costi della carta scelti dal giocatore (vedi {@link ECostiCarte}).
+	 * (tipicamente settato lato Client durante lo svolgimento di un'azione di
+	 * gioco di tipo "Torre", la scelta va effettuata solamente nel caso la
+	 * carta contenga 2 o più costi opzionali, negli altri casi viene
+	 * automaticamente attivato l'unico costo disponibile per la carta
+	 * selezionata).
+	 */
+	private ECostiCarte[] scelteCosti;
+
+	/**
+	 * Effetti delle carte da attivare della plancia giocatore (vedi
+	 * {@link EEffettiPermanenti}). (tipicamente settato lato Client durante lo
+	 * svolgimento di un'azione di gioco di tipo "Produzione" o "Raccolto", la
+	 * scelta va effettuata solamente nel caso la carta).
+	 */
+	private EEffettiPermanenti[] scelteEffettiPermanenti;
+
+	/**
+	 * Numero di servitori che il giocatore è intenzionato a spendere per
+	 * aumentare il valore di un suo famigliare (tipicamente settato lato
+	 * Client).
+	 */
+	private int servitoriDaPagare;
 
 	/**
 	 * True se la Chiesa e' stata supportata dal giocatore. (tipicamente settato
@@ -103,7 +129,8 @@ public class UpdateStats implements Serializable {
 
 	/**
 	 * Fase di gioco eseguita dal server (vedi {@link EFasiDiGioco}).
-	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
+	 * (tipicamente settato lato Server per la notifica agli altri giocatori
+	 * dell'avanzamento dello stato interno della partita).
 	 */
 	private EFasiDiGioco faseDiGioco;
 
@@ -116,25 +143,25 @@ public class UpdateStats implements Serializable {
 
 	/**
 	 * Punti dei giocatori (vedi {@link Punti}). (tipicamente settato lato
-	 * Server per la notifica agli altri giocatori).
+	 * Server).
 	 */
 	private HashMap<String, Punti> puntiGiocatori;
 
 	/**
 	 * Risorse dei giocatori (vedi {@link Risorsa}). (tipicamente settato lato
-	 * Server per la notifica agli altri giocatori).
+	 * Server).
 	 */
 	private HashMap<String, Risorsa> risorseGiocatori;
 
 	/**
 	 * Plance dei giocatori (vedi {@link Plancia}). (tipicamente settato lato
-	 * Server per la notifica agli altri giocatori).
+	 * Server).
 	 */
 	private HashMap<String, Plancia> planceGiocatori;
 
 	/**
 	 * Famigliari dei giocatori (vedi {@link Famigliare}). (tipicamente settato
-	 * lato Server per la notifica agli altri giocatori).
+	 * lato Server).
 	 */
 	private HashMap<String, Famigliare[]> famiglieGiocatori;
 
@@ -149,12 +176,6 @@ public class UpdateStats implements Serializable {
 	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
 	 */
 	private EColoriGiocatori coloreGiocatore;
-
-	private ECostiCarte[] scelteCosti;
-
-	private int servitoriDaPagare;
-
-	private EEffettiPermanenti[] scelteEffettiPermanenti;
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -185,7 +206,7 @@ public class UpdateStats implements Serializable {
 	 *            azione di gioco eseguita dal giocatore (vedi
 	 *            {@link EAzioniGiocatore}).
 	 * @param spazioAzione
-	 *            {@link SpazioAzione} aggiornata.
+	 *            {@link SpazioAzione} aggiornato.
 	 */
 	public UpdateStats(Giocatore giocatore, EAzioniGiocatore azione, SpazioAzione spazioAzione) {
 		this.azioneGiocatore = azione;
@@ -210,7 +231,7 @@ public class UpdateStats implements Serializable {
 	 * gioco sul server, es. inizio/fine partita).
 	 * 
 	 * @param spazioAzione
-	 *            {@link SpazioAzione} aggiornata.
+	 *            {@link SpazioAzione} aggiornato.
 	 */
 	public UpdateStats(EFasiDiGioco fase, SpazioAzione spazioAzione) {
 		this.faseDiGioco = fase;
@@ -244,19 +265,45 @@ public class UpdateStats implements Serializable {
 		}
 	}
 
+	/**
+	 * Costruttore (aggiornamento dello stato del gioco, evoluzione autonoma del
+	 * gioco sul server, es. inizio/fine partita).
+	 * 
+	 * @param fase
+	 * @param giocatori
+	 * @param spazioAzione
+	 *            {@link SpazioAzione} aggiornato.
+	 */
 	public UpdateStats(EFasiDiGioco fase, ArrayList<Giocatore> giocatori, SpazioAzione spazioAzione) {
 		this(fase, giocatori);
 		this.spazioAzione = spazioAzione;
 	}
 
+	/**
+	 * Ritorna l'azione eseguita/richiesta dal giocatore (vedi
+	 * {@link EAzioniGiocatore}). (tipicamente settato lato Client per la
+	 * Richiesta di svolgimento di un'azione di gioco e lato Server per la
+	 * notifica per la notifica agli altri giocatori su quale azione è stata
+	 * svolta).
+	 */
 	public EAzioniGiocatore getAzioneGiocatore() {
 		return azioneGiocatore;
 	}
 
+	/**
+	 * Ritorna il nome del giocatore che ha eseguito/richiesto l'azione.
+	 * (tipicamente settato lato Server per la notifica per la notifica agli
+	 * altri giocatori su chi ha svolto l'azione).
+	 */
 	public String getNomeGiocatore() {
 		return nomeGiocatore;
 	}
 
+	/**
+	 * Ritorna il colore ({@link EColoriGiocatori}) del giocatore che ha
+	 * effettuato/richiesto l'azione (tipicamente settato lato Server per la
+	 * notifica agli altri giocatori).
+	 */
 	public EColoriGiocatori getColoreGiocatore() {
 		return coloreGiocatore;
 	}
@@ -265,30 +312,77 @@ public class UpdateStats implements Serializable {
 		this.nomeGiocatore = nomeGiocatore;
 	}
 
+	/**
+	 * Ritorna lo {@link SpazioAzione} aggiornato (tipicamente settato lato
+	 * Server per la notifica agli altri giocatori).
+	 */
 	public SpazioAzione getSpazioAzione() {
 		return spazioAzione;
 	}
 
+	/**
+	 * Ritorna la fase di gioco eseguita dal server (vedi {@link EFasiDiGioco}).
+	 * (tipicamente settato lato Server per la notifica agli altri giocatori
+	 * dell'avanzamento dello stato interno della partita).
+	 */
 	public EFasiDiGioco getAzioneServer() {
 		return faseDiGioco;
 	}
 
+	/**
+	 * Ritorna i {@link Punti} del giocatore che ha eseguito/richiesto l'azione.
+	 * (tipicamente settato lato Server per la notifica agli altri giocatori
+	 * dell'aggiornamento dei punti del giocatore che ha svolto l'azione di
+	 * gioco presso il server).
+	 */
 	public Punti getPuntiGiocatore() {
 		return this.puntiGiocatore;
 	}
 
+	/**
+	 * Ritorna le {@link Risorsa} del giocatore che ha eseguito/richiesto
+	 * l'azione. (tipicamente settato lato Server per la notifica per la
+	 * notifica agli altri giocatori dell'aggiornamento delle risorse del
+	 * giocatore che ha svolto l'azione di gioco presso il server).
+	 */
 	public Risorsa getRisorseGiocatore() {
 		return this.risorseGiocatore;
 	}
 
+	/**
+	 * Ritorna la {@link Plancia} del giocatore che ha eseguito/richiesto
+	 * l'azione. (tipicamente settato lato Server per la notifica agli altri
+	 * giocatori dell'aggiornamento delle carte presenti nella plancia del
+	 * giocatore che ha svolto l'azione di gioco presso il server).
+	 */
 	public Plancia getPlanciaGiocatore() {
 		return this.planciaGiocatore;
 	}
 
+	/**
+	 * Ritorna i Famigliari del giocatore che ha eseguito/richiesto l'azione
+	 * (vedi {@link Famigliare}). (tipicamente settato lato Server per la
+	 * notifica agli altri giocatori delle posizione dei famigliari del
+	 * giocatore che ha svolto l'azione di gioco presso il server).
+	 */
 	public Famigliare[] getFamigliaGiocatore() {
 		return this.famigliaGiocatore;
 	}
 
+	/**
+	 * Ritorna True se la Chiesa e' stata supportata dal giocatore. (tipicamente
+	 * settato lato Client per la richiesta di supporto della chiesa e lato
+	 * Server per la notifica agli altri giocatori).
+	 */
+	public boolean getSupportoChiesa() {
+		return this.supportoChiesa;
+	}
+
+	/**
+	 * Ritorna la posizione dove il giocatore ha spostato la pedina.
+	 * (tipicamente settato lato Client per la richiesta di svolgimento di
+	 * un'azione di gioco da parte di un giocatore).
+	 */
 	public int getPosizioneSpostamentoPedina() {
 		return this.posizionePedinaSpostata;
 	}
@@ -307,10 +401,6 @@ public class UpdateStats implements Serializable {
 		this.posizionePedinaSpostata = position;
 	}
 
-	public boolean getSupportoChiesa() {
-		return this.supportoChiesa;
-	}
-
 	public void supportaChiesa(boolean supportoChiesa) {
 		this.supportoChiesa = supportoChiesa;
 	}
@@ -323,10 +413,22 @@ public class UpdateStats implements Serializable {
 		this.nomiGiocatori.add(nomeGiocatore);
 	}
 
+	/**
+	 * Ritorna i nomi dei giocatori che devono eseguire l'azione (usato anche
+	 * per notificare giocatori connessi). (tipicamente settato lato Server per
+	 * la notifica agli altri giocatori).
+	 */
 	public ArrayList<String> getNomiGiocatori() {
 		return this.nomiGiocatori;
 	}
 
+	/**
+	 * Ritorna i/il privilegio/i del Consiglio scelti dal giocatore (vedi
+	 * {@link ESceltePrivilegioDelConsiglio}). (tipicamente settato lato Client
+	 * per la richiesta di svolgimento di un'azione di gioco da parte di un
+	 * giocatore, ad esempio durante lo svolgimento di una azione "Mercato"
+	 * all'interno della "Zona 4").
+	 */
 	public ESceltePrivilegioDelConsiglio[] getSceltePrivilegiConsiglio() {
 		return this.sceltePrivilegiConsiglio;
 	}
@@ -335,6 +437,14 @@ public class UpdateStats implements Serializable {
 		this.sceltePrivilegiConsiglio = scelte;
 	}
 
+	/**
+	 * Ritorna i costi della carta scelti dal giocatore (vedi
+	 * {@link ECostiCarte}). (tipicamente settato lato Client durante lo
+	 * svolgimento di un'azione di gioco di tipo "Torre", la scelta va
+	 * effettuata solamente nel caso la carta contenga 2 o più costi opzionali,
+	 * negli altri casi viene automaticamente attivato l'unico costo disponibile
+	 * per la carta selezionata).
+	 */
 	public ECostiCarte[] getScelteCosti() {
 		return this.scelteCosti;
 	}
@@ -343,30 +453,57 @@ public class UpdateStats implements Serializable {
 		this.scelteCosti = scelteCosti;
 	}
 
+	/**
+	 * Ritorna gli effetti delle carte da attivare della plancia giocatore (vedi
+	 * {@link EEffettiPermanenti}). (tipicamente settato lato Client durante lo
+	 * svolgimento di un'azione di gioco di tipo "Produzione" o "Raccolto", la
+	 * scelta va effettuata solamente nel caso la carta).
+	 */
 	public EEffettiPermanenti[] getScelteEffettiPermanenti() {
 		return this.scelteEffettiPermanenti;
 	}
 
-	public void getScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti) {
+	public void setScelteEffettiPermanenti(EEffettiPermanenti[] scelteEffettiPermanenti) {
 		this.scelteEffettiPermanenti = scelteEffettiPermanenti;
 	}
 
+	/**
+	 * Ritorna il numero di servitori che il giocatore è intenzionato a spendere
+	 * per aumentare il valore di un suo famigliare (tipicamente settato lato
+	 * Client).
+	 */
 	public int getServitoriDaPagare() {
 		return this.servitoriDaPagare;
 	}
 
+	/**
+	 * Ritorna i punti dei giocatori <"Nome","Punti"> (vedi {@link Punti}).
+	 * (tipicamente settato lato Server).
+	 */
 	public HashMap<String, Punti> getPuntiGiocatori() {
 		return this.puntiGiocatori;
 	}
 
+	/**
+	 * Ritorna le risorse dei giocatori <"Nome","Risorsa"> (vedi
+	 * {@link Risorsa}). (tipicamente settato lato Server).
+	 */
 	public HashMap<String, Risorsa> getRisorseGiocatori() {
 		return this.risorseGiocatori;
 	}
 
+	/**
+	 * Ritorna le plance dei giocatori <"Nome","Plancia"> (vedi
+	 * {@link Plancia}). (tipicamente settato lato Server).
+	 */
 	public HashMap<String, Plancia> getPlanceGiocatori() {
 		return this.planceGiocatori;
 	}
 
+	/**
+	 * Ritorna ifamigliari dei giocatori <"Nome","Famigliare[]"> (vedi
+	 * {@link Famigliare}). (tipicamente settato lato Server).
+	 */
 	public HashMap<String, Famigliare[]> getFamiglieGiocatori() {
 		return this.famiglieGiocatori;
 	}
