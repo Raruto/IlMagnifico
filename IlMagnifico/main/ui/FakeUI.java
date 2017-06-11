@@ -633,7 +633,8 @@ public class FakeUI {
 	private static EEffettiPermanenti[] choosePermanentCardsEffects(EEffettiPermanenti[] effects) throws QuitException {
 		ArrayList<EEffettiPermanenti> choosed = new ArrayList<EEffettiPermanenti>();
 		for (int i = 0; i < effects.length; i++) {
-			System.out.print("Vuoi anche attivare [" + effects[i].getNome() + "] : [y/n] ");
+			System.out.print("Vuoi anche attivare [" + effects[i].getNome() + "] \"" + effects[i].getDescrizione()
+					+ "\": [y/n] ");
 			inText = scanner.nextLine();
 			if (inText.equalsIgnoreCase("q"))
 				throw new QuitException();
@@ -898,15 +899,6 @@ public class FakeUI {
 			}
 		}
 	}
-
-	// private static void movePawn(EAzioniGiocatore action, Integer position,
-	// ESceltePrivilegioDelConsiglio[] privileges)
-	// throws QuitException {
-	// EColoriPedine color = choosePawnColor();
-	// if (color != null) {
-	// client.movePawn(action, color, position, privileges);
-	// }
-	// }
 
 	private static void movePawn(EAzioniGiocatore action, Integer position, boolean printPawns) throws QuitException {
 		if (printPawns)
