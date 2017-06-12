@@ -181,10 +181,13 @@ public class Game extends Partita {
 		room.dispatchGameUpdate(update);
 
 		if (update.getAzioneGiocatore() != null)
-			log(update.getAzioneGiocatore().toString() + ": " + update.getNomeGiocatore());
+			log("\"" + update.getNomeGiocatore() + "\"" + " ha eseguito: "
+					+ update.getAzioneGiocatore().toString());
 		else if (update.getAzioneServer() != null) {
 			if (update.getAzioneServer() == EFasiDiGioco.MossaGiocatore)
-				log(update.getAzioneServer().toString() + "");
+				log("E' il turno di: " + "\"" + this.getGiocatoreDiTurno().getNome() + "\"");
+			else
+				log(update.getAzioneServer().toString());
 		}
 	}
 

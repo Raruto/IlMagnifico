@@ -217,7 +217,7 @@ public class FakeUI {
 			System.out.println("'q' to exit\n");
 			System.out.println("Available commands: [chat], [action], [board], [dash], [cards]");
 
-			System.out.println(">");
+			System.out.print("> ");
 			inText = scanner.nextLine();
 
 			switch (inText.toLowerCase()) {
@@ -690,7 +690,8 @@ public class FakeUI {
 			printPlayerTurn(false);
 			System.out.println(", 'q' to quit\n");
 			System.out.println("Available actions: ");
-			System.out.println(EAzioniGiocatore.stringify(hidedElements));
+			System.out.print(EAzioniGiocatore.stringify(hidedElements));
+			System.out.print("> ");
 			inText = scanner.nextLine();
 
 			if (inText.equals("q")) {

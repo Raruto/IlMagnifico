@@ -596,6 +596,7 @@ public class Client implements IClient {
 		if (update.getAzioneGiocatore() != null) {
 			log(playerName, "ACTION: " + ANSI.YELLOW + update.getAzioneGiocatore().toString() + ANSI.RESET);
 		} else if (update.getAzioneServer() != null) {
+			if(update.getAzioneServer()!=EFasiDiGioco.MossaGiocatore)
 			log(Costants.GAME_ID, "UPDATE: " + ANSI.CYAN + update.getAzioneServer().toString() + ANSI.RESET);
 		}
 		handleResponse(update);
