@@ -446,7 +446,7 @@ public class Client implements IClient {
 
 	/**
 	 * Invia una richiesta di spostamento di una pedina sopra una zona
-	 * Produzione o Mercato che richiede la scelta di attivazione degli effetti
+	 * Produzione o Raccolto che richiede la scelta di attivazione degli effetti
 	 * permanenti (es. {@link ECarte#TAGLIAPIETRE},
 	 * {@link ECarte#FALEGNAMERIA}).
 	 * 
