@@ -7,7 +7,6 @@ import org.junit.Test;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
-import main.network.NetworkException;
 import main.network.server.game.Game;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.Room;
@@ -133,3 +132,4 @@ public class GametTest {
 	}
 
 }
+

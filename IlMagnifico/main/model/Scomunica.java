@@ -16,6 +16,20 @@ public class Scomunica implements Serializable {
 	private static final long serialVersionUID = -4068077334736726930L;
 
 	/**
+	 * 
+	 */
+	private String nome;
+
+	private UtilEffetto utilEffetto;
+
+	/**
+	 * 
+	 */
+	private ArrayList<Object[]> effetto;
+
+	private int periodo;
+
+	/**
 	 * Default constructor
 	 */
 	public Scomunica() {
@@ -29,20 +43,6 @@ public class Scomunica implements Serializable {
 		this.periodo = periodo;
 		this.effetto = effetto;
 	}
-
-	/**
-	 * 
-	 */
-	private String nome;
-
-	private UtilEffetto utilEffetto;
-
-	/**
-	 * 
-	 */
-	private ArrayList<Object[]> effetto;
-
-	private int periodo;
 
 	/**
 	 * @param giocatore
@@ -167,5 +167,13 @@ public class Scomunica implements Serializable {
 				return true;
 		}
 		return false;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public int getPeriodo() {
+		return this.periodo;
 	}
 }
