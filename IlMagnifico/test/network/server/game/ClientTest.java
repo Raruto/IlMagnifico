@@ -23,9 +23,11 @@ public class ClientTest {
 	 */
 	@Test
 	public void testMovePawnMarket() {
+		final int SOCKET_PORT=1998, RMI_PORT=1999;
+
 		try {
 			Server server = new Server();
-			server.startServer(Costants.SOCKET_PORT, Costants.RMI_PORT);
+			server.startServer(SOCKET_PORT, RMI_PORT);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,10 +36,10 @@ public class ClientTest {
 		String nomeLastUpdate = "";
 		try {
 			Client client1 = new Client();
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
 			Client client2 = new Client();
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
 				nomeGiocatore = client1.getNickname();
@@ -63,9 +65,10 @@ public class ClientTest {
 	 */
 	@Test
 	public void testMovePawnHarvest() {
+		final int SOCKET_PORT=2000, RMI_PORT=2001;
 		try {
 			Server server = new Server();
-			server.startServer(Costants.SOCKET_PORT, Costants.RMI_PORT);
+			server.startServer(SOCKET_PORT, RMI_PORT);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,10 +77,10 @@ public class ClientTest {
 		String nomeLastUpdate = "";
 		try {
 			Client client1 = new Client();
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
 			Client client2 = new Client();
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
 				nomeGiocatore = client1.getNickname();
@@ -103,9 +106,10 @@ public class ClientTest {
 	 */
 	@Test
 	public void testMovePawnProduction() {
+		final int SOCKET_PORT=2002, RMI_PORT=2003;
 		try {
 			Server server = new Server();
-			server.startServer(Costants.SOCKET_PORT, Costants.RMI_PORT);
+			server.startServer(SOCKET_PORT, RMI_PORT);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,10 +118,10 @@ public class ClientTest {
 		String nomeLastUpdate = "";
 		try {
 			Client client1 = new Client();
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
 			Client client2 = new Client();
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
 				nomeGiocatore = client1.getNickname();
@@ -144,9 +148,11 @@ public class ClientTest {
 	 */
 	@Test
 	public void testMovePawnTowerNoCostChoice() {
+		final int SOCKET_PORT=2004, RMI_PORT=2005;
+
 		try {
 			Server server = new Server();
-			server.startServer(Costants.SOCKET_PORT, Costants.RMI_PORT);
+			server.startServer(SOCKET_PORT, RMI_PORT);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -155,10 +161,10 @@ public class ClientTest {
 		String nomeLastUpdate = "";
 		try {
 			Client client1 = new Client();
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
 			Client client2 = new Client();
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
 				nomeGiocatore = client1.getNickname();
@@ -183,9 +189,11 @@ public class ClientTest {
 	 */
 	@Test
 	public void testMovePawnTowerCostChoice() {
+		final int SOCKET_PORT=2006, RMI_PORT=2007;
+
 		try {
 			Server server = new Server();
-			server.startServer(Costants.SOCKET_PORT, Costants.RMI_PORT);
+			server.startServer(SOCKET_PORT, RMI_PORT);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,10 +202,10 @@ public class ClientTest {
 		String nomeLastUpdate = "";
 		try {
 			Client client1 = new Client();
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
 			Client client2 = new Client();
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
 				nomeGiocatore = client1.getNickname();
