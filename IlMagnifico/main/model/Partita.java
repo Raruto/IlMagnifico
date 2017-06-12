@@ -143,7 +143,7 @@ public abstract class Partita {
 	 * @return true se il periodo corrente � terminato
 	 */
 	protected boolean isPeriodoTerminato() {
-		return (turno == 2 && isGiroDiTurniTerminato());
+		return ((turno % 2) == 0 && isGiroDiTurniTerminato());
 	}
 
 	/**

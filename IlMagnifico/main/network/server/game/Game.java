@@ -164,8 +164,9 @@ public class Game extends Partita {
 						dispatchGameUpdate(update);
 					}
 				}
+				this.turno++;
 			}
-			this.turno++;
+
 		}
 	}
 
@@ -197,7 +198,7 @@ public class Game extends Partita {
 	 * @param action
 	 * @return {@link UpdateStats}
 	 */
-	public void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
+	public synchronized void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
 			// Tenta di eseguire l'azione richiesta dal giocatore

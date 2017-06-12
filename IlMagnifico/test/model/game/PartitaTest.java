@@ -47,10 +47,10 @@ public class PartitaTest extends Partita {
 		giocatoreTemp2 = this.giocatori.get(1);
 		scegliOrdine();
 
-		assertTrue(this.giocatori.get(0) == this.spazioAzione.getGiocatoriPalazzoDelConsiglio().get(0));
-		assertTrue(this.giocatori.get(1) == this.spazioAzione.getGiocatoriPalazzoDelConsiglio().get(1));
-		assertTrue(this.giocatori.get(2) == giocatoreTemp1);
-		assertTrue(this.giocatori.get(3) == giocatoreTemp2);
+		assertTrue(this.giocatori.get(0).equals(this.spazioAzione.getGiocatoriPalazzoDelConsiglio().get(0)));
+		assertTrue(this.giocatori.get(1).equals(this.spazioAzione.getGiocatoriPalazzoDelConsiglio().get(1)));
+		assertTrue(this.giocatori.get(2).equals(giocatoreTemp1));
+		assertTrue(this.giocatori.get(3).equals(giocatoreTemp2));
 	}
 
 	@Test
@@ -59,9 +59,9 @@ public class PartitaTest extends Partita {
 			this.giocatori.add(new Giocatore());
 		}
 		this.giocatori.get(0).getPunti().cambiaPuntiMilitari(5);
-		assertTrue(this.giocatori.get(0) == calcolaClassificaFinale().get(0));
+		assertTrue(this.giocatori.get(0).equals(calcolaClassificaFinale().get(0)));
 		this.giocatori.get(1).getPunti().cambiaPuntiVittoria(10);
-		assertTrue(this.giocatori.get(1) == calcolaClassificaFinale().get(0));
+		assertTrue(this.giocatori.get(1).equals(calcolaClassificaFinale().get(0)));
 	}
 
 	@Test
