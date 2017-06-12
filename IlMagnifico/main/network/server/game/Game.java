@@ -150,6 +150,7 @@ public class Game extends Partita {
 				} else {
 
 					// terminaPeriodo();
+					this.periodo++;
 					update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 					dispatchGameUpdate(update);
 
@@ -198,7 +199,8 @@ public class Game extends Partita {
 	 * @param action
 	 * @return {@link UpdateStats}
 	 */
-	public synchronized void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction) throws GameException {
+	public synchronized void performGameAction(RemotePlayer remotePlayer, UpdateStats requestedAction)
+			throws GameException {
 		GameError e = new GameError();
 		if (isElegible(remotePlayer, e)) {
 			// Tenta di eseguire l'azione richiesta dal giocatore
@@ -560,5 +562,9 @@ public class Game extends Partita {
 
 	public int getTurno() {
 		return this.turno;
+	}
+
+	public int getPeriodo() {
+		return this.periodo;
 	}
 }

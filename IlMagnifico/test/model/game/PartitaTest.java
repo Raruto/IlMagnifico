@@ -18,6 +18,10 @@ public class PartitaTest extends Partita {
 
 	}
 
+	/**
+	 * Test che verifica che se uno o più giocatori spostano un famigliare sulla
+	 * zona Palazzo Del Consiglio, il turno successivo giocano per primi
+	 */
 	@Test
 	public void testScegliOrdine() {
 		spazioAzione = new SpazioAzione();
@@ -53,6 +57,11 @@ public class PartitaTest extends Partita {
 		assertTrue(this.giocatori.get(3).equals(giocatoreTemp2));
 	}
 
+	/**
+	 * Test che verifica il funzionamento del calcolo della classifica dei punti
+	 * militari, influente sul numero dei punti vittoria dei giocatori, e il
+	 * funzionamento del calcolo della classifica dei punti vittoria
+	 */
 	@Test
 	public void testCalcolaClassificaFinale() {
 		for (int i = 0; i < 2; i++) {
@@ -64,6 +73,11 @@ public class PartitaTest extends Partita {
 		assertTrue(this.giocatori.get(1).equals(calcolaClassificaFinale().get(0)));
 	}
 
+	/**
+	 * Test che verifica il corretto funzionamento del metodo
+	 * eseguiRapportoVaticano e il metodo di supporto puoSostenereChiesa. In
+	 * questo test se il giocatore può sostenere la Chiesa lo fa.
+	 */
 	@Test
 	public void testEseguiRapportoVaticano() {
 		this.periodo = 2;
@@ -76,6 +90,10 @@ public class PartitaTest extends Partita {
 		assertTrue(giocatore.getScomunica(1) == this.scomuniche[1]);
 	}
 
+	/**
+	 * Test che verifica che alla fine del turno il metodo
+	 * giocatoreDelTurnoSuccessivo restituisca null.
+	 */
 	@Test
 	public void testFineTurno() {
 		for (int i = 0; i < 2; i++) {

@@ -16,6 +16,10 @@ import main.network.server.game.exceptions.RoomFullException;
 
 public class GametTest {
 
+	/**
+	 * Test che verifica che il turno avanzi effettivamente quando i giocatori
+	 * terminano i famigliari da muovere
+	 */
 	@Test
 	public void testGiroDiTurniTerminato() {
 		// faccio avanzare lo stato del gioco fino a che non sia finito il
@@ -40,96 +44,300 @@ public class GametTest {
 		update.setColorePedina(EColoriPedine.Nera);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update.setColorePedina(EColoriPedine.Nera);
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update.setColorePedina(EColoriPedine.Bianca);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Nera);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Bianca);
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update.setColorePedina(EColoriPedine.Bianca);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Bianca);
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update.setColorePedina(EColoriPedine.Arancione);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Arancione);
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update.setColorePedina(EColoriPedine.Arancione);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Arancione);
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			update=new UpdateStats(EAzioniGiocatore.Famigliare);
-			update.setColorePedina(EColoriPedine.Neutrale);
-			update.setServitoriDaPagare(1);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
-			update.setColorePedina(EColoriPedine.Neutrale);
-			update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+		update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setServitoriDaPagare(1);
 
-				try {
-					game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-				} catch (GameException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
-			update=new UpdateStats(EAzioniGiocatore.Famigliare);
-			update.setColorePedina(EColoriPedine.Neutrale);
-			update.setServitoriDaPagare(1);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
-			update.setColorePedina(EColoriPedine.Neutrale);
-			update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-				try {
-					game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-				} catch (GameException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setServitoriDaPagare(1);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// per verificare che il giro di turni sia terminato
-		assertTrue(game.getTurno()==2);
+		assertTrue(game.getTurno() == 2);
 	}
 
-}
+	@Test
+	public void testFinePeriodo() {
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo");
+		player2.setNome("secondo");
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setNomeGiocatore("charlie");
+		Room room = new Room(player1, 0, 0);
 
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		game.inizializzaGiocatori();
+		update.setColorePedina(EColoriPedine.Nera);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Nera);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Bianca);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Bianca);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Arancione);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Arancione);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setServitoriDaPagare(1);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setServitoriDaPagare(1);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setNomeGiocatore("charlie");
+		update.setColorePedina(EColoriPedine.Nera);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Nera);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Bianca);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Bianca);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Arancione);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update.setColorePedina(EColoriPedine.Arancione);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setServitoriDaPagare(1);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setServitoriDaPagare(1);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.setColorePedina(EColoriPedine.Neutrale);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getTurno()==3);
+		assertTrue(game.getPeriodo() == 2);
+	}
+}
