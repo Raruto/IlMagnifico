@@ -267,13 +267,14 @@ public class FakeUI {
 		Client client = getClient();
 		String receiver = null;
 
-		System.out.println("'q' to quit\n");
-		System.out.println("Send text messages: ");
+		printPlayersNames(20, false, false);
+		System.out.print(ANSI.CYAN + "Send text messages: " + ANSI.RESET);
+		System.out.println("'q' to quit");
 
 		boolean quit = false;
 
 		while (!quit) {
-			System.out.println(">");
+			System.out.print("> ");
 			inText = scanner.nextLine();
 			if (inText.toLowerCase().equals("q")) {
 				quit = true;
@@ -1027,11 +1028,23 @@ public class FakeUI {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.print(ANSI.YELLOW);
-			System.out.format("%-" + leftPadding + "s", "Giocatori: ");
-			System.out.print(ANSI.RESET);
-			for (String s : update.getNomiGiocatori()) {
-				System.out.print("\"" + s + "\", ");
+			if (update != null) {
+				System.out.print(ANSI.YELLOW);
+				System.out.format("%-" + leftPadding + "s", "Giocatori: ");
+				System.out.print(ANSI.RESET);
+				if (update.getNomiGiocatori() != null) {
+					for (String s : update.getNomiGiocatori()) {
+						System.out.print("\"" + s + "\", ");
+					}
+				} else {
+					try {
+						for (String s : getClient().getPlayersDashboards().keySet()) {
+							System.out.print("\"" + s + "\", ");
+						}
+					} catch (NullPointerException e) {
+						// TODO: handle exception
+					}
+				}
 			}
 			System.out.println();
 
