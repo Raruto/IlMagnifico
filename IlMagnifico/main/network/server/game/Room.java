@@ -32,7 +32,7 @@ public class Room {
 	private static int roomNumber = 0;
 
 	/**
-	 * Numero minimo di giocatori affinch� possa partire una partita.
+	 * Numero minimo di giocatori affinche' possa partire una partita.
 	 */
 	private int minPlayers = Costants.ROOM_MIN_PLAYERS;
 
@@ -72,7 +72,7 @@ public class Room {
 	private Timer timer;
 
 	/**
-	 * Flag usato per indicare quando una Stanza � ancora aperta (True) o chiusa
+	 * Flag usato per indicare quando una Stanza e' ancora aperta (True) o chiusa
 	 * (False) all'aggiunta di nuovi giocatori.
 	 */
 	private boolean canJoin;
@@ -148,7 +148,7 @@ public class Room {
 	 *            riferimento al giocatore che da aggiugere alla Stanza (vedi
 	 *            {@link RemotePlayer}).
 	 * @throws RoomFullException
-	 *             se la stanza � chiusa e nessun altro giocatore pu�
+	 *             se la stanza e' chiusa e nessun altro giocatore puo'
 	 *             partecipare.
 	 */
 	public void joinPlayer(RemotePlayer player) throws RoomFullException {
@@ -435,7 +435,7 @@ public class Room {
 		private int interval;
 
 		/**
-		 * Giocatore a cui notificare il countdown (se null verr� notificato a
+		 * Giocatore a cui notificare il countdown (se null verra' notificato a
 		 * tutti i giocatori della Stanza).
 		 */
 		private RemotePlayer player;
@@ -449,7 +449,7 @@ public class Room {
 		 *            thread da eseguire allo scadere del countdown.
 		 * @param player
 		 *            {@link RemotePlayer} a cui notificare il countdown (se
-		 *            null verr� notificato a tutti i giocatori della Stanza).
+		 *            null verra' notificato a tutti i giocatori della Stanza).
 		 */
 		public RoomCountDownHandler(int interval, Runnable runnable, RemotePlayer player) {
 			this.interval = interval;

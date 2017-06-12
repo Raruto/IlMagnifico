@@ -179,6 +179,13 @@ public class Game extends Partita {
 	 */
 	private void dispatchGameUpdate(UpdateStats update) {
 		room.dispatchGameUpdate(update);
+
+		if (update.getAzioneGiocatore() != null)
+			log(update.getAzioneGiocatore().toString() + ": " + update.getNomeGiocatore());
+		else if (update.getAzioneServer() != null) {
+			if (update.getAzioneServer() == EFasiDiGioco.MossaGiocatore)
+				log(update.getAzioneServer().toString() + "");
+		}
 	}
 
 	/**
