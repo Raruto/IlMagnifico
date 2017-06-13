@@ -2,7 +2,7 @@ package main.ui.gui;
 
 import javax.swing.JPanel;
 
-import main.ui.gui.altriComponenti.PanelImmagine;
+import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
 
 public class OrdineTurno extends JPanel {

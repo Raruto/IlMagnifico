@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import main.ui.gui.altriComponenti.PanelImmagine;
+import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
 
 public class Plancia extends JPanel {

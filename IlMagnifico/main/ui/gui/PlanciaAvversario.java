@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.ui.gui.altriComponenti.ButtonLIM;
+import main.ui.gui.components.ButtonLIM;
 
 public class PlanciaAvversario extends JPanel {
 

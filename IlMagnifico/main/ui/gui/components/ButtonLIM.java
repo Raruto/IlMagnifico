@@ -1,4 +1,4 @@
-package main.ui.gui.altriComponenti;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.Font;

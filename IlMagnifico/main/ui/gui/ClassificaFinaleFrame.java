@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import main.ui.gui.altriComponenti.ButtonLIM;
-import main.ui.gui.altriComponenti.PanelImmagine;
+import main.ui.gui.components.ButtonLIM;
+import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
 
 public class ClassificaFinaleFrame extends JFrame {
