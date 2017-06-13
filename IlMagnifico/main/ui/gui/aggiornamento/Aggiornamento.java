@@ -3,7 +3,7 @@ package main.ui.gui.aggiornamento;
 import java.util.ArrayList;
 
 public class Aggiornamento {
-	
+
 	private int turno;
 	private ArrayList<Giocatore> giocatori;
 	private Famigliare[] torre;
@@ -15,10 +15,11 @@ public class Aggiornamento {
 	private ArrayList<Famigliare> palazzoConsiglio;
 	private String[] carteScomunica;
 	private String[] carteSviluppoTorre;
-	
+
 	public Aggiornamento(int turno, ArrayList<Giocatore> giocatori, Famigliare[] torre, Famigliare[] mercato,
 			Famigliare raccoltoRotondo, ArrayList<Famigliare> raccoltoOvale, Famigliare produzioneRotondo,
-			ArrayList<Famigliare> produzioneOvale, ArrayList<Famigliare> palazzoConsiglio, String[] carteScomunica, String[] carteSviluppoTorre) {
+			ArrayList<Famigliare> produzioneOvale, ArrayList<Famigliare> palazzoConsiglio, String[] carteScomunica,
+			String[] carteSviluppoTorre) {
 		this.turno = turno;
 		this.giocatori = giocatori;
 		this.torre = torre;
@@ -31,41 +32,49 @@ public class Aggiornamento {
 		this.carteScomunica = carteScomunica;
 		this.carteSviluppoTorre = carteSviluppoTorre;
 	}
+
 	public int getTurno() {
 		return turno;
 	}
+
 	public ArrayList<Giocatore> getGiocatori() {
 		return giocatori;
 	}
+
 	public Famigliare[] getTorre() {
 		return torre;
 	}
+
 	public Famigliare[] getMercato() {
 		return mercato;
 	}
+
 	public Famigliare getRaccoltoRotondo() {
 		return raccoltoRotondo;
 	}
+
 	public ArrayList<Famigliare> getRaccoltoOvale() {
 		return raccoltoOvale;
 	}
+
 	public Famigliare getProduzioneRotondo() {
 		return produzioneRotondo;
 	}
+
 	public ArrayList<Famigliare> getProduzioneOvale() {
 		return produzioneOvale;
 	}
+
 	public ArrayList<Famigliare> getPalazzoConsiglio() {
 		return palazzoConsiglio;
 	}
+
 	public String[] getCarteScomunica() {
 		return carteScomunica;
 	}
-	
+
 	public String[] getCarteSviluppoTorre() {
 		return carteSviluppoTorre;
 	}
-	
-	
-	
+
 }
