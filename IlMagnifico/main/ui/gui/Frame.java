@@ -9,6 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EColoriPedine;
+import main.model.enums.ECostiCarte;
+import main.model.enums.EEffettiPermanenti;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.client.IClient;
@@ -83,7 +88,9 @@ public class Frame extends JFrame implements IClient {
 	 */
 
 	public Frame() {
-		setIconImage(new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES +Costants.FOLDER_BASE+ "/giglio.png")).getImage());
+		setIconImage(
+				new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio.png"))
+						.getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -107,12 +114,12 @@ public class Frame extends JFrame implements IClient {
 
 		try {
 			this.client = new Client(this);
-			
-			//se RMI
+
+			// se RMI
 			client.startClient(ConnectionTypes.RMI.toString(), Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
 					Costants.RMI_PORT);
-			
-			//se Socket
+
+			// se Socket
 			// client.startClient(ConnectionTypes.SOCKET.toString(),
 			// Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
 			// Costants.RMI_PORT);
@@ -890,7 +897,49 @@ public class Frame extends JFrame implements IClient {
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
-	// Eventi scatenati dal Server sul Client
+	// Metodi di richiesta (da Client verso Server)
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	public void loginPlayer(String nickname) {
+		client.loginPlayer(nickname);
+	}
+
+	public void sendChatMessage(String receiver, String message) {
+		client.sendChatMessage(receiver, message);
+	}
+
+	public void performGameAction(UpdateStats requestedAction) {
+		client.performGameAction(requestedAction);
+	}
+
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
+			ESceltePrivilegioDelConsiglio[] choosedPrivileges) {
+		client.movePawn(action, color, position, choosedPrivileges);
+	}
+
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position, ECostiCarte[] choosedCosts) {
+		client.movePawn(action, color, position, choosedCosts);
+	}
+
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, Integer position,
+			EEffettiPermanenti[] choosedEffects) {
+		client.movePawn(action, color, position, choosedEffects);
+	}
+
+	public void movePawn(EAzioniGiocatore action, EColoriPedine color, int position) {
+		client.movePawn(action, color, position);
+	}
+
+	public void supportChurch(boolean isSupported) {
+		client.supportChurch(isSupported);
+	}
+
+	public void incrementPawnValue(EColoriPedine color, int servants) {
+		client.incrementPawnValue(color, servants);
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Eventi di risposta (scatenati dal Server sul Client)
 	/////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
