@@ -10,6 +10,7 @@ import main.model.enums.EColoriGiocatori;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
 import main.network.server.game.Game;
+import main.network.server.game.exceptions.GameException;
 
 /**
  * 
@@ -26,6 +27,18 @@ public abstract class Partita {
 	 * gioco).
 	 */
 	protected ArrayList<Giocatore> giocatori;
+
+	/**
+	 * ArrayList di giocatori che devono ancora eseguire il rapporto vaticano,
+	 * indipendentemente se possono supportare la Chiesa o no
+	 */
+	protected ArrayList<Giocatore> giocatoriRapportoVaticano;
+
+	/**
+	 * Attributo che indica se il rapporto con il vaticano è stato eseguito nel
+	 * corrente periodo
+	 */
+	protected boolean rapportoVaticanoEseguito;
 
 	/**
 	 * Puntatore al giocatore attualmente di turno
@@ -72,6 +85,8 @@ public abstract class Partita {
 		this.turno = 0;
 		this.periodo = 0;
 		this.partitaTerminata = false;
+		this.giocatoriRapportoVaticano = new ArrayList<Giocatore>();
+		this.rapportoVaticanoEseguito = false;
 	}
 
 	/**
@@ -143,7 +158,7 @@ public abstract class Partita {
 	 * @return true se il periodo corrente � terminato
 	 */
 	protected boolean isPeriodoTerminato() {
-		return ((turno % 2) == 0/* && isGiroDiTurniTerminato()*/);
+		return ((turno % 2) == 0/* && isGiroDiTurniTerminato() */);
 	}
 
 	/**
@@ -544,5 +559,22 @@ public abstract class Partita {
 			return false;
 		else
 			return true;
+	}
+
+	/**
+	 * Metodo che restituisce la lista dei giocatori che possono sostenere la
+	 * Chiesa
+	 * 
+	 * @return
+	 */
+	public ArrayList<Giocatore> giocatoriChePossonoSostenereChiesa() throws GameException {
+		ArrayList<Giocatore> giocatoriTemp = new ArrayList<Giocatore>();
+		Giocatore giocatoreTemp = new Giocatore();
+		for (int i = 0; i < this.giocatori.size(); i++) {
+			giocatoreTemp = this.giocatori.get(i);
+			if (puoSostenereChiesa(giocatoreTemp))
+				giocatoriTemp.add(giocatoreTemp);
+		}
+		return giocatoriTemp;
 	}
 }

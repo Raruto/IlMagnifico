@@ -5,6 +5,7 @@ import java.util.HashMap;
 import main.model.Giocatore;
 import main.model.Partita;
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EAzioniGioco;
 import main.model.enums.EFasiDiGioco;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
@@ -66,6 +67,7 @@ public class Game extends Partita {
 		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
 		responseMap.put(EAzioniGiocatore.Torre, this::onTower);
 		responseMap.put(EAzioniGiocatore.Famigliare, this::onPayServant);
+		responseMap.put(EAzioniGiocatore.SostegnoChiesa, this::onChurchSupport);
 	}
 
 	/**
@@ -121,8 +123,10 @@ public class Game extends Partita {
 	 * Ad ogni chiamata del metodo fa progredire lo stato della partita (es.
 	 * passando al giocatore successivo) inviando una notifica sullo stato della
 	 * partita (es. fine periodo, fine partita...)
+	 * 
+	 * @throws GameException
 	 */
-	private void andvanceInGameLogic(EAzioniGiocatore azione) {
+	private void andvanceInGameLogic(EAzioniGiocatore azione) throws GameException {
 		UpdateStats update;
 		if (azione != EAzioniGiocatore.Famigliare) {
 			avanzaDiTurno();
@@ -151,18 +155,32 @@ public class Game extends Partita {
 
 					// terminaPeriodo();
 					this.periodo++;
+
 					update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 					dispatchGameUpdate(update);
-
-					if (!isPartitaFinita()) {
-						// avanzaPeriodo();
-						update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+					if (this.rapportoVaticanoEseguito == false) {
+						this.giocatoriRapportoVaticano.addAll(this.giocatori);
+						turno--;
+						periodo--;
+						// qua dovrebbe mettere tutti i giocatori nella partita
+						// all'interno della lista dei giocatori che devono
+						// ancora fare il rapporto con il Vaticano
+						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
+								this.spazioAzione);
 						dispatchGameUpdate(update);
 					} else {
+						if (!isPartitaFinita()) {
+							// avanzaPeriodo();
+							this.rapportoVaticanoEseguito = false;
+							update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+							dispatchGameUpdate(update);
+						} else {
 
-						// terminaPartita();
-						update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
-						dispatchGameUpdate(update);
+							// terminaPartita();
+							this.rapportoVaticanoEseguito = false;
+							update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+							dispatchGameUpdate(update);
+						}
 					}
 				}
 				this.turno++;
@@ -181,8 +199,7 @@ public class Game extends Partita {
 		room.dispatchGameUpdate(update);
 
 		if (update.getAzioneGiocatore() != null)
-			log("\"" + update.getNomeGiocatore() + "\"" + " ha eseguito: "
-					+ update.getAzioneGiocatore().toString());
+			log("\"" + update.getNomeGiocatore() + "\"" + " ha eseguito: " + update.getAzioneGiocatore().toString());
 		else if (update.getAzioneServer() != null) {
 			if (update.getAzioneServer() == EFasiDiGioco.MossaGiocatore)
 				log("E' il turno di: " + "\"" + this.getGiocatoreDiTurno().getNome() + "\"");
@@ -224,6 +241,21 @@ public class Game extends Partita {
 		} else {
 			throw new GameException(e.toString());
 		}
+	}
+
+	private UpdateStats onChurchSupport(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
+		try {
+			if (giocatoriChePossonoSostenereChiesa().contains(remotePlayer)) {
+				eseguiRapportoVaticano(remotePlayer, update.getSupportoChiesa());
+			} else
+				eseguiRapportoVaticano(remotePlayer, false);
+		} catch (GameException e) {
+			throw new GameException(Errors.ERROR_ON_CHURCH_SUPPORT.toString());
+		}
+		this.giocatoriRapportoVaticano.remove(remotePlayer);
+		if (this.giocatoriRapportoVaticano.size() == 0)
+			this.rapportoVaticanoEseguito = true;
+		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
 	/**
