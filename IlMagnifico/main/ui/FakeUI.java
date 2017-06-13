@@ -666,7 +666,7 @@ public class FakeUI {
 	private static EEffettiPermanenti[] choosePermanentCardsEffects(EEffettiPermanenti[] effects) throws QuitException {
 		ArrayList<EEffettiPermanenti> choosed = new ArrayList<EEffettiPermanenti>();
 		for (int i = 0; i < effects.length; i++) {
-			System.out.print("Vuoi anche attivare [" + effects[i].getNome() + "] \"" + effects[i].getDescrizione()
+			System.out.print("Also activate [" + effects[i].getNome() + "] \"" + effects[i].getDescrizione()
 					+ "\": [y/n] ");
 			inText = scanner.nextLine();
 			if (inText.equalsIgnoreCase("q"))
@@ -894,7 +894,7 @@ public class FakeUI {
 		while (!ok) {
 
 			// System.out.println("'q' to quit\n");
-			System.out.print("Choose a floor: [1..4] ");
+			System.out.print("Choose a Floor: [1..4] ");
 
 			inText = scanner.nextLine();
 
@@ -1007,9 +1007,9 @@ public class FakeUI {
 		try {
 			System.out.println();
 			if (client.getNickname().equals(client.getPlayerTurn()))
-				System.out.print(ANSI.BACKGROUND_GREEN + "E' il tuo turno");
+				System.out.print(ANSI.BACKGROUND_GREEN + "It's your turn");
 			else if (client.getPlayerTurn() != null)
-				System.out.print(ANSI.BACKGROUND_RED + "E' il turno di: " + client.getPlayerTurn());
+				System.out.print(ANSI.BACKGROUND_RED + client.getPlayerTurn()+ "'s turn: ");
 			else
 				System.out.print(ANSI.BACKGROUND_RED + "In attesa di altri giocatori");
 
@@ -1031,7 +1031,7 @@ public class FakeUI {
 
 			if (update != null) {
 				System.out.print(ANSI.YELLOW);
-				System.out.format("%-" + leftPadding + "s", "Giocatori: ");
+				System.out.format("%-" + leftPadding + "s", "Players: ");
 				System.out.print(ANSI.RESET);
 				if (update.getNomiGiocatori() != null) {
 					for (String s : update.getNomiGiocatori()) {
@@ -1070,11 +1070,11 @@ public class FakeUI {
 
 			int[] dadi = board.getValoreDadi();
 			System.out.print(ANSI.YELLOW);
-			System.out.format("%-" + leftPadding + "s", "Dadi: ");
+			System.out.format("%-" + leftPadding + "s", "Dices: ");
 			System.out.print(ANSI.RESET);
-			System.out.format(" " + " %-13s", "Nero = " + dadi[0]);
-			System.out.format(" " + " %-18s", "Arancione = " + dadi[1]);
-			System.out.format(" " + " %-15s", "Bianco = " + dadi[2]);
+			System.out.format(" " + " %-13s", "Black = " + dadi[0]);
+			System.out.format(" " + " %-18s", "Orange = " + dadi[1]);
+			System.out.format(" " + " %-15s", "White = " + dadi[2]);
 			System.out.println();
 
 			if (printSep2)
@@ -1097,7 +1097,7 @@ public class FakeUI {
 				System.out.println(Costants.ROW_SEPARATOR);
 
 			System.out.print(ANSI.YELLOW);
-			System.out.format("%-30s", "Famigliari: ");
+			System.out.format("%-30s", "Familiars: ");
 			System.out.print(ANSI.RESET);
 			System.out.format(getStringifiedPawn(EColoriPedine.Nera) + "%-17s", " = " + familyValues[0]);
 			System.out.format(getStringifiedPawn(EColoriPedine.Arancione) + "%-17s", " = " + familyValues[1]);
@@ -1121,7 +1121,7 @@ public class FakeUI {
 
 			System.out.format(
 					ANSI.YELLOW + "     %-" + pad + "s%-" + pad + "s%-" + pad + "s%-" + pad + "s\n" + ANSI.RESET,
-					"Territorio: ", "Personaggio: ", "Edificio: ", "Impresa: ");
+					"Territories: ", "Characters: ", "Edificio: ", "Ventures: ");
 
 			for (int i = 3; i >= 0; i--) {
 				System.out.print("     ");
@@ -1158,16 +1158,16 @@ public class FakeUI {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.println(ANSI.YELLOW + "Produzione: " + ANSI.RESET);
+			System.out.println(ANSI.YELLOW + "Production: " + ANSI.RESET);
 
-			System.out.print("Zona 1: ");
+			System.out.print("Zone 1: ");
 			zona1 = board.getZonaProduzioneRotonda();
 			if (zona1 != null)
 				System.out.println(getStringifiedPawnAndPlayer(zona1));
 			else
 				System.out.println(null + "");
 
-			System.out.print("Zona 2: ");
+			System.out.print("Zone 2: ");
 			zona2 = board.getZonaProduzioneOvale();
 			for (int i = 0; i < zona2.size(); i++) {
 				System.out.print(getStringifiedPawnAndPlayer(zona2.get(i)) + ", ");
@@ -1192,16 +1192,16 @@ public class FakeUI {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.println(ANSI.YELLOW + "Raccolto: " + ANSI.RESET);
+			System.out.println(ANSI.YELLOW + "Harvest: " + ANSI.RESET);
 
-			System.out.print("Zona 1: ");
+			System.out.print("Zone 1: ");
 			zona1 = board.getZonaRaccoltoRotonda();
 			if (zona1 != null)
 				System.out.println(getStringifiedPawnAndPlayer(zona1));
 			else
 				System.out.println(null + "");
 
-			System.out.print("Zona 2: ");
+			System.out.print("Zone 2: ");
 			zona2 = board.getZonaRaccoltoOvale();
 			for (int i = 0; i < zona2.size(); i++) {
 				System.out.print(getStringifiedPawnAndPlayer(zona2.get(i)) + ", ");
@@ -1225,7 +1225,7 @@ public class FakeUI {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.println(ANSI.YELLOW + "Mercato: " + ANSI.RESET);
+			System.out.println(ANSI.YELLOW + "Market: " + ANSI.RESET);
 
 			zona = board.getMercato();
 
@@ -1254,7 +1254,7 @@ public class FakeUI {
 			if (printSep1)
 				System.out.println(Costants.ROW_SEPARATOR);
 
-			System.out.println(ANSI.YELLOW + "Palazzo del Consiglio: " + ANSI.RESET);
+			System.out.println(ANSI.YELLOW + "Council Palace: " + ANSI.RESET);
 
 			zona = board.getPalazzoDelConsiglio();
 
@@ -1298,7 +1298,7 @@ public class FakeUI {
 
 			for (String key : playersDashboards.keySet()) {
 				if (!key.equals(getClient().getNickname())) {
-					System.out.println("\nPlancia del Giocatore: \"" + key + "\"");
+					System.out.println("\nPlayer dashboard: \"" + key + "\"");
 					printPointsAndResources(key, true, false);
 					printDashboardsCards(key, true, true);
 				}
@@ -1325,31 +1325,31 @@ public class FakeUI {
 				ArrayList<Edificio> edifici = dash.getEdifici();
 				ArrayList<Impresa> imprese = dash.getImprese();
 
-				System.out.print(ANSI.YELLOW + "Territori: " + ANSI.RESET);
+				System.out.print(ANSI.YELLOW + "Territories: " + ANSI.RESET);
 				for (Territorio ter : territori) {
 					System.out.print(ter.getNome() + ", ");
 				}
 				System.out.println();
-				System.out.print(ANSI.YELLOW + "Personaggi: " + ANSI.RESET);
+				System.out.print(ANSI.YELLOW + "Characters: " + ANSI.RESET);
 				for (Personaggio per : personaggi) {
 					System.out.print(per.getNome() + ", ");
 				}
 				System.out.println();
-				System.out.print(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
+				System.out.print(ANSI.YELLOW + "Buildings: " + ANSI.RESET);
 				for (Edificio edi : edifici) {
 					System.out.print(edi.getNome() + ", ");
 				}
 				System.out.println();
-				System.out.print(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
+				System.out.print(ANSI.YELLOW + "Ventures: " + ANSI.RESET);
 				for (Impresa imp : imprese) {
 					System.out.print(imp.getNome() + ", ");
 				}
 				System.out.println();
 			} else {
-				System.out.println(ANSI.YELLOW + "Territori: " + ANSI.RESET);
-				System.out.println(ANSI.YELLOW + "Personaggi: " + ANSI.RESET);
-				System.out.println(ANSI.YELLOW + "Edifici: " + ANSI.RESET);
-				System.out.println(ANSI.YELLOW + "Imprese: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Territories: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Characters: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Buildings: " + ANSI.RESET);
+				System.out.println(ANSI.YELLOW + "Ventures: " + ANSI.RESET);
 			}
 			if (printSep2)
 				System.out.println(Costants.ROW_SEPARATOR);
@@ -1374,16 +1374,16 @@ public class FakeUI {
 
 			if (points != null && resources != null) {
 				System.out.print(ANSI.YELLOW);
-				System.out.format("%-18s", "Risorse e Punti: ");
+				System.out.format("%-18s", "Points and Resources: ");
 				System.out.print(ANSI.RESET);
-				System.out.format("Legno%-7s", " = " + resources.getLegno());
-				System.out.format("Monete%-7s", " = " + resources.getMonete());
-				System.out.format("Pietre%-7s", " = " + resources.getPietre());
-				System.out.format("Servitori%-7s", " = " + resources.getServitori());
+				System.out.format("Woods%-7s", " = " + resources.getLegno());
+				System.out.format("Coins%-7s", " = " + resources.getMonete());
+				System.out.format("Stones%-7s", " = " + resources.getPietre());
+				System.out.format("Servants%-7s", " = " + resources.getServitori());
 
-				System.out.format("PuntiFede%-7s", " = " + points.getPuntiFede());
-				System.out.format("PuntiMilitari%-7s", " = " + points.getPuntiMilitari());
-				System.out.format("PuntiVittoria%-7s", " = " + points.getPuntiVittoria());
+				System.out.format("FaithPoints%-7s", " = " + points.getPuntiFede());
+				System.out.format("MilitaryPoints%-7s", " = " + points.getPuntiMilitari());
+				System.out.format("VictoryPoints%-7s", " = " + points.getPuntiVittoria());
 				System.out.println();
 			}
 
@@ -1434,8 +1434,8 @@ public class FakeUI {
 			desc += cost.getDescrizione() + ", ";
 		}
 
-		s += String.format("%-25s%-15s%-30s", "[" + card.getNome() + "] ", "Periodo: " + card.getPeriodoCarta(),
-				"Costi: " + desc);
+		s += String.format("%-25s%-15s%-30s", "[" + card.getNome() + "] ", "Period: " + card.getPeriodoCarta(),
+				"Costs: " + desc);
 		System.out.println(ANSI.YELLOW + "Selected: " + ANSI.RESET + s);
 
 	}
