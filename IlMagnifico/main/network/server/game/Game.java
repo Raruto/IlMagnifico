@@ -245,6 +245,28 @@ public class Game extends Partita {
 		}
 	}
 
+	/**
+	 * Metodo invocato dal client ogni volta che vuole eseguire un'azione di
+	 * gioco di tipo: {@link EAzioniGiocatore#SostegnoChiesa}.
+	 * 
+	 * @param remotePlayer
+	 *            oggetto {@link RemotePlayer} (es. {@link RMIPlayer} oppure
+	 *            {@link SocketPlayer}) che rappresenta il giocatore (vedi
+	 *            {@link Giocatore}) che sta effettuando la richiesta di
+	 *            svolgere l'azione di gioco.
+	 * @param update
+	 *            oggetto di tipo {@link UpdateStats} contenente tutte le
+	 *            informazioni legate alla richiesta del giocatore.
+	 * @return {@link UpdateStats} oggetto di tipo contenente tutte le
+	 *         informazioni legate all'avanzamento dello stato della partita in
+	 *         seguito alla richiesta del giocatore.
+	 * 
+	 * @throws GameException
+	 *             nel qual caso il giocatore stesse tentando di eseguire
+	 *             un'azione di gioco illegale presso il server (vedi
+	 *             {@link GameException} e {@link Errors} per maggiori
+	 *             informazioni a riguardo delle possibili azioni illegali).
+	 */
 	private UpdateStats onChurchSupport(RemotePlayer remotePlayer, UpdateStats update) throws GameException {
 		try {
 			if (giocatoriChePossonoSostenereChiesa().contains(remotePlayer)) {
