@@ -24,7 +24,7 @@ public class PanelImmagine extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(pathImmagine);
+		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

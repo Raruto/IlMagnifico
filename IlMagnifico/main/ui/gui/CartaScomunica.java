@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -37,7 +37,7 @@ public class CartaScomunica extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(pathImmagine);
+		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import javax.swing.JPanel;
 
@@ -23,16 +23,16 @@ public class OrdineTurno extends JPanel {
 		for (int i = 0; i < colore.length; i++) {
 			if (colore[i] == "rosso")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoRosso.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoRosso.png");
 			else if (colore[i] == "verde")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoVerde.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoVerde.png");
 			else if (colore[i] == "blu")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoBlu.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoBlu.png");
 			else if (colore[i] == "giallo")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoGiallo.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoGiallo.png");
 			segnaTurno[i].setBounds(0, 50 * i + 10, 50, 50);
 			add(segnaTurno[i]);
 		}

@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

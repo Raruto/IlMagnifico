@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -50,7 +50,7 @@ public class ClassificaFinaleFrame extends JFrame {
 	 */
 	public ClassificaFinaleFrame() {
 		setIconImage(new ImageIcon(
-				getClass().getResource(Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/giglio.png"))
+				getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png"))
 						.getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,16 +148,16 @@ public class ClassificaFinaleFrame extends JFrame {
 
 			if (colore.equals("rosso"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoRosso.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoRosso.png");
 			else if (colore.equals("giallo"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoGiallo.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoGiallo.png");
 			else if (colore.equals("verde"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoVerde.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoVerde.png");
 			else if (colore.equals("blu"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/segnaTurnoBlu.png");
+						Costants.PATH_RESOURCES + "/segnaTurnoBlu.png");
 			panelColore.setLayout(null);
 			panelColore.setOpaque(true);
 			panelColore.setBounds(0, 0, 50, 50);

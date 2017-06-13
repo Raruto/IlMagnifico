@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -19,7 +19,7 @@ public class Tabellone extends JPanel {
 	 */
 	private static final long serialVersionUID = -8798989223596717964L;
 
-	private String pathSfondo = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/tabelloneSfondo.png";
+	private String pathSfondo = Costants.PATH_RESOURCES + "/tabelloneSfondo.png";
 
 	private ArrayList<CartaSviluppo> carteTorre = new ArrayList<CartaSviluppo>();
 	private ArrayList<CartaScomunica> carteScomunica = new ArrayList<CartaScomunica>();
@@ -274,7 +274,7 @@ public class Tabellone extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(pathSfondo);
+		ImageIcon icon = new ImageIcon(getClass().getResource(pathSfondo));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

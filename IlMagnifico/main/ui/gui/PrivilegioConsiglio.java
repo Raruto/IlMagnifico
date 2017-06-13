@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -65,14 +65,13 @@ public class PrivilegioConsiglio extends JFrame {
 	 * Create the frame.
 	 */
 	public PrivilegioConsiglio(Frame framePrincipale) {
-		String path = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/giglio.png";
-		setIconImage(new ImageIcon(getClass().getResource(path)).getImage());
+		setIconImage(new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.BLACK);
-		// "./src/lorenzoIlMagnificoInterfaccia/cornice3.png"
+		// "./src/cornice3.png"
 		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setExtendedState(MAXIMIZED_BOTH);

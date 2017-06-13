@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -63,28 +63,28 @@ public class Famigliare extends JPanel {
 		String pathImmagine = "";
 		if (colore.equals("rosso")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareRosso.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareRosso.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareRossoNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareRossoNeutro.png";
 
 		} else if (colore.equals("verde")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareVerde.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareVerde.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareVerdeNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareVerdeNeutro.png";
 		} else if (colore.equals("giallo")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareGiallo.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareGiallo.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareGialloNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareGialloNeutro.png";
 		} else if (colore.equals("blu")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareBlu.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareBlu.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareBluNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + "/famigliareBluNeutro.png";
 		}
 
-		ImageIcon icon = new ImageIcon(pathImmagine);
+		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

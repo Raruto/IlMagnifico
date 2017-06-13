@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -76,7 +76,7 @@ public class Frame extends JFrame {
 
 	public Frame() {
 		setIconImage(new ImageIcon(
-				getClass().getResource(Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/giglio.png"))
+				getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png"))
 						.getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -198,8 +198,8 @@ public class Frame extends JFrame {
 		palazzoConsiglio.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "blu", "Bruno"));
 		palazzoConsiglio.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "blu", "Bruno"));
 		String[] carteScomunica = { "scomunica 1_1", "scomunica 1_2", "scomunica 1_3" };
-		String[] carteTorre = { "città", "città", "città", "città", "città", "città", "città", "capitano", "città",
-				"città", "città", "città", "città", "città", "città", "avamposto commerciale" };
+		String[] carteTorre = { "citta", "citta", "citta", "citta", "citta", "citta", "citta", "capitano", "citta",
+				"citta", "citta", "citta", "citta", "citta", "citta", "avamposto commerciale" };
 
 		Aggiornamento agg = new Aggiornamento(5, giocatori, torre, mercato, raccoltoRotondo, raccoltoOvale,
 				produzioneRotondo, produzioneOvale, palazzoConsiglio, carteScomunica, carteTorre);

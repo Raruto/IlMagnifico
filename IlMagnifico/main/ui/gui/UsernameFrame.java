@@ -1,4 +1,4 @@
-package main.ui.gui.lorenzoIlMagnificoInterfaccia;
+package main.ui.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -54,7 +54,7 @@ public class UsernameFrame extends JFrame {
 	 */
 	public UsernameFrame() {
 		setIconImage(new ImageIcon(
-				getClass().getResource(Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/giglio.png"))
+				getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png"))
 						.getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,7 +106,7 @@ public class UsernameFrame extends JFrame {
 	}
 
 	public void inserisciImmagine() {
-		immagine = new PanelImmagine(Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/giglio firenze.png");
+		immagine = new PanelImmagine(Costants.PATH_RESOURCES + "/giglio firenze.png");
 		immagine.setBounds(800, 200, 400, 600);
 		immagine.setVisible(true);
 		contentPane.add(immagine);
