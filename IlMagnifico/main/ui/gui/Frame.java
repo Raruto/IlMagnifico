@@ -83,7 +83,7 @@ public class Frame extends JFrame implements IClient {
 	 */
 
 	public Frame() {
-		setIconImage(new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES +Costants.FOLDER_BASE+ "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

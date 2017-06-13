@@ -54,7 +54,7 @@ public class Plancia extends JPanel {
 	private PanelImmagine mostraCartaImpresePersonaggio = new PanelImmagine(null);
 	private JPanel panelServitore = new JPanel();
 
-	private String pathSfondo = Costants.PATH_RESOURCES + "/plancia.png";
+	private String pathSfondo = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/plancia.png";
 
 	Plancia(String nomeGiocatore) {
 		this.nomeGiocatore = nomeGiocatore;
@@ -190,7 +190,7 @@ public class Plancia extends JPanel {
 	}
 
 	public void aggiungiPuntiVittoria() {
-		panelPuntiVittoria = new PanelImmagine(Costants.PATH_RESOURCES + "/puntiVittoria.png");
+		panelPuntiVittoria = new PanelImmagine(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/puntiVittoria.png");
 		panelPuntiVittoria.setBounds(10, 400, 60, 60);
 		add(panelPuntiVittoria);
 		lblPuntiVittoria = new JLabel(puntiVittoria + "");
@@ -202,7 +202,7 @@ public class Plancia extends JPanel {
 	}
 
 	public void aggiungiPuntiMilitari() {
-		panelPuntiMilitari = new PanelImmagine(Costants.PATH_RESOURCES + "/puntiMilitari.png");
+		panelPuntiMilitari = new PanelImmagine(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/puntiMilitari.png");
 		panelPuntiMilitari.setBounds(10, 475, 100, 60);
 		add(panelPuntiMilitari);
 		lblPuntiMilitari = new JLabel(puntiMilitari + "");
@@ -214,7 +214,7 @@ public class Plancia extends JPanel {
 	}
 
 	public void aggiungiPuntiFede() {
-		panelPuntiFede = new PanelImmagine(Costants.PATH_RESOURCES + "/puntiFede.png");
+		panelPuntiFede = new PanelImmagine(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/puntiFede.png");
 		panelPuntiFede.setBounds(10, 550, 100, 60);
 		add(panelPuntiFede);
 		lblPuntiFede = new JLabel(puntiFede + "");
@@ -405,7 +405,8 @@ public class Plancia extends JPanel {
 		}
 
 		public void paintComponent(Graphics g) {
-			ImageIcon icon = new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + "/pannelloCarta2.png"));
+			ImageIcon icon = new ImageIcon(
+					getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/pannelloCarta2.png"));
 			Image image = icon.getImage();
 			g.drawImage(image, 0, 0, null);
 		}

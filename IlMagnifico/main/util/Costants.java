@@ -39,6 +39,9 @@ public class Costants {
 
 	// GUI
 	public static final String PATH_RESOURCES = "/main/ui/gui";
+	public static final String FOLDER_BASE = "/base";
+	public static final String FOLDER_EXCOMM_CARDS = "/immaginiCarteScomunica";
+	public static final String FOLDER_DEV_CARDS = "/immaginiCarteSviluppo";
 	// /IlMagnifico/main/ui/gui/lorenzoIlMagnificoInterfaccia/giglio.png
 
 	/**

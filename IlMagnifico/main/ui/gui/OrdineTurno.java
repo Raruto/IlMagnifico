@@ -23,16 +23,16 @@ public class OrdineTurno extends JPanel {
 		for (int i = 0; i < colore.length; i++) {
 			if (colore[i] == "rosso")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/segnaTurnoRosso.png");
+						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoRosso.png");
 			else if (colore[i] == "verde")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/segnaTurnoVerde.png");
+						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoVerde.png");
 			else if (colore[i] == "blu")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/segnaTurnoBlu.png");
+						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoBlu.png");
 			else if (colore[i] == "giallo")
 				segnaTurno[i] = new PanelImmagine(
-						Costants.PATH_RESOURCES + "/segnaTurnoGiallo.png");
+						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoGiallo.png");
 			segnaTurno[i].setBounds(0, 50 * i + 10, 50, 50);
 			add(segnaTurno[i]);
 		}

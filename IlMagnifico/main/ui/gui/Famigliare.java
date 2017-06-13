@@ -63,25 +63,25 @@ public class Famigliare extends JPanel {
 		String pathImmagine = "";
 		if (colore.equals("rosso")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareRosso.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareRosso.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareRossoNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareRossoNeutro.png";
 
 		} else if (colore.equals("verde")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareVerde.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareVerde.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareVerdeNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareVerdeNeutro.png";
 		} else if (colore.equals("giallo")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareGiallo.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareGiallo.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareGialloNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareGialloNeutro.png";
 		} else if (colore.equals("blu")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareBlu.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareBlu.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + "/famigliareBluNeutro.png";
+				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareBluNeutro.png";
 		}
 
 		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
