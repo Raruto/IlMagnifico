@@ -13,7 +13,7 @@ import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.server.Server;
 import main.network.server.ServerException;
-import main.ui.FakeUI;
+import main.ui.cli.FakeUI;
 import main.util.Costants;
 
 public class ClientTest {

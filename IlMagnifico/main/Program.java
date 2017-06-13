@@ -1,6 +1,6 @@
 package main;
 
-import main.ui.FakeUI;
+import main.ui.cli.FakeUI;
 
 public class Program {
 	public static void main(String[] args) {

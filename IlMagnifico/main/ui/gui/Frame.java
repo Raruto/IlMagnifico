@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import main.network.client.IClient;
+import main.network.server.game.UpdateStats;
 import main.ui.gui.aggiornamento.*;
 import main.ui.gui.aggiornamento.Aggiornamento;
 import main.ui.gui.aggiornamento.Giocatore;
@@ -23,10 +25,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.EventListener;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame implements IClient {
 
 	/**
 	 * 
@@ -75,9 +78,7 @@ public class Frame extends JFrame {
 	 */
 
 	public Frame() {
-		setIconImage(new ImageIcon(
-				getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png"))
-						.getImage());
+		setIconImage(new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -859,5 +860,128 @@ public class Frame extends JFrame {
 			classificaFinaleFrame.setVisible(true);
 			frame.setVisible(false);
 		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Eventi scatenati dal Server sul Client
+	/////////////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void onChatMessage(boolean privateMessage, String author, String message) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onActionNotValid(String errorCode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameUpdate(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onChurchSupport(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarket(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPayServant(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTower(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onCouncilPalace(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onHarvestRound(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProductionRound(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onHarvestOval(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProductionOval(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTurnEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPeriodEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPlayerMove(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTurnStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPeriodStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onNotify(Object object) throws RemoteException {
+		// TODO Auto-generated method stub
+
 	}
 }

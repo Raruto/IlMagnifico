@@ -1,4 +1,4 @@
-package main.ui;
+package main.ui.cli;
 
 public class QuitException extends Exception {
 

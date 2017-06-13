@@ -1,4 +1,4 @@
-package main.ui;
+package main.ui.cli;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
