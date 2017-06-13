@@ -37,6 +37,10 @@ public class Costants {
 	public static final String ROW_SEPARATOR = "-----------------------------------------------------------------------------------------------------------------------------------";
 	public static final boolean CLIENT_ENABLE_LOG = true;
 
+	// GUI
+	public static final String PATH_RESOURCES = "/main/ui/gui";
+	// /IlMagnifico/main/ui/gui/lorenzoIlMagnificoInterfaccia/giglio.png
+
 	/**
 	 * Costruttore privato.
 	 */

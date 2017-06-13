@@ -9,60 +9,84 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.util.Costants;
+
 public class Famigliare extends JPanel {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4770117072404333150L;
 	private int valore;
 	private int numero;
 	private String colore;
 	private String giocatoreAppartenenza;
 	private JLabel lblValore = new JLabel();
-	
-	public Famigliare(int valore, int numero, String colore, String giocatoreAppartenenza){
+
+	public Famigliare(int valore, int numero, String colore, String giocatoreAppartenenza) {
 		this.valore = valore;
 		this.numero = numero;
 		this.colore = colore;
 		this.giocatoreAppartenenza = giocatoreAppartenenza;
-		
+
 		setOpaque(true);
-		lblValore.setText(valore+"");
+		lblValore.setText(valore + "");
 		formatoTesto();
 		lblValore.setFont(new Font("ALGERIAN", 25, 50));
 		add(lblValore);
 	}
-	
-	public int getValore() { return valore; }
-	public int getNumero() { return numero; }
-	public String getColore() { return colore; }
-	public String getGiocatoreAppartenenza() { return giocatoreAppartenenza; }
-	
-	public void formatoTesto(){
-		if(colore.equals("giallo") || numero == 3) lblValore.setForeground(Color.BLACK);
-		else lblValore.setForeground(Color.WHITE);
+
+	public int getValore() {
+		return valore;
 	}
-	
-	public void paintComponent(Graphics g){
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public String getColore() {
+		return colore;
+	}
+
+	public String getGiocatoreAppartenenza() {
+		return giocatoreAppartenenza;
+	}
+
+	public void formatoTesto() {
+		if (colore.equals("giallo") || numero == 3)
+			lblValore.setForeground(Color.BLACK);
+		else
+			lblValore.setForeground(Color.WHITE);
+	}
+
+	public void paintComponent(Graphics g) {
 		String pathImmagine = "";
-		if(colore.equals("rosso")) {
-			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareRosso.png";
-			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareRossoNeutro.png";
-			
+		if (colore.equals("rosso")) {
+			if (numero != 3)
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareRosso.png";
+			else
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareRossoNeutro.png";
+
+		} else if (colore.equals("verde")) {
+			if (numero != 3)
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareVerde.png";
+			else
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareVerdeNeutro.png";
+		} else if (colore.equals("giallo")) {
+			if (numero != 3)
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareGiallo.png";
+			else
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareGialloNeutro.png";
+		} else if (colore.equals("blu")) {
+			if (numero != 3)
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareBlu.png";
+			else
+				pathImmagine = Costants.PATH_RESOURCES + "/lorenzoIlMagnificoInterfaccia/famigliareBluNeutro.png";
 		}
-		else if(colore.equals("verde")) {
-			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareVerde.png";
-			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareVerdeNeutro.png";
-		}
-		else if(colore.equals("giallo")) {
-			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareGiallo.png";
-			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareGialloNeutro.png";
-		}
-		else if(colore.equals("blu")) {
-			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareBlu.png";
-			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareBluNeutro.png";
-		}
-		
+
 		ImageIcon icon = new ImageIcon(pathImmagine);
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}
-	
+
 }
