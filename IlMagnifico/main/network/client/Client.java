@@ -501,6 +501,7 @@ public class Client implements IClient {
 	public void supportChurch(boolean isSupported) {
 		UpdateStats requestedAction = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		requestedAction.supportaChiesa(isSupported);
+		performGameAction(requestedAction);
 	}
 
 	/**
