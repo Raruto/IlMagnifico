@@ -170,12 +170,14 @@ public class UpdateStats implements Serializable {
 	 * notifica agli altri giocatori).
 	 */
 	private SpazioAzione spazioAzione;
+	
 
 	/**
 	 * {@link EColoriGiocatori} del giocatore che ha effettuato l'azione
 	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
 	 */
 	private EColoriGiocatori coloreGiocatore;
+	
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -221,6 +223,7 @@ public class UpdateStats implements Serializable {
 		this.famigliaGiocatore = new Famigliare[4];
 		for (int i = 0; i < 4; i++) {
 			this.famigliaGiocatore[i] = giocatore.getFamigliare(i);
+			//this.famigliaGiocatore[i].getGiocatore().getColore();
 		}
 
 		this.spazioAzione = spazioAzione;
@@ -524,4 +527,5 @@ public class UpdateStats implements Serializable {
 	public void setNomeGiocatore(String nomeGiocatore) {
 		this.nomeGiocatore = nomeGiocatore;
 	}
+
 }
