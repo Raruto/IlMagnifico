@@ -24,6 +24,7 @@ import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
+import main.model.errors.Errors;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.client.IClient;
@@ -1568,14 +1569,22 @@ public class FakeUI implements IClient {
 
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
-		// TODO Auto-generated method stub
-
+		// if (privateMessage) {
+		if (author.equals(Costants.ROOM))
+			System.out.println(Costants.ROOM_ID + " " + message);
+		else
+			System.out.println("[" + author + "]" + " " + message);
+		// }
 	}
 
 	@Override
 	public void onActionNotValid(String errorCode) {
-		// TODO Auto-generated method stub
-
+		try {
+			System.err.println("\n" + Errors.valueOf(errorCode).toString());
+		} catch (RuntimeException e) {
+			// In casi estremi!
+			System.err.println("\nUnknown error: " + errorCode);
+		}
 	}
 
 	@Override
@@ -1674,14 +1683,12 @@ public class FakeUI implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
-		// TODO Auto-generated method stub
-
+		FakeUI.printPlayersNames(10, false, false);
 	}
 
 	@Override
 	public void onNotify(Object object) throws RemoteException {
-		// TODO Auto-generated method stub
-
+		System.out.println(object.toString());
 	}
 
 }

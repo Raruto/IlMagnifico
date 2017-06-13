@@ -539,13 +539,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
-		// if (privateMessage) {
-		if (author.equals(Costants.ROOM))
-			System.out.println(Costants.ROOM_ID + " " + message);
-		else
-			System.out.println("[" + author + "]" + " " + message);
-		// }
-		// mUi.showChatMessage(privateMessage, author, message);
+		ui.onChatMessage(privateMessage, author, message);
 	}
 
 	/**
@@ -559,12 +553,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onActionNotValid(String errorCode) {
-		try {
-			System.err.println("\n" + Errors.valueOf(errorCode).toString());
-		} catch (RuntimeException e) {
-			// In casi estremi!
-			System.err.println("\nUnknown error: " + errorCode);
-		}
+		ui.onActionNotValid(errorCode);
 	}
 
 	/**
@@ -742,7 +731,6 @@ public class Client implements IClient {
 	@Override
 	public void onTurnEnd(UpdateStats update) {
 		ui.onTurnEnd(update);
-
 	}
 
 	/**
@@ -756,7 +744,6 @@ public class Client implements IClient {
 	@Override
 	public void onPeriodEnd(UpdateStats update) {
 		ui.onPeriodEnd(update);
-
 	}
 
 	/**
@@ -770,7 +757,6 @@ public class Client implements IClient {
 	@Override
 	public void onGameEnd(UpdateStats update) {
 		ui.onGameEnd(update);
-
 	}
 
 	/**
@@ -783,10 +769,8 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onPlayerMove(UpdateStats update) {
-		// if (update.getNomeGiocatore() != null)
-
 		this.playerTurn = update.getNomeGiocatore();
-		
+
 		ui.onPlayerMove(update);
 	}
 
@@ -839,8 +823,6 @@ public class Client implements IClient {
 			this.playersDashboards = update.getPlanceGiocatori();
 
 		ui.onGameStarted(update);
-		
-		FakeUI.printPlayersNames(10, false, false);
 	}
 
 	/**
@@ -848,8 +830,6 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onNotify(Object object) throws RemoteException {
-		System.out.println(object.toString());
-		
 		ui.onNotify(object);
 	}
 
