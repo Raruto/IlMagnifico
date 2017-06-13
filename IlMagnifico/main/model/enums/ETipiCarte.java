@@ -1,7 +1,13 @@
 package main.model.enums;
 
 public enum ETipiCarte {
-	Territorio, Personaggio, Edificio, Impresa;
+	Territorio("Territory"), Personaggio("Charachter"), Edificio("Building"), Impresa("Venture");
+
+	String name;
+
+	private ETipiCarte(String name) {
+		this.name = name;
+	}
 
 	public static String stringify(boolean startsWithZero) {
 		ETipiCarte[] c = ETipiCarte.values();
@@ -22,4 +28,9 @@ public enum ETipiCarte {
 	public static String stringify() {
 		return stringify(true);
 	}
+
+	public String toString() {
+		return this.name;
+	};
+
 }

@@ -172,8 +172,8 @@ public enum ECarte {
 
 		// s += ANSI.YELLOW;
 		if (printHeader)
-			s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ",
-					"effetti imm.: ", "effetti perm.: ");
+			s += String.format("%-35s%-12s%-10s%-29s%-27s%-28s\n", "[i: name] ", "type: ", "period: ", "cost: ",
+					"imm. effect: ", "perm. effect: ");
 		// s += ANSI.RESET;
 		String desc = "";
 		String iEffects = "";
@@ -200,7 +200,7 @@ public enum ECarte {
 					}
 				}
 
-				s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
+				s += String.format("%-35s%-12s%-10s%-29s%-27s%-28s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
 						ca[i].tipoCarta.toString(), ca[i].periodo, desc, iEffects, pEffects);
 				// if (i % 7 == 0 && i != 0)
 				s += "\n";
@@ -235,8 +235,8 @@ public enum ECarte {
 			inc = 1;
 
 		// s += ANSI.YELLOW;
-		s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s\n", "[i: nome] ", "tipo: ", "periodo: ", "costo: ",
-				"effetti imm.: ", "effetti perm.: ");
+		s += String.format("%-35s%-12s%-10s%-29s%-27s%-28s\n", "[i: name] ", "type: ", "period: ", "cost: ",
+				"imm. effect: ", "perm. effect: ");
 		// s += ANSI.RESET;
 		String desc = "";
 		String iEffects = "";
@@ -262,7 +262,7 @@ public enum ECarte {
 					}
 				}
 
-				s += String.format("%-35s%-12s%-10s%-28s%-28s%-28s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
+				s += String.format("%-35s%-12s%-10s%-29s%-27s%-28s", "[" + (i + inc) + ": " + ca[i].nome + "] ",
 						ca[i].tipoCarta.toString(), ca[i].periodo, desc, iEffects, pEffects);
 				// if (i % 7 == 0 && i != 0)
 				s += "\n";
@@ -282,6 +282,6 @@ public enum ECarte {
 	}
 
 	public static String printLegend() {
-		return ANSI.YELLOW + "Legenda:" + ANSI.RESET + "\nL = legno, M = moneta, P = pietra\nPF = punto fedo, PM = punto militare, PV = punto vittoria\nPDC = privilegio del consiglio\n\n"+ANSI.YELLOW + "Esempi:" + ANSI.RESET +"\n(4PV? -> -2) \t= solo se possiedi 4PV allora puoi scalare PV di 2 unità\n(+1S, +2PM) \t= guadagni 1S e 2PM\n(+2PM), (+1PDC) = scegli tra guadagnare 2PM o 1PDC";
+		return ANSI.YELLOW + "Legend:" + ANSI.RESET + "\nW = wood, C = coin, St = stone, Sv = servant\nFP = faith point, MP = military point, VP = victory point\nCP = council privilege\n\n"+ANSI.YELLOW + "Examples:" + ANSI.RESET +"\n(4VP? -> -2) \t= only if you have 4VP then you can decrease VP of 2 units\n(+1Sv, +2MP) \t= gain 1Sv and 2MP\n(+2MP), (+1CP) \t= choose to earn 2MP or 1CP";
 	}
 }

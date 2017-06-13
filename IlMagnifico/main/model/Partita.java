@@ -501,7 +501,7 @@ public abstract class Partita {
 				this.giocatori.get(j).setValore(i, valoreDado);
 				this.spazioAzione.setValoreDadi(valoreDado, i);
 			}
-			log("Dado[" + i + "]" + " " + valoreDado);
+			log("Dice[" + i + "]" + " " + valoreDado);
 		}
 	}
 

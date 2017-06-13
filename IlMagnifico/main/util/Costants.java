@@ -34,7 +34,7 @@ public class Costants {
 	public static final String ROOM_ID = ANSI.YELLOW + "[" + ROOM + "]" + ANSI.RESET;
 
 	// CLI
-	public static final String ROW_SEPARATOR = "------------------------------------------------------------------------------------------------------------------------------";
+	public static final String ROW_SEPARATOR = "-----------------------------------------------------------------------------------------------------------------------------------";
 	public static final boolean CLIENT_ENABLE_LOG = true;
 
 	/**
