@@ -9,6 +9,7 @@ import main.model.enums.EAzioniGioco;
 import main.model.enums.EFasiDiGioco;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
+import main.model.exceptions.ChurchSupportException;
 import main.model.exceptions.FamiliarAlreadyUsedException;
 import main.model.exceptions.InsufficientValueException;
 import main.model.exceptions.InvalidChoiceException;
@@ -199,8 +200,7 @@ public class Game extends Partita {
 		room.dispatchGameUpdate(update);
 
 		if (update.getAzioneGiocatore() != null)
-			log("\"" + update.getNomeGiocatore() + "\"" + " has performed: "
-					+ update.getAzioneGiocatore().toString());
+			log("\"" + update.getNomeGiocatore() + "\"" + " has performed: " + update.getAzioneGiocatore().toString());
 
 		else if (update.getAzioneServer() != null) {
 			if (update.getAzioneServer() == EFasiDiGioco.MossaGiocatore)
@@ -251,10 +251,10 @@ public class Game extends Partita {
 				eseguiRapportoVaticano(remotePlayer, update.getSupportoChiesa());
 			} else
 				eseguiRapportoVaticano(remotePlayer, false);
-		} catch (GameException e) {
+		} catch (ChurchSupportException e) {
 			throw new GameException(Errors.ERROR_ON_CHURCH_SUPPORT.toString());
 		}
-		this.giocatoriRapportoVaticano.remove(remotePlayer);
+		// this.giocatoriRapportoVaticano.remove(remotePlayer);
 		if (this.giocatoriRapportoVaticano.size() == 0)
 			this.rapportoVaticanoEseguito = true;
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);

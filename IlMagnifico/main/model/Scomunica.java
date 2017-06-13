@@ -25,7 +25,7 @@ public class Scomunica implements Serializable {
 	/**
 	 * 
 	 */
-	private ArrayList<Object[]> effetto;
+	transient private ArrayList<Object[]> effetto;
 
 	private int periodo;
 

@@ -8,6 +8,7 @@ import main.model.Giocatore;
 import main.model.Partita;
 import main.model.SpazioAzione;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
+import main.model.exceptions.ChurchSupportException;
 import main.model.exceptions.FamiliarAlreadyUsedException;
 import main.model.exceptions.InsufficientValueException;
 
@@ -84,9 +85,19 @@ public class PartitaTest extends Partita {
 		inizializzaScomunica();
 		Giocatore giocatore = new Giocatore();
 		giocatore.getPunti().cambiaPuntiFede(4);
-		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
+		try {
+			eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
+		} catch (ChurchSupportException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(giocatore.getPunti().getPuntiFede() == 0 && giocatore.getPunti().getPuntiVittoria() == 4);
-		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
+		try {
+			eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
+		} catch (ChurchSupportException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(giocatore.getScomunica(1) == this.scomuniche[1]);
 	}
 

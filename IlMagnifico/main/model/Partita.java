@@ -9,6 +9,7 @@ import main.model.enums.ETipiCarte;
 import main.model.enums.EColoriGiocatori;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
+import main.model.exceptions.ChurchSupportException;
 import main.network.server.game.Game;
 import main.network.server.game.exceptions.GameException;
 
@@ -386,7 +387,9 @@ public abstract class Partita {
 	 * @param
 	 * @return
 	 */
-	public void eseguiRapportoVaticano(Giocatore giocatore, boolean esegui) {
+	public void eseguiRapportoVaticano(Giocatore giocatore, boolean esegui) throws ChurchSupportException {
+		if (this.turno % 2 != 0)
+			throw new ChurchSupportException();
 		int puntiFede = 0;
 		int incremento = 0;
 		if (esegui == true) {
