@@ -1567,6 +1567,10 @@ public class FakeUI implements IClient {
 		return null;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Methods from IClient
+	/////////////////////////////////////////////////////////////////////////////////////////
+
 	@Override
 	public void onChatMessage(boolean privateMessage, String author, String message) {
 		// if (privateMessage) {
@@ -1690,5 +1694,4 @@ public class FakeUI implements IClient {
 	public void onNotify(Object object) throws RemoteException {
 		System.out.println(object.toString());
 	}
-
 }
