@@ -9,7 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import main.network.client.Client;
+import main.network.client.ClientException;
 import main.network.client.IClient;
+import main.network.protocol.ConnectionTypes;
 import main.network.server.game.UpdateStats;
 import main.ui.gui.aggiornamento.*;
 import main.ui.gui.aggiornamento.Aggiornamento;
@@ -52,6 +55,8 @@ public class Frame extends JFrame implements IClient {
 	private Tabellone tabellone;
 	private Plancia plancia;
 	private PlanciaAvversario planciaAvversari;
+
+	private Client client;
 
 	// ATTRIBUTI PER AZIONI
 	private boolean servitoreSelezionato = false;
@@ -100,6 +105,28 @@ public class Frame extends JFrame implements IClient {
 		aggiornamento();
 		aggiornamento();
 
+		try {
+			this.client = new Client(this);
+			
+			//se RMI
+			client.startClient(ConnectionTypes.RMI.toString(), Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
+					Costants.RMI_PORT);
+			
+			//se Socket
+			// client.startClient(ConnectionTypes.SOCKET.toString(),
+			// Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
+			// Costants.RMI_PORT);
+
+			while (!client.isLogged()) {
+				// System.out.print("Choose Player Name: ");
+				// inText = scanner.nextLine();
+				client.loginPlayer("Foo");
+			}
+
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void aggiornamento() {
