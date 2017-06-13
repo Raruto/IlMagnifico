@@ -45,7 +45,7 @@ public class ClassificaFinaleFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ClassificaFinaleFrame() {
-		setIconImage(new ImageIcon(getClass().getResource("/lorenzoIlMagnificoInterfaccia/giglio.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("main/gui/ui/lorenzoIlMagnificoInterfaccia/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -125,10 +125,10 @@ public class ClassificaFinaleFrame extends JFrame {
 			lblNome.setBounds(0, 0, 350, 45);
 			add(lblNome);
 			
-			if(colore.equals("rosso")) panelColore = new PanelImmagine("./src/lorenzoIlMagnificoInterfaccia/segnaTurnoRosso.png");
-			else if(colore.equals("giallo")) panelColore = new PanelImmagine("./src/lorenzoIlMagnificoInterfaccia/segnaTurnoGiallo.png");
-			else if(colore.equals("verde")) panelColore = new PanelImmagine("./src/lorenzoIlMagnificoInterfaccia/segnaTurnoVerde.png");
-			else if(colore.equals("blu")) panelColore = new PanelImmagine("./src/lorenzoIlMagnificoInterfaccia/segnaTurnoBlu.png");
+			if(colore.equals("rosso")) panelColore = new PanelImmagine("main/ui/gui/lorenzoIlMagnificoInterfaccia/segnaTurnoRosso.png");
+			else if(colore.equals("giallo")) panelColore = new PanelImmagine("main/ui/gui/lorenzoIlMagnificoInterfaccia/segnaTurnoGiallo.png");
+			else if(colore.equals("verde")) panelColore = new PanelImmagine("main/ui/gui/lorenzoIlMagnificoInterfaccia/segnaTurnoVerde.png");
+			else if(colore.equals("blu")) panelColore = new PanelImmagine("main/ui/gui/lorenzoIlMagnificoInterfaccia/segnaTurnoBlu.png");
 			panelColore.setLayout(null);
 			panelColore.setOpaque(true);
 			panelColore.setBounds(0, 0, 50, 50);

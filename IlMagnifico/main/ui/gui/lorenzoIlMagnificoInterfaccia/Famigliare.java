@@ -43,21 +43,21 @@ public class Famigliare extends JPanel {
 	public void paintComponent(Graphics g){
 		String pathImmagine = "";
 		if(colore.equals("rosso")) {
-			if(numero != 3) pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareRosso.png";
-			else pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareRossoNeutro.png";
+			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareRosso.png";
+			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareRossoNeutro.png";
 			
 		}
 		else if(colore.equals("verde")) {
-			if(numero != 3) pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareVerde.png";
-			else pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareVerdeNeutro.png";
+			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareVerde.png";
+			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareVerdeNeutro.png";
 		}
 		else if(colore.equals("giallo")) {
-			if(numero != 3) pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareGiallo.png";
-			else pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareGialloNeutro.png";
+			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareGiallo.png";
+			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareGialloNeutro.png";
 		}
 		else if(colore.equals("blu")) {
-			if(numero != 3) pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareBlu.png";
-			else pathImmagine = "./src/lorenzoIlMagnificoInterfaccia/famigliareBluNeutro.png";
+			if(numero != 3) pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareBlu.png";
+			else pathImmagine = "main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareBluNeutro.png";
 		}
 		
 		ImageIcon icon = new ImageIcon(pathImmagine);

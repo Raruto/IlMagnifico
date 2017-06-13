@@ -49,7 +49,7 @@ public class UsernameFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public UsernameFrame() {
-		setIconImage(new ImageIcon(getClass().getResource("/lorenzoIlMagnificoInterfaccia/giglio.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("main/ui/gui/lorenzoIlMagnificoInterfaccia/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -100,7 +100,7 @@ public class UsernameFrame extends JFrame {
 	}
 	
 	public void inserisciImmagine(){
-		immagine = new PanelImmagine("./src/lorenzoIlMagnificoInterfaccia/giglio firenze.png");
+		immagine = new PanelImmagine("main/ui/gui/lorenzoIlMagnificoInterfaccia/giglio firenze.png");
 		immagine.setBounds(800, 200, 400, 600);
 		immagine.setVisible(true);
 		contentPane.add(immagine);

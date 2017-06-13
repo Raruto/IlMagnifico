@@ -49,7 +49,7 @@ public class Plancia extends JPanel {
 	private PanelImmagine mostraCartaImpresePersonaggio = new PanelImmagine(null);
 	private JPanel panelServitore = new JPanel();
 	
-	private String pathSfondo = "./src/main/ui/gui/lorenzoIlMagnificoInterfaccia/plancia.png";
+	private String pathSfondo = "main/ui/gui/main/ui/gui/lorenzoIlMagnificoInterfaccia/plancia.png";
 	
 	Plancia(String nomeGiocatore){
 		this.nomeGiocatore = nomeGiocatore;
@@ -179,7 +179,7 @@ public class Plancia extends JPanel {
 	}
 	
 	public void aggiungiPuntiVittoria(){
-		panelPuntiVittoria = new PanelImmagine("./src/main/ui/gui/lorenzoIlMagnificoInterfaccia/puntiVittoria.png");
+		panelPuntiVittoria = new PanelImmagine("main/ui/gui/main/ui/gui/lorenzoIlMagnificoInterfaccia/puntiVittoria.png");
 		panelPuntiVittoria.setBounds(10, 400, 60, 60);
 		add(panelPuntiVittoria);
 		lblPuntiVittoria = new JLabel(puntiVittoria+"");
@@ -191,7 +191,7 @@ public class Plancia extends JPanel {
 	}
 	
 	public void aggiungiPuntiMilitari(){
-		panelPuntiMilitari = new PanelImmagine("./src/main/ui/gui/lorenzoIlMagnificoInterfaccia/puntiMilitari.png");
+		panelPuntiMilitari = new PanelImmagine("main/ui/gui/main/ui/gui/lorenzoIlMagnificoInterfaccia/puntiMilitari.png");
 		panelPuntiMilitari.setBounds(10, 475, 100, 60);
 		add(panelPuntiMilitari);
 		lblPuntiMilitari = new JLabel(puntiMilitari+"");
@@ -203,7 +203,7 @@ public class Plancia extends JPanel {
 	}
 	
 	public void aggiungiPuntiFede(){
-		panelPuntiFede = new PanelImmagine("./src/main/ui/gui/lorenzoIlMagnificoInterfaccia/puntiFede.png");
+		panelPuntiFede = new PanelImmagine("main/ui/gui/main/ui/gui/lorenzoIlMagnificoInterfaccia/puntiFede.png");
 		panelPuntiFede.setBounds(10, 550, 100, 60);
 		add(panelPuntiFede);
 		lblPuntiFede = new JLabel(puntiFede+"");
@@ -215,7 +215,7 @@ public class Plancia extends JPanel {
 	}
 	
 	public void aggiungiPannelloMostraCarteImpresePersonaggio(){
-		/*mostraCartaImpresePersonaggio = new PanelImmagine("./src/main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareBlu.png");
+		/*mostraCartaImpresePersonaggio = new PanelImmagine("main/ui/gui/main/ui/gui/lorenzoIlMagnificoInterfaccia/famigliareBlu.png");
 		mostraCartaImpresePersonaggio.setBounds(1200, 20, 120, 180);
 		mostraCartaImpresePersonaggio.setOpaque(true);
 		mostraCartaImpresePersonaggio.setVisible(true);
@@ -373,7 +373,7 @@ public class Plancia extends JPanel {
 		}
 		
 		public void paintComponent(Graphics g){
-			ImageIcon icon = new ImageIcon("./src/main/ui/gui/lorenzoIlMagnificoInterfaccia/pannelloCarta2.png");
+			ImageIcon icon = new ImageIcon("main/ui/gui/main/ui/gui/lorenzoIlMagnificoInterfaccia/pannelloCarta2.png");
 			Image image = icon.getImage();
 			g.drawImage(image, 0, 0, null);
 		}

@@ -78,7 +78,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaScomuniche(){
 		frame.getTabellone().rimuoviCarteScomunica();
 		CartaScomunica[] carteScomunica = new CartaScomunica[aggiornamento.getCarteScomunica().length];
-		for(int i=0; i<carteScomunica.length; i++) carteScomunica[i] = new CartaScomunica(aggiornamento.getCarteScomunica()[i], "./src/immaginiCarteScomunica/"+aggiornamento.getCarteScomunica()[i]+".png");
+		for(int i=0; i<carteScomunica.length; i++) carteScomunica[i] = new CartaScomunica(aggiornamento.getCarteScomunica()[i], "main/ui/gui/immaginiCarteScomunica/"+aggiornamento.getCarteScomunica()[i]+".png");
 		frame.getTabellone().aggiungiCarteScomunica(carteScomunica);
 		
 		for(int i=0; i<aggiornamento.getGiocatori().size(); i++){
@@ -94,7 +94,7 @@ public class AggiornamentoInterfaccia {
 		frame.getTabellone().rimuoviCarteTorri();
 		CartaSviluppo[] carteTorre = new CartaSviluppo[aggiornamento.getCarteSviluppoTorre().length];
 		for(int i=0; i<aggiornamento.getCarteSviluppoTorre().length; i++){
-			if(aggiornamento.getCarteSviluppoTorre()[i] != null) carteTorre[i] = new CartaSviluppo(aggiornamento.getCarteSviluppoTorre()[i], "./src/immaginiCarteSviluppo/"+aggiornamento.getCarteSviluppoTorre()[i]+".png"); 
+			if(aggiornamento.getCarteSviluppoTorre()[i] != null) carteTorre[i] = new CartaSviluppo(aggiornamento.getCarteSviluppoTorre()[i], "main/ui/gui/immaginiCarteSviluppo/"+aggiornamento.getCarteSviluppoTorre()[i]+".png"); 
 			else carteTorre[i] = null;
 		}
 		frame.getTabellone().aggiungiCarteTorri(carteTorre);
@@ -132,7 +132,7 @@ public class AggiornamentoInterfaccia {
 				frame.getPlancia().rimuoviCarteTerritorio();
 				CartaSviluppo[] carteTerritorio = new CartaSviluppo[giocatoreAgg.getCarteTerritorio().size()];
 				for(int j=0; j<giocatoreAgg.getCarteTerritorio().size(); j++){
-					carteTerritorio[j] = new CartaSviluppo(giocatoreAgg.getCarteTerritorio().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCarteTerritorio().get(j)+".png");
+					carteTerritorio[j] = new CartaSviluppo(giocatoreAgg.getCarteTerritorio().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCarteTerritorio().get(j)+".png");
 				}
 				frame.getPlancia().aggiungiCarteTerritorio(carteTerritorio);
 			}
@@ -141,7 +141,7 @@ public class AggiornamentoInterfaccia {
 				planciaAvv.rimuoviCarteTerritorio();
 				CartaSviluppo[] carteTerritorio = new CartaSviluppo[giocatoreAgg.getCarteTerritorio().size()];
 				for(int j=0; j<giocatoreAgg.getCarteTerritorio().size(); j++){
-					carteTerritorio[j] = new CartaSviluppo(giocatoreAgg.getCarteTerritorio().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCarteTerritorio().get(j)+".png");
+					carteTerritorio[j] = new CartaSviluppo(giocatoreAgg.getCarteTerritorio().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCarteTerritorio().get(j)+".png");
 				}
 				planciaAvv.aggiungiCarteTerritorio(carteTerritorio);
 				planceRiempite++;
@@ -157,7 +157,7 @@ public class AggiornamentoInterfaccia {
 				frame.getPlancia().rimuoviCarteProduzione();
 				CartaSviluppo[] carteProduzione = new CartaSviluppo[giocatoreAgg.getCarteEdificio().size()];
 				for(int j=0; j<giocatoreAgg.getCarteEdificio().size(); j++){
-					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCarteEdificio().get(j)+".png");
+					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCarteEdificio().get(j)+".png");
 				}
 				frame.getPlancia().aggiungiCarteTerritorio(carteProduzione);
 			}
@@ -166,7 +166,7 @@ public class AggiornamentoInterfaccia {
 				planciaAvv.rimuoviCarteProduzione();
 				CartaSviluppo[] carteProduzione = new CartaSviluppo[giocatoreAgg.getCarteEdificio().size()];
 				for(int j=0; j<giocatoreAgg.getCarteEdificio().size(); j++){
-					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCarteEdificio().get(j)+".png");
+					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCarteEdificio().get(j)+".png");
 				}
 				planciaAvv.aggiungiCarteProduzione(carteProduzione);
 				planceRiempite++;
@@ -182,7 +182,7 @@ public class AggiornamentoInterfaccia {
 				frame.getPlancia().rimuoviCarteImprese();
 				CartaSviluppo[] carteImprese = new CartaSviluppo[giocatoreAgg.getCarteImprese().size()];
 				for(int j=0; j<giocatoreAgg.getCarteImprese().size(); j++){
-					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCarteImprese().get(j)+".png");
+					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCarteImprese().get(j)+".png");
 				}
 				frame.getPlancia().aggiungiCarteImprese(carteImprese);
 			}
@@ -191,7 +191,7 @@ public class AggiornamentoInterfaccia {
 				planciaAvv.rimuoviCarteImprese();
 				CartaSviluppo[] carteImprese = new CartaSviluppo[giocatoreAgg.getCarteImprese().size()];
 				for(int j=0; j<giocatoreAgg.getCarteImprese().size(); j++){
-					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCarteImprese().get(j)+".png");
+					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCarteImprese().get(j)+".png");
 				}
 				planciaAvv.aggiungiCarteImprese(carteImprese);
 				planceRiempite++;
@@ -207,7 +207,7 @@ public class AggiornamentoInterfaccia {
 				frame.getPlancia().rimuoviCartePersonaggio();
 				CartaSviluppo[] cartePersonaggio = new CartaSviluppo[giocatoreAgg.getCartePersonaggio().size()];
 				for(int j=0; j<giocatoreAgg.getCartePersonaggio().size(); j++){
-					cartePersonaggio[j] = new CartaSviluppo(giocatoreAgg.getCartePersonaggio().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCartePersonaggio().get(j)+".png");
+					cartePersonaggio[j] = new CartaSviluppo(giocatoreAgg.getCartePersonaggio().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCartePersonaggio().get(j)+".png");
 				}
 				frame.getPlancia().aggiungiCartePersonaggio(cartePersonaggio);
 			}
@@ -216,7 +216,7 @@ public class AggiornamentoInterfaccia {
 				planciaAvv.rimuoviCartePersonaggio();
 				CartaSviluppo[] cartePersonaggio = new CartaSviluppo[giocatoreAgg.getCartePersonaggio().size()];
 				for(int j=0; j<giocatoreAgg.getCartePersonaggio().size(); j++){
-					cartePersonaggio[j] = new CartaSviluppo(giocatoreAgg.getCartePersonaggio().get(j),  "./src/immaginiCarteSviluppo/"+giocatoreAgg.getCartePersonaggio().get(j)+".png");
+					cartePersonaggio[j] = new CartaSviluppo(giocatoreAgg.getCartePersonaggio().get(j),  "main/ui/gui/immaginiCarteSviluppo/"+giocatoreAgg.getCartePersonaggio().get(j)+".png");
 				}
 				planciaAvv.aggiungiCartePersonaggio(cartePersonaggio);
 				planceRiempite++;

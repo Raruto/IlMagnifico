@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class Tabellone extends JPanel {
 	
-	private String pathSfondo = "./src/lorenzoIlMagnificoInterfaccia/tabelloneSfondo.png";
+	private String pathSfondo = "main/ui/gui/lorenzoIlMagnificoInterfaccia/tabelloneSfondo.png";
 	
 	private ArrayList<CartaSviluppo> carteTorre = new ArrayList<CartaSviluppo>();
 	private ArrayList<CartaScomunica> carteScomunica = new ArrayList<CartaScomunica>();
