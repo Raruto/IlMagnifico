@@ -1,5 +1,6 @@
 package main.ui;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
 import main.network.client.Client;
 import main.network.client.ClientException;
+import main.network.client.IClient;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
@@ -37,7 +39,7 @@ import main.util.Costants;
  * SERVER
  *
  */
-public class FakeUI {
+public class FakeUI implements IClient {
 	public static Scanner scanner = new Scanner(System.in);
 	public static String inText;
 
@@ -51,7 +53,7 @@ public class FakeUI {
 	public static Client getClient() {
 		if (client == null) {
 			try {
-				client = new Client();
+				client = new Client(new FakeUI());
 			} catch (ClientException e) {
 				e.printStackTrace();
 				System.err.println("Exiting...");
@@ -666,8 +668,8 @@ public class FakeUI {
 	private static EEffettiPermanenti[] choosePermanentCardsEffects(EEffettiPermanenti[] effects) throws QuitException {
 		ArrayList<EEffettiPermanenti> choosed = new ArrayList<EEffettiPermanenti>();
 		for (int i = 0; i < effects.length; i++) {
-			System.out.print("Also activate [" + effects[i].getNome() + "] \"" + effects[i].getDescrizione()
-					+ "\": [y/n] ");
+			System.out.print(
+					"Also activate [" + effects[i].getNome() + "] \"" + effects[i].getDescrizione() + "\": [y/n] ");
 			inText = scanner.nextLine();
 			if (inText.equalsIgnoreCase("q"))
 				throw new QuitException();
@@ -1009,7 +1011,7 @@ public class FakeUI {
 			if (client.getNickname().equals(client.getPlayerTurn()))
 				System.out.print(ANSI.BACKGROUND_GREEN + "It's your turn");
 			else if (client.getPlayerTurn() != null)
-				System.out.print(ANSI.BACKGROUND_RED + client.getPlayerTurn()+ "'s turn: ");
+				System.out.print(ANSI.BACKGROUND_RED + client.getPlayerTurn() + "'s turn: ");
 			else
 				System.out.print(ANSI.BACKGROUND_RED + "In attesa di altri giocatori");
 
@@ -1562,6 +1564,124 @@ public class FakeUI {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void onChatMessage(boolean privateMessage, String author, String message) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onActionNotValid(String errorCode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameUpdate(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onChurchSupport(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarket(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPayServant(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTower(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onCouncilPalace(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onHarvestRound(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProductionRound(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onHarvestOval(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProductionOval(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTurnEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPeriodEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameEnd(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPlayerMove(UpdateStats update) {
+		FakeUI.printPlayerTurn(true);
+	}
+
+	@Override
+	public void onTurnStarted(UpdateStats update) {
+		FakeUI.printDices(10, false, false);
+	}
+
+	@Override
+	public void onPeriodStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onGameStarted(UpdateStats update) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onNotify(Object object) throws RemoteException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

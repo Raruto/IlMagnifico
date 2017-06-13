@@ -13,6 +13,7 @@ import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.server.Server;
 import main.network.server.ServerException;
+import main.ui.FakeUI;
 import main.util.Costants;
 
 public class ClientTest {
@@ -35,10 +36,10 @@ public class ClientTest {
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
 		try {
-			Client client1 = new Client();
+			Client client1 = new Client(new FakeUI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
-			Client client2 = new Client();
+			Client client2 = new Client(new FakeUI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
@@ -76,10 +77,10 @@ public class ClientTest {
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
 		try {
-			Client client1 = new Client();
+			Client client1 = new Client(new FakeUI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
-			Client client2 = new Client();
+			Client client2 = new Client(new FakeUI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
@@ -117,10 +118,10 @@ public class ClientTest {
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
 		try {
-			Client client1 = new Client();
+			Client client1 = new Client(new FakeUI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
-			Client client2 = new Client();
+			Client client2 = new Client(new FakeUI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
@@ -160,10 +161,10 @@ public class ClientTest {
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
 		try {
-			Client client1 = new Client();
+			Client client1 = new Client(new FakeUI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
-			Client client2 = new Client();
+			Client client2 = new Client(new FakeUI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {
@@ -201,10 +202,10 @@ public class ClientTest {
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
 		try {
-			Client client1 = new Client();
+			Client client1 = new Client(new FakeUI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo");
-			Client client2 = new Client();
+			Client client2 = new Client(new FakeUI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo");
 			if (client1.getNickname().equals(client1.getPlayerTurn())) {

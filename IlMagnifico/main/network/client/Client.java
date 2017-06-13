@@ -58,6 +58,8 @@ public class Client implements IClient {
 	 */
 	private AbstractClient client;
 
+	private IClient ui;
+
 	/**
 	 * Nome del giocatore corrente.
 	 */
@@ -122,7 +124,8 @@ public class Client implements IClient {
 	 * @throws ClientException
 	 *             se si verifica un errore.
 	 */
-	public Client() throws ClientException {
+	public Client(IClient ui) throws ClientException {
+		this.ui = ui;
 		nickname = "anonymous";
 		isLogged = false;
 
@@ -597,8 +600,8 @@ public class Client implements IClient {
 		if (update.getAzioneGiocatore() != null) {
 			log(playerName, "ACTION: " + ANSI.YELLOW + update.getAzioneGiocatore().toString() + ANSI.RESET);
 		} else if (update.getAzioneServer() != null) {
-			if(update.getAzioneServer()!=EFasiDiGioco.MossaGiocatore)
-			log(Costants.GAME_ID, "UPDATE: " + ANSI.CYAN + update.getAzioneServer().toString() + ANSI.RESET);
+			if (update.getAzioneServer() != EFasiDiGioco.MossaGiocatore)
+				log(Costants.GAME_ID, "UPDATE: " + ANSI.CYAN + update.getAzioneServer().toString() + ANSI.RESET);
 		}
 		handleResponse(update);
 	}
@@ -613,8 +616,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onChurchSupport(UpdateStats update) {
-		// TODO Auto-generated method stub
-
+		ui.onChurchSupport(update);
 	}
 
 	/**
@@ -628,7 +630,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onMarket(UpdateStats update) {
-		// TODO
+		ui.onMarket(update);
 	}
 
 	/**
@@ -642,7 +644,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onPayServant(UpdateStats update) {
-		// TODO
+		ui.onPayServant(update);
 	}
 
 	/**
@@ -656,7 +658,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onTower(UpdateStats update) {
-		// TODO
+		ui.onTower(update);
 	}
 
 	/**
@@ -670,7 +672,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onCouncilPalace(UpdateStats update) {
-		// TODO
+		ui.onCouncilPalace(update);
 	}
 
 	/**
@@ -684,7 +686,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onHarvestRound(UpdateStats update) {
-		// TODO
+		ui.onHarvestRound(update);
 	}
 
 	/**
@@ -698,7 +700,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onProductionRound(UpdateStats update) {
-		// TODO
+		ui.onProductionRound(update);
 	}
 
 	/**
@@ -712,7 +714,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onHarvestOval(UpdateStats update) {
-		// TODO
+		ui.onHarvestOval(update);
 	}
 
 	/**
@@ -726,7 +728,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onProductionOval(UpdateStats update) {
-		// TODO
+		ui.onProductionOval(update);
 	}
 
 	/**
@@ -739,7 +741,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onTurnEnd(UpdateStats update) {
-		// TODO Auto-generated method stub
+		ui.onTurnEnd(update);
 
 	}
 
@@ -753,7 +755,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onPeriodEnd(UpdateStats update) {
-		// TODO Auto-generated method stub
+		ui.onPeriodEnd(update);
 
 	}
 
@@ -767,7 +769,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onGameEnd(UpdateStats update) {
-		// TODO Auto-generated method stub
+		ui.onGameEnd(update);
 
 	}
 
@@ -784,7 +786,8 @@ public class Client implements IClient {
 		// if (update.getNomeGiocatore() != null)
 
 		this.playerTurn = update.getNomeGiocatore();
-		FakeUI.printPlayerTurn(true);
+		
+		ui.onPlayerMove(update);
 	}
 
 	/**
@@ -800,7 +803,7 @@ public class Client implements IClient {
 		if (update.getFamiglieGiocatori() != null)
 			this.playersFamilies = update.getFamiglieGiocatori();
 
-		FakeUI.printDices(10, false, false);
+		ui.onTurnStarted(update);
 	}
 
 	/**
@@ -813,8 +816,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onPeriodStarted(UpdateStats update) {
-		// TODO Auto-generated method stub
-
+		ui.onPeriodStarted(update);
 	}
 
 	/**
@@ -836,6 +838,8 @@ public class Client implements IClient {
 		if (update.getPlanceGiocatori() != null)
 			this.playersDashboards = update.getPlanceGiocatori();
 
+		ui.onGameStarted(update);
+		
 		FakeUI.printPlayersNames(10, false, false);
 	}
 
@@ -845,6 +849,8 @@ public class Client implements IClient {
 	@Override
 	public void onNotify(Object object) throws RemoteException {
 		System.out.println(object.toString());
+		
+		ui.onNotify(object);
 	}
 
 	/*
