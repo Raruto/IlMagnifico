@@ -5,7 +5,6 @@ import java.util.HashMap;
 import main.model.Giocatore;
 import main.model.Partita;
 import main.model.enums.EAzioniGiocatore;
-import main.model.enums.EAzioniGioco;
 import main.model.enums.EFasiDiGioco;
 import main.model.errors.Errors;
 import main.model.errors.GameError;
