@@ -109,11 +109,6 @@ public abstract class Partita {
 		// prossimo giocatore ad eseguire un azione
 		this.giocatoreDiTurno = giocatori.get(0);
 
-		// Per ora non mi viene in mente altro che si potrebbe fare per
-		// inizializzare la partita. C'e' ancora da implementare la parte
-		// della inizializzazione del mazzo perche' dipende dal file (per farlo
-		// funzionare anche solo temporaneamente dovrei fare un enum). Stesso
-		// discorso vale per le scomuniche.
 
 	}
 
@@ -187,7 +182,7 @@ public abstract class Partita {
 	 *         azione
 	 */
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
-		return this.giocatoreDiTurno.getNome().equals(g.getNome());
+		return this.giocatoreDiTurno.getNome().equals(g.getNome()) || (this.giocatoriRapportoVaticano!=null && this.giocatoriRapportoVaticano.contains(g));
 	}
 
 	/**
@@ -580,4 +575,6 @@ public abstract class Partita {
 		}
 		return giocatoriTemp;
 	}
+
+	
 }
