@@ -181,6 +181,11 @@ public class UpdateStats implements Serializable {
 	private HashMap<String, Scomunica[]> scomunicheGiocatori;
 
 	/**
+	 * Colori dei giocatori (vedi {@link EColoriGiocatori}). (tipicamente settato lato Server).
+	 */
+	private HashMap<String,EColoriGiocatori> coloriGiocatori;
+
+	/**
 	 * {@link SpazioAzione} aggiornato (tipicamente settato lato Server per la
 	 * notifica agli altri giocatori).
 	 */
@@ -269,6 +274,7 @@ public class UpdateStats implements Serializable {
 		this.planceGiocatori = new HashMap<String, Plancia>();
 		this.famiglieGiocatori = new HashMap<String, Famigliare[]>();
 		this.scomunicheGiocatori = new HashMap<String, Scomunica[]>();
+		this.coloriGiocatori = new HashMap<String, EColoriGiocatori>();
 
 		String nome;
 
@@ -292,6 +298,8 @@ public class UpdateStats implements Serializable {
 				scomuniche[i] = giocatore.getScomunica(i);
 			}
 			this.scomunicheGiocatori.put(nome, scomuniche);
+			
+			this.coloriGiocatori.put(nome, giocatore.getColore());
 		}
 	}
 
@@ -512,6 +520,15 @@ public class UpdateStats implements Serializable {
 	 */
 	public HashMap<String, Scomunica[]> getScomunicheGiocatori() {
 		return this.scomunicheGiocatori;
+	}
+
+
+	/**
+	 * Ritorna i colori dei giocatori <"Nome","EColoriGiocatori"> (vedi
+	 * {@link EColoriGiocatori}). (tipicamente settato lato Server).
+	 */
+	public HashMap<String, EColoriGiocatori> getColoriGiocatori() {
+		return this.coloriGiocatori;
 	}
 
 	///////////////////////////////////////////////////////////////////

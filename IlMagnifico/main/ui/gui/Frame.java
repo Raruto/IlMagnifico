@@ -135,7 +135,7 @@ public class Frame extends JFrame implements IClient {
 				getClient().loginPlayer(inText);
 			}
 			System.out.println();
-			
+
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -147,14 +147,13 @@ public class Frame extends JFrame implements IClient {
 				}
 			});
 
-		}
-		else{
-			//System.err.println("Exiting...");
-			//System.exit(0);
-			
+		} else {
+			// System.err.println("Exiting...");
+			// System.exit(0);
+
 			Server.main(args);
 		}
-		
+
 		scanner.close();
 	}
 
@@ -181,34 +180,10 @@ public class Frame extends JFrame implements IClient {
 
 		// ESEMPIO
 
-		nomeGiocatore = "Pino";
+		nomeGiocatore = getClient().getNickname();
 		colore = "rosso";
 		aggiornamento();
 		aggiornamento();
-/*
-		try {
-			this.client = new Client(this);
-
-			// se RMI
-			client.startClient(ConnectionTypes.RMI.toString(), Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
-					Costants.RMI_PORT);
-
-			// se Socket
-			// client.startClient(ConnectionTypes.SOCKET.toString(),
-			// Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
-			// Costants.RMI_PORT);
-
-			while (!client.isLogged()) {
-				// System.out.print("Choose Player Name: ");
-				// inText = scanner.nextLine();
-				client.loginPlayer("Foo");
-			}
-
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 
 	public void aggiornamento() {
@@ -241,19 +216,20 @@ public class Frame extends JFrame implements IClient {
 
 		boolean[] scomuniche1 = { false, false, false };
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> fp = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		// fp.add(new aggiornamento.Famigliare(0,0,"rosso", "Pino"));
+		// fp.add(new aggiornamento.Famigliare(0,0,colore, nomeGiocatore));
 		fp.add(null);
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 1, "rosso", "Pino"));
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 2, "rosso", "Pino"));
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 3, "rosso", "Pino"));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 1, colore, nomeGiocatore));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 2, colore, nomeGiocatore));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 3, colore, nomeGiocatore));
 
 		ArrayList<String> carteEdificio1 = new ArrayList<String>();
 		carteEdificio1.add("fiera");
 		carteEdificio1.add("banca");
 		carteEdificio1.add("palazzo");
 
-		Giocatore g1 = new Giocatore("Pino", "rosso", new Punti(55, 12, 34), new Risorse(10, 12, 1, 3), scomuniche1, fp,
-				new ArrayList<String>(), carteEdificio1, new ArrayList<String>(), new ArrayList<String>());
+		Giocatore g1 = new Giocatore(nomeGiocatore, colore, new Punti(55, 12, 34), new Risorse(10, 12, 1, 3),
+				scomuniche1, fp, new ArrayList<String>(), carteEdificio1, new ArrayList<String>(),
+				new ArrayList<String>());
 
 		boolean[] scomuniche2 = { false, false, false };
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> fp2 = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
@@ -290,19 +266,19 @@ public class Frame extends JFrame implements IClient {
 
 		main.ui.gui.aggiornamento.Famigliare[] torre = { null,
 				new main.ui.gui.aggiornamento.Famigliare(0, 0, "verde", "Beppe"), null, null, null, null, null, null,
-				null, null, new main.ui.gui.aggiornamento.Famigliare(4, 2, "rosso", "Pino"), null,
+				null, null, new main.ui.gui.aggiornamento.Famigliare(4, 2, colore, nomeGiocatore), null,
 				new main.ui.gui.aggiornamento.Famigliare(2, 3, "blu", "Bruno"), null, null, null };
 		main.ui.gui.aggiornamento.Famigliare[] mercato = { null, null,
 				new main.ui.gui.aggiornamento.Famigliare(0, 0, "verde", "Beppe"), null };
 		main.ui.gui.aggiornamento.Famigliare raccoltoRotondo = new main.ui.gui.aggiornamento.Famigliare(0, 0, "verde",
 				"Beppe");
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> raccoltoOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		raccoltoOvale.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "rosso", "Pino"));
+		raccoltoOvale.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, colore, nomeGiocatore));
 		raccoltoOvale.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "verde", "Beppe"));
 		main.ui.gui.aggiornamento.Famigliare produzioneRotondo = new main.ui.gui.aggiornamento.Famigliare(0, 0, "verde",
 				"Beppe");
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> produzioneOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		produzioneOvale.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "rosso", "Pino"));
+		produzioneOvale.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, colore, nomeGiocatore));
 		produzioneOvale.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "blu", "Bruno"));
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> palazzoConsiglio = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
 		palazzoConsiglio.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, "blu", "Bruno"));
@@ -1126,8 +1102,7 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
-		// TODO Auto-generated method stub
-
+		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
 	}
 
 	@Override

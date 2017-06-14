@@ -11,6 +11,7 @@ import main.model.Scomunica;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.ECarte;
+import main.model.enums.EColoriGiocatori;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
@@ -109,6 +110,12 @@ public class Client implements IClient {
 	private HashMap<String, Scomunica[]> playersExcommunications;
 
 	/**
+	 * Colori dei giocatori ("Nome","EColoriGiocatori") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link EColoriGiocatori}).
+	 */
+	private HashMap<String, EColoriGiocatori> playersColors;
+
+	/**
 	 * Nome del giocatore attualmente di turno, aggiornato all'ultimo
 	 * aggiornamento ricevuto dal Server (vedi {@link UpdateStats}).
 	 */
@@ -154,6 +161,7 @@ public class Client implements IClient {
 		playersResources = new HashMap<>();
 		playersPoints = new HashMap<>();
 		playersExcommunications = new HashMap<>();
+		playersColors = new HashMap<>();
 		churchSupportFase = false;
 		isGameStarted = false;
 
@@ -349,6 +357,15 @@ public class Client implements IClient {
 	 */
 	public HashMap<String, Scomunica[]> getPlayersExcommunications() {
 		return this.playersExcommunications;
+	}
+
+	/**
+	 * Ritorna i colori dei giocatori ("Nome","EColoriGiocatori") aggiornate
+	 * all'ultimo aggiornamento ricevuto dal Server (vedi
+	 * {@link EColoriGiocatori}).
+	 */
+	public HashMap<String, EColoriGiocatori> getPlayersColors() {
+		return this.playersColors;
 	}
 
 	/**
@@ -646,6 +663,8 @@ public class Client implements IClient {
 			this.playersPoints.put(playerName, update.getPuntiGiocatore());
 		if (update.getScomunicheGiocatore() != null)
 			this.playersExcommunications.put(playerName, update.getScomunicheGiocatore());
+		if (update.getColoreGiocatore() != null)
+			this.playersColors.put(playerName, update.getColoreGiocatore());
 
 		// handle server response
 		if (update.getAzioneGiocatore() != null) {
@@ -891,6 +910,8 @@ public class Client implements IClient {
 			this.playersDashboards = update.getPlanceGiocatori();
 		if (update.getScomunicheGiocatori() != null)
 			this.playersExcommunications = update.getScomunicheGiocatori();
+		if (update.getColoriGiocatori() != null)
+			this.playersColors = update.getColoriGiocatori();
 
 		ui.onGameStarted(update);
 	}
