@@ -15,6 +15,7 @@ import main.model.Personaggio;
 import main.model.Plancia;
 import main.model.Punti;
 import main.model.Risorsa;
+import main.model.Scomunica;
 import main.model.SpazioAzione;
 import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
@@ -358,7 +359,7 @@ public class CLI implements IClient {
 	 * Game command: [OvalProduction]
 	 */
 	private static void handleOvalProduction() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 			try {
 				movePawn(EAzioniGiocatore.ProduzioneOvale, 0);
 				// quit = true;
@@ -366,7 +367,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -374,7 +376,7 @@ public class CLI implements IClient {
 	 * Game command: [OvalHarvest]
 	 */
 	private static void handleOvalHarvest() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 			try {
 				movePawn(EAzioniGiocatore.RaccoltoOvale, 0);
 				// quit = true;
@@ -382,7 +384,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -390,7 +393,7 @@ public class CLI implements IClient {
 	 * Game command: [Familiar]
 	 */
 	private static void handleFamiliar() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 			try {
 				printDices(true, true);
 
@@ -408,7 +411,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 
 	}
@@ -434,7 +438,7 @@ public class CLI implements IClient {
 	 * Game command: [Tower]
 	 */
 	private static void handleTowers() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 
 			boolean nestedQuit = false;
 			Integer nestedPosition;
@@ -468,7 +472,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -476,7 +481,7 @@ public class CLI implements IClient {
 	 * Game command: [CouncilPalace]
 	 */
 	private static void handleCouncilPalace() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 
 			ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null };
 
@@ -501,7 +506,8 @@ public class CLI implements IClient {
 			throw new QuitException();
 
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -509,7 +515,7 @@ public class CLI implements IClient {
 	 * Game command: [Harvest]
 	 */
 	private static void handleHarvest() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 
 			printPointsAndResources(true, false);
 			printPawns(true, false);
@@ -542,7 +548,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -550,7 +557,7 @@ public class CLI implements IClient {
 	 * Game command: [Production]
 	 */
 	private static void handleProduction() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 
 			printPointsAndResources(true, false);
 			printPawns(true, false);
@@ -583,7 +590,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -591,7 +599,7 @@ public class CLI implements IClient {
 	 * Game command: [Market]
 	 */
 	private static void handleMarket() throws QuitException {
-		if (!getClient().isChurchSupportFase()) {
+		if (getClient().isGameActionAvailable()) {
 
 			ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
 
@@ -628,7 +636,8 @@ public class CLI implements IClient {
 			}
 			throw new QuitException();
 		} else {
-			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
+			System.out.println(
+					ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
 	}
 
@@ -1332,6 +1341,7 @@ public class CLI implements IClient {
 	 * Client command: [dash] (Player Dash printer).
 	 */
 	public static void printDashBoard() {
+		printExcommunications(true, false);
 		printPointsAndResources(true, false);
 		printDashboardsCards(true, true);
 
@@ -1350,6 +1360,7 @@ public class CLI implements IClient {
 			for (String key : playersDashboards.keySet()) {
 				if (!key.equals(getClient().getNickname())) {
 					System.out.println("\nPlayer dashboard: \"" + key + "\"");
+					printExcommunications(key, true, false);
 					printPointsAndResources(key, true, false);
 					printDashboardsCards(key, true, true);
 				}
@@ -1435,6 +1446,40 @@ public class CLI implements IClient {
 				System.out.format("FaithPoints%-7s", " = " + points.getPuntiFede());
 				System.out.format("MilitaryPoints%-7s", " = " + points.getPuntiMilitari());
 				System.out.format("VictoryPoints%-7s", " = " + points.getPuntiVittoria());
+				System.out.println();
+			}
+
+			if (printSep2)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
+	}
+
+	private static void printExcommunications(boolean printSep1, boolean printSep2) {
+		printExcommunications(getClient().getNickname(), printSep1, printSep2);
+	}
+
+	private static void printExcommunications(String nickname, boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		try {
+			if (printSep1)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+			Scomunica[] excommunications = client.getPlayersExcommunications().get(nickname);
+
+			if (excommunications != null) {
+				System.out.print(ANSI.YELLOW);
+				System.out.format("%-22s", "Excommuncations: ");
+				System.out.print(ANSI.RESET);
+				if (excommunications[0] != null)
+					System.out.format("Period 1%-11s", ": " + excommunications[0].getNome());
+				if (excommunications[1] != null)
+					System.out.format("Period 2%-11s", ": " + excommunications[1].getNome());
+				if (excommunications[2] != null)
+					System.out.format("Period 2%-11s", ": " + excommunications[2].getNome());
+
 				System.out.println();
 			}
 

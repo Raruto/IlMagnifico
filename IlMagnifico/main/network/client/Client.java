@@ -7,6 +7,7 @@ import main.model.Famigliare;
 import main.model.Plancia;
 import main.model.Punti;
 import main.model.Risorsa;
+import main.model.Scomunica;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.ECarte;
@@ -96,10 +97,16 @@ public class Client implements IClient {
 	private HashMap<String, Risorsa> playersResources;
 
 	/**
-	 * Risorse dei giocatori ("Nome","Punti") aggiornate all'ultimo
-	 * aggiornamento ricevuto dal Server (vedi {@link Punti}).
+	 * Punti dei giocatori ("Nome","Punti") aggiornate all'ultimo aggiornamento
+	 * ricevuto dal Server (vedi {@link Punti}).
 	 */
 	private HashMap<String, Punti> playersPoints;
+
+	/**
+	 * Scomuniche dei giocatori ("Nome","Scomunica[]") aggiornate all'ultimo
+	 * aggiornamento ricevuto dal Server (vedi {@link Scomunica}).
+	 */
+	private HashMap<String, Scomunica[]> playersExcommunications;
 
 	/**
 	 * Nome del giocatore attualmente di turno, aggiornato all'ultimo
@@ -121,6 +128,12 @@ public class Client implements IClient {
 	private boolean churchSupportFase;
 
 	/**
+	 * Flag usato per determinare se la partita in cui è inserito il giocatore è
+	 * iniziata o meno.
+	 */
+	private boolean isGameStarted;
+
+	/**
 	 * Flag usato per abilitare il Log sul Server.
 	 */
 	private final boolean LOG_ENABLED = Costants.CLIENT_ENABLE_LOG;
@@ -140,7 +153,9 @@ public class Client implements IClient {
 		playersFamilies = new HashMap<>();
 		playersResources = new HashMap<>();
 		playersPoints = new HashMap<>();
+		playersExcommunications = new HashMap<>();
 		churchSupportFase = false;
+		isGameStarted = false;
 
 		responseMap = new HashMap<>();
 		loadResponses();
@@ -329,6 +344,14 @@ public class Client implements IClient {
 	}
 
 	/**
+	 * Ritorna le Scomuniche dei giocatori ("Nome","Scomunica[]") aggiornate
+	 * all'ultimo aggiornamento ricevuto dal Server (vedi {@link Scomunica}).
+	 */
+	public HashMap<String, Scomunica[]> getPlayersExcommunications() {
+		return this.playersExcommunications;
+	}
+
+	/**
 	 * Ritorna il Nome del giocatore attualmente di turno, aggiornato all'ultimo
 	 * aggiornamento ricevuto dal Server (vedi {@link UpdateStats}).
 	 */
@@ -353,6 +376,26 @@ public class Client implements IClient {
 	public boolean isChurchSupportFase() {
 		return this.churchSupportFase;
 	}
+
+	/**
+	 * Ritorna True se la partita è iniziata.
+	 * 
+	 * @return isGameStarted
+	 */
+	public boolean isGameStarted() {
+		return this.isGameStarted;
+	}
+
+	/**
+	 * Ritorna True se il giocatore può effettuare un {@link EAzioniGiocatore}
+	 * (diversa da {@link EAzioniGiocatore#SostegnoChiesa}).
+	 * 
+	 * @return boolean
+	 */
+	public boolean isGameActionAvailable() {
+		return this.isGameStarted() && !isChurchSupportFase();
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// "Senders" (per l'invio di informazioni verso il Server, in Remoto).
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -601,6 +644,8 @@ public class Client implements IClient {
 			this.playersResources.put(playerName, update.getRisorseGiocatore());
 		if (update.getPuntiGiocatore() != null)
 			this.playersPoints.put(playerName, update.getPuntiGiocatore());
+		if (update.getScomunicheGiocatore() != null)
+			this.playersExcommunications.put(playerName, update.getScomunicheGiocatore());
 
 		// handle server response
 		if (update.getAzioneGiocatore() != null) {
@@ -775,6 +820,8 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onGameEnd(UpdateStats update) {
+		isGameStarted = false;
+
 		ui.onGameEnd(update);
 	}
 
@@ -832,6 +879,8 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onGameStarted(UpdateStats update) {
+		isGameStarted = true;
+
 		if (update.getRisorseGiocatori() != null)
 			this.playersResources = update.getRisorseGiocatori();
 		if (update.getPuntiGiocatori() != null)
@@ -840,6 +889,8 @@ public class Client implements IClient {
 			this.playersFamilies = update.getFamiglieGiocatori();
 		if (update.getPlanceGiocatori() != null)
 			this.playersDashboards = update.getPlanceGiocatori();
+		if (update.getScomunicheGiocatori() != null)
+			this.playersExcommunications = update.getScomunicheGiocatori();
 
 		ui.onGameStarted(update);
 	}

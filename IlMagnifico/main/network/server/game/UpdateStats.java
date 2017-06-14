@@ -9,6 +9,7 @@ import main.model.Giocatore;
 import main.model.Plancia;
 import main.model.Punti;
 import main.model.Risorsa;
+import main.model.Scomunica;
 import main.model.SpazioAzione;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
@@ -127,6 +128,8 @@ public class UpdateStats implements Serializable {
 	 */
 	private Famigliare[] famigliaGiocatore;
 
+	private Scomunica[] scomunicheGiocatore;
+
 	/**
 	 * Fase di gioco eseguita dal server (vedi {@link EFasiDiGioco}).
 	 * (tipicamente settato lato Server per la notifica agli altri giocatori
@@ -165,19 +168,19 @@ public class UpdateStats implements Serializable {
 	 */
 	private HashMap<String, Famigliare[]> famiglieGiocatori;
 
+	private HashMap<String, Scomunica[]> scomunicheGiocatori;
+
 	/**
 	 * {@link SpazioAzione} aggiornato (tipicamente settato lato Server per la
 	 * notifica agli altri giocatori).
 	 */
 	private SpazioAzione spazioAzione;
-	
 
 	/**
 	 * {@link EColoriGiocatori} del giocatore che ha effettuato l'azione
 	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
 	 */
 	private EColoriGiocatori coloreGiocatore;
-	
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -223,7 +226,13 @@ public class UpdateStats implements Serializable {
 		this.famigliaGiocatore = new Famigliare[4];
 		for (int i = 0; i < 4; i++) {
 			this.famigliaGiocatore[i] = giocatore.getFamigliare(i);
-			//this.famigliaGiocatore[i].getGiocatore().getColore();
+			// this.famigliaGiocatore[i].getGiocatore().getColore();
+		}
+
+		this.scomunicheGiocatore = new Scomunica[3];
+		for (int i = 0; i < 3; i++) {
+			this.scomunicheGiocatore[i] = giocatore.getScomunica(i);
+			// this.famigliaGiocatore[i].getGiocatore().getColore();
 		}
 
 		this.spazioAzione = spazioAzione;
@@ -250,21 +259,30 @@ public class UpdateStats implements Serializable {
 		this.risorseGiocatori = new HashMap<String, Risorsa>();
 		this.planceGiocatori = new HashMap<String, Plancia>();
 		this.famiglieGiocatori = new HashMap<String, Famigliare[]>();
+		this.scomunicheGiocatori = new HashMap<String, Scomunica[]>();
+
+		String nome;
 
 		Famigliare[] famiglia;
-		String nome;
+		Scomunica[] scomuniche;
 		for (Giocatore giocatore : giocatori) {
 			this.nomiGiocatori.add(nome = giocatore.getNome());
 
 			this.puntiGiocatori.put(nome, giocatore.getPunti());
 			this.risorseGiocatori.put(nome, giocatore.getRisorse());
 			this.planceGiocatori.put(nome, giocatore.getPlancia());
+
 			famiglia = new Famigliare[4];
 			for (int i = 0; i < 4; i++) {
 				famiglia[i] = giocatore.getFamigliare(i);
 			}
-
 			this.famiglieGiocatori.put(nome, famiglia);
+
+			scomuniche = new Scomunica[3];
+			for (int i = 0; i < 3; i++) {
+				scomuniche[i] = giocatore.getScomunica(i);
+			}
+			this.scomunicheGiocatori.put(nome, scomuniche);
 		}
 	}
 
@@ -368,6 +386,10 @@ public class UpdateStats implements Serializable {
 		return this.famigliaGiocatore;
 	}
 
+	public Scomunica[] getScomunicheGiocatore() {
+		return this.scomunicheGiocatore;
+	}
+
 	/**
 	 * Ritorna True se la Chiesa e' stata supportata dal giocatore. (tipicamente
 	 * settato lato Client per la richiesta di supporto della chiesa e lato
@@ -462,17 +484,21 @@ public class UpdateStats implements Serializable {
 	}
 
 	/**
-	 * Ritorna ifamigliari dei giocatori <"Nome","Famigliare[]"> (vedi
+	 * Ritorna i famigliari dei giocatori <"Nome","Famigliare[]"> (vedi
 	 * {@link Famigliare}). (tipicamente settato lato Server).
 	 */
 	public HashMap<String, Famigliare[]> getFamiglieGiocatori() {
 		return this.famiglieGiocatori;
 	}
 
+	public HashMap<String, Scomunica[]> getScomunicheGiocatori() {
+		return this.scomunicheGiocatori;
+	}
+
 	///////////////////////////////////////////////////////////////////
 	// TODO: verificare quale dei seguenti metodi è possbile cancellare
 	///////////////////////////////////////////////////////////////////
-	
+
 	public void setColorePedina(EColoriPedine colore) {
 		this.colorePedinaSpostata = colore;
 	}
