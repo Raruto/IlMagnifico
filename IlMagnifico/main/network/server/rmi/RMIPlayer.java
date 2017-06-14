@@ -9,7 +9,7 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * Estende {@link RemotePlayer} implementando le funzionalità di comunicazione
+ * Estende {@link RemotePlayer} implementando le funzionalitï¿½ di comunicazione
  * al {@link Giocatore} Client associatogli.
  */
 public class RMIPlayer extends RemotePlayer {
@@ -41,15 +41,13 @@ public class RMIPlayer extends RemotePlayer {
 	 *            nome del giocatore MITTENTE del messaggio.
 	 * @param message
 	 *            messaggio da inviare.
-	 * @param privateMessage
-	 *            True se il messaggio è privato, False se pubblico.
 	 * @throws NetworkException
-	 *             se il client non è raggiungibile.
+	 *             se il client non e' raggiungibile.
 	 */
 	@Override
-	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
+	public void onChatMessage(String author, String message) throws NetworkException {
 		try {
-			clientInterface.notifyChatMessage(author, message, privateMessage);
+			clientInterface.notifyChatMessage(author, message);
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		}
@@ -60,7 +58,7 @@ public class RMIPlayer extends RemotePlayer {
 	 * 
 	 * @param update {@link UpdateStats}
 	 * 
-	 * @throws NetworkException se il client non è raggiungibile.
+	 * @throws NetworkException se il client non ï¿½ raggiungibile.
 	 */
 	@Override
 	public void onGameUpdate(UpdateStats update) throws NetworkException {

@@ -15,16 +15,14 @@ import main.network.server.game.UpdateStats;
 public interface IClient {
 
 	/**
-	 * Notifica che � arrivato un nuovo messaggio dalla chat.
+	 * Notifica che e' arrivato un nuovo messaggio dalla chat.
 	 * 
-	 * @param privateMessage
-	 *            "True" se il messaggio � privato, "False" se pubblico.
 	 * @param author
 	 *            autore del messaggio.
 	 * @param message
 	 *            corpo del messaggio.
 	 */
-	void onChatMessage(boolean privateMessage, String author, String message);
+	void onChatMessage(String author, String message);
 
 	/**
 	 * Metodo invocato dal Server ogni qualvolta si presenta un errore (es.

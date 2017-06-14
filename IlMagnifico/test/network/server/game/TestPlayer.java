@@ -12,7 +12,7 @@ public class TestPlayer extends RemotePlayer{
 	private static final long serialVersionUID = 5322904858021957193L;
 
 	@Override
-	public void onChatMessage(String author, String message, boolean privateMessage) throws NetworkException {
+	public void onChatMessage(String author, String message) throws NetworkException {
 		// TODO Auto-generated method stub
 		
 	}

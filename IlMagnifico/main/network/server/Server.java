@@ -21,12 +21,12 @@ import main.util.Costants;
 public class Server implements IServer {
 
 	/**
-	 * Porta in cui � aperta la comunicazione Socket.
+	 * Porta in cui e' aperta la comunicazione Socket.
 	 */
 	public static final int SOCKET_PORT = Costants.SOCKET_PORT;
 
 	/**
-	 * Porta in cui � aperta la comunicazione RMI.
+	 * Porta in cui e' aperta la comunicazione RMI.
 	 */
 	public static final int RMI_PORT = Costants.RMI_PORT;
 
@@ -280,7 +280,7 @@ public class Server implements IServer {
 
 				try {
 					remotePlayer.onChatMessage(ID,
-							"You have succesfully created and joined to room #" + room.getRoomNumber() + "!", true);
+							"You have succesfully created and joined to room #" + room.getRoomNumber() + "!");
 				} catch (NetworkException e) {
 					e.printStackTrace();
 				}
@@ -315,7 +315,7 @@ public class Server implements IServer {
 			for (RemotePlayer remotePlayer : players.values()) {
 				if (receiver.equals(remotePlayer.getNome())) {
 					try {
-						remotePlayer.onChatMessage(author, message, true);
+						remotePlayer.onChatMessage(author, message);
 					} catch (NetworkException e) {
 						e.printStackTrace();
 					}
@@ -336,7 +336,7 @@ public class Server implements IServer {
 				players.entrySet().stream().filter(remotePlayer -> (remotePlayer.getValue() != player))
 						.forEach(remotePlayer -> {
 							try {
-								remotePlayer.getValue().onChatMessage(author, message, false);
+								remotePlayer.getValue().onChatMessage(author, message);
 							} catch (NetworkException e) {
 								e.printStackTrace();
 							}

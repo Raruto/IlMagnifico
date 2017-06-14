@@ -191,14 +191,13 @@ public class SocketClient extends AbstractClient {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notifica al giocatore che � stato ricevuto un nuovo messaggio sulla chat.
+	 * Notifica al giocatore che e' stato ricevuto un nuovo messaggio sulla chat.
 	 */
 	private void notifyChatMessage() {
 		try {
 			String author = (String) inputStream.readObject();
 			String message = (String) inputStream.readObject();
-			boolean privateMessage = (boolean) inputStream.readObject();
-			getController().onChatMessage(privateMessage, author, message);
+			getController().onChatMessage(author, message);
 		} catch (ClassNotFoundException | ClassCastException | IOException e) {
 			System.err.println("Exception while handling server message");
 		}

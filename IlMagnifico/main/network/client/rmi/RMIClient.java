@@ -148,14 +148,12 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 *            nome del giocatore che ha inviato il messaggio.
 	 * @param message
 	 *            corpo del messaggio ricevuto.
-	 * @param privateMessage
-	 *            True se il messaggio e' privato, False se pubblico.
 	 * @throws RemoteException
 	 *             se il giocatore non e' raggiungibile dal server.
 	 */
 	@Override
-	public void notifyChatMessage(String author, String message, boolean privateMessage) throws RemoteException {
-		getController().onChatMessage(privateMessage, author, message);
+	public void notifyChatMessage(String author, String message) throws RemoteException {
+		getController().onChatMessage(author, message);
 	}
 
 	/**

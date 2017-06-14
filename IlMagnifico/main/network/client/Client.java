@@ -612,16 +612,14 @@ public class Client implements IClient {
 	/**
 	 * Notifica che e' arrivato un nuovo messaggio dalla chat.
 	 * 
-	 * @param privateMessage
-	 *            "True" se il messaggio e' privato, "False" se pubblico.
 	 * @param author
 	 *            autore del messaggio.
 	 * @param message
 	 *            corpo del messaggio.
 	 */
 	@Override
-	public void onChatMessage(boolean privateMessage, String author, String message) {
-		ui.onChatMessage(privateMessage, author, message);
+	public void onChatMessage(String author, String message) {
+		ui.onChatMessage(author, message);
 	}
 
 	/**

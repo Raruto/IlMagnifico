@@ -72,8 +72,8 @@ public class Room {
 	private Timer timer;
 
 	/**
-	 * Flag usato per indicare quando una Stanza e' ancora aperta (True) o chiusa
-	 * (False) all'aggiunta di nuovi giocatori.
+	 * Flag usato per indicare quando una Stanza e' ancora aperta (True) o
+	 * chiusa (False) all'aggiunta di nuovi giocatori.
 	 */
 	private boolean canJoin;
 
@@ -208,27 +208,13 @@ public class Room {
 	 * 
 	 * @param player
 	 * @param message
-	 * @param privateMessage
 	 */
-	private void logToPlayer(RemotePlayer player, String message, boolean privateMessage) {
+	private void logToPlayer(RemotePlayer player, String message) {
 		try {
-			player.onChatMessage(ID, message, privateMessage);
+			player.onChatMessage(ID, message);
 		} catch (NetworkException e) {
 			System.err.println("PLAYER_DISCONNECTED: \"" + player.getNome() + "\"\n(" + e.getMessage() + ")");
 		}
-	}
-
-	/**
-	 * Metodo usato per inviare un messaggio testuale di notifica, a UN SOLO
-	 * giocatore. Simile a
-	 * {@link #sendChatMessage(RemotePlayer, String, String)}, utile per
-	 * identificare la stanza attraverso il suo {@link #roomNumber}.
-	 * 
-	 * @param player
-	 * @param message
-	 */
-	private void logToPlayer(RemotePlayer player, String message) {
-		logToPlayer(player, message, true);
 	}
 
 	/**
@@ -241,7 +227,7 @@ public class Room {
 	 */
 	private void logToAllPlayers(String message) {
 		players.stream().forEach(remotePlayer -> {
-			logToPlayer(remotePlayer, message, false);
+			logToPlayer(remotePlayer, message);
 		});
 		log(message);
 	}
@@ -258,7 +244,7 @@ public class Room {
 	private void logToAllPlayersExceptOne(RemotePlayer expectThisPlayer, String message) {
 		players.stream().forEach(remotePlayer -> {
 			if (!remotePlayer.equals(expectThisPlayer))
-				logToPlayer(remotePlayer, message, false);
+				logToPlayer(remotePlayer, message);
 		});
 		log(message);
 	}
@@ -281,36 +267,29 @@ public class Room {
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players) {
 				if (receiver.equals(remotePlayer.getNome())) {
-					sendChatMessage(remotePlayer, player.getNome(), message, true);
+					// sendChatMessage(remotePlayer, player.getNome(), message);
+					try {
+						remotePlayer.onChatMessage(player.getNome(), message);
+					} catch (NetworkException e) {
+						logToAllPlayersExceptOne(player, "PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
+					}
 					return;
 				}
 			}
 			throw new PlayerNotFound();
 		} else {
 			players.stream().filter(remotePlayer -> remotePlayer != player)
-					.forEach(remotePlayer -> sendChatMessage(remotePlayer, player.getNome(), message, false));
-		}
-	}
-
-	/**
-	 * Send a chat message safely to a player.
-	 * 
-	 * @param player
-	 *            that should receive the message.
-	 * @param author
-	 *            nickname of the player that sent the message.
-	 * @param message
-	 *            body that should be sent.
-	 * @param privateMessage
-	 *            if message is private, false if public.
-	 */
-	private void sendChatMessage(RemotePlayer player, String author, String message, boolean privateMessage) {
-		try {
-			player.onChatMessage(author, message, privateMessage);
-		} catch (NetworkException e) {
-			// System.err.println("PLAYER_DISCONNECTED: \"" + player.getNome() +
-			// "\"\n(" + e.getMessage() + ")");
-			logToAllPlayersExceptOne(player, "PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
+					.forEach(remotePlayer -> /*
+												 * sendChatMessage(remotePlayer,
+												 * player.getNome(), message)
+												 */
+			{
+						try {
+							remotePlayer.onChatMessage(player.getNome(), message);
+						} catch (NetworkException e) {
+							logToAllPlayersExceptOne(player, "PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
+						}
+					});
 		}
 	}
 

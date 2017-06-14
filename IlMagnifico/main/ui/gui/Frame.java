@@ -993,7 +993,7 @@ public class Frame extends JFrame implements IClient {
 	// Eventi di risposta (scatenati dal Server sul Client)
 	/////////////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void onChatMessage(boolean privateMessage, String author, String message) {
+	public void onChatMessage(String author, String message) {
 		// TODO Auto-generated method stub
 
 	}

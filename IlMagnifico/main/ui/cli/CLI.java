@@ -1666,13 +1666,11 @@ public class CLI implements IClient {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public void onChatMessage(boolean privateMessage, String author, String message) {
-		// if (privateMessage) {
+	public void onChatMessage(String author, String message) {
 		if (author.equals(Costants.ROOM))
 			System.out.println(Costants.ROOM_ID + " " + message);
 		else
 			System.out.println("[" + author + "]" + " " + message);
-		// }
 	}
 
 	@Override
