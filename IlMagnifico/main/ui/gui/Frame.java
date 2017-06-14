@@ -18,7 +18,9 @@ import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.protocol.ConnectionTypes;
+import main.network.server.Server;
 import main.network.server.game.UpdateStats;
+import main.ui.cli.CLI;
 import main.ui.gui.aggiornamento.*;
 import main.ui.gui.aggiornamento.Aggiornamento;
 import main.ui.gui.aggiornamento.Giocatore;
@@ -36,6 +38,7 @@ import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.Scanner;
 
 public class Frame extends JFrame implements IClient {
 
@@ -61,12 +64,25 @@ public class Frame extends JFrame implements IClient {
 	private Plancia plancia;
 	private PlanciaAvversario planciaAvversari;
 
-	private Client client;
+	private static Client client;
 
-	public Client getClient() {
+	/**
+	 * Get Singleton Client
+	 * 
+	 * @return {@link Client}
+	 */
+	public static Client getClient() {
+		if (client == null) {
+			try {
+				client = new Client(new CLI());
+			} catch (ClientException e) {
+				e.printStackTrace();
+				System.err.println("Exiting...");
+			}
+		}
 		return client;
 	}
-	
+
 	// ATTRIBUTI PER AZIONI
 	private boolean servitoreSelezionato = false;
 	private Famigliare famigliareSelezionato = null;
@@ -75,16 +91,71 @@ public class Frame extends JFrame implements IClient {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Frame frame = new Frame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
+		Scanner scanner = new Scanner(System.in);
+		String inText = scanner.nextLine().toUpperCase();
+
+		if (inText.equals("S")) {
+			inText = ConnectionTypes.SOCKET.toString();
+		} else if (inText.equals("R")) {
+			inText = ConnectionTypes.RMI.toString();
+		}
+		// Default: RMI
+		else {
+			inText = ConnectionTypes.RMI.toString();
+			System.out.println("Connecting with RMI..");
+		}
+
+		boolean success = false;
+		int attempts = Costants.MAX_CONNECTION_ATTEMPTS;
+		int sec = Costants.CONNECTION_RETRY_SECONDS * 1000;
+		while (!success && attempts > 0) {
+			try {
+				attempts--;
+				Client client = getClient();
+				client.startClient(inText, Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
+				success = true;
+			} catch (ClientException e) {
+				if (attempts > 0) {
+					System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 + " seconds" + ", " + attempts
+							+ " attemps left)");
+					try {
+						Thread.sleep(sec);
+					} catch (InterruptedException ie) {
+						// TODO Auto-generated catch block
+					}
 				}
 			}
-		});
+		}
+
+		if (success) {
+			while (!getClient().isLogged()) {
+				System.out.print("Choose Player Name: ");
+				inText = scanner.nextLine();
+				getClient().loginPlayer(inText);
+			}
+			System.out.println();
+			
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						Frame frame = new Frame();
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+		}
+		else{
+			//System.err.println("Exiting...");
+			//System.exit(0);
+			
+			Server.main(args);
+		}
+		
+		scanner.close();
 	}
 
 	/**
@@ -114,7 +185,7 @@ public class Frame extends JFrame implements IClient {
 		colore = "rosso";
 		aggiornamento();
 		aggiornamento();
-
+/*
 		try {
 			this.client = new Client(this);
 
@@ -137,6 +208,7 @@ public class Frame extends JFrame implements IClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	public void aggiornamento() {
