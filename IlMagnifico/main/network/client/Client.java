@@ -1,5 +1,6 @@
 package main.network.client;
 
+import java.awt.Frame;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
@@ -60,6 +61,10 @@ public class Client implements IClient {
 	 */
 	private AbstractClient client;
 
+	/**
+	 * Interfaccia per la inviare eventi a {@link CLI} oppure {@link Frame} (a
+	 * seconda del tipo di interfaccia utilizzata per fare partire il client).
+	 */
 	private IClient ui;
 
 	/**
