@@ -358,46 +358,58 @@ public class CLI implements IClient {
 	 * Game command: [OvalProduction]
 	 */
 	private static void handleOvalProduction() throws QuitException {
-		try {
-			movePawn(EAzioniGiocatore.ProduzioneOvale, 0);
-			// quit = true;
-		} catch (QuitException e) {
+		if (!getClient().isChurchSupportFase()) {
+			try {
+				movePawn(EAzioniGiocatore.ProduzioneOvale, 0);
+				// quit = true;
+			} catch (QuitException e) {
+			}
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 	}
 
 	/**
 	 * Game command: [OvalHarvest]
 	 */
 	private static void handleOvalHarvest() throws QuitException {
-		try {
-			movePawn(EAzioniGiocatore.RaccoltoOvale, 0);
-			// quit = true;
-		} catch (QuitException e) {
+		if (!getClient().isChurchSupportFase()) {
+			try {
+				movePawn(EAzioniGiocatore.RaccoltoOvale, 0);
+				// quit = true;
+			} catch (QuitException e) {
+			}
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 	}
 
 	/**
 	 * Game command: [Familiar]
 	 */
 	private static void handleFamiliar() throws QuitException {
-		try {
-			printDices(true, true);
+		if (!getClient().isChurchSupportFase()) {
+			try {
+				printDices(true, true);
 
-			// System.out.println(Costants.ROW_SEPARATOR);
+				// System.out.println(Costants.ROW_SEPARATOR);
 
-			printPawns(false, true);
-			EColoriPedine color = choosePawnColor();
-			if (color != null) {
-				System.out.println();
-				printPointsAndResources(false, true);
-				incrementPawn(color);
-				// quit = true;
+				printPawns(false, true);
+				EColoriPedine color = choosePawnColor();
+				if (color != null) {
+					System.out.println();
+					printPointsAndResources(false, true);
+					incrementPawn(color);
+					// quit = true;
+				}
+			} catch (QuitException e) {
 			}
-		} catch (QuitException e) {
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 
 	}
 
@@ -405,13 +417,16 @@ public class CLI implements IClient {
 	 * Game command: [ChurchSupport]
 	 */
 	private static void handleChurchSupport() throws QuitException {
-		if (getClient().getLatestUpdate().getAzioneServer() == EFasiDiGioco.SostegnoChiesa) {
+		if (getClient().isChurchSupportFase()) {
 			try {
 				supportChurch();
 				// quit = true;
 			} catch (QuitException e) {
 			}
 			throw new QuitException();
+		} else {
+			System.out
+					.println(ANSI.YELLOW + "You can only support the Church at the end of each Period..." + ANSI.RESET);
 		}
 	}
 
@@ -419,179 +434,202 @@ public class CLI implements IClient {
 	 * Game command: [Tower]
 	 */
 	private static void handleTowers() throws QuitException {
+		if (!getClient().isChurchSupportFase()) {
 
-		boolean nestedQuit = false;
-		Integer nestedPosition;
+			boolean nestedQuit = false;
+			Integer nestedPosition;
 
-		while (!nestedQuit) {
-			// printTowerArea(true, true);
-			nestedPosition = chooseTowerArea();
-			if (nestedPosition != null) {
-				try {
-					ECostiCarte[] costs = chooseCardCost(nestedPosition);
+			while (!nestedQuit) {
+				// printTowerArea(true, true);
+				nestedPosition = chooseTowerArea();
+				if (nestedPosition != null) {
+					try {
+						ECostiCarte[] costs = chooseCardCost(nestedPosition);
 
-					if (costs == null) {
-						movePawn(EAzioniGiocatore.Torre, nestedPosition, true);
-					} else {
-						Client client = getClient();
-						EColoriPedine color = choosePawnColor();
+						if (costs == null) {
+							movePawn(EAzioniGiocatore.Torre, nestedPosition, true);
+						} else {
+							Client client = getClient();
+							EColoriPedine color = choosePawnColor();
 
-						if (color != null) {
-							client.movePawn(EAzioniGiocatore.Torre, color, nestedPosition, costs);
+							if (color != null) {
+								client.movePawn(EAzioniGiocatore.Torre, color, nestedPosition, costs);
+							}
+
 						}
 
+						// quit = true;
+						nestedQuit = true;
+					} catch (QuitException e) {
+						nestedQuit = false;
 					}
-
-					// quit = true;
+				} else
 					nestedQuit = true;
-				} catch (QuitException e) {
-					nestedQuit = false;
-				}
-			} else
-				nestedQuit = true;
+			}
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 	}
 
 	/**
 	 * Game command: [CouncilPalace]
 	 */
 	private static void handleCouncilPalace() throws QuitException {
-		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null };
+		if (!getClient().isChurchSupportFase()) {
 
-		printPointsAndResources(true, false);
-		printPawns(true, false);
+			ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null };
 
-		printCouncilArea(true, true);
+			printPointsAndResources(true, false);
+			printPawns(true, false);
 
-		try {
-			Client client = getClient();
-			// movePawn(EAzioniGiocatore.PalazzoConsiglio, 0);
-			EColoriPedine color = choosePawnColor();
+			printCouncilArea(true, true);
 
-			if (color != null) {
-				privileges[0] = chooseCouncilPrivilege(new ArrayList<ESceltePrivilegioDelConsiglio>());
-				client.movePawn(EAzioniGiocatore.PalazzoConsiglio, color, 0, privileges);
+			try {
+				Client client = getClient();
+				// movePawn(EAzioniGiocatore.PalazzoConsiglio, 0);
+				EColoriPedine color = choosePawnColor();
+
+				if (color != null) {
+					privileges[0] = chooseCouncilPrivilege(new ArrayList<ESceltePrivilegioDelConsiglio>());
+					client.movePawn(EAzioniGiocatore.PalazzoConsiglio, color, 0, privileges);
+				}
+
+				// quit = true;
+			} catch (QuitException e) {
 			}
+			throw new QuitException();
 
-			// quit = true;
-		} catch (QuitException e) {
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
-
 	}
 
 	/**
 	 * Game command: [Harvest]
 	 */
 	private static void handleHarvest() throws QuitException {
-		printPointsAndResources(true, false);
-		printPawns(true, false);
+		if (!getClient().isChurchSupportFase()) {
 
-		boolean nestedQuit = false;
+			printPointsAndResources(true, false);
+			printPawns(true, false);
 
-		while (!nestedQuit) {
-			printHarvestArea(true, true);
-			EAzioniGiocatore nestedAction = chooseHarvestArea();
-			if (nestedAction != null) {
-				try {
-					EEffettiPermanenti[] effects = choosePermanentTerritoriesEffects();
+			boolean nestedQuit = false;
 
-					if (effects == null)
-						movePawn(nestedAction, 0);
-					else {
-						Client client = getClient();
-						EColoriPedine color = choosePawnColor();
-						if (color != null) {
-							client.movePawn(nestedAction, color, 0, effects);
+			while (!nestedQuit) {
+				printHarvestArea(true, true);
+				EAzioniGiocatore nestedAction = chooseHarvestArea();
+				if (nestedAction != null) {
+					try {
+						EEffettiPermanenti[] effects = choosePermanentTerritoriesEffects();
+
+						if (effects == null)
+							movePawn(nestedAction, 0);
+						else {
+							Client client = getClient();
+							EColoriPedine color = choosePawnColor();
+							if (color != null) {
+								client.movePawn(nestedAction, color, 0, effects);
+							}
 						}
+						// quit = true;
+						nestedQuit = true;
+					} catch (QuitException e) {
+						nestedQuit = false;
 					}
-					// quit = true;
+				} else
 					nestedQuit = true;
-				} catch (QuitException e) {
-					nestedQuit = false;
-				}
-			} else
-				nestedQuit = true;
+			}
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 	}
 
 	/**
 	 * Game command: [Production]
 	 */
 	private static void handleProduction() throws QuitException {
+		if (!getClient().isChurchSupportFase()) {
 
-		printPointsAndResources(true, false);
-		printPawns(true, false);
+			printPointsAndResources(true, false);
+			printPawns(true, false);
 
-		boolean nestedQuit = false;
+			boolean nestedQuit = false;
 
-		while (!nestedQuit) {
-			printProductionArea(true, true);
-			EAzioniGiocatore nestedAction = chooseProductionArea();
-			if (nestedAction != null) {
-				try {
-					EEffettiPermanenti[] effects = choosePermanentBuildingsEffects();
+			while (!nestedQuit) {
+				printProductionArea(true, true);
+				EAzioniGiocatore nestedAction = chooseProductionArea();
+				if (nestedAction != null) {
+					try {
+						EEffettiPermanenti[] effects = choosePermanentBuildingsEffects();
 
-					if (effects == null)
-						movePawn(nestedAction, 0);
-					else {
-						Client client = getClient();
-						EColoriPedine color = choosePawnColor();
-						if (color != null) {
-							client.movePawn(nestedAction, color, 0, effects);
+						if (effects == null)
+							movePawn(nestedAction, 0);
+						else {
+							Client client = getClient();
+							EColoriPedine color = choosePawnColor();
+							if (color != null) {
+								client.movePawn(nestedAction, color, 0, effects);
+							}
 						}
+						// quit = true;
+						nestedQuit = true;
+					} catch (QuitException e) {
+						nestedQuit = false;
 					}
-					// quit = true;
+				} else
 					nestedQuit = true;
-				} catch (QuitException e) {
-					nestedQuit = false;
-				}
-			} else
-				nestedQuit = true;
+			}
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 	}
 
 	/**
 	 * Game command: [Market]
 	 */
 	private static void handleMarket() throws QuitException {
-		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
+		if (!getClient().isChurchSupportFase()) {
 
-		printPointsAndResources(true, false);
-		printPawns(true, false);
+			ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
 
-		Integer nestedPosition;
-		boolean nestedQuit = false;
+			printPointsAndResources(true, false);
+			printPawns(true, false);
 
-		while (!nestedQuit) {
-			printMarketArea(true, true);
-			nestedPosition = chooseMarketArea();
-			if (nestedPosition != null) {
-				try {
-					Client client = getClient();
-					// movePawn(action, nestedPosition, privilege);
-					EColoriPedine color = choosePawnColor();
+			Integer nestedPosition;
+			boolean nestedQuit = false;
 
-					if (color != null) {
-						if (nestedPosition == 3) {
-							privileges[0] = chooseCouncilPrivilege(new ArrayList<ESceltePrivilegioDelConsiglio>());
-							privileges[1] = chooseCouncilPrivilege(Arrays.asList(privileges));
+			while (!nestedQuit) {
+				printMarketArea(true, true);
+				nestedPosition = chooseMarketArea();
+				if (nestedPosition != null) {
+					try {
+						Client client = getClient();
+						// movePawn(action, nestedPosition, privilege);
+						EColoriPedine color = choosePawnColor();
+
+						if (color != null) {
+							if (nestedPosition == 3) {
+								privileges[0] = chooseCouncilPrivilege(new ArrayList<ESceltePrivilegioDelConsiglio>());
+								privileges[1] = chooseCouncilPrivilege(Arrays.asList(privileges));
+							}
+							client.movePawn(EAzioniGiocatore.Mercato, color, nestedPosition, privileges);
 						}
-						client.movePawn(EAzioniGiocatore.Mercato, color, nestedPosition, privileges);
-					}
 
+						nestedQuit = true;
+						// quit = true;
+					} catch (QuitException e) {
+						nestedQuit = false;
+					}
+				} else
 					nestedQuit = true;
-					// quit = true;
-				} catch (QuitException e) {
-					nestedQuit = false;
-				}
-			} else
-				nestedQuit = true;
+			}
+			throw new QuitException();
+		} else {
+			System.out.println(ANSI.YELLOW + "You must first support the Church or wait for other Players..." + ANSI.RESET);
 		}
-		throw new QuitException();
 	}
 
 	private static void incrementPawn(EColoriPedine color) throws QuitException {
@@ -1615,7 +1653,6 @@ public class CLI implements IClient {
 				handleChurchSupport();
 			} catch (QuitException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 	}
 

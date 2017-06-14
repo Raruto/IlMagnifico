@@ -108,10 +108,17 @@ public class Client implements IClient {
 	private String playerTurn;
 
 	/**
-	 * Copi di "Backup" dell'ultimo aggiornamento {@link UpdateStats} ricevuto
+	 * Copia di "Backup" dell'ultimo aggiornamento {@link UpdateStats} ricevuto
 	 * dal Server.
 	 */
 	private UpdateStats latestUpdate;
+
+	/**
+	 * Flag usato per determinare se il giocatore è abilitato ad effettuare una
+	 * richiesta di {@link EAzioniGiocatore#SostegnoChiesa} (aka. Rapporto con
+	 * il Vaticano).
+	 */
+	private boolean churchSupportFase;
 
 	/**
 	 * Flag usato per abilitare il Log sul Server.
@@ -133,6 +140,7 @@ public class Client implements IClient {
 		playersFamilies = new HashMap<>();
 		playersResources = new HashMap<>();
 		playersPoints = new HashMap<>();
+		churchSupportFase = false;
 
 		responseMap = new HashMap<>();
 		loadResponses();
@@ -336,6 +344,15 @@ public class Client implements IClient {
 		return this.latestUpdate;
 	}
 
+	/**
+	 * Ritorna True se è attualmente attivo {@link EFasiDiGioco#SostegnoChiesa}
+	 * (aka. Rapporto con il Vaticano).
+	 * 
+	 * @return churchSupportFase
+	 */
+	public boolean isChurchSupportFase() {
+		return this.churchSupportFase;
+	}
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// "Senders" (per l'invio di informazioni verso il Server, in Remoto).
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -605,6 +622,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onChurchSupport(UpdateStats update) {
+		this.churchSupportFase = true;
 		ui.onChurchSupport(update);
 	}
 
@@ -743,6 +761,7 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onPeriodEnd(UpdateStats update) {
+		this.churchSupportFase = false;
 		ui.onPeriodEnd(update);
 	}
 
@@ -885,4 +904,5 @@ public class Client implements IClient {
 		 */
 		void handle(UpdateStats update);
 	}
+
 }
