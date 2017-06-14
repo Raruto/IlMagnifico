@@ -63,6 +63,10 @@ public class Frame extends JFrame implements IClient {
 
 	private Client client;
 
+	public Client getClient() {
+		return client;
+	}
+	
 	// ATTRIBUTI PER AZIONI
 	private boolean servitoreSelezionato = false;
 	private Famigliare famigliareSelezionato = null;
@@ -86,7 +90,6 @@ public class Frame extends JFrame implements IClient {
 	/**
 	 * Create the frame.
 	 */
-
 	public Frame() {
 		setIconImage(
 				new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio.png"))
