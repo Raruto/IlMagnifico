@@ -22,6 +22,7 @@ import main.model.enums.ECarte;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
+import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
 import main.model.errors.Errors;
@@ -314,9 +315,9 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Available game commands: [Mercato], [Produzione], [ProduzioneOvale],
-	 * [Raccolto], [RaccoltoOvale], [PalazzoConsiglio], [Torre],
-	 * [SostegnoChiesa], [Famigliare]
+	 * Available game commands: [Market], [Production], [OvalProduction],
+	 * [Harvest], [OvalHarvest], [CouncilPalace], [Tower], [ChurchSupport],
+	 * [Familiar]
 	 */
 	private static void handleGameAction(EAzioniGiocatore action) throws QuitException {
 		switch (action) {
@@ -354,7 +355,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [ProduzioneOvale]
+	 * Game command: [OvalProduction]
 	 */
 	private static void handleOvalProduction() throws QuitException {
 		try {
@@ -366,7 +367,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [RaccoltoOvale]
+	 * Game command: [OvalHarvest]
 	 */
 	private static void handleOvalHarvest() throws QuitException {
 		try {
@@ -378,7 +379,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [Famigliare]
+	 * Game command: [Familiar]
 	 */
 	private static void handleFamiliar() throws QuitException {
 		try {
@@ -401,19 +402,21 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [SostegnoChiesa]
+	 * Game command: [ChurchSupport]
 	 */
 	private static void handleChurchSupport() throws QuitException {
-		try {
-			supportChurch();
-			// quit = true;
-		} catch (QuitException e) {
+		if (getClient().getLatestUpdate().getAzioneServer() == EFasiDiGioco.SostegnoChiesa) {
+			try {
+				supportChurch();
+				// quit = true;
+			} catch (QuitException e) {
+			}
+			throw new QuitException();
 		}
-		throw new QuitException();
 	}
 
 	/**
-	 * Game command: [Torre]
+	 * Game command: [Tower]
 	 */
 	private static void handleTowers() throws QuitException {
 
@@ -451,7 +454,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [PalazzoConsiglio]
+	 * Game command: [CouncilPalace]
 	 */
 	private static void handleCouncilPalace() throws QuitException {
 		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null };
@@ -479,7 +482,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [Raccolto]
+	 * Game command: [Harves]
 	 */
 	private static void handleHarvest() throws QuitException {
 		printPointsAndResources(true, false);
@@ -515,7 +518,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [Produzione]
+	 * Game command: [Production]
 	 */
 	private static void handleProduction() throws QuitException {
 
@@ -552,7 +555,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [Mercato]
+	 * Game command: [Market]
 	 */
 	private static void handleMarket() throws QuitException {
 		ESceltePrivilegioDelConsiglio[] privileges = new ESceltePrivilegioDelConsiglio[] { null, null };
