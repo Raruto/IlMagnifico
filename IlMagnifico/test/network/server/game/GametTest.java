@@ -355,8 +355,6 @@ public class GametTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("il turno corrente è:"+game.getTurno());
-		System.out.println("il periodo corrente è:"+game.getPeriodo());
 		assertTrue(game.getTurno() == 3);
 		assertTrue(game.getPeriodo() == 2);
 	}
