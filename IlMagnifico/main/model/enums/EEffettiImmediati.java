@@ -12,7 +12,7 @@ public enum EEffettiImmediati {
 	FALEGNAMERIA("falegnameria",0,0,0,0,0,3,0,0,0,"+3VP"),
 	SOSTEGNO_AL_VESCOVO("sostegno al vescovo",0,0,0,0,0,0,0,3,0,"+3FP"),
 	CAMPAGNA_MILITARE("campagna militare",0,3,0,0,0,0,0,0,0,"+3C"),
-	INNALZARE_UNA_STATUA("innalzare una statua",3,0,0,0,0,0,0,0,0,""), 
+	INNALZARE_UNA_STATUA("innalzare una statua",3,0,0,0,0,0,0,0,0,""), /*2 Privilegi del consiglio diversi tra loro*/
 	COSTRUIRE_LE_MURA1("costruire le mura",0,0,0,0,0,0,2,0,0,"+2MP"),
 	COSTRUIRE_LE_MURA2("costruire le mura",0,0,0,0,0,0,0,0,1,"+1CP"), 
 	COMBATTERE_LE_ERESIE("combattere le eresie",0,0,0,0,0,0,0,2,0,"+2FP"), 
@@ -20,12 +20,12 @@ public enum EEffettiImmediati {
 	OSPITARE_I_MENDICANTI("ospitare i mendicanti",0,0,0,0,4,0,0,0,0,"+4Sv"), 
 	RIPARARE_LA_CHIESA("riparare la chiesa",0,0,0,0,0,0,0,1,0,"+1FP"), 
 	CONTADINO("contadino",-1,0,0,0,0,0,0,0,0,""), 
-	CONDOTTIERO("condottiero",0,0,0,0,0,0,2,0,0,"+2MP"), 
+	CONDOTTIERO("condottiero",0,0,0,0,0,0,2,0,0,"+2MP"), /*3 Punti Militari*/
 	ARTIGIANO("artigiano",-1,0,0,0,0,0,0,0,0,""), 
 	DAMA("dama",-1,0,0,0,0,0,0,0,0,""), 
 	BADESSA1("badessa",0,0,0,0,0,0,0,1,0,"+1FP"), 
-	BADESSA2("badessa",-1,0,0,0,0,0,0,0,0,""),
-	CAVALIERE("cavaliere",3,0,0,0,0,0,0,0,0,""), 
+	BADESSA2("badessa",-1,0,0,0,0,0,0,0,0,""), /*Non implementato?*/
+	CAVALIERE("cavaliere",3,0,0,0,0,0,0,0,0,""), /*1 Privilegio del consiglio*/
 	PREDICATORE( "predicatore",0,0,0,0,0,0,0,4,0,"+4FP"),
 	COSTRUTTORE("costruttore",-1,0,0,0,0,0,0,0,0,""), 
 	FORESTA("foresta",0,0,1,0,0,0,0,0,0,"+1W"), 
