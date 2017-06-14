@@ -385,7 +385,6 @@ public class GametTest {
 			for (int i = 1; i < 4; i++) {
 				game.getGiocatoreDiTurno().getFamigliare(i).setPosizionato(true);
 			}
-			System.out.println("il nome del prossimo giocatore è:"+game.giocatoreDelTurnoSuccessivo(game.getGiocatoreDiTurno()).getNome());
 			UpdateStats update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 			update.setColorePedina(EColoriPedine.Nera);
 			update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
