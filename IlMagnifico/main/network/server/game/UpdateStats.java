@@ -128,6 +128,12 @@ public class UpdateStats implements Serializable {
 	 */
 	private Famigliare[] famigliaGiocatore;
 
+	/**
+	 * Scomuniche del giocatore che ha eseguito l'azione (vedi
+	 * {@link Scomunica}). (tipicamente settato lato Server per la notifica
+	 * agli altri giocatori delle scomuniche dei famigliari del giocatore che ha
+	 * svolto l'azione di gioco presso il server).
+	 */
 	private Scomunica[] scomunicheGiocatore;
 
 	/**
@@ -168,6 +174,10 @@ public class UpdateStats implements Serializable {
 	 */
 	private HashMap<String, Famigliare[]> famiglieGiocatori;
 
+	/**
+	 * Scomuniche dei giocatori (vedi {@link Scomunica}). (tipicamente settato
+	 * lato Server).
+	 */
 	private HashMap<String, Scomunica[]> scomunicheGiocatori;
 
 	/**
@@ -232,7 +242,6 @@ public class UpdateStats implements Serializable {
 		this.scomunicheGiocatore = new Scomunica[3];
 		for (int i = 0; i < 3; i++) {
 			this.scomunicheGiocatore[i] = giocatore.getScomunica(i);
-			// this.famigliaGiocatore[i].getGiocatore().getColore();
 		}
 
 		this.spazioAzione = spazioAzione;
@@ -386,6 +395,12 @@ public class UpdateStats implements Serializable {
 		return this.famigliaGiocatore;
 	}
 
+	/**
+	 * Ritorna le Scomuniche del giocatore che ha eseguito/richiesto l'azione
+	 * (vedi {@link Scomunica}). (tipicamente settato lato Server per la
+	 * notifica agli altri giocatori delle scomuniche del
+	 * giocatore che ha svolto l'azione di gioco presso il server).
+	 */
 	public Scomunica[] getScomunicheGiocatore() {
 		return this.scomunicheGiocatore;
 	}
@@ -491,6 +506,10 @@ public class UpdateStats implements Serializable {
 		return this.famiglieGiocatori;
 	}
 
+	/**
+	 * Ritorna le scomuniche dei giocatori <"Nome","Scomunica[]"> (vedi
+	 * {@link Scomunica}). (tipicamente settato lato Server).
+	 */
 	public HashMap<String, Scomunica[]> getScomunicheGiocatori() {
 		return this.scomunicheGiocatori;
 	}
