@@ -7,7 +7,7 @@ import main.ui.gui.Frame;
 import main.util.Costants;
 
 public class StartOneUI {
-	private static Object inText;
+	private static String inText;
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
