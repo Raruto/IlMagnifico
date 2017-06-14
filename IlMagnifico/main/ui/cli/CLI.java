@@ -1607,8 +1607,13 @@ public class CLI implements IClient {
 
 	@Override
 	public void onChurchSupport(UpdateStats update) {
-		// TODO Auto-generated method stub
-
+		if (update.getNomiGiocatori().contains(getClient().getNickname()))
+			try {
+				handleChurchSupport();
+			} catch (QuitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	@Override
