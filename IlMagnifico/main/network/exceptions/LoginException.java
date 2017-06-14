@@ -3,8 +3,8 @@ package main.network.exceptions;
 import main.network.NetworkException;
 
 /**
- * Eccezione scatenata quando un altro giocatore con lo stesso nome si è già
- * identificato sul server (ha già eseguito il login con lo stesso nickname).
+ * Eccezione scatenata quando un altro giocatore con lo stesso nome si e' gia'
+ * identificato sul server (ha gia' eseguito il login con lo stesso nickname).
  * Basata su {@link NetworkException}.
  */
 public class LoginException extends NetworkException {

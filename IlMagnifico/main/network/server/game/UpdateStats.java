@@ -532,7 +532,7 @@ public class UpdateStats implements Serializable {
 	}
 
 	///////////////////////////////////////////////////////////////////
-	// TODO: verificare quale dei seguenti metodi è possbile cancellare
+	// TODO: verificare quale dei seguenti metodi è possibile cancellare
 	///////////////////////////////////////////////////////////////////
 
 	public void setColorePedina(EColoriPedine colore) {

@@ -3,8 +3,8 @@ package main.network.server.game.exceptions;
 import main.network.NetworkException;
 
 /**
- * Eccezione scatenata durante l'accesso ad stanza esistente (ad esempio non è
- * stata trovata alcuna stanza o la stanza è piena). Basata su
+ * Eccezione scatenata durante l'accesso ad stanza esistente (ad esempio non e'
+ * stata trovata alcuna stanza o la stanza e' piena). Basata su
  * {@link NetworkException}.
  */
 public class JoinRoomException extends NetworkException {
@@ -35,7 +35,7 @@ public class JoinRoomException extends NetworkException {
 	 * Costruttore.
 	 * 
 	 * @param message
-	 *            messagggio di erore.
+	 *            messaggio di errore.
 	 * @param cause
 	 *            causa dell'errore.
 	 */

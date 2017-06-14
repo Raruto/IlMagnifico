@@ -5,7 +5,7 @@ import java.io.IOException;
 import main.model.errors.Errors;
 
 /**
- * Eccezione scatenta quando un giocatore tenta di eseguire un'azione di gioco
+ * Eccezione scatenata quando un giocatore tenta di eseguire un'azione di gioco
  * illegale presso il server. Scatenata solo dal server del gioco (usata lato
  * client per identificare la causa dell'eccezione). Basata su {@link IOException}.
  */

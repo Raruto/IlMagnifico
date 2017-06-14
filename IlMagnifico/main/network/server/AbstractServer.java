@@ -2,7 +2,7 @@ package main.network.server;
 
 /**
  * Classe che rappresenta l'astrazione necessaria per le comunicazioni del
- * server. Estendendo questa classe è possibile utilizzare qualsiasi tipo di
+ * server. Estendendo questa classe e' possibile utilizzare qualsiasi tipo di
  * connessione (es. RMI o Socket). L'interfaccia {@link IServer} funziona come
  * controller server e callback handler.
  */

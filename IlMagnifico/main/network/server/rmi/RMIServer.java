@@ -152,7 +152,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             se il destinatario non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 * @throws RemoteException
 	 *             se il server non e' raggiungibile.
@@ -187,6 +187,6 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 	 */
 	@Override
 	public void send(Object object) throws RemoteException {
-		// TODO Auto-generated catch block
+		getController().send(object);
 	}
 }

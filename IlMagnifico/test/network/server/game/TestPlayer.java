@@ -1,5 +1,7 @@
 package test.network.server.game;
 
+import java.rmi.RemoteException;
+
 import main.network.NetworkException;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
@@ -24,7 +26,7 @@ public class TestPlayer extends RemotePlayer{
 	}
 
 	@Override
-	public void send(Object object) throws NetworkException {
+	public void send(Object object) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}

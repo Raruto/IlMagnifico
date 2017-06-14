@@ -1,6 +1,7 @@
 package main.network.server;
 
-import main.network.NetworkException;
+import java.rmi.RemoteException;
+
 import main.network.exceptions.LoginException;
 import main.network.exceptions.PlayerNotFound;
 import main.network.server.game.RemotePlayer;
@@ -23,7 +24,7 @@ public interface IServer {
 	 *            riferimento al giocatore che ha effettuato la richiesta (es.
 	 *            {@link RMIPlayer}, {@link SocketPlayer}).
 	 * @throws LoginException
-	 *             se esiste già un altro giocatore con il nome fornito.
+	 *             se esiste gia' un altro giocatore con il nome fornito.
 	 */
 	void loginPlayer(String nickname, RemotePlayer remotePlayer) throws LoginException;
 
@@ -42,7 +43,7 @@ public interface IServer {
 	 * @param remotePlayer
 	 *            giocatore remoto da aggiungere.
 	 * @throws JoinRoomException
-	 *             se non è stata trovata alcuna stanza disponibile.
+	 *             se non ï¿½ stata trovata alcuna stanza disponibile.
 	 */
 	void joinFirstAvailableRoom(RemotePlayer remotePlayer) throws JoinRoomException;
 
@@ -66,11 +67,11 @@ public interface IServer {
 	 *            MITTENTE del messaggio.
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verrà inviato a tutti i giocatori.
+	 *            verra' inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             se il destinatario non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 */
 	void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound;
@@ -78,5 +79,5 @@ public interface IServer {
 	/**
 	 * Metodo per il "debug"
 	 */
-	void send(Object object) throws NetworkException;
+	void send(Object object) throws RemoteException;
 }

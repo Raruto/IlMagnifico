@@ -1,11 +1,11 @@
 package main.network.exceptions;
 
-import main.network.exceptions.LogicException;
+import main.network.NetworkException;
 
 /**
  * Eccezione scatenata quando non viene trovato un giocatore.
  */
-public class PlayerNotFound extends LogicException {
+public class PlayerNotFound extends NetworkException {
 
 	/**
 	 * Serial Version UID

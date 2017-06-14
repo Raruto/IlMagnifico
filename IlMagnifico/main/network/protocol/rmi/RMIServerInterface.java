@@ -26,9 +26,9 @@ public interface RMIServerInterface extends Remote {
 	 * @return token di sessione che identifica in modo univoco l'utente sul
 	 *         Server.
 	 * @throws LoginException
-	 *             se esiste già un altro giocatore con il nome fornito.
+	 *             se esiste gia' un altro giocatore con il nome fornito.
 	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 */
 	String sendLoginRequest(String nickname, RMIClientInterface player) throws IOException;
 
@@ -41,15 +41,15 @@ public interface RMIServerInterface extends Remote {
 	 *            (MITTENTE).
 	 * @param receiver
 	 *            nome del giocatore che dovrebbe ricevere il messaggio
-	 *            (DESTINATARIO). Se null il messaggio verrà inviato a tutti i
+	 *            (DESTINATARIO). Se null il messaggio verra' inviato a tutti i
 	 *            giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             se il destinatario non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 */
 	void sendChatMessage(String sessionToken, String receiver, String message) throws IOException;
 
@@ -62,7 +62,7 @@ public interface RMIServerInterface extends Remote {
 	 * @param requestedAction
 	 *            richiesta del giocatore (vedi {@link UpdateStats}).
 	 * @throws RemoteException
-	 *             se il server non è raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 * @throws GameException
 	 *             se il giocatore sta tentando di eseguire un azione illegale.
 	 */

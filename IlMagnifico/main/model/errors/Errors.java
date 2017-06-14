@@ -6,7 +6,8 @@ package main.model.errors;
  */
 public enum Errors {
 	NO_ERROR("Everything seems to be fine!"), 
-	GENERIC_ERROR("Generic error, mainly used for testing."),
+	GENERIC_ERROR("Generic error..."),
+	PLAYER_NOT_FOUND("PLAYER_NOT_FOUND"),
 	GAME_NOT_STARTED("GAME_NOT_STARTED"), 
 	NOT_YOUR_TURN("NOT_YOUR_TURN"),
 	GAME_ENDED("GAME_ENDED"),

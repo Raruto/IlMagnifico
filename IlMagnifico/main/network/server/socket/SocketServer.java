@@ -103,7 +103,7 @@ public class SocketServer extends AbstractServer {
 		private final transient IServer server;
 
 		/**
-		 * Socket attraverso il quale il giocatore può comunicare con il Server
+		 * Socket attraverso il quale il giocatore puo' comunicare con il Server
 		 * e viceversa.
 		 */
 		private final transient Socket socket;
@@ -298,10 +298,10 @@ public class SocketServer extends AbstractServer {
 		}
 
 		/**
-		 * Notifica al Client che si è verificato un errore.
+		 * Notifica al Client che si ï¿½ verificato un errore.
 		 * 
 		 * @param errorCode
-		 *            codice d'errore che lo identific (vedi {@link Errors}).
+		 *            codice d'errore che lo identifica (vedi {@link Errors}).
 		 */
 		private void notifyActionNotValid(String errorCode) {
 			synchronized (OUTPUT_MUTEX) {

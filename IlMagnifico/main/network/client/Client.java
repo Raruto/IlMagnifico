@@ -197,7 +197,6 @@ public class Client implements IClient {
 		responseMap.put(EAzioniGiocatore.RaccoltoOvale, this::onHarvestOval);
 		responseMap.put(EAzioniGiocatore.ProduzioneOvale, this::onProductionOval);
 		responseMap.put(EAzioniGiocatore.Famigliare, this::onPayServant);
-
 	}
 
 	/**
@@ -409,7 +408,7 @@ public class Client implements IClient {
 	}
 
 	/**
-	 * Ritorna True se il giocatore può effettuare un {@link EAzioniGiocatore}
+	 * Ritorna True se il giocatore puo' effettuare un {@link EAzioniGiocatore}
 	 * (diversa da {@link EAzioniGiocatore#SostegnoChiesa}).
 	 * 
 	 * @return boolean
@@ -451,8 +450,7 @@ public class Client implements IClient {
 	 * Callback per inviare un messaggio sulla chat.
 	 * 
 	 * @param nickname
-	 *            del ricevitore del ricevitore se e' un messaggio privato,
-	 *            altrimenti null.
+	 *            del destinatario se e' un messaggio privato, altrimenti null.
 	 * @param messaggio
 	 *            da inviare.
 	 */
@@ -580,7 +578,7 @@ public class Client implements IClient {
 	 * Invia una richiesta di supportare o meno il Vaticano ().
 	 * 
 	 * @param isSupported
-	 *            se True il Vaticano sarà supportato dal giocatore, False
+	 *            se True il Vaticano sara' supportato dal giocatore, False
 	 *            altrimenti.
 	 */
 	public void supportChurch(boolean isSupported) {

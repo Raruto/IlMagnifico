@@ -1,5 +1,6 @@
 package main.network.server;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -176,7 +177,7 @@ public class Server implements IServer {
 	 *            riferimento al giocatore che ha effettuato la richiesta (es.
 	 *            {@link RMIPlayer}, {@link SocketPlayer}).
 	 * @throws LoginException
-	 *             se esiste gi� un altro giocatore con il nome fornito.
+	 *             se esiste gia' un altro giocatore con il nome fornito.
 	 */
 	@Override
 	public void loginPlayer(String nickname, RemotePlayer player) throws LoginException {
@@ -240,7 +241,7 @@ public class Server implements IServer {
 	 * @param player
 	 *            riferimento al giocatore che ha fatto la richiesta.
 	 * @throws RoomFullException
-	 *             se la Stanza � non disponibile.
+	 *             se la Stanza e' non disponibile.
 	 */
 	private void joinLastRoom(RemotePlayer player) throws RoomFullException {
 		Room lastRoom = rooms.isEmpty() ? null : rooms.get(rooms.size() - 1);
@@ -297,11 +298,11 @@ public class Server implements IServer {
 	 *            MITTENTE del messaggio.
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verr� inviato a tutti i giocatori.
+	 *            verra' inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             se il ricevitore non non corrisponde a nessun giocatore
+	 *             se il destinatario non non corrisponde a nessun giocatore
 	 *             presente sul server.
 	 */
 	@Override
@@ -348,7 +349,7 @@ public class Server implements IServer {
 	 * Metodo per il "debug"
 	 */
 	@Override
-	public void send(Object object) throws NetworkException {
-		// TODO Auto-generated method stub
+	public void send(Object object) throws RemoteException {
+		System.out.println(object.toString());
 	}
 }

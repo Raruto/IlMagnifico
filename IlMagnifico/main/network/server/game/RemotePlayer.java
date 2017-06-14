@@ -1,5 +1,7 @@
 package main.network.server.game;
 
+import java.rmi.RemoteException;
+
 import main.model.Giocatore;
 import main.network.NetworkException;
 
@@ -29,6 +31,7 @@ public abstract class RemotePlayer extends Giocatore {
 	 */
 	protected RemotePlayer() {
 		super();
+		setOnline(true);
 	}
 
 	/**
@@ -95,5 +98,5 @@ public abstract class RemotePlayer extends Giocatore {
 	/**
 	 * Metodo per il "debug"
 	 */
-	public abstract void send(Object object) throws NetworkException;
+	public abstract void send(Object object) throws RemoteException;
 }

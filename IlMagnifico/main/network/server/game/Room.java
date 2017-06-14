@@ -145,7 +145,7 @@ public class Room {
 	 * Aggiunge un giocatore alla Stanza .
 	 * 
 	 * @param player
-	 *            riferimento al giocatore che da aggiugere alla Stanza (vedi
+	 *            riferimento al giocatore che da aggiungere alla Stanza (vedi
 	 *            {@link RemotePlayer}).
 	 * @throws RoomFullException
 	 *             se la stanza e' chiusa e nessun altro giocatore puo'
@@ -250,24 +250,23 @@ public class Room {
 	}
 
 	/**
-	 * Send a chat message to all players or to a specific player.
+	 * Invia un messaggio di chat a tutti i giocatori o un giocatore specifico.
 	 * 
 	 * @param player
-	 *            that is sending the message.
+	 *            MITTENTE del messaggio.
 	 * @param receiver
-	 *            nickname of the player that should receive the message. If
-	 *            null the message will be dispatched to all players.
+	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
+	 *            verra' inviato a tutti i giocatori.
 	 * @param message
-	 *            to send.
+	 *            messaggio da inviare.
 	 * @throws PlayerNotFound
-	 *             if the receiver is not null and not match any players in the
-	 *             room.
+	 *             se il destinatario non non corrisponde a nessun giocatore
+	 *             presente sul server.
 	 */
 	public void sendChatMessage(RemotePlayer player, String receiver, String message) throws PlayerNotFound {
 		if (receiver != null) {
 			for (RemotePlayer remotePlayer : players) {
 				if (receiver.equals(remotePlayer.getNome())) {
-					// sendChatMessage(remotePlayer, player.getNome(), message);
 					try {
 						remotePlayer.onChatMessage(player.getNome(), message);
 					} catch (NetworkException e) {
@@ -278,18 +277,13 @@ public class Room {
 			}
 			throw new PlayerNotFound();
 		} else {
-			players.stream().filter(remotePlayer -> remotePlayer != player)
-					.forEach(remotePlayer -> /*
-												 * sendChatMessage(remotePlayer,
-												 * player.getNome(), message)
-												 */
-			{
-						try {
-							remotePlayer.onChatMessage(player.getNome(), message);
-						} catch (NetworkException e) {
-							logToAllPlayersExceptOne(player, "PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
-						}
-					});
+			players.stream().filter(remotePlayer -> remotePlayer != player).forEach(remotePlayer -> {
+				try {
+					remotePlayer.onChatMessage(player.getNome(), message);
+				} catch (NetworkException e) {
+					logToAllPlayersExceptOne(player, "PLAYER_DISCONNECTED: \"" + player.getNome() + "\"");
+				}
+			});
 		}
 	}
 
@@ -298,8 +292,6 @@ public class Room {
 			try {
 				p.onGameUpdate(update);
 			} catch (NetworkException e) {
-				// System.err.println("PLAYER_DISCONNECTED: \"" + p.getNome() +
-				// "\"\n(" + e.getMessage() + ")");
 				logToAllPlayersExceptOne(p, ANSI.YELLOW + "PLAYER_DISCONNECTED: \"" + p.getNome() + "\"" + ANSI.RESET);
 			}
 		});
@@ -436,7 +428,7 @@ public class Room {
 			this.player = player;
 		}
 
-		/*
+		/**
 		 * Metodo chiamato dal {@link TimerTask}.
 		 */
 		@Override

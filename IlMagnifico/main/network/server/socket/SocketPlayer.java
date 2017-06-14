@@ -2,6 +2,7 @@ package main.network.server.socket;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.rmi.RemoteException;
 
 import main.model.Giocatore;
 import main.network.NetworkException;
@@ -10,7 +11,7 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * Estende {@link RemotePlayer} implementando le funzionalit� di comunicazione
+ * Estende {@link RemotePlayer} implementando le funzionalita' di comunicazione
  * al {@link Giocatore} Client associatogli.
  */
 public class SocketPlayer extends RemotePlayer {
@@ -75,12 +76,12 @@ public class SocketPlayer extends RemotePlayer {
 		}
 	}
 
-	/*
+	/**
 	 * Invia al giocatore un aggiornamento sullo stato della partita.
 	 * 
 	 * @param update {@link UpdateStats}
 	 * 
-	 * @throws NetworkException se il client non � raggiungibile.
+	 * @throws NetworkException se il client non e' raggiungibile.
 	 */
 	@Override
 	public void onGameUpdate(UpdateStats update) throws NetworkException {
@@ -99,7 +100,7 @@ public class SocketPlayer extends RemotePlayer {
 	 * Metodo per il "debug"
 	 */
 	@Override
-	public void send(Object object) throws NetworkException {
+	public void send(Object object) throws RemoteException {
 		// TODO Auto-generated method stub
 
 	}

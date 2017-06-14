@@ -9,7 +9,7 @@ import main.network.server.game.RemotePlayer;
 import main.network.server.game.UpdateStats;
 
 /**
- * Estende {@link RemotePlayer} implementando le funzionalit� di comunicazione
+ * Estende {@link RemotePlayer} implementando le funzionalita' di comunicazione
  * al {@link Giocatore} Client associatogli.
  */
 public class RMIPlayer extends RemotePlayer {
@@ -53,12 +53,14 @@ public class RMIPlayer extends RemotePlayer {
 		}
 	}
 
-	/*
+	/**
 	 * Invia al giocatore un aggiornamento sullo stato della partita.
 	 * 
-	 * @param update {@link UpdateStats}
+	 * @param update
+	 *            {@link UpdateStats}
 	 * 
-	 * @throws NetworkException se il client non � raggiungibile.
+	 * @throws NetworkException
+	 *             se il client non e' raggiungibile.
 	 */
 	@Override
 	public void onGameUpdate(UpdateStats update) throws NetworkException {
@@ -73,11 +75,7 @@ public class RMIPlayer extends RemotePlayer {
 	 * Metodo per il "debug"
 	 */
 	@Override
-	public void send(Object object) throws NetworkException {
-		try {
-			clientInterface.notify(object);
-		} catch (RemoteException e) {
-			throw new NetworkException(e);
-		}
+	public void send(Object object) throws RemoteException {
+		clientInterface.notify(object);
 	}
 }

@@ -8,6 +8,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import main.model.enums.EAzioniGiocatore;
+import main.model.errors.Errors;
 import main.network.NetworkException;
 import main.network.client.AbstractClient;
 import main.network.client.ClientException;
@@ -75,7 +76,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * @param nickname
 	 *            nome da utilizzare per identificarsi al server.
 	 * @throws NetworkException
-	 *             se il server non � raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 */
 	@Override
 	public void sendLoginRequest(String nickname) throws NetworkException {
@@ -93,7 +94,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * 
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verr� inviato a tutti i giocatori.
+	 *            verra' inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws NetworkException
@@ -107,9 +108,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		} catch (RemoteException e) {
 			throw new NetworkException(e);
 		} catch (PlayerNotFound e) {
-			// getController().onActionNotValid(ErrorCodes.ERROR_CHAT_PLAYER_NOT_FOUND);
+			getController().onActionNotValid(Errors.PLAYER_NOT_FOUND.toString());
 		} catch (IOException e) {
-			// getController().onActionNotValid(ErrorCodes.ERROR_GENERIC_SERVER_ERROR);
+			getController().onActionNotValid(Errors.GENERIC_ERROR.toString());
 		}
 	}
 
@@ -142,7 +143,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Notifica al giocatore che � stato ricevuto un nuovo messaggio sulla chat.
+	 * Notifica al giocatore che e' stato ricevuto un nuovo messaggio sulla chat.
 	 * 
 	 * @param author
 	 *            nome del giocatore che ha inviato il messaggio.

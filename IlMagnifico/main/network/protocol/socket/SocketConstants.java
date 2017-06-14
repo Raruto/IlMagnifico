@@ -26,6 +26,6 @@ public class SocketConstants {
 	 * Costruttore privato.
 	 */
 	private SocketConstants() {
-		// Questa classe non è stata progettata per essere istanziata.
+		// Questa classe non e' stata progettata per essere istanziata.
 	}
 }

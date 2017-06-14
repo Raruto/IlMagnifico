@@ -70,7 +70,7 @@ public class SocketClient extends AbstractClient {
 	 * {@link ClientProtocol}.
 	 * 
 	 * @throws ClientException
-	 *             se il server non � raggiungibile o qualcosa � andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
 	 */
 	@Override
 	public void connect() throws ClientException {
@@ -119,7 +119,7 @@ public class SocketClient extends AbstractClient {
 	 * @param nickname
 	 *            nome da utilizzare per identificarsi al server.
 	 * @throws NetworkException
-	 *             se il server non � raggiungibile.
+	 *             se il server non e' raggiungibile.
 	 */
 	@Override
 	public void sendLoginRequest(String nickname) throws NetworkException {
@@ -145,11 +145,11 @@ public class SocketClient extends AbstractClient {
 	 * 
 	 * @param receiver
 	 *            nome del DESTINATARIO del messaggio. Se null il messaggio
-	 *            verr� inviato a tutti i giocatori.
+	 *            verra' inviato a tutti i giocatori.
 	 * @param message
 	 *            messaggio da inviare.
 	 * @throws NetworkException
-	 *             se il server non � raggiungibile o qualcosa � andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
 	 */
 	@Override
 	public void sendChatMessage(String receiver, String message) throws NetworkException {
@@ -171,7 +171,7 @@ public class SocketClient extends AbstractClient {
 	 * @param requestedAction
 	 *            richiesta del giocatore (vedi {@link UpdateStats}).
 	 * @throws NetworkException
-	 *             se il server non � raggiungibile o qualcosa � andato storto.
+	 *             se il server non e' raggiungibile o qualcosa e' andato storto.
 	 */
 	@Override
 	public void sendGameActionRequest(UpdateStats requestedAction) throws NetworkException {
@@ -217,7 +217,7 @@ public class SocketClient extends AbstractClient {
 
 	/**
 	 * Notifica al giocatore l'impossibilità di compiere un'azione richiesta (ad
-	 * esempio perchè si sta tentando di compiere un'azione illegale).
+	 * esempio perche' si sta tentando di compiere un'azione illegale).
 	 */
 	private void notifyActionNotValid() {
 		try {
