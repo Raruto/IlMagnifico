@@ -160,12 +160,11 @@ public class Game extends Partita {
 					update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 					dispatchGameUpdate(update);
 					if (this.rapportoVaticanoEseguito == false) {
-						this.giocatoriRapportoVaticano.addAll(this.giocatori);
-						turno--;
-						periodo--;
-						// qua dovrebbe mettere tutti i giocatori nella partita
-						// all'interno della lista dei giocatori che devono
-						// ancora fare il rapporto con il Vaticano
+						for (int i = 0; i < this.giocatori.size(); i++) {
+							this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
+						}
+						this.periodo--;
+						this.turno--;
 						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
 								this.spazioAzione);
 						dispatchGameUpdate(update);
@@ -173,6 +172,8 @@ public class Game extends Partita {
 						if (!isPartitaFinita()) {
 							// avanzaPeriodo();
 							this.rapportoVaticanoEseguito = false;
+							posizionaCarteSuTorre();
+							lanciaDadi();
 							update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
 							dispatchGameUpdate(update);
 						} else {
@@ -276,9 +277,11 @@ public class Game extends Partita {
 		} catch (ChurchSupportException e) {
 			throw new GameException(Errors.ERROR_ON_CHURCH_SUPPORT.toString());
 		}
-		// this.giocatoriRapportoVaticano.remove(remotePlayer);
-		if (this.giocatoriRapportoVaticano.size() == 0)
+		this.giocatoriRapportoVaticano.remove(remotePlayer);
+		if (this.giocatoriRapportoVaticano.size() == 0) {
 			this.rapportoVaticanoEseguito = true;
+			this.giocatoreDiTurno = null;
+		}
 		return new UpdateStats(remotePlayer, update.getAzioneGiocatore(), this.spazioAzione);
 	}
 
