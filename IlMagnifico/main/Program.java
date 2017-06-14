@@ -1,11 +1,11 @@
 package main;
 
-import main.ui.cli.FakeUI;
+import main.ui.cli.CLI;
 
 public class Program {
 	public static void main(String[] args) {
 		// NEW
-		FakeUI.main(args);
+		CLI.main(args);
 
 		// OLD (still working..)
 		// StartOneServer.main(args);

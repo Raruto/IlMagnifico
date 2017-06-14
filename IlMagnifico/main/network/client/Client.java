@@ -23,7 +23,7 @@ import main.network.exceptions.LoginException;
 import main.network.protocol.ConnectionTypes;
 import main.network.server.game.Game;
 import main.network.server.game.UpdateStats;
-import main.ui.cli.FakeUI;
+import main.ui.cli.CLI;
 import main.util.ANSI;
 import main.util.Costants;
 
@@ -188,7 +188,7 @@ public class Client implements IClient {
 
 		// Debugging purpose
 		try {
-			FakeUI.mainClient(serverAddress, socketPort, rmiPort);
+			CLI.mainClient(serverAddress, socketPort, rmiPort);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

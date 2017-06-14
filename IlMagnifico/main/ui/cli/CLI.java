@@ -40,7 +40,7 @@ import main.util.Costants;
  * SERVER
  *
  */
-public class FakeUI implements IClient {
+public class CLI implements IClient {
 	public static Scanner scanner = new Scanner(System.in);
 	public static String inText;
 
@@ -54,7 +54,7 @@ public class FakeUI implements IClient {
 	public static Client getClient() {
 		if (client == null) {
 			try {
-				client = new Client(new FakeUI());
+				client = new Client(new CLI());
 			} catch (ClientException e) {
 				e.printStackTrace();
 				System.err.println("Exiting...");
@@ -88,14 +88,14 @@ public class FakeUI implements IClient {
 		inText = scanner.nextLine().toUpperCase();
 
 		if (inText.equals("S")) {
-			FakeUI.mainServer(socketPort, rmiPort);
+			CLI.mainServer(socketPort, rmiPort);
 		} else if (inText.equals("C")) {
-			FakeUI.mainClient(serverAddress, socketPort, rmiPort);
+			CLI.mainClient(serverAddress, socketPort, rmiPort);
 		}
 		// Default: Client
 		else {
 			System.out.println("Starting as Client..");
-			FakeUI.mainClient(serverAddress, socketPort, rmiPort);
+			CLI.mainClient(serverAddress, socketPort, rmiPort);
 		}
 	}
 
@@ -145,13 +145,13 @@ public class FakeUI implements IClient {
 		}
 
 		if (success) {
-			FakeUI.login();
-			FakeUI.sayHelloToPlayers();
-			FakeUI.infiniteLoop();
+			CLI.login();
+			CLI.sayHelloToPlayers();
+			CLI.infiniteLoop();
 		} else {
 			System.err.println("\nCannot establish a connection to the server, the program will launch a local server");
 
-			FakeUI.mainServer(socketPort, rmiPort);
+			CLI.mainServer(socketPort, rmiPort);
 		}
 	}
 
@@ -230,28 +230,28 @@ public class FakeUI implements IClient {
 					quit = true;
 					// TODO: gestire terminazione corretta del programma!
 					System.out.println(ANSI.YELLOW + "Exiting..." + ANSI.RESET);
-					FakeUI.sayByeByeToPlayers();
+					CLI.sayByeByeToPlayers();
 					System.exit(0);
 				}
 				break;
 			case "chat":
-				FakeUI.sendChatMessages();
+				CLI.sendChatMessages();
 				break;
 
 			case "action":
-				FakeUI.performGameAction();
+				CLI.performGameAction();
 				break;
 
 			case "board":
-				FakeUI.printBoard();
+				CLI.printBoard();
 				break;
 
 			case "dash":
-				FakeUI.printDashBoard();
+				CLI.printDashBoard();
 				break;
 
 			case "cards":
-				FakeUI.printCards(true, true);
+				CLI.printCards(true, true);
 				break;
 
 			default:
@@ -430,6 +430,7 @@ public class FakeUI implements IClient {
 					if (costs == null) {
 						movePawn(EAzioniGiocatore.Torre, nestedPosition, true);
 					} else {
+						Client client = getClient();
 						EColoriPedine color = choosePawnColor();
 
 						if (color != null) {
@@ -461,6 +462,7 @@ public class FakeUI implements IClient {
 		printCouncilArea(true, true);
 
 		try {
+			Client client = getClient();
 			// movePawn(EAzioniGiocatore.PalazzoConsiglio, 0);
 			EColoriPedine color = choosePawnColor();
 
@@ -495,6 +497,7 @@ public class FakeUI implements IClient {
 					if (effects == null)
 						movePawn(nestedAction, 0);
 					else {
+						Client client = getClient();
 						EColoriPedine color = choosePawnColor();
 						if (color != null) {
 							client.movePawn(nestedAction, color, 0, effects);
@@ -531,6 +534,7 @@ public class FakeUI implements IClient {
 					if (effects == null)
 						movePawn(nestedAction, 0);
 					else {
+						Client client = getClient();
 						EColoriPedine color = choosePawnColor();
 						if (color != null) {
 							client.movePawn(nestedAction, color, 0, effects);
@@ -564,6 +568,7 @@ public class FakeUI implements IClient {
 			nestedPosition = chooseMarketArea();
 			if (nestedPosition != null) {
 				try {
+					Client client = getClient();
 					// movePawn(action, nestedPosition, privilege);
 					EColoriPedine color = choosePawnColor();
 
@@ -589,6 +594,7 @@ public class FakeUI implements IClient {
 	private static void incrementPawn(EColoriPedine color) throws QuitException {
 		Integer value = numberChooser("Add Servants: [0..*]");
 		if (value != null) {
+			Client client = getClient();
 			client.incrementPawnValue(color, value);
 		}
 	}
@@ -793,7 +799,7 @@ public class FakeUI implements IClient {
 		int number;
 		while (!ok) {
 			// System.out.println("'q' to quit\n");
-			System.out.println("Choose a privilege: ");
+			System.out.println("Choose a Council Privilege: ");
 			System.out.println(ESceltePrivilegioDelConsiglio.stringify(hided, false));
 			inText = scanner.nextLine();
 
@@ -954,6 +960,7 @@ public class FakeUI implements IClient {
 		int number;
 		boolean ok = false;
 		try {
+			Client client = getClient();
 			Famigliare[] family = client.getPlayersFamilies().get(client.getNickname());
 
 			while (!ok) {
@@ -1504,6 +1511,7 @@ public class FakeUI implements IClient {
 
 	private static int[] getFamilyValues() throws NullPointerException {
 		int[] familyValues = new int[4];
+		Client client = getClient();
 		SpazioAzione board = client.getGameBoard();
 		try {
 			Famigliare[] family = client.getPlayersFamilies().get(client.getNickname());
@@ -1671,12 +1679,12 @@ public class FakeUI implements IClient {
 
 	@Override
 	public void onPlayerMove(UpdateStats update) {
-		FakeUI.printPlayerTurn(true);
+		CLI.printPlayerTurn(true);
 	}
 
 	@Override
 	public void onTurnStarted(UpdateStats update) {
-		FakeUI.printDices(10, false, false);
+		CLI.printDices(10, false, false);
 	}
 
 	@Override
@@ -1687,7 +1695,7 @@ public class FakeUI implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
-		FakeUI.printPlayersNames(10, false, false);
+		CLI.printPlayersNames(10, false, false);
 	}
 
 	@Override
