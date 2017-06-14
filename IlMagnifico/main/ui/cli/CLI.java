@@ -23,7 +23,6 @@ import main.model.enums.ECarte;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
-import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.ETipiCarte;
 import main.model.errors.Errors;
@@ -1186,17 +1185,10 @@ public class CLI implements IClient {
 			for (int i = 3; i >= 0; i--) {
 				System.out.print("     ");
 
-				// Territorio
-				System.out.print(getFloor(i, pad));
-
-				// Personaggio
-				System.out.print(getFloor(i + 4, pad));
-
-				// Edificio
-				System.out.print(getFloor(i + 8, pad));
-
-				// Impresa
-				System.out.print(getFloor(i + 12, pad));
+				System.out.print(getFloor(i, pad)); /////// Territorio
+				System.out.print(getFloor(i + 4, pad)); /// Personaggio
+				System.out.print(getFloor(i + 8, pad)); /// Edificio
+				System.out.print(getFloor(i + 12, pad)); // Impresa
 
 				System.out.println();
 			}
