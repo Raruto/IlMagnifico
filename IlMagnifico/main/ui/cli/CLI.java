@@ -482,7 +482,7 @@ public class CLI implements IClient {
 	}
 
 	/**
-	 * Game command: [Harves]
+	 * Game command: [Harvest]
 	 */
 	private static void handleHarvest() throws QuitException {
 		printPointsAndResources(true, false);
