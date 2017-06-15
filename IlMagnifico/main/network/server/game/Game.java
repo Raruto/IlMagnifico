@@ -140,8 +140,10 @@ public class Game extends Partita {
 
 				// terminaGiroDiTurni();
 				resetPerNuovoTurno();
-				update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
-				dispatchGameUpdate(update);
+				if (this.turno % 2 != 0 || this.rapportoVaticanoEseguito == true) {
+					update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
+					dispatchGameUpdate(update);
+				}
 				scegliOrdine();
 				this.giocatoreDiTurno = giocatori.get(0);
 
@@ -152,12 +154,9 @@ public class Game extends Partita {
 					update = new UpdateStats(EFasiDiGioco.InizioTurno, this.giocatori, this.spazioAzione);
 					dispatchGameUpdate(update);
 				} else {
-
 					// terminaPeriodo();
 					this.periodo++;
 
-					update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
-					dispatchGameUpdate(update);
 					if (this.rapportoVaticanoEseguito == false) {
 						for (int i = 0; i < this.giocatori.size(); i++) {
 							this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
@@ -168,6 +167,9 @@ public class Game extends Partita {
 								this.spazioAzione);
 						dispatchGameUpdate(update);
 					} else {
+						update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
+						dispatchGameUpdate(update);
+
 						if (!isPartitaFinita()) {
 							// avanzaPeriodo();
 							this.rapportoVaticanoEseguito = false;

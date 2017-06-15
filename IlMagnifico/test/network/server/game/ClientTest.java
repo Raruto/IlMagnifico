@@ -2,6 +2,7 @@ package test.network.server.game;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import main.model.enums.EAzioniGiocatore;
@@ -17,129 +18,47 @@ import main.ui.cli.CLI;
 import main.util.Costants;
 
 public class ClientTest {
+	Client client1, client2, client3, client4, client5;
+	Server server;
+	String nomeGiocatore;
+	String nomeLastUpdate;
+	int sec = Costants.CONNECTION_RETRY_SECONDS * 1000;
 
 	/**
 	 * Test che verifica il funzionamento della comunicazione nel metodo
 	 * relativo allo spostamento di un famigliare su una zona mercato
 	 */
-	@Test
 	public void testMovePawnMarket() {
-		final int SOCKET_PORT=1998, RMI_PORT=1999;
 
-		try {
-			Server server = new Server();
-			server.startServer(SOCKET_PORT, RMI_PORT);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String nomeGiocatore = "";
-		String nomeLastUpdate = "";
-		try {
-			Client client1 = new Client(new CLI());
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client1.loginPlayer("primo");
-			Client client2 = new Client(new CLI());
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client2.loginPlayer("secondo");
-			if (client1.getNickname().equals(client1.getPlayerTurn())) {
-				nomeGiocatore = client1.getNickname();
-				client1.movePawn(EAzioniGiocatore.Mercato, EColoriPedine.Nera, 1,
-						new ESceltePrivilegioDelConsiglio[] { null, null });
-				nomeLastUpdate = client1.getLatestUpdate().getNomeGiocatore();
-			} else if (client2.getNickname().equals(client2.getPlayerTurn())) {
-				nomeGiocatore = client2.getNickname();
-				client2.movePawn(EAzioniGiocatore.Mercato, EColoriPedine.Nera, 1,
-						new ESceltePrivilegioDelConsiglio[] { null, null });
-				nomeLastUpdate = client2.getLatestUpdate().getNomeGiocatore();
-			}
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(nomeGiocatore.equals(nomeLastUpdate));
+		nomeGiocatore = client5.getNickname();
+		client5.movePawn(EAzioniGiocatore.Mercato, EColoriPedine.Nera, 1,
+				new ESceltePrivilegioDelConsiglio[] { null, null });
+		nomeLastUpdate = client5.getLatestUpdate().getNomeGiocatore();
+
 	}
 
 	/**
 	 * Metodo per verificare il funzionamento della comunicazione nel metodo
 	 * relativo allo spostamento del famigliare in una zona Raccolto
 	 */
-	@Test
 	public void testMovePawnHarvest() {
-		final int SOCKET_PORT=2000, RMI_PORT=2001;
-		try {
-			Server server = new Server();
-			server.startServer(SOCKET_PORT, RMI_PORT);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String nomeGiocatore = "";
-		String nomeLastUpdate = "";
-		try {
-			Client client1 = new Client(new CLI());
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client1.loginPlayer("primo");
-			Client client2 = new Client(new CLI());
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client2.loginPlayer("secondo");
-			if (client1.getNickname().equals(client1.getPlayerTurn())) {
-				nomeGiocatore = client1.getNickname();
-				client1.movePawn(EAzioniGiocatore.Raccolto, EColoriPedine.Nera, 1,
-						new EEffettiPermanenti[] { null, null });
-				nomeLastUpdate = client1.getLatestUpdate().getNomeGiocatore();
-			} else if (client2.getNickname().equals(client2.getPlayerTurn())) {
-				nomeGiocatore = client2.getNickname();
-				client2.movePawn(EAzioniGiocatore.Raccolto, EColoriPedine.Nera, 1,
-						new EEffettiPermanenti[] { null, null });
-				nomeLastUpdate = client2.getLatestUpdate().getNomeGiocatore();
-			}
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(nomeGiocatore.equals(nomeLastUpdate));
+
+		nomeGiocatore = client4.getNickname();
+		client4.movePawn(EAzioniGiocatore.Raccolto, EColoriPedine.Nera, 1, new EEffettiPermanenti[] { null, null });
+		nomeLastUpdate = client4.getLatestUpdate().getNomeGiocatore();
+
 	}
 
 	/**
 	 * Metodo per verificare il funzionamento della comunicazione nel metodo
 	 * relativo allo spostamento del famigliare in una zona Produzione
 	 */
-	@Test
 	public void testMovePawnProduction() {
-		final int SOCKET_PORT=2002, RMI_PORT=2003;
-		try {
-			Server server = new Server();
-			server.startServer(SOCKET_PORT, RMI_PORT);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String nomeGiocatore = "";
-		String nomeLastUpdate = "";
-		try {
-			Client client1 = new Client(new CLI());
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client1.loginPlayer("primo");
-			Client client2 = new Client(new CLI());
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client2.loginPlayer("secondo");
-			if (client1.getNickname().equals(client1.getPlayerTurn())) {
-				nomeGiocatore = client1.getNickname();
-				client1.movePawn(EAzioniGiocatore.Produzione, EColoriPedine.Nera, 1,
-						new EEffettiPermanenti[] { null, null });
-				nomeLastUpdate = client1.getLatestUpdate().getNomeGiocatore();
-			} else if (client2.getNickname().equals(client2.getPlayerTurn())) {
-				nomeGiocatore = client2.getNickname();
-				client2.movePawn(EAzioniGiocatore.Produzione, EColoriPedine.Nera, 1,
-						new EEffettiPermanenti[] { null, null });
-				nomeLastUpdate = client2.getLatestUpdate().getNomeGiocatore();
-			}
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(nomeGiocatore.equals(nomeLastUpdate));
+
+		nomeGiocatore = client3.getNickname();
+		client3.movePawn(EAzioniGiocatore.Produzione, EColoriPedine.Nera, 1, new EEffettiPermanenti[] { null, null });
+		nomeLastUpdate = client3.getLatestUpdate().getNomeGiocatore();
+
 	}
 
 	/**
@@ -147,40 +66,12 @@ public class ClientTest {
 	 * relativo allo spostamento del famigliare in una zona Torre senza la
 	 * scelta del costo da pagare
 	 */
-	@Test
 	public void testMovePawnTowerNoCostChoice() {
-		final int SOCKET_PORT=2004, RMI_PORT=2005;
 
-		try {
-			Server server = new Server();
-			server.startServer(SOCKET_PORT, RMI_PORT);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String nomeGiocatore = "";
-		String nomeLastUpdate = "";
-		try {
-			Client client1 = new Client(new CLI());
-			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client1.loginPlayer("primo");
-			Client client2 = new Client(new CLI());
-			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client2.loginPlayer("secondo");
-			if (client1.getNickname().equals(client1.getPlayerTurn())) {
-				nomeGiocatore = client1.getNickname();
-				client1.movePawn(EAzioniGiocatore.Torre, EColoriPedine.Nera, 1);
-				nomeLastUpdate = client1.getLatestUpdate().getNomeGiocatore();
-			} else if (client2.getNickname().equals(client2.getPlayerTurn())) {
-				nomeGiocatore = client2.getNickname();
-				client2.movePawn(EAzioniGiocatore.Torre, EColoriPedine.Nera, 1);
-				nomeLastUpdate = client2.getLatestUpdate().getNomeGiocatore();
-			}
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(nomeGiocatore.equals(nomeLastUpdate));
+		nomeGiocatore = client2.getNickname();
+		client2.movePawn(EAzioniGiocatore.Torre, EColoriPedine.Nera, 1);
+		nomeLastUpdate = client2.getLatestUpdate().getNomeGiocatore();
+
 	}
 
 	/**
@@ -188,10 +79,17 @@ public class ClientTest {
 	 * relativo allo spostamento del famigliare in una zona Torre con la scelta
 	 * del costo alternativo da pagare
 	 */
-	@Test
-	public void testMovePawnTowerCostChoice() {
-		final int SOCKET_PORT=2006, RMI_PORT=2007;
 
+	public void testMovePawnTowerCostChoice() {
+
+		nomeGiocatore = client1.getNickname();
+		client1.movePawn(EAzioniGiocatore.Torre, EColoriPedine.Nera, 4, new ECostiCarte[] { null, null });
+		nomeLastUpdate = client1.getLatestUpdate().getNomeGiocatore();
+	}
+
+	@Test
+	public void ordineEsecuzione() {
+		final int SOCKET_PORT = 2004, RMI_PORT = 2005;
 		try {
 			Server server = new Server();
 			server.startServer(SOCKET_PORT, RMI_PORT);
@@ -201,26 +99,53 @@ public class ClientTest {
 		}
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
+
 		try {
 			Client client1 = new Client(new CLI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client1.loginPlayer("primo");
+			client1.loginPlayer("primo giocatore- ,movePawnTowerCostChoice");
+			Thread.sleep(sec);
+
 			Client client2 = new Client(new CLI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
-			client2.loginPlayer("secondo");
-			if (client1.getNickname().equals(client1.getPlayerTurn())) {
-				nomeGiocatore = client1.getNickname();
-				client1.movePawn(EAzioniGiocatore.Torre, EColoriPedine.Nera, 1, new ECostiCarte[] { null, null });
-				nomeLastUpdate = client1.getLatestUpdate().getNomeGiocatore();
-			} else if (client2.getNickname().equals(client2.getPlayerTurn())) {
-				nomeGiocatore = client2.getNickname();
-				client2.movePawn(EAzioniGiocatore.Torre, EColoriPedine.Nera, 1, new ECostiCarte[] { null, null });
-				nomeLastUpdate = client2.getLatestUpdate().getNomeGiocatore();
-			}
+			client2.loginPlayer("secondo giocatore- movePawnTowerNoCostChoice");
+			Thread.sleep(sec);
+
+			Client client3 = new Client(new CLI());
+			client3.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
+			client3.loginPlayer("terzo giocatore- movePawnProduction");
+			Thread.sleep(sec);
+
+			Client client4 = new Client(new CLI());
+			client4.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
+			client4.loginPlayer("quarto giocatore- movePawnHarvest");
+			Thread.sleep(sec);
+
+			Client client5 = new Client(new CLI());
+			client5.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
+			client5.loginPlayer("quinto giocatore- movePawnMarket");
+			Thread.sleep(sec);
+
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InterruptedException e1) {
+
 		}
-		assertTrue(nomeGiocatore.equals(nomeLastUpdate));
+
+		for (int i = 0; i < 5; i++) {
+			if (client1.getNickname().equals(client1.getPlayerTurn()))
+				testMovePawnTowerCostChoice();
+			else if (client2.getNickname().equals(client2.getPlayerTurn()))
+				testMovePawnTowerNoCostChoice();
+			else if (client3.getNickname().equals(client3.getPlayerTurn()))
+				testMovePawnProduction();
+			else if (client4.getNickname().equals(client4.getPlayerTurn()))
+				testMovePawnHarvest();
+			else if (client5.getNickname().equals(client5.getPlayerTurn()))
+				testMovePawnMarket();
+
+			assertTrue(nomeGiocatore.equals(nomeLastUpdate));
+		}
 	}
 }
