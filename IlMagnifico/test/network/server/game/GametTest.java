@@ -8,6 +8,7 @@ import org.junit.Test;
 import main.model.Carta;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
+import main.model.enums.ECostiCarte;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.EScomuniche;
 import main.model.errors.Errors;
@@ -17,6 +18,7 @@ import main.network.server.game.Room;
 import main.network.server.game.UpdateStats;
 import main.network.server.game.exceptions.GameException;
 import main.network.server.game.exceptions.RoomFullException;
+import sun.misc.PerformanceLogger;
 
 public class GametTest {
 
@@ -694,7 +696,6 @@ public class GametTest {
 	 */
 	@Test
 	public void testOnTower() {
-		boolean exceptionThrown = false;
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
 		player1.setNome("primo giocatore");
@@ -711,10 +712,120 @@ public class GametTest {
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Torre);
 		update.spostaPedina(EColoriPedine.Nera, 0);
+		ECostiCarte[] costi = { null, null };
+		update.setScelteCosti(costi);
 		try {
 			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		} catch (GameException e) {
 		}
 		assertTrue(game.getSpazioAzione().getCartaTorre(0) == null);
+	}
+
+	/**
+	 * Test che verifica il corretto funzionamento del metodo onCouncilPalace
+	 */
+	@Test
+	public void testOnCouncilPalace() {
+		String nomeGiocatoreFamigliareSpostato = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
+		update.spostaPedina(EColoriPedine.Nera, 0);
+		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+		try {
+			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getSpazioAzione().getGiocatoriPalazzoDelConsiglio().get(0).getNome()
+				.equals(nomeGiocatoreFamigliareSpostato));
+	}
+
+	/**
+	 * Test che verifica il corretto funzionamento del metodo onHarvestRound
+	 */
+	@Test
+	public void testOnHarvestRound() {
+		String nomeGiocatoreFamigliareSpostato = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Raccolto);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		try {
+			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getSpazioAzione().getZonaRaccoltoRotonda().getGiocatore().getNome()
+				.equals(nomeGiocatoreFamigliareSpostato));
+	}
+
+	/**
+	 * Test che verifica il corretto funzionamento del metodo onHarvestOval
+	 */
+	@Test
+	public void testOnHarvestOval() {
+		String nomeGiocatoreFamigliareSpostato = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.aumentaValorePedina(EColoriPedine.Nera, 3);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update = new UpdateStats(EAzioniGiocatore.RaccoltoOvale);
+		update.spostaPedina(EColoriPedine.Nera, 0);
+		try {
+			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getSpazioAzione().getZonaRaccoltoOvale().get(0).getGiocatore().getNome()
+				.equals(nomeGiocatoreFamigliareSpostato));
 	}
 }
