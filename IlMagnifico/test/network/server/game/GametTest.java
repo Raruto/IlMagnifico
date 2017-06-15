@@ -9,6 +9,7 @@ import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.EScomuniche;
+import main.model.errors.Errors;
 import main.network.server.game.Game;
 import main.network.server.game.RemotePlayer;
 import main.network.server.game.Room;
@@ -136,6 +137,10 @@ public class GametTest {
 		assertTrue(game.getTurno() == 2);
 	}
 
+	/**
+	 * Test che verifica che il periodo effettivamente avanzi dopo avere
+	 * eseguito la fase del Rapporto Col Vaticano
+	 */
 	@Test
 	public void testFinePeriodo() {
 		TestPlayer player1 = new TestPlayer();
@@ -337,7 +342,7 @@ public class GametTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		update = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update.supportaChiesa(true);
 		try {
@@ -346,7 +351,7 @@ public class GametTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		update = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update.supportaChiesa(true);
 		try {
@@ -359,6 +364,10 @@ public class GametTest {
 		assertTrue(game.getPeriodo() == 2);
 	}
 
+	/**
+	 * Test che verifica il corretto funzionamento della gestione del Rapporto
+	 * col Vaticano
+	 */
 	@Test
 	public void testRapportoVaticano() {
 		// invio all'utente la notifica che è il rapporto del vaticano
@@ -416,7 +425,7 @@ public class GametTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update2.supportaChiesa(true);
 		try {
@@ -425,11 +434,86 @@ public class GametTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		assertTrue(player1.getPunti().getPuntiFede() == 0 && player1.getPunti().getPuntiVittoria() == 0
-				&& player1.getScomunica(0).getNome()==EScomuniche.RICEVI_MENO_PM.getNome());
+				&& player1.getScomunica(0).getNome() == EScomuniche.RICEVI_MENO_PM.getNome());
 		assertTrue(player2.getPunti().getPuntiFede() == 0 && player2.getPunti().getPuntiVittoria() == 3);
 	}
-	
+
+	/**
+	 * Test che verifica il corretto funzionamento delle eccezioni nel metodo OnMarket
+	 */
+	@Test
+	public void testOnMarketExceptions() {
+		boolean exceptionThrown=false;
+		String nomeGiocatoreEccezione="";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+
+		
+		UpdateStats update=new UpdateStats(EAzioniGiocatore.Mercato);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		update.setSceltePrivilegiConsiglio(null);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown=true;
+		}
+		assertTrue(exceptionThrown==false);
+		
+		try {
+			nomeGiocatoreEccezione=game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown=true;
+			assertTrue(e.getMessage()==Errors.SPACE_TAKEN.toString());
+		}
+		assertTrue(exceptionThrown==true);
+		exceptionThrown=false;
+		assertTrue(nomeGiocatoreEccezione==game.getGiocatoreDiTurno().getNome());
+		update.spostaPedina(EColoriPedine.Nera, 10);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown=true;
+			assertTrue(e.getMessage()==Errors.INVALID_POSTITION.toString());
+		}
+		assertTrue(exceptionThrown==true);
+		exceptionThrown=false;
+		update.spostaPedina(EColoriPedine.Neutrale, 0);
+		
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			assertTrue(e.getMessage()==Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
+			exceptionThrown=true;
+		}
+		assertTrue(exceptionThrown==true);
+		exceptionThrown=false;
+		update.spostaPedina(EColoriPedine.Nera, 3);
+		ESceltePrivilegioDelConsiglio[] scelte={ESceltePrivilegioDelConsiglio.LegnoEPietra,ESceltePrivilegioDelConsiglio.LegnoEPietra};
+		update.setSceltePrivilegiConsiglio(scelte);
+		
+			try {
+				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+			} catch (GameException e) {
+				assertTrue(e.getMessage()==Errors.INVALID_CHOICE.toString());
+				exceptionThrown=true;
+			}
+			assertTrue(exceptionThrown==true);
+		
+	}
 
 }
