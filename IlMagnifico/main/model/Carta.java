@@ -159,12 +159,18 @@ public abstract class Carta implements Serializable {
 	public void effettoPermanente(Giocatore giocatore, Famigliare famigliare, Carta carta,
 			EEffettiPermanenti effettoScelto) {
 		if (this.effettiPermanentiDelleCarteComunicazione.size() >= 1
-				&& effettoScelto == this.effettiPermanentiDelleCarteComunicazione.get(0))
+				&& effettoScelto == this.effettiPermanentiDelleCarteComunicazione.get(0)) {
+			effettoPermanente.get(0)[1] = giocatore;
+			effettoPermanente.get(0)[3] = famigliare;
+			effettoPermanente.get(0)[4] = carta;
 			attivaEffettoSingolo(effettoPermanente.get(0));
-		else if (this.effettiPermanentiDelleCarteComunicazione.size() >= 2
-				&& effettoScelto == this.effettiPermanentiDelleCarteComunicazione.get(1))
+		} else if (this.effettiPermanentiDelleCarteComunicazione.size() >= 2
+				&& effettoScelto == this.effettiPermanentiDelleCarteComunicazione.get(1)) {
+			effettoPermanente.get(1)[1] = giocatore;
+			effettoPermanente.get(1)[3] = famigliare;
+			effettoPermanente.get(1)[4] = carta;
 			attivaEffettoSingolo(effettoPermanente.get(1));
-		else if (effettoScelto == null) {
+		} else if (effettoScelto == null) {
 
 			for (int i = 0; i < effettoPermanente.size(); i++) {
 				effettoPermanente.get(i)[1] = giocatore;
