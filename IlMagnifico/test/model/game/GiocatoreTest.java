@@ -14,7 +14,7 @@ public class GiocatoreTest {
 	 * Metodo che verifica il corretto funzionamento del metodo checkPosizionato
 	 */
 	@Test
-	public void checkPosizionato() throws Exception {
+	public void testcheckPosizionato() throws Exception {
 		// create player
 		Giocatore giocatore = new Giocatore();
 
@@ -34,7 +34,7 @@ public class GiocatoreTest {
 	 * unti vittoria
 	 */
 	@Test
-	public void calcolaPVFinali() {
+	public void testcalcolaPVFinali() {
 		Giocatore giocatore = new Giocatore();
 		giocatore.calcolaPVFinali();
 
