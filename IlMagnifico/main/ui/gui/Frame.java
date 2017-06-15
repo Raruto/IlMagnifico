@@ -35,6 +35,7 @@ import main.ui.gui.aggiornamento.Risorse;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
+import res.images.Resources;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -155,9 +156,7 @@ public class Frame extends JFrame implements IClient {
 	 * Create the frame.
 	 */
 	public Frame() {
-		setIconImage(
-				new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio.png"))
-						.getImage());
+		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

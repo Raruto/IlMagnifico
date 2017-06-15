@@ -6,6 +6,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import res.images.Resources;
+
 public class PanelImmagine extends JPanel {
 
 	/**
@@ -24,7 +26,7 @@ public class PanelImmagine extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
+		ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

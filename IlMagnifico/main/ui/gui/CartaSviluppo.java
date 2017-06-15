@@ -6,6 +6,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import res.images.Resources;
+
 public class CartaSviluppo extends JPanel {
 
 	/**
@@ -40,7 +42,7 @@ public class CartaSviluppo extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
+		ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
 		Image image = icon.getImage();
 		image = icon.getImage().getScaledInstance(icon.getIconWidth() * N / D, icon.getIconHeight() * N / D,
 				Image.SCALE_SMOOTH);

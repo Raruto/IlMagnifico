@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.util.Costants;
+import res.images.Resources;
 
 public class Famigliare extends JPanel {
 
@@ -63,28 +64,28 @@ public class Famigliare extends JPanel {
 		String pathImmagine = "";
 		if (colore.equals("rosso")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareRosso.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareRosso.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareRossoNeutro.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareRossoNeutro.png";
 
 		} else if (colore.equals("verde")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareVerde.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareVerde.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareVerdeNeutro.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareVerdeNeutro.png";
 		} else if (colore.equals("giallo")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareGiallo.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareGiallo.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareGialloNeutro.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareGialloNeutro.png";
 		} else if (colore.equals("blu")) {
 			if (numero != 3)
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareBlu.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareBlu.png";
 			else
-				pathImmagine = Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/famigliareBluNeutro.png";
+				pathImmagine = Costants.FOLDER_BASE + "/famigliareBluNeutro.png";
 		}
 
-		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
+		ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

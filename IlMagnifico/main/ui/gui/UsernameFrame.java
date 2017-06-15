@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
+import res.images.Resources;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -54,8 +55,7 @@ public class UsernameFrame extends JFrame {
 	 */
 	public UsernameFrame() {
 		setIconImage(
-				new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio.png"))
-						.getImage());
+				new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -106,7 +106,7 @@ public class UsernameFrame extends JFrame {
 	}
 
 	public void inserisciImmagine() {
-		immagine = new PanelImmagine(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio firenze.png");
+		immagine = new PanelImmagine(Costants.FOLDER_BASE + "/giglio firenze.png");
 		immagine.setBounds(800, 200, 400, 600);
 		immagine.setVisible(true);
 		contentPane.add(immagine);

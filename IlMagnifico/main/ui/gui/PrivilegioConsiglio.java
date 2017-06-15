@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
+import res.images.Resources;
 
 public class PrivilegioConsiglio extends JFrame {
 
@@ -66,7 +67,7 @@ public class PrivilegioConsiglio extends JFrame {
 	 */
 	public PrivilegioConsiglio(Frame framePrincipale) {
 		setIconImage(
-				new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio.png"))
+				new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png"))
 						.getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

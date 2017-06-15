@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
+import res.images.Resources;
 
 public class ClassificaFinaleFrame extends JFrame {
 
@@ -50,7 +51,7 @@ public class ClassificaFinaleFrame extends JFrame {
 	 */
 	public ClassificaFinaleFrame() {
 		setIconImage(
-				new ImageIcon(getClass().getResource(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/giglio.png"))
+				new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png"))
 						.getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,15 +149,15 @@ public class ClassificaFinaleFrame extends JFrame {
 
 			if (colore.equals("rosso"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoRosso.png");
+						Costants.FOLDER_BASE + "/segnaTurnoRosso.png");
 			else if (colore.equals("giallo"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoGiallo.png");
+						Costants.FOLDER_BASE + "/segnaTurnoGiallo.png");
 			else if (colore.equals("verde"))
 				panelColore = new PanelImmagine(
-						Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoVerde.png");
+						Costants.FOLDER_BASE + "/segnaTurnoVerde.png");
 			else if (colore.equals("blu"))
-				panelColore = new PanelImmagine(Costants.PATH_RESOURCES + Costants.FOLDER_BASE + "/segnaTurnoBlu.png");
+				panelColore = new PanelImmagine(Costants.FOLDER_BASE + "/segnaTurnoBlu.png");
 			panelColore.setLayout(null);
 			panelColore.setOpaque(true);
 			panelColore.setBounds(0, 0, 50, 50);

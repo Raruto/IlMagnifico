@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import res.images.Resources;
+
 public class CartaScomunica extends JPanel {
 
 	/**
@@ -37,7 +39,7 @@ public class CartaScomunica extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(getClass().getResource(pathImmagine));
+		ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
 		Image image = icon.getImage();
 		g.drawImage(image, 0, 0, null);
 	}

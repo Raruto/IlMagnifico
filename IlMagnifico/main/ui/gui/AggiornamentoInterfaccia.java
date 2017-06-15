@@ -79,8 +79,8 @@ public class AggiornamentoInterfaccia {
 		frame.getTabellone().rimuoviCarteScomunica();
 		CartaScomunica[] carteScomunica = new CartaScomunica[aggiornamento.getCarteScomunica().length];
 		for (int i = 0; i < carteScomunica.length; i++)
-			carteScomunica[i] = new CartaScomunica(aggiornamento.getCarteScomunica()[i], Costants.PATH_RESOURCES
-					+ Costants.FOLDER_EXCOMM_CARDS + "/" + aggiornamento.getCarteScomunica()[i] + ".png");
+			carteScomunica[i] = new CartaScomunica(aggiornamento.getCarteScomunica()[i],
+					Costants.FOLDER_EXCOMM_CARDS + "/" + aggiornamento.getCarteScomunica()[i] + ".png");
 		frame.getTabellone().aggiungiCarteScomunica(carteScomunica);
 
 		for (int i = 0; i < aggiornamento.getGiocatori().size(); i++) {
@@ -98,8 +98,8 @@ public class AggiornamentoInterfaccia {
 		CartaSviluppo[] carteTorre = new CartaSviluppo[aggiornamento.getCarteSviluppoTorre().length];
 		for (int i = 0; i < aggiornamento.getCarteSviluppoTorre().length; i++) {
 			if (aggiornamento.getCarteSviluppoTorre()[i] != null)
-				carteTorre[i] = new CartaSviluppo(aggiornamento.getCarteSviluppoTorre()[i], Costants.PATH_RESOURCES
-						+ Costants.FOLDER_DEV_CARDS + "/" + aggiornamento.getCarteSviluppoTorre()[i] + ".png");
+				carteTorre[i] = new CartaSviluppo(aggiornamento.getCarteSviluppoTorre()[i],
+						Costants.FOLDER_DEV_CARDS + "/" + aggiornamento.getCarteSviluppoTorre()[i] + ".png");
 			else
 				carteTorre[i] = null;
 		}
@@ -142,8 +142,7 @@ public class AggiornamentoInterfaccia {
 				CartaSviluppo[] carteTerritorio = new CartaSviluppo[giocatoreAgg.getCarteTerritorio().size()];
 				for (int j = 0; j < giocatoreAgg.getCarteTerritorio().size(); j++) {
 					carteTerritorio[j] = new CartaSviluppo(giocatoreAgg.getCarteTerritorio().get(j),
-							Costants.PATH_RESOURCES + Costants.FOLDER_DEV_CARDS + "/"
-									+ giocatoreAgg.getCarteTerritorio().get(j) + ".png");
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteTerritorio().get(j) + ".png");
 				}
 				frame.getPlancia().aggiungiCarteTerritorio(carteTerritorio);
 			} else {
@@ -152,8 +151,7 @@ public class AggiornamentoInterfaccia {
 				CartaSviluppo[] carteTerritorio = new CartaSviluppo[giocatoreAgg.getCarteTerritorio().size()];
 				for (int j = 0; j < giocatoreAgg.getCarteTerritorio().size(); j++) {
 					carteTerritorio[j] = new CartaSviluppo(giocatoreAgg.getCarteTerritorio().get(j),
-							Costants.PATH_RESOURCES + Costants.FOLDER_DEV_CARDS + "/"
-									+ giocatoreAgg.getCarteTerritorio().get(j) + ".png");
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteTerritorio().get(j) + ".png");
 				}
 				planciaAvv.aggiungiCarteTerritorio(carteTerritorio);
 				planceRiempite++;
@@ -171,8 +169,7 @@ public class AggiornamentoInterfaccia {
 				CartaSviluppo[] carteProduzione = new CartaSviluppo[giocatoreAgg.getCarteEdificio().size()];
 				for (int j = 0; j < giocatoreAgg.getCarteEdificio().size(); j++) {
 					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),
-							Costants.PATH_RESOURCES + Costants.FOLDER_DEV_CARDS + "/"
-									+ giocatoreAgg.getCarteEdificio().get(j) + ".png");
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteEdificio().get(j) + ".png");
 				}
 				frame.getPlancia().aggiungiCarteTerritorio(carteProduzione);
 			} else {
@@ -181,8 +178,7 @@ public class AggiornamentoInterfaccia {
 				CartaSviluppo[] carteProduzione = new CartaSviluppo[giocatoreAgg.getCarteEdificio().size()];
 				for (int j = 0; j < giocatoreAgg.getCarteEdificio().size(); j++) {
 					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),
-							Costants.PATH_RESOURCES + Costants.FOLDER_DEV_CARDS + "/"
-									+ giocatoreAgg.getCarteEdificio().get(j) + ".png");
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteEdificio().get(j) + ".png");
 				}
 				planciaAvv.aggiungiCarteProduzione(carteProduzione);
 				planceRiempite++;
@@ -199,8 +195,8 @@ public class AggiornamentoInterfaccia {
 				frame.getPlancia().rimuoviCarteImprese();
 				CartaSviluppo[] carteImprese = new CartaSviluppo[giocatoreAgg.getCarteImprese().size()];
 				for (int j = 0; j < giocatoreAgg.getCarteImprese().size(); j++) {
-					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j), Costants.PATH_RESOURCES
-							+ Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteImprese().get(j) + ".png");
+					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j),
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteImprese().get(j) + ".png");
 				}
 				frame.getPlancia().aggiungiCarteImprese(carteImprese);
 			} else {
@@ -208,8 +204,8 @@ public class AggiornamentoInterfaccia {
 				planciaAvv.rimuoviCarteImprese();
 				CartaSviluppo[] carteImprese = new CartaSviluppo[giocatoreAgg.getCarteImprese().size()];
 				for (int j = 0; j < giocatoreAgg.getCarteImprese().size(); j++) {
-					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j), Costants.PATH_RESOURCES
-							+ Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteImprese().get(j) + ".png");
+					carteImprese[j] = new CartaSviluppo(giocatoreAgg.getCarteImprese().get(j),
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteImprese().get(j) + ".png");
 				}
 				planciaAvv.aggiungiCarteImprese(carteImprese);
 				planceRiempite++;
@@ -227,8 +223,7 @@ public class AggiornamentoInterfaccia {
 				CartaSviluppo[] cartePersonaggio = new CartaSviluppo[giocatoreAgg.getCartePersonaggio().size()];
 				for (int j = 0; j < giocatoreAgg.getCartePersonaggio().size(); j++) {
 					cartePersonaggio[j] = new CartaSviluppo(giocatoreAgg.getCartePersonaggio().get(j),
-							Costants.PATH_RESOURCES + Costants.FOLDER_DEV_CARDS + "/"
-									+ giocatoreAgg.getCartePersonaggio().get(j) + ".png");
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCartePersonaggio().get(j) + ".png");
 				}
 				frame.getPlancia().aggiungiCartePersonaggio(cartePersonaggio);
 			} else {
@@ -237,8 +232,7 @@ public class AggiornamentoInterfaccia {
 				CartaSviluppo[] cartePersonaggio = new CartaSviluppo[giocatoreAgg.getCartePersonaggio().size()];
 				for (int j = 0; j < giocatoreAgg.getCartePersonaggio().size(); j++) {
 					cartePersonaggio[j] = new CartaSviluppo(giocatoreAgg.getCartePersonaggio().get(j),
-							Costants.PATH_RESOURCES + Costants.FOLDER_DEV_CARDS + "/"
-									+ giocatoreAgg.getCartePersonaggio().get(j) + ".png");
+							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCartePersonaggio().get(j) + ".png");
 				}
 				planciaAvv.aggiungiCartePersonaggio(cartePersonaggio);
 				planceRiempite++;

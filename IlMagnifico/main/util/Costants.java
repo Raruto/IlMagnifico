@@ -38,10 +38,9 @@ public class Costants {
 	public static final boolean CLIENT_ENABLE_LOG = true;
 
 	// GUI
-	public static final String PATH_RESOURCES = "/main/ui/gui/res";
-	public static final String FOLDER_BASE = "/base";
-	public static final String FOLDER_EXCOMM_CARDS = "/cards/excomm";
-	public static final String FOLDER_DEV_CARDS = "/cards/dev";
+	public static final String FOLDER_BASE = "base";
+	public static final String FOLDER_EXCOMM_CARDS = "cards/excomm";
+	public static final String FOLDER_DEV_CARDS = "cards/dev";
 
 	/**
 	 * Costruttore privato.
