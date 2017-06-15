@@ -828,4 +828,79 @@ public class GametTest {
 		assertTrue(game.getSpazioAzione().getZonaRaccoltoOvale().get(0).getGiocatore().getNome()
 				.equals(nomeGiocatoreFamigliareSpostato));
 	}
+
+	/**
+	 * Test che verifica il corretto funzionamento del metoodo
+	 * onProductionRoound
+	 */
+	@Test
+	public void testOnProductionRound() {
+		String nomeGiocatoreFamigliareSpostato = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Produzione);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		try {
+			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getSpazioAzione().getZonaProduzioneRotonda().getGiocatore().getNome()
+				.equals(nomeGiocatoreFamigliareSpostato));
+	}
+
+	/**
+	 * Test cche verifica il corretto funzionamento del metodo onProductionOval
+	 */
+	@Test
+	public void testOnProductionOval() {
+		String nomeGiocatoreFamigliareSpostato = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.aumentaValorePedina(EColoriPedine.Nera, 3);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		update = new UpdateStats(EAzioniGiocatore.ProduzioneOvale);
+		update.spostaPedina(EColoriPedine.Nera, 0);
+		try {
+			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getSpazioAzione().getZonaProduzioneOvale().get(0).getGiocatore().getNome()
+				.equals(nomeGiocatoreFamigliareSpostato));
+	}
 }
