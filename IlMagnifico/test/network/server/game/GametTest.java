@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.model.Carta;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
@@ -441,12 +442,13 @@ public class GametTest {
 	}
 
 	/**
-	 * Test che verifica il corretto funzionamento delle eccezioni nel metodo OnMarket
+	 * Test che verifica il corretto funzionamento della eccezione SpaceTaken
+	 * nel metodo OnMarket e della relativa gestione
 	 */
 	@Test
-	public void testOnMarketExceptions() {
-		boolean exceptionThrown=false;
-		String nomeGiocatoreEccezione="";
+	public void testOnMarketExceptionSpaceTaken() {
+		boolean exceptionThrown = false;
+		String nomeGiocatoreEccezione = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
 		player1.setNome("primo giocatore");
@@ -462,58 +464,257 @@ public class GametTest {
 		Game game = new Game(room);
 		game.startNewGame();
 
-		
-		UpdateStats update=new UpdateStats(EAzioniGiocatore.Mercato);
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Mercato);
 		update.spostaPedina(EColoriPedine.Nera, 1);
 		update.setSceltePrivilegiConsiglio(null);
 		try {
 			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		} catch (GameException e) {
-			exceptionThrown=true;
+			exceptionThrown = true;
 		}
-		assertTrue(exceptionThrown==false);
-		
+		assertTrue(exceptionThrown == false);
+
 		try {
-			nomeGiocatoreEccezione=game.getGiocatoreDiTurno().getNome();
+			nomeGiocatoreEccezione = game.getGiocatoreDiTurno().getNome();
 			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		} catch (GameException e) {
-			exceptionThrown=true;
-			assertTrue(e.getMessage()==Errors.SPACE_TAKEN.toString());
+			exceptionThrown = true;
+			assertTrue(e.getMessage() == Errors.SPACE_TAKEN.toString());
 		}
-		assertTrue(exceptionThrown==true);
-		exceptionThrown=false;
-		assertTrue(nomeGiocatoreEccezione==game.getGiocatoreDiTurno().getNome());
-		update.spostaPedina(EColoriPedine.Nera, 10);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			exceptionThrown=true;
-			assertTrue(e.getMessage()==Errors.INVALID_POSTITION.toString());
-		}
-		assertTrue(exceptionThrown==true);
-		exceptionThrown=false;
-		update.spostaPedina(EColoriPedine.Neutrale, 0);
-		
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			assertTrue(e.getMessage()==Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
-			exceptionThrown=true;
-		}
-		assertTrue(exceptionThrown==true);
-		exceptionThrown=false;
-		update.spostaPedina(EColoriPedine.Nera, 3);
-		ESceltePrivilegioDelConsiglio[] scelte={ESceltePrivilegioDelConsiglio.LegnoEPietra,ESceltePrivilegioDelConsiglio.LegnoEPietra};
-		update.setSceltePrivilegiConsiglio(scelte);
-		
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				assertTrue(e.getMessage()==Errors.INVALID_CHOICE.toString());
-				exceptionThrown=true;
-			}
-			assertTrue(exceptionThrown==true);
-		
+		assertTrue(nomeGiocatoreEccezione == game.getGiocatoreDiTurno().getNome());
+		assertTrue(exceptionThrown);
 	}
 
+	/**
+	 * Test che verifica il corretto funzionamento della eccezione
+	 * InvalidPosition nel metodo onMarket e della relativa gestione
+	 */
+	@Test
+	public void testOnMarketExceptionInvalidPosition() {
+		boolean exceptionThrown = false;
+		String nomeGiocatoreEccezione = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Mercato);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		update.setSceltePrivilegiConsiglio(null);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown = true;
+		}
+		assertTrue(exceptionThrown == false);
+		update.spostaPedina(EColoriPedine.Nera, 10);
+		try {
+			nomeGiocatoreEccezione = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown = true;
+			assertTrue(e.getMessage() == Errors.INVALID_POSTITION.toString());
+		}
+		assertTrue(nomeGiocatoreEccezione == game.getGiocatoreDiTurno().getNome());
+		assertTrue(exceptionThrown);
+	}
+
+	/**
+	 * Test che verifica il corretto funzionamento della eccezione
+	 * InsufficientFamiliarValue nel metodo onMarket e della relativa gestione
+	 */
+	@Test
+	public void testOnMarketExceptionInsufficientFamiliarValue() {
+		boolean exceptionThrown = false;
+		String nomeGiocatoreEccezione = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Mercato);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		update.setSceltePrivilegiConsiglio(null);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown = true;
+		}
+		assertTrue(exceptionThrown == false);
+		update.spostaPedina(EColoriPedine.Neutrale, 0);
+
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			assertTrue(e.getMessage() == Errors.INSUFFICIENT_FAMILIAR_VALUE.toString());
+			exceptionThrown = true;
+			nomeGiocatoreEccezione = game.getGiocatoreDiTurno().getNome();
+		}
+		assertTrue(nomeGiocatoreEccezione == game.getGiocatoreDiTurno().getNome());
+		assertTrue(exceptionThrown == true);
+
+	}
+
+	/**
+	 * Metodo che verifica il corretto funzioonamento della eccezione
+	 * InvalidChoiche nel metodo onMarket e della relativa eccezione
+	 */
+	@Test
+	public void testOnMarketExceptionInvalidChoice() {
+		boolean exceptionThrown = false;
+		String nomeGiocatoreEccezione = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Mercato);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		update.setSceltePrivilegiConsiglio(null);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			exceptionThrown = true;
+		}
+		assertTrue(exceptionThrown == false);
+		update.spostaPedina(EColoriPedine.Nera, 3);
+		ESceltePrivilegioDelConsiglio[] scelte = { ESceltePrivilegioDelConsiglio.LegnoEPietra,
+				ESceltePrivilegioDelConsiglio.LegnoEPietra };
+		update.setSceltePrivilegiConsiglio(scelte);
+
+		try {
+			nomeGiocatoreEccezione = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			assertTrue(e.getMessage() == Errors.INVALID_CHOICE.toString());
+			exceptionThrown = true;
+		}
+		assertTrue(nomeGiocatoreEccezione == game.getGiocatoreDiTurno().getNome());
+		assertTrue(exceptionThrown);
+	}
+
+	/**
+	 * Test che verifica l'effettivo spostamento del famigliare quando è
+	 * invocato il metodo onMarket.
+	 * 
+	 */
+	@Test
+	public void testOnMarket() {
+		String nomeGiocatoreFamigliareSpostato = "";
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Mercato);
+		update.spostaPedina(EColoriPedine.Nera, 1);
+		try {
+			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(nomeGiocatoreFamigliareSpostato
+				.equals(game.getSpazioAzione().getMercato()[1].getGiocatore().getNome()));
+	}
+
+	/**
+	 * Test per verificare il corretto funzionamento del metodo OnPayServant
+	 */
+	@Test
+	public void testOnPayServant() {
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Famigliare);
+		update.aumentaValorePedina(EColoriPedine.Neutrale, 2);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(game.getGiocatoreDiTurno().getFamigliare(3).getValore() == 2);
+	}
+
+	/**
+	 * Test che verifica il corretto funzionamento del metodo onTower
+	 */
+	@Test
+	public void testOnTower() {
+		boolean exceptionThrown = false;
+		TestPlayer player1 = new TestPlayer();
+		TestPlayer player2 = new TestPlayer();
+		player1.setNome("primo giocatore");
+		player2.setNome("secondo giocatore");
+		Room room = new Room(player1, 0, 0);
+
+		try {
+			room.joinPlayer(player2);
+		} catch (RoomFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = new Game(room);
+		game.startNewGame();
+		UpdateStats update = new UpdateStats(EAzioniGiocatore.Torre);
+		update.spostaPedina(EColoriPedine.Nera, 0);
+		try {
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		} catch (GameException e) {
+		}
+		assertTrue(game.getSpazioAzione().getCartaTorre(0) == null);
+	}
 }

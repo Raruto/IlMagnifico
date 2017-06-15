@@ -109,7 +109,6 @@ public abstract class Partita {
 		// prossimo giocatore ad eseguire un azione
 		this.giocatoreDiTurno = giocatori.get(0);
 
-
 	}
 
 	/**
@@ -182,7 +181,8 @@ public abstract class Partita {
 	 *         azione
 	 */
 	protected boolean isGiocatoreDiTurno(Giocatore g) {
-		return this.giocatoreDiTurno.getNome().equals(g.getNome()) || (this.giocatoriRapportoVaticano!=null && this.giocatoriRapportoVaticano.contains(g));
+		return this.giocatoreDiTurno.getNome().equals(g.getNome())
+				|| (this.giocatoriRapportoVaticano != null && this.giocatoriRapportoVaticano.contains(g));
 	}
 
 	/**
@@ -576,5 +576,12 @@ public abstract class Partita {
 		return giocatoriTemp;
 	}
 
-	
+	/**
+	 * Metodo che restituisce la variabile SpazioAzione in uso
+	 * 
+	 * @return
+	 */
+	public SpazioAzione getSpazioAzione() {
+		return this.spazioAzione;
+	}
 }
