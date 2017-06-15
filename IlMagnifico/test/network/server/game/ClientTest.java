@@ -132,7 +132,7 @@ public class ClientTest {
 		} catch (InterruptedException e1) {
 
 		}
-
+		System.out.println("il giocatore di turno è:"+client1.getPlayerTurn());
 		for (int i = 0; i < 5; i++) {
 			if (client1.getNickname().equals(client1.getPlayerTurn()))
 				testMovePawnTowerCostChoice();
