@@ -98,70 +98,57 @@ public class Frame extends JFrame implements IClient {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
-		Scanner scanner = new Scanner(System.in);
-		String inText = scanner.nextLine().toUpperCase();
+		client = CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT, false);
 
-		if (inText.equals("S")) {
-			inText = ConnectionTypes.SOCKET.toString();
-		} else if (inText.equals("R")) {
-			inText = ConnectionTypes.RMI.toString();
-		}
-		// Default: RMI
-		else {
-			inText = ConnectionTypes.RMI.toString();
-			System.out.println("Connecting with RMI..");
-		}
-
-		boolean success = false;
-		int attempts = Costants.MAX_CONNECTION_ATTEMPTS;
-		int sec = Costants.CONNECTION_RETRY_SECONDS * 1000;
-		while (!success && attempts > 0) {
-			try {
-				attempts--;
-				Client client = getClient();
-				client.startClient(inText, Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
-				success = true;
-			} catch (ClientException e) {
-				if (attempts > 0) {
-					System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 + " seconds" + ", " + attempts
-							+ " attemps left)");
-					try {
-						Thread.sleep(sec);
-					} catch (InterruptedException ie) {
-						// TODO Auto-generated catch block
-					}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Frame frame = new Frame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
-		}
+		});
 
-		if (success) {
-			while (!getClient().isLogged()) {
-				System.out.print("Choose Player Name: ");
-				inText = scanner.nextLine();
-				getClient().loginPlayer(inText);
-			}
-			System.out.println();
-
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						Frame frame = new Frame();
-						frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-
-		} else {
-			// System.err.println("Exiting...");
-			// System.exit(0);
-
-			Server.main(args);
-		}
-
-		scanner.close();
+		/*
+		 * System.out.print("[R]MI or [S]ocket? (Default: [R]): "); Scanner
+		 * scanner = new Scanner(System.in); String inText =
+		 * scanner.nextLine().toUpperCase();
+		 * 
+		 * if (inText.equals("S")) { inText = ConnectionTypes.SOCKET.toString();
+		 * } else if (inText.equals("R")) { inText =
+		 * ConnectionTypes.RMI.toString(); } // Default: RMI else { inText =
+		 * ConnectionTypes.RMI.toString();
+		 * System.out.println("Connecting with RMI.."); }
+		 * 
+		 * boolean success = false; int attempts =
+		 * Costants.MAX_CONNECTION_ATTEMPTS; int sec =
+		 * Costants.CONNECTION_RETRY_SECONDS * 1000; while (!success && attempts
+		 * > 0) { try { attempts--; Client client = getClient();
+		 * client.startClient(inText, Costants.SERVER_ADDRESS,
+		 * Costants.SOCKET_PORT, Costants.RMI_PORT); success = true; } catch
+		 * (ClientException e) { if (attempts > 0) {
+		 * System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 +
+		 * " seconds" + ", " + attempts + " attemps left)"); try {
+		 * Thread.sleep(sec); } catch (InterruptedException ie) { // TODO
+		 * Auto-generated catch block } } } }
+		 * 
+		 * if (success) { while (!getClient().isLogged()) {
+		 * System.out.print("Choose Player Name: "); inText =
+		 * scanner.nextLine(); getClient().loginPlayer(inText); }
+		 * System.out.println();
+		 * 
+		 * EventQueue.invokeLater(new Runnable() { public void run() { try {
+		 * Frame frame = new Frame(); frame.setVisible(true); } catch (Exception
+		 * e) { e.printStackTrace(); } } });
+		 * 
+		 * } else { // System.err.println("Exiting..."); // System.exit(0);
+		 * 
+		 * Server.main(args); }
+		 * 
+		 * scanner.close();
+		 */
 	}
 
 	/**
@@ -1142,7 +1129,7 @@ public class Frame extends JFrame implements IClient {
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
-			//aggiornamento();
+			// aggiornamento();
 
 			famigliareSelezionato = null;
 
@@ -1200,7 +1187,7 @@ public class Frame extends JFrame implements IClient {
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
-			//aggiornamento();
+			// aggiornamento();
 
 			famigliareSelezionato = null;
 
@@ -1245,7 +1232,7 @@ public class Frame extends JFrame implements IClient {
 			}
 			System.out.println("TENTATIVO ");
 			System.out.println("PRENDERE CARTA " + cartaSelezionata.getNomeCarta() + " in posizione " + posizioneCarta);
-			//aggiornamento();
+			// aggiornamento();
 		}
 
 		@Override

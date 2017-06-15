@@ -108,6 +108,10 @@ public class CLI implements IClient {
 	 * @param rmiPort
 	 */
 	public static void mainClient(String serverAddress, int socketPort, int rmiPort) {
+		mainClient(serverAddress, socketPort, rmiPort, true);
+	}
+
+	public static Client mainClient(String serverAddress, int socketPort, int rmiPort, boolean mainLoop) {
 
 		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
 		inText = scanner.nextLine().toUpperCase();
@@ -148,12 +152,16 @@ public class CLI implements IClient {
 		if (success) {
 			CLI.login();
 			CLI.sayHelloToPlayers();
-			CLI.infiniteLoop();
+			if (mainLoop)
+				CLI.infiniteLoop();
+			else
+				return getClient();
 		} else {
 			System.err.println("\nCannot establish a connection to the server, the program will launch a local server");
 
 			CLI.mainServer(socketPort, rmiPort);
 		}
+		return null;
 	}
 
 	/**
