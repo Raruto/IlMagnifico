@@ -3,9 +3,9 @@ package main.model.enums;
 import java.util.ArrayList;
 
 public enum EScomuniche {
-	RICEVI_MENO_PM("ricevi meno pm", 1),
-	MENO_QUATTRO_ON_TERRITORIO("meno quattro on territorio",2),
-	NO_PV_PERSONAGGIO("no pv personaggio",3);
+	RICEVI_MENO_PM("Receive less MP", 1),
+	MENO_QUATTRO_ON_TERRITORIO("-4 on Territory",2),
+	NO_PV_PERSONAGGIO("No Charachter VP",3);
 
 	private String nome;
 	private int periodo;

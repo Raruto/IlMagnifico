@@ -1061,6 +1061,7 @@ public class CLI implements IClient {
 	 * Client command: [board] (Game Board printer).
 	 */
 	public static void printBoard() {
+		printExcommunications(true, false);
 		printDices(true, false);
 		printTowerArea(true, false);
 		printProductionArea(true, false);
@@ -1333,6 +1334,37 @@ public class CLI implements IClient {
 		}
 	}
 
+	private static void printExcommunications(boolean printSep1, boolean printSep2) {
+		Client client = getClient();
+		try {
+			if (printSep1)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+			Scomunica[] excommunications = client.getExcommunications();
+
+			if (excommunications != null) {
+				System.out.print(ANSI.YELLOW);
+				System.out.format("%-22s", "Excommuncations: ");
+				System.out.print(ANSI.RESET);
+				if (excommunications[0] != null)
+					System.out.format("Period 1%-21s", ": " + excommunications[0].getNome());
+				if (excommunications[1] != null)
+					System.out.format("Period 2%-21s", ": " + excommunications[1].getNome());
+				if (excommunications[2] != null)
+					System.out.format("Period 2%-21s", ": " + excommunications[2].getNome());
+
+				System.out.println();
+			}
+
+			if (printSep2)
+				System.out.println(Costants.ROW_SEPARATOR);
+
+		} catch (NullPointerException e) {
+			System.err.println("EXCPETION:" + e.getMessage());
+		}
+	}
+
+	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Command: [dash]
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -1341,7 +1373,7 @@ public class CLI implements IClient {
 	 * Client command: [dash] (Player Dash printer).
 	 */
 	public static void printDashBoard() {
-		printExcommunications(true, false);
+		printPlayersExcommunications(true, false);
 		printPointsAndResources(true, false);
 		printDashboardsCards(true, true);
 
@@ -1360,7 +1392,7 @@ public class CLI implements IClient {
 			for (String key : playersDashboards.keySet()) {
 				if (!key.equals(getClient().getNickname())) {
 					System.out.println("\nPlayer dashboard: \"" + key + "\"");
-					printExcommunications(key, true, false);
+					printPlayersExcommunications(key, true, false);
 					printPointsAndResources(key, true, false);
 					printDashboardsCards(key, true, true);
 				}
@@ -1457,11 +1489,11 @@ public class CLI implements IClient {
 		}
 	}
 
-	private static void printExcommunications(boolean printSep1, boolean printSep2) {
-		printExcommunications(getClient().getNickname(), printSep1, printSep2);
+	private static void printPlayersExcommunications(boolean printSep1, boolean printSep2) {
+		printPlayersExcommunications(getClient().getNickname(), printSep1, printSep2);
 	}
 
-	private static void printExcommunications(String nickname, boolean printSep1, boolean printSep2) {
+	private static void printPlayersExcommunications(String nickname, boolean printSep1, boolean printSep2) {
 		Client client = getClient();
 		try {
 			if (printSep1)
@@ -1474,11 +1506,11 @@ public class CLI implements IClient {
 				System.out.format("%-22s", "Excommuncations: ");
 				System.out.print(ANSI.RESET);
 				if (excommunications[0] != null)
-					System.out.format("Period 1%-11s", ": " + excommunications[0].getNome());
+					System.out.format("Period 1%-21s", ": " + excommunications[0].getNome());
 				if (excommunications[1] != null)
-					System.out.format("Period 2%-11s", ": " + excommunications[1].getNome());
+					System.out.format("Period 2%-21s", ": " + excommunications[1].getNome());
 				if (excommunications[2] != null)
-					System.out.format("Period 2%-11s", ": " + excommunications[2].getNome());
+					System.out.format("Period 2%-21s", ": " + excommunications[2].getNome());
 
 				System.out.println();
 			}
