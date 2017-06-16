@@ -206,6 +206,9 @@ while(!client.isGameStarted()){
 		
 		ArrayList<String> nomeGiocatori = this.nomeGiocatoriPartita;
 		numeroGiocatoriPartita = nomeGiocatori.size();
+		for (String string : nomeGiocatori) {
+			System.out.println(string);
+		}
 
 		// CONVERSIONE GIOCATORI
 
