@@ -1418,7 +1418,6 @@ public class Frame extends JFrame implements IClient {
 	@Override
 	public void onTurnStarted(UpdateStats update) {
 		aggiornamento(update);
-		turno++;
 	}
 
 	@Override
