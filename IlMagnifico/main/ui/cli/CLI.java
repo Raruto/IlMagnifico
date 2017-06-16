@@ -46,6 +46,7 @@ public class CLI implements IClient {
 	public static String inText;
 
 	static Client client;
+	static IClient ui;
 
 	/**
 	 * Get Singleton Client
@@ -55,13 +56,20 @@ public class CLI implements IClient {
 	public static Client getClient() {
 		if (client == null) {
 			try {
-				client = new Client(new CLI());
+				client = new Client(getIClient());
 			} catch (ClientException e) {
 				e.printStackTrace();
 				System.err.println("Exiting...");
 			}
 		}
 		return client;
+	}
+
+	public static IClient getIClient() {
+		if (ui == null) {
+			ui = new CLI();
+		}
+		return ui;
 	}
 
 	/**
@@ -108,11 +116,12 @@ public class CLI implements IClient {
 	 * @param rmiPort
 	 */
 	public static void mainClient(String serverAddress, int socketPort, int rmiPort) {
-		mainClient(serverAddress, socketPort, rmiPort, true);
+		mainClient(serverAddress, socketPort, rmiPort, null);
 	}
 
-	public static Client mainClient(String serverAddress, int socketPort, int rmiPort, boolean mainLoop) {
-
+	public static Client mainClient(String serverAddress, int socketPort, int rmiPort, IClient clientUI) {
+		CLI.ui=clientUI;
+		
 		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
 		inText = scanner.nextLine().toUpperCase();
 
@@ -152,7 +161,7 @@ public class CLI implements IClient {
 		if (success) {
 			CLI.login();
 			CLI.sayHelloToPlayers();
-			if (mainLoop)
+			if (clientUI == null)
 				CLI.infiniteLoop();
 			else
 				return getClient();
@@ -1364,7 +1373,6 @@ public class CLI implements IClient {
 		}
 	}
 
-	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Command: [dash]
 	/////////////////////////////////////////////////////////////////////////////////////////
