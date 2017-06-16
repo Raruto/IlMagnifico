@@ -105,7 +105,7 @@ public class Frame extends JFrame implements IClient {
 			public void run() {
 				try {
 					Frame frame = new Frame();
-					
+
 					client = CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT, frame);
 					while (!client.isGameStarted()) {
 						try {
@@ -116,7 +116,6 @@ public class Frame extends JFrame implements IClient {
 						}
 					}
 
-					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -219,8 +218,9 @@ public class Frame extends JFrame implements IClient {
 
 			// SCOMUNICHE
 			boolean[] scomuniche = new boolean[3];
-			Scomunica[] scomunicheModel =getClient().getPlayersExcommunications().get(nomeGiocatori.get(i));
-//			Scomunica[] scomunicheModel = update.getScomunicheGiocatori().get(nomeGiocatori.get(i));
+			Scomunica[] scomunicheModel = getClient().getPlayersExcommunications().get(nomeGiocatori.get(i));
+			// Scomunica[] scomunicheModel =
+			// update.getScomunicheGiocatori().get(nomeGiocatori.get(i));
 			for (int j = 0; j < 3; j++) {
 				if (scomunicheModel[j] != null)
 					scomuniche[j] = true;
@@ -259,22 +259,25 @@ public class Frame extends JFrame implements IClient {
 			ArrayList<String> cartePersonaggio = new ArrayList<String>();
 			ArrayList<String> carteImprese = new ArrayList<String>();
 
-			ArrayList<Edificio> edificiModel = getClient().getPlayersDashboards().get(nomeGiocatori).getEdifici();
+			ArrayList<Edificio> edificiModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i))
+					.getEdifici();
 			for (int j = 0; j < edificiModel.size(); j++) {
 				carteEdificio.add(edificiModel.get(i).getNome());
 			}
 
-			ArrayList<Territorio> territoriModel = getClient().getPlayersDashboards().get(nomeGiocatori).getTerritori();
+			ArrayList<Territorio> territoriModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i))
+					.getTerritori();
 			for (int j = 0; j < territoriModel.size(); j++) {
 				carteTerritorio.add(territoriModel.get(i).getNome());
 			}
 
-			ArrayList<Personaggio> personaggiModel = getClient().getPlayersDashboards().get(nomeGiocatori).getPersonaggi();
+			ArrayList<Personaggio> personaggiModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i))
+					.getPersonaggi();
 			for (int j = 0; j < personaggiModel.size(); j++) {
 				cartePersonaggio.add(personaggiModel.get(i).getNome());
 			}
 
-			ArrayList<Impresa> impreseModel =getClient().getPlayersDashboards().get(nomeGiocatori).getImprese();
+			ArrayList<Impresa> impreseModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i)).getImprese();
 			for (int j = 0; j < impreseModel.size(); j++) {
 				carteImprese.add(impreseModel.get(i).getNome());
 			}
@@ -311,8 +314,10 @@ public class Frame extends JFrame implements IClient {
 
 		main.ui.gui.aggiornamento.Famigliare[] torre = new main.ui.gui.aggiornamento.Famigliare[16];
 		for (int i = 0; i < 16; i++) {
-			main.model.Famigliare famigliareTorre = update.getSpazioAzione()
-					.getFamigliareTorre((i / 4) * 4 + (4 - i % 4) - 1);
+			int posizione = (i / 4) * 4 + (4 - i % 4) - 1;
+			main.model.Famigliare famigliareTorre = null;
+			if (update.getSpazioAzione() != null)
+				famigliareTorre = update.getSpazioAzione().getFamigliareTorre(posizione);
 
 			if (famigliareTorre == null)
 				torre[i] = null;
@@ -346,7 +351,9 @@ public class Frame extends JFrame implements IClient {
 
 		main.ui.gui.aggiornamento.Famigliare[] mercato = new main.ui.gui.aggiornamento.Famigliare[4];
 		for (int i = 0; i < 4; i++) {
-			main.model.Famigliare famigliareMercato = update.getSpazioAzione().getMercato()[i];
+			main.model.Famigliare famigliareMercato = null;
+			if (update.getAzioneGiocatore() != null)
+				famigliareMercato = update.getSpazioAzione().getMercato()[i];
 
 			if (famigliareMercato == null)
 				mercato[i] = null;
@@ -379,7 +386,10 @@ public class Frame extends JFrame implements IClient {
 		// FAMIGLIARE SUL RACCOLTO ROTONDO
 
 		main.ui.gui.aggiornamento.Famigliare raccoltoRotondo;
-		main.model.Famigliare famigliareRaccoltoRotondoModel = update.getSpazioAzione().getZonaRaccoltoRotonda();
+
+		main.model.Famigliare famigliareRaccoltoRotondoModel = null;
+		if (update.getSpazioAzione() != null)
+			famigliareRaccoltoRotondoModel = update.getSpazioAzione().getZonaRaccoltoRotonda();
 		if (famigliareRaccoltoRotondoModel == null)
 			raccoltoRotondo = null;
 		else {
@@ -410,40 +420,45 @@ public class Frame extends JFrame implements IClient {
 		// FAMIGLIARE SUL RACCOLTO OVALE
 
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> raccoltoOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		for (int i = 0; i < update.getSpazioAzione().getZonaRaccoltoOvale().size(); i++) {
-			main.model.Famigliare famigliareRaccoltoOvaleModel = update.getSpazioAzione().getZonaRaccoltoOvale().get(i);
-			if (famigliareRaccoltoOvaleModel == null)
-				raccoltoOvale.add(null);
-			else {
-				int numero = 0;
-				if (EColoriPedine.Nera == famigliareRaccoltoOvaleModel.getColoreFamigliare())
-					numero = 0;
-				else if (EColoriPedine.Arancione == famigliareRaccoltoOvaleModel.getColoreFamigliare())
-					numero = 1;
-				else if (EColoriPedine.Bianca == famigliareRaccoltoOvaleModel.getColoreFamigliare())
-					numero = 2;
-				else
-					numero = 3;
+		if (update.getSpazioAzione() != null)
+			for (int i = 0; i < update.getSpazioAzione().getZonaRaccoltoOvale().size(); i++) {
+				main.model.Famigliare famigliareRaccoltoOvaleModel = null;
+				if (update.getSpazioAzione() != null)
+					famigliareRaccoltoOvaleModel = update.getSpazioAzione().getZonaRaccoltoOvale().get(i);
+				if (famigliareRaccoltoOvaleModel == null)
+					raccoltoOvale.add(null);
+				else {
+					int numero = 0;
+					if (EColoriPedine.Nera == famigliareRaccoltoOvaleModel.getColoreFamigliare())
+						numero = 0;
+					else if (EColoriPedine.Arancione == famigliareRaccoltoOvaleModel.getColoreFamigliare())
+						numero = 1;
+					else if (EColoriPedine.Bianca == famigliareRaccoltoOvaleModel.getColoreFamigliare())
+						numero = 2;
+					else
+						numero = 3;
 
-				String coloreGiocatoreFamigliare = "";
-				if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.RED)
-					coloreGiocatoreFamigliare = "rosso";
-				else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.BLUE)
-					coloreGiocatoreFamigliare = "blu";
-				else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.GREEN)
-					coloreGiocatoreFamigliare = "verde";
-				else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
-					coloreGiocatoreFamigliare = "giallo";
+					String coloreGiocatoreFamigliare = "";
+					if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.RED)
+						coloreGiocatoreFamigliare = "rosso";
+					else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.BLUE)
+						coloreGiocatoreFamigliare = "blu";
+					else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.GREEN)
+						coloreGiocatoreFamigliare = "verde";
+					else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
+						coloreGiocatoreFamigliare = "giallo";
 
-				raccoltoOvale.add(new main.ui.gui.aggiornamento.Famigliare(famigliareRaccoltoOvaleModel.getValore(),
-						numero, coloreGiocatoreFamigliare, famigliareRaccoltoOvaleModel.getGiocatore().getNome()));
+					raccoltoOvale.add(new main.ui.gui.aggiornamento.Famigliare(famigliareRaccoltoOvaleModel.getValore(),
+							numero, coloreGiocatoreFamigliare, famigliareRaccoltoOvaleModel.getGiocatore().getNome()));
+				}
 			}
-		}
 
 		// FAMIGLIARE SU PRODUZIONE ROTONDO
 
 		main.ui.gui.aggiornamento.Famigliare produzioneRotondo;
-		main.model.Famigliare famigliareProduzioneRotondoModel = update.getSpazioAzione().getZonaProduzioneRotonda();
+		main.model.Famigliare famigliareProduzioneRotondoModel = null;
+		if (update.getSpazioAzione() != null)
+			famigliareProduzioneRotondoModel = update.getSpazioAzione().getZonaProduzioneRotonda();
 		if (famigliareProduzioneRotondoModel == null)
 			produzioneRotondo = null;
 		else {
@@ -474,81 +489,88 @@ public class Frame extends JFrame implements IClient {
 		// FAMIGLIARE SU PRODUZIONE OVALE
 
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> produzioneOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		for (int i = 0; i < update.getSpazioAzione().getZonaProduzioneOvale().size(); i++) {
-			main.model.Famigliare famigliareProduzioneOvaleModel = update.getSpazioAzione().getZonaProduzioneOvale()
-					.get(i);
-			if (famigliareProduzioneOvaleModel == null)
-				produzioneOvale.add(null);
-			else {
-				int numero = 0;
-				if (EColoriPedine.Nera == famigliareProduzioneOvaleModel.getColoreFamigliare())
-					numero = 0;
-				else if (EColoriPedine.Arancione == famigliareProduzioneOvaleModel.getColoreFamigliare())
-					numero = 1;
-				else if (EColoriPedine.Bianca == famigliareProduzioneOvaleModel.getColoreFamigliare())
-					numero = 2;
-				else
-					numero = 3;
+		if (update.getSpazioAzione() != null)
+			for (int i = 0; i < update.getSpazioAzione().getZonaProduzioneOvale().size(); i++) {
+				main.model.Famigliare famigliareProduzioneOvaleModel = null;
+				if (update.getSpazioAzione() != null)
+					famigliareProduzioneOvaleModel = update.getSpazioAzione().getZonaProduzioneOvale().get(i);
+				if (famigliareProduzioneOvaleModel == null)
+					produzioneOvale.add(null);
+				else {
+					int numero = 0;
+					if (EColoriPedine.Nera == famigliareProduzioneOvaleModel.getColoreFamigliare())
+						numero = 0;
+					else if (EColoriPedine.Arancione == famigliareProduzioneOvaleModel.getColoreFamigliare())
+						numero = 1;
+					else if (EColoriPedine.Bianca == famigliareProduzioneOvaleModel.getColoreFamigliare())
+						numero = 2;
+					else
+						numero = 3;
 
-				String coloreGiocatoreFamigliare = "";
-				if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.RED)
-					coloreGiocatoreFamigliare = "rosso";
-				else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.BLUE)
-					coloreGiocatoreFamigliare = "blu";
-				else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.GREEN)
-					coloreGiocatoreFamigliare = "verde";
-				else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
-					coloreGiocatoreFamigliare = "giallo";
+					String coloreGiocatoreFamigliare = "";
+					if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.RED)
+						coloreGiocatoreFamigliare = "rosso";
+					else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.BLUE)
+						coloreGiocatoreFamigliare = "blu";
+					else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.GREEN)
+						coloreGiocatoreFamigliare = "verde";
+					else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
+						coloreGiocatoreFamigliare = "giallo";
 
-				produzioneOvale.add(new main.ui.gui.aggiornamento.Famigliare(famigliareProduzioneOvaleModel.getValore(),
-						numero, coloreGiocatoreFamigliare, famigliareProduzioneOvaleModel.getGiocatore().getNome()));
+					produzioneOvale.add(new main.ui.gui.aggiornamento.Famigliare(
+							famigliareProduzioneOvaleModel.getValore(), numero, coloreGiocatoreFamigliare,
+							famigliareProduzioneOvaleModel.getGiocatore().getNome()));
+				}
 			}
-		}
 
-		// FAMIGLIARE SU PRODUZIONE OVALE
+		// FAMIGLIARE SU PALAZZO DEL CONSIGLIO
 
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> palazzoConsiglio = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		for (int i = 0; i < update.getSpazioAzione().getPalazzoDelConsiglio().size(); i++) {
-			main.model.Famigliare famigliarePalazzoConsiglioModel = update.getSpazioAzione().getPalazzoDelConsiglio()
-					.get(i);
-			if (famigliarePalazzoConsiglioModel == null)
-				palazzoConsiglio.add(null);
-			else {
-				int numero = 0;
-				if (EColoriPedine.Nera == famigliarePalazzoConsiglioModel.getColoreFamigliare())
-					numero = 0;
-				else if (EColoriPedine.Arancione == famigliarePalazzoConsiglioModel.getColoreFamigliare())
-					numero = 1;
-				else if (EColoriPedine.Bianca == famigliarePalazzoConsiglioModel.getColoreFamigliare())
-					numero = 2;
-				else
-					numero = 3;
+		if (update.getSpazioAzione() != null)
+			for (int i = 0; i < update.getSpazioAzione().getPalazzoDelConsiglio().size(); i++) {
+				main.model.Famigliare famigliarePalazzoConsiglioModel = null;
+				if (update.getSpazioAzione() != null)
+					famigliarePalazzoConsiglioModel = update.getSpazioAzione().getPalazzoDelConsiglio().get(i);
+				if (famigliarePalazzoConsiglioModel == null)
+					palazzoConsiglio.add(null);
+				else {
+					int numero = 0;
+					if (EColoriPedine.Nera == famigliarePalazzoConsiglioModel.getColoreFamigliare())
+						numero = 0;
+					else if (EColoriPedine.Arancione == famigliarePalazzoConsiglioModel.getColoreFamigliare())
+						numero = 1;
+					else if (EColoriPedine.Bianca == famigliarePalazzoConsiglioModel.getColoreFamigliare())
+						numero = 2;
+					else
+						numero = 3;
 
-				String coloreGiocatoreFamigliare = "";
-				if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.RED)
-					coloreGiocatoreFamigliare = "rosso";
-				else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.BLUE)
-					coloreGiocatoreFamigliare = "blu";
-				else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.GREEN)
-					coloreGiocatoreFamigliare = "verde";
-				else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
-					coloreGiocatoreFamigliare = "giallo";
+					String coloreGiocatoreFamigliare = "";
+					if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.RED)
+						coloreGiocatoreFamigliare = "rosso";
+					else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.BLUE)
+						coloreGiocatoreFamigliare = "blu";
+					else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.GREEN)
+						coloreGiocatoreFamigliare = "verde";
+					else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
+						coloreGiocatoreFamigliare = "giallo";
 
-				palazzoConsiglio.add(
-						new main.ui.gui.aggiornamento.Famigliare(famigliarePalazzoConsiglioModel.getValore(), numero,
-								coloreGiocatoreFamigliare, famigliarePalazzoConsiglioModel.getGiocatore().getNome()));
+					palazzoConsiglio.add(new main.ui.gui.aggiornamento.Famigliare(
+							famigliarePalazzoConsiglioModel.getValore(), numero, coloreGiocatoreFamigliare,
+							famigliarePalazzoConsiglioModel.getGiocatore().getNome()));
+				}
 			}
-		}
 
 		// CARTE SCOMUNICA
 
-		String[] carteScomunica = { null, null, null };
+		String[] carteScomunica = { "scomunica 1_1", "scomunica 1_2", "scomunica 1_3" };
 
 		// CARTE SVILUPPO TORRE
 
 		String[] carteTorre = new String[16];
 		for (int i = 0; i < 16; i++) {
-			main.model.Carta cartaModel = update.getSpazioAzione().getCartaTorre((i / 4) * 4 + (4 - i % 4) - 1);
+			main.model.Carta cartaModel = null;
+			if (update.getSpazioAzione() != null)
+				cartaModel = update.getSpazioAzione().getCartaTorre((i / 4) * 4 + (4 - i % 4) - 1);
 			if (cartaModel == null)
 				carteTorre[i] = null;
 			else
@@ -557,8 +579,8 @@ public class Frame extends JFrame implements IClient {
 
 		// AGGIORNAMENTO
 
-		Aggiornamento agg = new Aggiornamento(1, giocatori, torre, mercato, raccoltoRotondo, raccoltoOvale,
-				produzioneRotondo, produzioneOvale, palazzoConsiglio, carteScomunica, carteTorre);
+		Aggiornamento agg = new Aggiornamento(getClient().getTurnNumber(), giocatori, torre, mercato, raccoltoRotondo,
+				raccoltoOvale, produzioneRotondo, produzioneOvale, palazzoConsiglio, carteScomunica, carteTorre);
 
 		AggiornamentoInterfaccia ai = new AggiornamentoInterfaccia(agg, this);
 		ai.aggiornaTutto();
@@ -1507,7 +1529,7 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
-		nomeGiocatore=getClient().getNickname();
+		nomeGiocatore = getClient().getNickname();
 		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
 		this.nomeGiocatoriPartita = update.getNomiGiocatori();
 		numeroGiocatoriPartita = this.nomeGiocatoriPartita.size();

@@ -76,7 +76,6 @@ public class Game extends Partita {
 	public void startNewGame() {
 		UpdateStats update;
 
-		// TODO: decidere quali azioni vogliamo trasmettere...
 
 		inizializzaPartita();
 		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.giocatori);
