@@ -42,6 +42,7 @@ public class CartaSviluppo extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
+		System.out.println(pathImmagine);
 		ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
 		Image image = icon.getImage();
 		image = icon.getImage().getScaledInstance(icon.getIconWidth() * N / D, icon.getIconHeight() * N / D,

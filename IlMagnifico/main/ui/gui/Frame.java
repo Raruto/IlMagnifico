@@ -19,6 +19,7 @@ import main.model.enums.EColoriGiocatori;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
+import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.network.client.Client;
 import main.network.client.ClientException;
@@ -67,7 +68,8 @@ public class Frame extends JFrame implements IClient {
 	private int numeroGiocatoriPartita = 2;
 	private String nomeGiocatore;
 	private String colore;
-
+	private ArrayList<String> nomeGiocatoriPartita;
+	
 	private Tabellone tabellone;
 	private Plancia plancia;
 	private PlanciaAvversario planciaAvversari;
@@ -100,7 +102,14 @@ public class Frame extends JFrame implements IClient {
 	 */
 	public static void main(String[] args) {
 		client = CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT, false);
-
+while(!client.isGameStarted()){
+	try {
+		Thread.sleep(2000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -173,8 +182,8 @@ public class Frame extends JFrame implements IClient {
 
 		// ESEMPIO
 
-		// nomeGiocatore = getClient().getNickname();
-		// colore = "rosso";
+		 nomeGiocatore = getClient().getNickname();
+		 colore = "rosso";
 		HashMap<String, EColoriGiocatori> coloriGiocatori = getClient().getPlayersColors();
 		if (EColoriGiocatori.RED == coloriGiocatori.get(nomeGiocatore))
 			colore = "rosso";
@@ -184,6 +193,8 @@ public class Frame extends JFrame implements IClient {
 			colore = "verde";
 		else if (EColoriGiocatori.YELLOW == coloriGiocatori.get(nomeGiocatore))
 			colore = "giallo";
+		
+		//aggiornamento();
 	}
 
 	public void aggiornamento(UpdateStats update) {
@@ -192,7 +203,8 @@ public class Frame extends JFrame implements IClient {
 		if (tabellone != null)
 			remove(tabellone);
 
-		ArrayList<String> nomeGiocatori = update.getNomiGiocatori();
+		
+		ArrayList<String> nomeGiocatori = this.nomeGiocatoriPartita;
 		numeroGiocatoriPartita = nomeGiocatori.size();
 
 		// CONVERSIONE GIOCATORI
@@ -548,6 +560,77 @@ public class Frame extends JFrame implements IClient {
 
 	}
 
+
+	public void aggiornamento() {
+		if (plancia != null)
+			remove(plancia);
+		if (tabellone != null)
+			remove(tabellone);
+		/*
+		 * 
+		 * colore dei giocatori?
+		 * 
+		 * HashMap<String, String> coloreModel = Client.getPlayersColor(); ????
+		 * 
+		 * HashMap<String, model.Plancia> planciaModel =
+		 * Client.getPlayersDashboard(); HashMap<String, model.Famigliare[]>
+		 * famigliariModel = Client.getPlayersFamilies(); HashMap<String,
+		 * model.Risorsa> risorseModel = Client.getPlayersResources();
+		 * HashMap<String, model.Punti> puntiModel = Client.getPlayersPoints();
+		 * model.SpazioAzione spazioAzioneModel = getGameBoard();
+		 * 
+		 * 
+		 * ArrayList<String> nomeGiocatori = new ArrayList<String>(); for(int
+		 * i=0; i<planciaModel.size(); i++){
+		 * 
+		 * }
+		 * 
+		 * for(int i=0; i<planciaModel.size(); i++){ for(int j=0; j< }
+		 * 
+		 */
+
+		boolean[] scomuniche1 = { false, false, false };
+		ArrayList<main.ui.gui.aggiornamento.Famigliare> fp = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		// fp.add(new aggiornamento.Famigliare(0,0,colore, nomeGiocatore));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, colore, nomeGiocatore));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 1, colore, nomeGiocatore));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 2, colore, nomeGiocatore));
+		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 3, colore, nomeGiocatore));
+
+		ArrayList<String> carteEdificio1 = new ArrayList<String>();
+		
+
+		Giocatore g1 = new Giocatore(nomeGiocatore, colore, new Punti(0, 0, 0), new Risorse(0, 0, 0, 0),
+				scomuniche1, fp, new ArrayList<String>(), carteEdificio1, new ArrayList<String>(),
+				new ArrayList<String>());
+
+
+		ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>();
+		giocatori.add(g1);
+		
+
+		main.ui.gui.aggiornamento.Famigliare[] torre = { null,
+				null, null, null, null, null, null, null,
+				null, null,null, null,
+				null, null, null, null };
+		main.ui.gui.aggiornamento.Famigliare[] mercato = { null, null,
+				null, null };
+		main.ui.gui.aggiornamento.Famigliare raccoltoRotondo = null;
+		ArrayList<main.ui.gui.aggiornamento.Famigliare> raccoltoOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		main.ui.gui.aggiornamento.Famigliare produzioneRotondo =null;
+		ArrayList<main.ui.gui.aggiornamento.Famigliare> produzioneOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		ArrayList<main.ui.gui.aggiornamento.Famigliare> palazzoConsiglio = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		String[] carteScomunica = {};
+		String[] carteTorre = {};
+
+		Aggiornamento agg = new Aggiornamento(0, giocatori, torre, mercato, raccoltoRotondo, raccoltoOvale,
+				produzioneRotondo, produzioneOvale, palazzoConsiglio, carteScomunica, carteTorre);
+
+		AggiornamentoInterfaccia ai = new AggiornamentoInterfaccia(agg, this);
+		ai.aggiornaTutto();
+	}
+
+	
 	public int getTurno() {
 		return turno;
 	}
@@ -1429,6 +1512,8 @@ public class Frame extends JFrame implements IClient {
 	@Override
 	public void onGameStarted(UpdateStats update) {
 		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
+		this.nomeGiocatoriPartita = update.getNomiGiocatori();
+		numeroGiocatoriPartita = this.nomeGiocatoriPartita.size();
 		aggiornamento(update);
 	}
 
@@ -1437,4 +1522,4 @@ public class Frame extends JFrame implements IClient {
 		// TODO Auto-generated method stub
 
 	}
-}
+	}
