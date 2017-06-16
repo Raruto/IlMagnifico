@@ -219,7 +219,8 @@ public class Frame extends JFrame implements IClient {
 
 			// SCOMUNICHE
 			boolean[] scomuniche = new boolean[3];
-			Scomunica[] scomunicheModel = update.getScomunicheGiocatori().get(nomeGiocatori.get(i));
+			Scomunica[] scomunicheModel =getClient().getPlayersExcommunications().get(nomeGiocatori.get(i));
+//			Scomunica[] scomunicheModel = update.getScomunicheGiocatori().get(nomeGiocatori.get(i));
 			for (int j = 0; j < 3; j++) {
 				if (scomunicheModel[j] != null)
 					scomuniche[j] = true;
@@ -231,7 +232,7 @@ public class Frame extends JFrame implements IClient {
 			ArrayList<main.ui.gui.aggiornamento.Famigliare> fp = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
 			main.model.Famigliare f0, f1, f2, f3;
 			if (nomeGiocatori.get(i).equals(nomeGiocatore)) {
-				main.model.Famigliare[] famigliariModel = update.getFamigliaGiocatore();
+				main.model.Famigliare[] famigliariModel = getClient().getPlayersFamilies().get(nomeGiocatori.get(i));
 				for (int j = 0; j < famigliariModel.length; j++) {
 					if (famigliariModel[j].getPosizionato())
 						fp.add(null);
@@ -258,23 +259,22 @@ public class Frame extends JFrame implements IClient {
 			ArrayList<String> cartePersonaggio = new ArrayList<String>();
 			ArrayList<String> carteImprese = new ArrayList<String>();
 
-			ArrayList<Edificio> edificiModel = update.getPlanceGiocatori().get(nomeGiocatori.get(i)).getEdifici();
+			ArrayList<Edificio> edificiModel = getClient().getPlayersDashboards().get(nomeGiocatori).getEdifici();
 			for (int j = 0; j < edificiModel.size(); j++) {
 				carteEdificio.add(edificiModel.get(i).getNome());
 			}
 
-			ArrayList<Territorio> territoriModel = update.getPlanceGiocatori().get(nomeGiocatori.get(i)).getTerritori();
+			ArrayList<Territorio> territoriModel = getClient().getPlayersDashboards().get(nomeGiocatori).getTerritori();
 			for (int j = 0; j < territoriModel.size(); j++) {
 				carteTerritorio.add(territoriModel.get(i).getNome());
 			}
 
-			ArrayList<Personaggio> personaggiModel = update.getPlanceGiocatori().get(nomeGiocatori.get(i))
-					.getPersonaggi();
+			ArrayList<Personaggio> personaggiModel = getClient().getPlayersDashboards().get(nomeGiocatori).getPersonaggi();
 			for (int j = 0; j < personaggiModel.size(); j++) {
 				cartePersonaggio.add(personaggiModel.get(i).getNome());
 			}
 
-			ArrayList<Impresa> impreseModel = update.getPlanceGiocatori().get(nomeGiocatori.get(i)).getImprese();
+			ArrayList<Impresa> impreseModel =getClient().getPlayersDashboards().get(nomeGiocatori).getImprese();
 			for (int j = 0; j < impreseModel.size(); j++) {
 				carteImprese.add(impreseModel.get(i).getNome());
 			}
@@ -295,13 +295,13 @@ public class Frame extends JFrame implements IClient {
 			// update.getPuntiGiocatori()
 
 			Giocatore g = new Giocatore(nomeGiocatori.get(i), coloreGiocatore,
-					new Punti(update.getPuntiGiocatori().get(nomeGiocatori.get(i)).getPuntiVittoria(),
-							update.getPuntiGiocatori().get(nomeGiocatori.get(i)).getPuntiMilitari(),
-							update.getPuntiGiocatori().get(nomeGiocatori.get(i)).getPuntiFede()),
-					new Risorse(update.getRisorseGiocatori().get(nomeGiocatori.get(i)).getMonete(),
-							update.getRisorseGiocatori().get(nomeGiocatori.get(i)).getLegno(),
-							update.getRisorseGiocatori().get(nomeGiocatori.get(i)).getPietre(),
-							update.getRisorseGiocatori().get(nomeGiocatori.get(i)).getServitori()),
+					new Punti(getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiVittoria(),
+							getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiMilitari(),
+							getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiFede()),
+					new Risorse(getClient().getPlayersResources().get(nomeGiocatori.get(i)).getMonete(),
+							getClient().getPlayersResources().get(nomeGiocatori.get(i)).getLegno(),
+							getClient().getPlayersResources().get(nomeGiocatori.get(i)).getPietre(),
+							getClient().getPlayersResources().get(nomeGiocatori.get(i)).getServitori()),
 					scomuniche, fp, carteTerritorio, carteEdificio, carteImprese, cartePersonaggio);
 			giocatori.add(g);
 
@@ -1507,6 +1507,7 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
+		nomeGiocatore=getClient().getNickname();
 		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
 		this.nomeGiocatoriPartita = update.getNomiGiocatori();
 		numeroGiocatoriPartita = this.nomeGiocatoriPartita.size();
