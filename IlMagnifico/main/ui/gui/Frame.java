@@ -35,6 +35,7 @@ import main.ui.gui.aggiornamento.Punti;
 import main.ui.gui.aggiornamento.Risorse;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
+import main.util.ANSI;
 import main.util.Costants;
 import res.images.Resources;
 
@@ -207,9 +208,6 @@ public class Frame extends JFrame implements IClient {
 
 		ArrayList<String> nomeGiocatori = this.nomeGiocatoriPartita;
 		numeroGiocatoriPartita = nomeGiocatori.size();
-		for (String string : nomeGiocatori) {
-			System.out.println(string);
-		}
 
 		// CONVERSIONE GIOCATORI
 
@@ -832,6 +830,18 @@ public class Frame extends JFrame implements IClient {
 				 * COVERSAZIONE CON SERVER
 				 */
 
+				EColoriPedine colorePedina;
+				if (famigliareSelezionato.getNumero() == 0)
+					colorePedina = EColoriPedine.Nera;
+				else if (famigliareSelezionato.getNumero() == 1)
+					colorePedina = EColoriPedine.Arancione;
+				else if (famigliareSelezionato.getNumero() == 2)
+					colorePedina = EColoriPedine.Bianca;
+				else
+					colorePedina = EColoriPedine.Neutrale;
+
+				incrementPawnValue(colorePedina, 1);
+
 				servitoreSelezionato = false;
 				famigliareSelezionato = null;
 				return;
@@ -1219,13 +1229,23 @@ public class Frame extends JFrame implements IClient {
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
 			System.out.println("SPOSTAMENTO SU PALAZZO CONSIGLIO");
 
+			EColoriPedine colorePedina;
+			if (famigliareSelezionato.getNumero() == 0)
+				colorePedina = EColoriPedine.Nera;
+			else if (famigliareSelezionato.getNumero() == 1)
+				colorePedina = EColoriPedine.Arancione;
+			else if (famigliareSelezionato.getNumero() == 2)
+				colorePedina = EColoriPedine.Bianca;
+			else
+				colorePedina = EColoriPedine.Neutrale;
+
 			ArrayList<String> scelte = new ArrayList<String>();
 			scelte.add("1 pietra e 1 legno");
 			scelte.add("2 servitori");
 			scelte.add("2 monete");
 			scelte.add("2 punti militari");
 			scelte.add("1 fede");
-			new ChiediPrivilegioConsiglio(scelte, 2);
+			new ChiediPrivilegioConsiglio(EAzioniGiocatore.PalazzoConsiglio, colorePedina, scelte, 1);
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
@@ -1277,13 +1297,27 @@ public class Frame extends JFrame implements IClient {
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
 			System.out.println("SPOSTAMENTO SU MERCATO IN POSIZIONE " + posizioneMercato);
 
-			ArrayList<String> scelte = new ArrayList<String>();
-			scelte.add("1 pietra e 1 legno");
-			scelte.add("2 servitori");
-			scelte.add("2 monete");
-			scelte.add("2 punti militari");
-			scelte.add("1 fede");
-			new ChiediPrivilegioConsiglio(scelte, 2);
+			EColoriPedine colorePedina;
+			if (famigliareSelezionato.getNumero() == 0)
+				colorePedina = EColoriPedine.Nera;
+			else if (famigliareSelezionato.getNumero() == 1)
+				colorePedina = EColoriPedine.Arancione;
+			else if (famigliareSelezionato.getNumero() == 2)
+				colorePedina = EColoriPedine.Bianca;
+			else
+				colorePedina = EColoriPedine.Neutrale;
+
+			if (posizioneMercato == 3) {
+				ArrayList<String> scelte = new ArrayList<String>();
+				scelte.add("1 pietra e 1 legno");
+				scelte.add("2 servitori");
+				scelte.add("2 monete");
+				scelte.add("2 punti militari");
+				scelte.add("1 fede");
+				new ChiediPrivilegioConsiglio(EAzioniGiocatore.Mercato, colorePedina, scelte, 2);
+			} else {
+				movePawn(EAzioniGiocatore.Mercato, colorePedina, posizioneMercato);
+			}
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
@@ -1362,8 +1396,9 @@ public class Frame extends JFrame implements IClient {
 	}
 
 	private class ChiediPrivilegioConsiglio implements EventListener {
-		public ChiediPrivilegioConsiglio(ArrayList<String> scelte, int numScelte) {
-			framePrivilegioConsiglio.mostraFinestra(scelte, numScelte);
+		public ChiediPrivilegioConsiglio(EAzioniGiocatore azione, EColoriPedine colorePedina, ArrayList<String> scelte,
+				int numScelte) {
+			framePrivilegioConsiglio.mostraFinestra(azione, colorePedina, scelte, numScelte);
 		}
 	}
 
@@ -1428,8 +1463,7 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onActionNotValid(String errorCode) {
-		// TODO Auto-generated method stub
-
+		System.out.println("ERROR: " + ANSI.YELLOW + errorCode + ANSI.RESET);
 	}
 
 	@Override

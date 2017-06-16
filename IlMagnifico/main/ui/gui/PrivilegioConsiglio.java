@@ -20,6 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import main.model.enums.EAzioniGiocatore;
+import main.model.enums.EColoriPedine;
+import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
@@ -32,7 +35,9 @@ public class PrivilegioConsiglio extends JFrame {
 	 */
 	private static final long serialVersionUID = 8525471854298151358L;
 	private JPanel contentPane;
+	private EAzioniGiocatore azione;
 	private int numeroScelte;
+	private EColoriPedine colorePedina;
 
 	private Frame framePrincipale;
 	private JRadioButton[] radioButtons;
@@ -66,9 +71,7 @@ public class PrivilegioConsiglio extends JFrame {
 	 * Create the frame.
 	 */
 	public PrivilegioConsiglio(Frame framePrincipale) {
-		setIconImage(
-				new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png"))
-						.getImage());
+		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
@@ -81,7 +84,8 @@ public class PrivilegioConsiglio extends JFrame {
 		this.framePrincipale = framePrincipale;
 	}
 
-	public void mostraFinestra(ArrayList<String> scelte, int numScelte) {
+	public void mostraFinestra(EAzioniGiocatore azione, EColoriPedine colorePedina, ArrayList<String> scelte,
+			int numScelte) {
 		framePrincipale.setVisible(false);
 		setVisible(true);
 		getContentPane().setLayout(null);
@@ -89,6 +93,8 @@ public class PrivilegioConsiglio extends JFrame {
 		contentPane.setLayout(null);
 		this.scelte = scelte;
 		this.numeroScelte = numScelte;
+		this.azione = azione;
+		this.colorePedina = colorePedina;
 		aggiungiBtnOK();
 		aggiungiLblComunicazione();
 		rimuoviRadioButton();
@@ -204,6 +210,25 @@ public class PrivilegioConsiglio extends JFrame {
 			 * ArrayList<String> decisioni AGGIORNAMENTO (utilizzare
 			 * framePrincipale)
 			 */
+
+			ESceltePrivilegioDelConsiglio[] scelte = new ESceltePrivilegioDelConsiglio[numeroScelte];
+
+			if (azione == EAzioniGiocatore.Mercato || azione == EAzioniGiocatore.PalazzoConsiglio) {
+				for (int i = 0; i < decisioni.size(); i++) {
+					if (decisioni.get(i).equals("1 pietra e 1 legno")) {
+						scelte[i] = ESceltePrivilegioDelConsiglio.LegnoEPietra;
+					} else if (decisioni.get(i).equals("2 servitori")) {
+						scelte[i] = ESceltePrivilegioDelConsiglio.Servitori;
+					} else if (decisioni.get(i).equals("2 monete")) {
+						scelte[i] = ESceltePrivilegioDelConsiglio.Monete;
+					} else if (decisioni.get(i).equals("2 punti militari")) {
+						scelte[i] = ESceltePrivilegioDelConsiglio.PuntiMilitari;
+					} else if (decisioni.get(i).equals("1 fede")) {
+						scelte[i] = ESceltePrivilegioDelConsiglio.PuntoFede;
+					}
+				}
+				framePrincipale.movePawn(azione, colorePedina, 3, scelte);
+			}
 
 			framePrincipale.setVisible(true);
 			framePrivilegioConsiglio.setVisible(false);
