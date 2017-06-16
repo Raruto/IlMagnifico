@@ -63,7 +63,7 @@ public class Frame extends JFrame implements IClient {
 	private ButtonLIM btnMostraPlanciaAvversari = new ButtonLIM();
 	private ButtonLIM btnPassaTurno = new ButtonLIM();
 
-	private int turno;
+	private int turno = 0;
 	private int numeroGiocatoriPartita = 2;
 	private String nomeGiocatore;
 	private String colore;
@@ -1418,7 +1418,7 @@ public class Frame extends JFrame implements IClient {
 	@Override
 	public void onTurnStarted(UpdateStats update) {
 		aggiornamento(update);
-
+		turno++;
 	}
 
 	@Override

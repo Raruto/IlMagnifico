@@ -121,6 +121,16 @@ public class Client implements IClient {
 	private HashMap<String, EColoriGiocatori> playersColors;
 
 	/**
+	 * Scomuniche della partita (vedi {@link Scomunica}).
+	 */
+	private Scomunica[] excommunications;
+
+	/**
+	 * Turno corrente della partita (da 1 a 6).
+	 */
+	private int turn;
+
+	/**
 	 * Nome del giocatore attualmente di turno, aggiornato all'ultimo
 	 * aggiornamento ricevuto dal Server (vedi {@link UpdateStats}).
 	 */
@@ -169,6 +179,9 @@ public class Client implements IClient {
 		playersColors = new HashMap<>();
 		churchSupportFase = false;
 		isGameStarted = false;
+
+		this.excommunications = new Scomunica[3];
+		this.turn = 0;
 
 		responseMap = new HashMap<>();
 		loadResponses();
@@ -370,6 +383,22 @@ public class Client implements IClient {
 	 */
 	public HashMap<String, EColoriGiocatori> getPlayersColors() {
 		return this.playersColors;
+	}
+
+	/**
+	 * Ritorna le Scomuniche della partita (vedi {@link Scomunica}).
+	 */
+	public Scomunica[] getExcommunications() {
+		return this.excommunications;
+	}
+
+	/**
+	 * Ritorna il numero del turno corrente (da 1 a 6).
+	 * 
+	 * @return turn
+	 */
+	public int getTurnNumber() {
+		return this.turn;
 	}
 
 	/**
@@ -870,6 +899,8 @@ public class Client implements IClient {
 	 */
 	@Override
 	public void onTurnStarted(UpdateStats update) {
+		this.turn++;
+
 		if (update.getFamiglieGiocatori() != null)
 			this.playersFamilies = update.getFamiglieGiocatori();
 
@@ -913,6 +944,8 @@ public class Client implements IClient {
 			this.playersExcommunications = update.getScomunicheGiocatori();
 		if (update.getColoriGiocatori() != null)
 			this.playersColors = update.getColoriGiocatori();
+		if (update.getScomuniche() != null)
+			this.excommunications = update.getScomuniche();
 
 		ui.onGameStarted(update);
 	}

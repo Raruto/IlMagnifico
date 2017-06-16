@@ -584,13 +584,4 @@ public abstract class Partita {
 	public SpazioAzione getSpazioAzione() {
 		return this.spazioAzione;
 	}
-
-	/**
-	 * Metodo che restituisce l'array delle scomuniche disponibili nel gioco
-	 * 
-	 * @return
-	 */
-	public Scomunica[] getScomuniche() {
-		return this.scomuniche;
-	}
 }

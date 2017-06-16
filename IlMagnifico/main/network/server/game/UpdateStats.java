@@ -130,8 +130,8 @@ public class UpdateStats implements Serializable {
 
 	/**
 	 * Scomuniche del giocatore che ha eseguito l'azione (vedi
-	 * {@link Scomunica}). (tipicamente settato lato Server per la notifica
-	 * agli altri giocatori delle scomuniche dei famigliari del giocatore che ha
+	 * {@link Scomunica}). (tipicamente settato lato Server per la notifica agli
+	 * altri giocatori delle scomuniche dei famigliari del giocatore che ha
 	 * svolto l'azione di gioco presso il server).
 	 */
 	private Scomunica[] scomunicheGiocatore;
@@ -175,15 +175,16 @@ public class UpdateStats implements Serializable {
 	private HashMap<String, Famigliare[]> famiglieGiocatori;
 
 	/**
-	 * Scomuniche dei giocatori (vedi {@link Scomunica}). (tipicamente settato
-	 * lato Server).
+	 * Scomuniche associate ai giocatori (vedi {@link Scomunica}). (tipicamente
+	 * settato lato Server).
 	 */
 	private HashMap<String, Scomunica[]> scomunicheGiocatori;
 
 	/**
-	 * Colori dei giocatori (vedi {@link EColoriGiocatori}). (tipicamente settato lato Server).
+	 * Colori dei giocatori (vedi {@link EColoriGiocatori}). (tipicamente
+	 * settato lato Server).
 	 */
-	private HashMap<String,EColoriGiocatori> coloriGiocatori;
+	private HashMap<String, EColoriGiocatori> coloriGiocatori;
 
 	/**
 	 * {@link SpazioAzione} aggiornato (tipicamente settato lato Server per la
@@ -196,6 +197,12 @@ public class UpdateStats implements Serializable {
 	 * (tipicamente settato lato Server per la notifica agli altri giocatori).
 	 */
 	private EColoriGiocatori coloreGiocatore;
+
+	/**
+	 * Scomuniche della partita (vedi {@link Scomunica}). (tipicamente settato
+	 * lato Server).
+	 */
+	private Scomunica[] scomuniche;
 
 	/**
 	 * Usato dal client per richiedere di svolgere una azione.
@@ -298,7 +305,7 @@ public class UpdateStats implements Serializable {
 				scomuniche[i] = giocatore.getScomunica(i);
 			}
 			this.scomunicheGiocatori.put(nome, scomuniche);
-			
+
 			this.coloriGiocatori.put(nome, giocatore.getColore());
 		}
 	}
@@ -406,8 +413,8 @@ public class UpdateStats implements Serializable {
 	/**
 	 * Ritorna le Scomuniche del giocatore che ha eseguito/richiesto l'azione
 	 * (vedi {@link Scomunica}). (tipicamente settato lato Server per la
-	 * notifica agli altri giocatori delle scomuniche del
-	 * giocatore che ha svolto l'azione di gioco presso il server).
+	 * notifica agli altri giocatori delle scomuniche del giocatore che ha
+	 * svolto l'azione di gioco presso il server).
 	 */
 	public Scomunica[] getScomunicheGiocatore() {
 		return this.scomunicheGiocatore;
@@ -522,6 +529,24 @@ public class UpdateStats implements Serializable {
 		return this.scomunicheGiocatori;
 	}
 
+	/**
+	 * Imposta le scomuniche della partita. (tipicamente settato lato Server).
+	 * 
+	 * @param scomuniche
+	 *            (vedi {@link Scomunica})
+	 */
+	public void setScomuniche(Scomunica[] scomuniche) {
+		this.scomuniche = scomuniche;
+	}
+
+	/**
+	 * Ritorna le scomuniche della partita. (tipicamente settato lato Server).
+	 * 
+	 * @return scomuniche (vedi {@link Scomunica})
+	 */
+	public Scomunica[] getScomuniche() {
+		return this.scomuniche;
+	}
 
 	/**
 	 * Ritorna i colori dei giocatori <"Nome","EColoriGiocatori"> (vedi

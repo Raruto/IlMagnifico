@@ -80,6 +80,7 @@ public class Game extends Partita {
 
 		inizializzaPartita();
 		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.giocatori);
+		update.setScomuniche(this.scomuniche);
 		dispatchGameUpdate(update);
 
 		update = new UpdateStats(EFasiDiGioco.InizioPeriodo);
