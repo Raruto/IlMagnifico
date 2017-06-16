@@ -79,10 +79,10 @@ public class Frame extends JFrame implements IClient {
 	 * 
 	 * @return {@link Client}
 	 */
-	public static Client getClient() {
+	public Client getClient() {
 		if (client == null) {
 			try {
-				client = new Client(new CLI());
+				client = new Client(this);
 			} catch (ClientException e) {
 				e.printStackTrace();
 				System.err.println("Exiting...");
