@@ -704,6 +704,9 @@ public class Client implements IClient {
 				log(Costants.GAME_ID, "UPDATE: " + ANSI.CYAN + update.getAzioneServer().toString() + ANSI.RESET);
 		}
 		handleResponse(update);
+
+		// "fallback" (please don't use it..)
+		// ui.onGameUpdate(update);
 	}
 
 	/**

@@ -70,7 +70,7 @@ public class ClassificaFinaleFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				UsernameFrame nuovaPaginaLogin = new UsernameFrame();
+				UsernameFrame nuovaPaginaLogin = new UsernameFrame(new Frame());
 				nuovaPaginaLogin.setVisible(true);
 			}
 

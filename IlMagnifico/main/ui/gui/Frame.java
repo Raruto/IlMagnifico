@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -21,6 +22,7 @@ import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
 import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
+import main.model.enums.EScomuniche;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.client.IClient;
@@ -40,6 +42,7 @@ import main.util.Costants;
 import res.images.Resources;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -49,6 +52,8 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Frame extends JFrame implements IClient {
 
@@ -64,6 +69,9 @@ public class Frame extends JFrame implements IClient {
 	private ButtonLIM btnMostraPlancia = new ButtonLIM();
 	private ButtonLIM btnMostraPlanciaAvversari = new ButtonLIM();
 	private ButtonLIM btnPassaTurno = new ButtonLIM();
+	private JLabel lblTextLogger;
+
+	private UsernameFrame Userframe;
 
 	private int turno = 0;
 	private int numeroGiocatoriPartita = 2;
@@ -104,64 +112,30 @@ public class Frame extends JFrame implements IClient {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+
 				try {
 					Frame frame = new Frame();
-
-					client = CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT, frame);
-					while (!client.isGameStarted()) {
-						try {
-							Thread.sleep(2000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-
-					frame.setVisible(true);
+					frame.getClient();
+					frame.Userframe = new UsernameFrame(frame);
+					frame.Userframe.setVisible(true);
+					frame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				/*
+				 * try { Frame frame = new Frame();
+				 * 
+				 * client = CLI.mainClient(Costants.SERVER_ADDRESS,
+				 * Costants.SOCKET_PORT, Costants.RMI_PORT, frame); while
+				 * (!client.isGameStarted()) { try { Thread.sleep(2000); } catch
+				 * (InterruptedException e) { // TODO Auto-generated catch block
+				 * } }
+				 * 
+				 * frame.setVisible(true); } catch (Exception e) {
+				 * e.printStackTrace(); }
+				 */
 			}
 		});
-
-		/*
-		 * System.out.print("[R]MI or [S]ocket? (Default: [R]): "); Scanner
-		 * scanner = new Scanner(System.in); String inText =
-		 * scanner.nextLine().toUpperCase();
-		 * 
-		 * if (inText.equals("S")) { inText = ConnectionTypes.SOCKET.toString();
-		 * } else if (inText.equals("R")) { inText =
-		 * ConnectionTypes.RMI.toString(); } // Default: RMI else { inText =
-		 * ConnectionTypes.RMI.toString();
-		 * System.out.println("Connecting with RMI.."); }
-		 * 
-		 * boolean success = false; int attempts =
-		 * Costants.MAX_CONNECTION_ATTEMPTS; int sec =
-		 * Costants.CONNECTION_RETRY_SECONDS * 1000; while (!success && attempts
-		 * > 0) { try { attempts--; Client client = getClient();
-		 * client.startClient(inText, Costants.SERVER_ADDRESS,
-		 * Costants.SOCKET_PORT, Costants.RMI_PORT); success = true; } catch
-		 * (ClientException e) { if (attempts > 0) {
-		 * System.err.println(e.getMessage() + " (" + "Retry in " + sec / 1000 +
-		 * " seconds" + ", " + attempts + " attemps left)"); try {
-		 * Thread.sleep(sec); } catch (InterruptedException ie) { // TODO
-		 * Auto-generated catch block } } } }
-		 * 
-		 * if (success) { while (!getClient().isLogged()) {
-		 * System.out.print("Choose Player Name: "); inText =
-		 * scanner.nextLine(); getClient().loginPlayer(inText); }
-		 * System.out.println();
-		 * 
-		 * EventQueue.invokeLater(new Runnable() { public void run() { try {
-		 * Frame frame = new Frame(); frame.setVisible(true); } catch (Exception
-		 * e) { e.printStackTrace(); } } });
-		 * 
-		 * } else { // System.err.println("Exiting..."); // System.exit(0);
-		 * 
-		 * Server.main(args); }
-		 * 
-		 * scanner.close();
-		 */
 	}
 
 	/**
@@ -178,6 +152,8 @@ public class Frame extends JFrame implements IClient {
 		setExtendedState(MAXIMIZED_BOTH);
 		contentPane.setBackground(Color.BLACK);
 		contentPane.setLayout(null);
+
+		inserisciLabelTextLogger();
 
 		/*
 		 * AGGIORNAMENTO PER INIZIALIZZAZIONE
@@ -217,10 +193,8 @@ public class Frame extends JFrame implements IClient {
 			// SCOMUNICHE
 			boolean[] scomuniche = new boolean[3];
 			Scomunica[] scomunicheModel = getClient().getPlayersExcommunications().get(nomeGiocatori.get(i));
-			// Scomunica[] scomunicheModel =
-			// update.getScomunicheGiocatori().get(nomeGiocatori.get(i));
 			for (int j = 0; j < 3; j++) {
-				if (scomunicheModel[j] != null)
+				if (scomunicheModel[j] != null && scomunicheModel[j].getNome().length() != 0)
 					scomuniche[j] = true;
 				else
 					scomuniche[j] = false;
@@ -559,8 +533,16 @@ public class Frame extends JFrame implements IClient {
 			}
 
 		// CARTE SCOMUNICA
-
-		String[] carteScomunica = { "scomunica 1_1", "scomunica 1_2", "scomunica 1_3" };
+		EScomuniche[] es = EScomuniche.values();
+		Scomunica[] scomuniche = getClient().getExcommunications();
+		String[] carteScomunica = new String[scomuniche.length];
+		for (int i = 0; i < scomuniche.length; i++) {
+			for (int j = 0; j < es.length; j++) {
+				if (scomuniche[i].getNome().equals(es[j].getNome())) {
+					carteScomunica[i] = es[j].getNomeFile();
+				}
+			}
+		}
 
 		// CARTE SVILUPPO TORRE
 
@@ -695,13 +677,27 @@ public class Frame extends JFrame implements IClient {
 		return numeroGiocatoriPartita;
 	}
 
+	public void inserisciLabelTextLogger() {
+		lblTextLogger = new JLabel("");
+		lblTextLogger.setBounds(10, 10, 250, 30);
+		lblTextLogger.setFont(new Font("ALGERIAN", 50, 15));
+		lblTextLogger.setForeground(Color.RED);
+		lblTextLogger.setVisible(false);
+		contentPane.add(lblTextLogger);
+	}
+
 	public void aggiungiBottoni() {
-		btnMostraTabellone.setBounds(961, 11, 127, 32);
+		// btnMostraTabellone.setBounds(961, 11, 127, 32);
+		btnMostraTabellone.setBounds(1093, 11, 127, 32);
+		btnMostraTabellone.setVisible(false);
 		btnMostraTabellone.setText("TABELLONE");
 		getContentPane().add(btnMostraTabellone);
 		btnMostraTabellone.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnMostraTabellone.setBounds(1093, 11, 127, 32);
+				btnMostraTabellone.setVisible(false);
+				btnMostraPlancia.setVisible(true);
 				tabellone.setVisible(true);
 				plancia.setVisible(false);
 				planciaAvversari.setVisible(false);
@@ -709,11 +705,15 @@ public class Frame extends JFrame implements IClient {
 		});
 
 		btnMostraPlancia.setBounds(1093, 11, 127, 32);
+		btnMostraPlancia.setVisible(true);
 		btnMostraPlancia.setText("PLANCIA");
 		getContentPane().add(btnMostraPlancia);
 		btnMostraPlancia.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnMostraTabellone.setBounds(1093, 11, 127, 32);
+				btnMostraPlancia.setVisible(false);
+				btnMostraTabellone.setVisible(true);
 				tabellone.setVisible(false);
 				plancia.setVisible(true);
 				planciaAvversari.setVisible(false);
@@ -721,35 +721,39 @@ public class Frame extends JFrame implements IClient {
 		});
 
 		btnMostraPlanciaAvversari.setBounds(1225, 11, 127, 32);
+		btnMostraPlanciaAvversari.setVisible(true);
 		btnMostraPlanciaAvversari.setText("AVVERSARI");
 		getContentPane().add(btnMostraPlanciaAvversari);
 		btnMostraPlanciaAvversari.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnMostraTabellone.setBounds(961, 11, 127, 32);
+				btnMostraTabellone.setVisible(true);
+				btnMostraPlancia.setVisible(true);
 				tabellone.setVisible(false);
 				plancia.setVisible(false);
 				planciaAvversari.setVisible(true);
 			}
 		});
 
-		btnPassaTurno = new ButtonLIM("PASSA TURNO");
-		btnPassaTurno.setBounds(0, 10, 140, 32);
-		getContentPane().add(btnPassaTurno);
-		btnPassaTurno.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("CHIAMATA A SERVER PER PASSAGGIO TURNO");
-				/*
-				 * ArrayList<String> scelte = new ArrayList<String>();
-				 * scelte.add("4 legno"); scelte.add("2 pietre");
-				 * scelte.add("8 servitori");
-				 * framePrivilegioConsiglio.mostraFinestra(scelte, 2);
-				 */
-				new ApriPaginaFinePartita();
-			}
-
-		});
+		// btnPassaTurno = new ButtonLIM("PASSA TURNO");
+		// btnPassaTurno.setBounds(0, 10, 140, 32);
+		// getContentPane().add(btnPassaTurno);
+		// btnPassaTurno.addActionListener(new ActionListener() {
+		//
+		// @Override
+		// public void actionPerformed(ActionEvent arg0) {
+		// System.out.println("CHIAMATA A SERVER PER PASSAGGIO TURNO");
+		// /*
+		// * ArrayList<String> scelte = new ArrayList<String>();
+		// * scelte.add("4 legno"); scelte.add("2 pietre");
+		// * scelte.add("8 servitori");
+		// * framePrivilegioConsiglio.mostraFinestra(scelte, 2);
+		// */
+		// new ApriPaginaFinePartita();
+		// }
+		//
+		// });
 	}
 
 	public void aggiungiListenerFamigliariPlancia() {
@@ -822,6 +826,15 @@ public class Frame extends JFrame implements IClient {
 			famigliareSelezionato = (Famigliare) (arg0.getSource());
 
 			if (servitoreSelezionato) {
+				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
+					lblTextLogger.setForeground(Color.GREEN);
+					lblTextLogger.setText("E' IL TUO TURNO");
+				} else {
+					lblTextLogger.setForeground(Color.RED);
+					lblTextLogger.setText("TOCCA A: " + getClient().getPlayerTurn());
+				}
+				lblTextLogger.setVisible(true);
+
 				System.out.println("CHIAMATA A SERVER PER AGGIUNTA SERVITORE");
 				System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 						+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
@@ -846,6 +859,10 @@ public class Frame extends JFrame implements IClient {
 				famigliareSelezionato = null;
 				return;
 			}
+
+			lblTextLogger.setText("SELEZIONATO: " + famigliareSelezionato.getNumero() + ", valore: "
+					+ famigliareSelezionato.getValore());
+			lblTextLogger.setVisible(true);
 
 			System.out.println("famigliare selezionato");
 		}
@@ -1463,19 +1480,36 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onActionNotValid(String errorCode) {
+		lblTextLogger.setForeground(Color.YELLOW);
+		lblTextLogger.setText(errorCode);
+		lblTextLogger.setVisible(true);
+
 		System.out.println("ERROR: " + ANSI.YELLOW + errorCode + ANSI.RESET);
+
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
+					lblTextLogger.setForeground(Color.GREEN);
+					lblTextLogger.setText("E' IL TUO TURNO");
+				} else {
+					lblTextLogger.setForeground(Color.RED);
+					lblTextLogger.setText("TOCCA A: " + getClient().getPlayerTurn());
+				}
+				lblTextLogger.setVisible(true);
+			}
+		}, 3000);
+
 	}
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onChurchSupport(UpdateStats update) {
 		aggiornamento(update);
-
 	}
 
 	@Override
@@ -1546,6 +1580,15 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onPlayerMove(UpdateStats update) {
+		if (nomeGiocatore.equals(update.getNomeGiocatore())) {
+			lblTextLogger.setForeground(Color.GREEN);
+			lblTextLogger.setText("E' IL TUO TURNO");
+		} else {
+			lblTextLogger.setForeground(Color.RED);
+			lblTextLogger.setText("TOCCA A: " + update.getNomeGiocatore());
+		}
+		lblTextLogger.setVisible(true);
+
 		aggiornamento(update);
 
 	}
@@ -1563,10 +1606,26 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
+		setVisible(true);
+		Userframe.setVisible(false);
+
+		nomeGiocatore = getClient().getNickname();
+		colore = "rosso";
+		HashMap<String, EColoriGiocatori> coloriGiocatori = getClient().getPlayersColors();
+		if (EColoriGiocatori.RED == coloriGiocatori.get(nomeGiocatore))
+			colore = "rosso";
+		else if (EColoriGiocatori.BLUE == coloriGiocatori.get(nomeGiocatore))
+			colore = "blu";
+		else if (EColoriGiocatori.GREEN == coloriGiocatori.get(nomeGiocatore))
+			colore = "verde";
+		else if (EColoriGiocatori.YELLOW == coloriGiocatori.get(nomeGiocatore))
+			colore = "giallo";
+
 		nomeGiocatore = getClient().getNickname();
 		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
 		this.nomeGiocatoriPartita = update.getNomiGiocatori();
 		numeroGiocatoriPartita = this.nomeGiocatoriPartita.size();
+
 		aggiornamento(update);
 	}
 
