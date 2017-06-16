@@ -69,7 +69,7 @@ public class Frame extends JFrame implements IClient {
 	private String nomeGiocatore;
 	private String colore;
 	private ArrayList<String> nomeGiocatoriPartita;
-	
+
 	private Tabellone tabellone;
 	private Plancia plancia;
 	private PlanciaAvversario planciaAvversari;
@@ -101,19 +101,22 @@ public class Frame extends JFrame implements IClient {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		client = CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT, false);
-while(!client.isGameStarted()){
-	try {
-		Thread.sleep(2000);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Frame frame = new Frame();
+					
+					client = CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT, frame);
+					while (!client.isGameStarted()) {
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -182,8 +185,8 @@ while(!client.isGameStarted()){
 
 		// ESEMPIO
 
-		 nomeGiocatore = getClient().getNickname();
-		 colore = "rosso";
+		nomeGiocatore = getClient().getNickname();
+		colore = "rosso";
 		HashMap<String, EColoriGiocatori> coloriGiocatori = getClient().getPlayersColors();
 		if (EColoriGiocatori.RED == coloriGiocatori.get(nomeGiocatore))
 			colore = "rosso";
@@ -193,8 +196,8 @@ while(!client.isGameStarted()){
 			colore = "verde";
 		else if (EColoriGiocatori.YELLOW == coloriGiocatori.get(nomeGiocatore))
 			colore = "giallo";
-		
-		//aggiornamento();
+
+		// aggiornamento();
 	}
 
 	public void aggiornamento(UpdateStats update) {
@@ -203,7 +206,6 @@ while(!client.isGameStarted()){
 		if (tabellone != null)
 			remove(tabellone);
 
-		
 		ArrayList<String> nomeGiocatori = this.nomeGiocatoriPartita;
 		numeroGiocatoriPartita = nomeGiocatori.size();
 
@@ -560,7 +562,6 @@ while(!client.isGameStarted()){
 
 	}
 
-
 	public void aggiornamento() {
 		if (plancia != null)
 			remove(plancia);
@@ -598,26 +599,19 @@ while(!client.isGameStarted()){
 		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 3, colore, nomeGiocatore));
 
 		ArrayList<String> carteEdificio1 = new ArrayList<String>();
-		
 
-		Giocatore g1 = new Giocatore(nomeGiocatore, colore, new Punti(0, 0, 0), new Risorse(0, 0, 0, 0),
-				scomuniche1, fp, new ArrayList<String>(), carteEdificio1, new ArrayList<String>(),
-				new ArrayList<String>());
-
+		Giocatore g1 = new Giocatore(nomeGiocatore, colore, new Punti(0, 0, 0), new Risorse(0, 0, 0, 0), scomuniche1,
+				fp, new ArrayList<String>(), carteEdificio1, new ArrayList<String>(), new ArrayList<String>());
 
 		ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>();
 		giocatori.add(g1);
-		
 
-		main.ui.gui.aggiornamento.Famigliare[] torre = { null,
-				null, null, null, null, null, null, null,
-				null, null,null, null,
-				null, null, null, null };
-		main.ui.gui.aggiornamento.Famigliare[] mercato = { null, null,
-				null, null };
+		main.ui.gui.aggiornamento.Famigliare[] torre = { null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null };
+		main.ui.gui.aggiornamento.Famigliare[] mercato = { null, null, null, null };
 		main.ui.gui.aggiornamento.Famigliare raccoltoRotondo = null;
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> raccoltoOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		main.ui.gui.aggiornamento.Famigliare produzioneRotondo =null;
+		main.ui.gui.aggiornamento.Famigliare produzioneRotondo = null;
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> produzioneOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
 		ArrayList<main.ui.gui.aggiornamento.Famigliare> palazzoConsiglio = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
 		String[] carteScomunica = {};
@@ -630,7 +624,6 @@ while(!client.isGameStarted()){
 		ai.aggiornaTutto();
 	}
 
-	
 	public int getTurno() {
 		return turno;
 	}
@@ -1522,4 +1515,4 @@ while(!client.isGameStarted()){
 		// TODO Auto-generated method stub
 
 	}
-	}
+}
