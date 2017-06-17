@@ -182,6 +182,7 @@ public class Frame extends JFrame implements IClient {
 	}
 
 	public void aggiornamento(UpdateStats update) {
+		
 		if (plancia != null)
 			remove(plancia);
 		if (tabellone != null)

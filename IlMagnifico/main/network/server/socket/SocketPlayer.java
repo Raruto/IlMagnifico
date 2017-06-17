@@ -79,9 +79,11 @@ public class SocketPlayer extends RemotePlayer {
 	/**
 	 * Invia al giocatore un aggiornamento sullo stato della partita.
 	 * 
-	 * @param update {@link UpdateStats}
+	 * @param update
+	 *            {@link UpdateStats}
 	 * 
-	 * @throws NetworkException se il client non e' raggiungibile.
+	 * @throws NetworkException
+	 *             se il client non e' raggiungibile.
 	 */
 	@Override
 	public void onGameUpdate(UpdateStats update) throws NetworkException {
@@ -90,6 +92,7 @@ public class SocketPlayer extends RemotePlayer {
 				outputStream.writeObject(SocketConstants.GAME_ACTION);
 				outputStream.writeObject(update);
 				outputStream.flush();
+				outputStream.reset();
 			} catch (IOException e) {
 				throw new NetworkException(e);
 			}
