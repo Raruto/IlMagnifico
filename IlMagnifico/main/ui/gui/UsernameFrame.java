@@ -121,7 +121,22 @@ public class UsernameFrame extends JFrame {
 		rbtnSceltaRMI.setBounds(50, 340, 200, 20);
 		rbtnSceltaRMI.setOpaque(false);
 		rbtnSceltaRMI.setForeground(Color.WHITE);
+		rbtnSceltaRMI.setSelected(true);
 		add(rbtnSceltaRMI);
+
+		rbtnSceltaSocket.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rbtnSceltaRMI.setSelected(false);
+			}
+		});
+		rbtnSceltaRMI.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rbtnSceltaSocket.setSelected(false);
+			}
+		});
+
 	}
 
 	public void inserisciImmagine() {
@@ -177,6 +192,11 @@ public class UsernameFrame extends JFrame {
 						lblMessaggioErrore.setText("Waiting for other players");
 						lblMessaggioErrore.setVisible(true);
 					}
+				}
+				else{
+					lblMessaggioErrore.setForeground(Color.YELLOW);
+					lblMessaggioErrore.setText("Name not available");
+					lblMessaggioErrore.setVisible(true);
 				}
 			} catch (ClientException e) {
 				// TODO Auto-generated catch block
