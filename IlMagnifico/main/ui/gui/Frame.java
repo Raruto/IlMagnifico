@@ -65,6 +65,7 @@ public class Frame extends JFrame implements IClient {
 	private Frame frame = this;
 	private PrivilegioConsiglio framePrivilegioConsiglio = new PrivilegioConsiglio(this);
 	private SceltaCosti frameSceltaCosti = new SceltaCosti(this);
+	private SceltaEffettiPermanenti frameSceltaEffettiPermanenti = new SceltaEffettiPermanenti(this);
 
 	private JPanel contentPane;
 	private ButtonLIM btnMostraTabellone = new ButtonLIM();
@@ -833,7 +834,7 @@ public class Frame extends JFrame implements IClient {
 					lblTextLogger.setText("IT'S YOUR TURN");
 				} else {
 					lblTextLogger.setForeground(Color.RED);
-					lblTextLogger.setText(getClient().getPlayerTurn()+"'S TURN");
+					lblTextLogger.setText(getClient().getPlayerTurn() + "'S TURN");
 				}
 				lblTextLogger.setVisible(true);
 
@@ -862,8 +863,8 @@ public class Frame extends JFrame implements IClient {
 				return;
 			}
 
-			lblTextLogger.setText("SELECTED: " + famigliareSelezionato.getNumero() + ", value: "
-					+ famigliareSelezionato.getValore());
+			lblTextLogger.setText(
+					"SELECTED: " + famigliareSelezionato.getNumero() + ", value: " + famigliareSelezionato.getValore());
 			lblTextLogger.setVisible(true);
 
 			System.out.println("famigliare selezionato");
@@ -977,7 +978,9 @@ public class Frame extends JFrame implements IClient {
 					int numScelteCosti = carta.getNumScelteCosti();
 					if (numScelteCosti > 0) {
 						ArrayList<String> scelte = new ArrayList<String>();
-						for (int i = 0; i < carta.getNumScelteCosti(); i++) {
+
+						for (int i = 0; i < carta.getCostiCarta().size(); i++) {
+
 							scelte.add(carta.getCostiCarta().get(i).getDescrizione());
 						}
 						frameSceltaCosti.setScelteCosti(scelte, posizioneTorre);
@@ -1044,6 +1047,20 @@ public class Frame extends JFrame implements IClient {
 			else
 				colorePedina = EColoriPedine.Neutrale;
 
+			EEffettiPermanenti[] effetti = getClient().getPlayersDashboards().get(nomeGiocatore)
+					.getEffettiPermanentiTerritori();
+
+			if (effetti != null && effetti.length > 0) {
+				ArrayList<String> scelte = new ArrayList<String>();
+				for (int i = 0; i < effetti.length; i++) {
+					scelte.add(effetti[i].getDescrizione());
+				}
+				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.Raccolto, colorePedina, scelte, -1);
+				return;
+
+			}
+
 			movePawn(EAzioniGiocatore.Raccolto, colorePedina, 0);
 
 			// aggiornamento();
@@ -1101,6 +1118,20 @@ public class Frame extends JFrame implements IClient {
 				colorePedina = EColoriPedine.Bianca;
 			else
 				colorePedina = EColoriPedine.Neutrale;
+
+			EEffettiPermanenti[] effetti = getClient().getPlayersDashboards().get(nomeGiocatore)
+					.getEffettiPermanentiTerritori();
+
+			if (effetti != null && effetti.length > 0) {
+				ArrayList<String> scelte = new ArrayList<String>();
+				for (int i = 0; i < effetti.length; i++) {
+					scelte.add(effetti[i].getDescrizione());
+				}
+				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.RaccoltoOvale, colorePedina, scelte, -1);
+				return;
+
+			}
 
 			movePawn(EAzioniGiocatore.RaccoltoOvale, colorePedina, 0);
 
@@ -1160,6 +1191,20 @@ public class Frame extends JFrame implements IClient {
 			else
 				colorePedina = EColoriPedine.Neutrale;
 
+			EEffettiPermanenti[] effetti = getClient().getPlayersDashboards().get(nomeGiocatore)
+					.getEffettiPermanentiEdifici();
+
+			if (effetti != null && effetti.length > 0) {
+				ArrayList<String> scelte = new ArrayList<String>();
+				for (int i = 0; i < effetti.length; i++) {
+					scelte.add(effetti[i].getDescrizione());
+				}
+				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.Produzione, colorePedina, scelte, -1);
+				return;
+
+			}
+
 			movePawn(EAzioniGiocatore.Produzione, colorePedina, 0);
 
 			// aggiornamento();
@@ -1217,6 +1262,20 @@ public class Frame extends JFrame implements IClient {
 				colorePedina = EColoriPedine.Bianca;
 			else
 				colorePedina = EColoriPedine.Neutrale;
+
+			EEffettiPermanenti[] effetti = getClient().getPlayersDashboards().get(nomeGiocatore)
+					.getEffettiPermanentiEdifici();
+
+			if (effetti != null && effetti.length > 0) {
+				ArrayList<String> scelte = new ArrayList<String>();
+				for (int i = 0; i < effetti.length; i++) {
+					scelte.add(effetti[i].getDescrizione());
+				}
+				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.ProduzioneOvale, colorePedina, scelte, -1);
+				return;
+
+			}
 
 			movePawn(EAzioniGiocatore.ProduzioneOvale, colorePedina, 0);
 
@@ -1443,6 +1502,13 @@ public class Frame extends JFrame implements IClient {
 		}
 	}
 
+	private class ChiediSceltaEffettiPermanenti implements EventListener {
+		public ChiediSceltaEffettiPermanenti(EAzioniGiocatore azione, EColoriPedine colorePedina,
+				ArrayList<String> scelte, int numScelte) {
+			frameSceltaEffettiPermanenti.mostraFinestra(azione, colorePedina, scelte, numScelte);
+		}
+	}
+
 	private class ApriPaginaFinePartita implements EventListener {
 		public ApriPaginaFinePartita() {
 			ClassificaFinaleFrame classificaFinaleFrame = new ClassificaFinaleFrame();
@@ -1518,7 +1584,7 @@ public class Frame extends JFrame implements IClient {
 					lblTextLogger.setText("IT'S YOUR TURN");
 				} else {
 					lblTextLogger.setForeground(Color.RED);
-					lblTextLogger.setText(getClient().getPlayerTurn()+"'s TURN");
+					lblTextLogger.setText(getClient().getPlayerTurn() + "'s TURN");
 				}
 				lblTextLogger.setVisible(true);
 			}
@@ -1609,7 +1675,7 @@ public class Frame extends JFrame implements IClient {
 			lblTextLogger.setText("IT'S YOUR TURN");
 		} else {
 			lblTextLogger.setForeground(Color.RED);
-			lblTextLogger.setText(update.getNomeGiocatore()+"'S TURN");
+			lblTextLogger.setText(update.getNomeGiocatore() + "'S TURN");
 		}
 		lblTextLogger.setVisible(true);
 
