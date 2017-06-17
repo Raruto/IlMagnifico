@@ -1603,11 +1603,12 @@ public class Frame extends JFrame implements IClient {
 	@Override
 	public void onGameUpdate(UpdateStats update) {
 		// "fallback" (please don't use it..)
-		aggiornamento(update);
-		if (btnMostraPlancia.isVisible())
-			btnMostraTabellone.doClick();
-		if (btnMostraTabellone.isVisible())
-			btnMostraPlancia.doClick();
+		// aggiornamento(update);
+
+		// if (btnMostraPlancia.isVisible())
+		// btnMostraTabellone.doClick();
+		// if (btnMostraTabellone.isVisible())
+		// btnMostraPlancia.doClick();
 	}
 
 	@Override
