@@ -31,6 +31,7 @@ import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.game.UpdateStats;
 import main.ui.cli.CLI;
+import main.ui.cli.QuitException;
 import main.ui.gui.aggiornamento.*;
 import main.ui.gui.aggiornamento.Aggiornamento;
 import main.ui.gui.aggiornamento.Giocatore;
@@ -66,6 +67,7 @@ public class Frame extends JFrame implements IClient {
 	private PrivilegioConsiglio framePrivilegioConsiglio = new PrivilegioConsiglio(this);
 	private SceltaCosti frameSceltaCosti = new SceltaCosti(this);
 	private SceltaEffettiPermanenti frameSceltaEffettiPermanenti = new SceltaEffettiPermanenti(this);
+	private SceltaSupportoChiesa frameSceltaSupportoChiesa = new SceltaSupportoChiesa(this);
 
 	private JPanel contentPane;
 	private ButtonLIM btnMostraTabellone = new ButtonLIM();
@@ -1509,6 +1511,12 @@ public class Frame extends JFrame implements IClient {
 		}
 	}
 
+	private class ChiediSupportoChiesa implements EventListener {
+		public ChiediSupportoChiesa(EAzioniGiocatore azione) {
+			frameSceltaSupportoChiesa.mostraFinestra(azione);
+		}
+	}
+
 	private class ApriPaginaFinePartita implements EventListener {
 		public ApriPaginaFinePartita() {
 			ClassificaFinaleFrame classificaFinaleFrame = new ClassificaFinaleFrame();
@@ -1600,6 +1608,8 @@ public class Frame extends JFrame implements IClient {
 	@Override
 	public void onChurchSupport(UpdateStats update) {
 		aggiornamento(update);
+		if (update.getNomiGiocatori().contains(nomeGiocatore))
+			new ChiediSupportoChiesa(EAzioniGiocatore.SostegnoChiesa);
 	}
 
 	@Override
