@@ -13,7 +13,7 @@ public enum ECostiCarte {
 	RESIDENZA("residenza", 0, 0, 2, 0, 0, 0,"2St"), 
 	FALEGNAMERIA("falegnameria", 1, 2, 0, 0, 0, 0,"1C, 2W"), 
 	SOSTEGNO_AL_VESCOVO1("sostegno al vescovo", 2, 1, 1, 0, 0, 0,"2C, 1W, 1St"), 
-	SOSTEGNO_AL_VESCOVO2("sostegno al vescovo", 0, 0, 0, 0, 2, 4,"4VP? -> -2"), 
+	SOSTEGNO_AL_VESCOVO2("sostegno al vescovo", 0, 0, 0, 0, 2, 4,"4MP? -> -2"), 
 	CAMPAGNA_MILITARE("campagna militare", 0, 0, 0, 0, 2, 3,"3MP? -> -2"),
 	INNALZARE_UNA_STATUA("innalzare una statua", 0, 2, 2, 0, 0, 0,"2W, 2St"), 
 	COSTRUIRE_LE_MURA("costruire le mura", 0, 0, 3, 0, 0, 0,"3St"), 
