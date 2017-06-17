@@ -1,6 +1,5 @@
 package main.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -21,29 +20,21 @@ import main.model.enums.EColoriGiocatori;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
-import main.model.enums.EFasiDiGioco;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.model.enums.EScomuniche;
 import main.network.client.Client;
 import main.network.client.ClientException;
 import main.network.client.IClient;
-import main.network.protocol.ConnectionTypes;
-import main.network.server.Server;
 import main.network.server.game.UpdateStats;
-import main.ui.cli.CLI;
-import main.ui.cli.QuitException;
-import main.ui.gui.aggiornamento.*;
 import main.ui.gui.aggiornamento.Aggiornamento;
 import main.ui.gui.aggiornamento.Giocatore;
 import main.ui.gui.aggiornamento.Punti;
 import main.ui.gui.aggiornamento.Risorse;
 import main.ui.gui.components.ButtonLIM;
-import main.ui.gui.components.PanelImmagine;
 import main.util.ANSI;
 import main.util.Costants;
 import res.images.Resources;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +44,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,7 +63,7 @@ public class Frame extends JFrame implements IClient {
 	private ButtonLIM btnMostraTabellone = new ButtonLIM();
 	private ButtonLIM btnMostraPlancia = new ButtonLIM();
 	private ButtonLIM btnMostraPlanciaAvversari = new ButtonLIM();
-	private ButtonLIM btnPassaTurno = new ButtonLIM();
+	// private ButtonLIM btnPassaTurno = new ButtonLIM();
 	private JLabel lblTextLogger;
 
 	private UsernameFrame Userframe;
@@ -182,7 +172,14 @@ public class Frame extends JFrame implements IClient {
 	}
 
 	public void aggiornamento(UpdateStats update) {
-		
+
+		////////////////////////////////////////////////////////////////////////
+		// nel caso di aggiunta servitori vorrei rimanere nello stesso "panel"//
+		boolean isPlanciaVisible = false;
+		if (frame.getPlancia() != null && frame.getPlancia().isVisible())
+			isPlanciaVisible = true;
+		////////////////////////////////////////////////////////////////////////
+
 		if (plancia != null)
 			remove(plancia);
 		if (tabellone != null)
@@ -571,6 +568,17 @@ public class Frame extends JFrame implements IClient {
 		AggiornamentoInterfaccia ai = new AggiornamentoInterfaccia(agg, this);
 		ai.aggiornaTutto();
 
+		////////////////////////////////////////////////////////////////////////
+		// nel caso di aggiunta servitori vorrei rimanere nello stesso "panel"//
+		if (isPlanciaVisible) {
+			btnMostraTabellone.setBounds(1093, 11, 127, 32);
+			btnMostraPlancia.setVisible(false);
+			btnMostraTabellone.setVisible(true);
+			tabellone.setVisible(false);
+			plancia.setVisible(true);
+			planciaAvversari.setVisible(false);
+		}
+		////////////////////////////////////////////////////////////////////////
 	}
 
 	public void aggiornamento() {
@@ -1717,7 +1725,7 @@ public class Frame extends JFrame implements IClient {
 
 		nomeGiocatore = getClient().getNickname();
 		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
-		
+
 		nomeGiocatoriPartita = update.getNomiGiocatori();
 		numeroGiocatoriPartita = this.nomeGiocatoriPartita.size();
 
