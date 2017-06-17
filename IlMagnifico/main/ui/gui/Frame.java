@@ -329,7 +329,7 @@ public class Frame extends JFrame implements IClient {
 		main.ui.gui.aggiornamento.Famigliare[] mercato = new main.ui.gui.aggiornamento.Famigliare[4];
 		for (int i = 0; i < 4; i++) {
 			main.model.Famigliare famigliareMercato = null;
-			if (update.getAzioneGiocatore() != null)
+			if (update.getSpazioAzione() != null)
 				famigliareMercato = update.getSpazioAzione().getMercato()[i];
 
 			if (famigliareMercato == null)
@@ -1711,24 +1711,13 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onGameStarted(UpdateStats update) {
-		setVisible(true);
+		this.setVisible(true);
 		Userframe.setVisible(false);
 
 		nomeGiocatore = getClient().getNickname();
-		colore = "rosso";
-		HashMap<String, EColoriGiocatori> coloriGiocatori = getClient().getPlayersColors();
-		if (EColoriGiocatori.RED == coloriGiocatori.get(nomeGiocatore))
-			colore = "rosso";
-		else if (EColoriGiocatori.BLUE == coloriGiocatori.get(nomeGiocatore))
-			colore = "blu";
-		else if (EColoriGiocatori.GREEN == coloriGiocatori.get(nomeGiocatore))
-			colore = "verde";
-		else if (EColoriGiocatori.YELLOW == coloriGiocatori.get(nomeGiocatore))
-			colore = "giallo";
-
-		nomeGiocatore = getClient().getNickname();
 		colore = getClient().getPlayersColors().get(nomeGiocatore).getSwingName();
-		this.nomeGiocatoriPartita = update.getNomiGiocatori();
+		
+		nomeGiocatoriPartita = update.getNomiGiocatori();
 		numeroGiocatoriPartita = this.nomeGiocatoriPartita.size();
 
 		aggiornamento(update);
