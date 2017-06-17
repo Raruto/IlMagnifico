@@ -27,9 +27,10 @@ import main.network.client.ClientException;
 import main.network.client.IClient;
 import main.network.server.game.UpdateStats;
 import main.ui.gui.aggiornamento.Aggiornamento;
-import main.ui.gui.aggiornamento.Giocatore;
-import main.ui.gui.aggiornamento.Punti;
-import main.ui.gui.aggiornamento.Risorse;
+import main.ui.gui.aggiornamento.SFamigliare;
+import main.ui.gui.aggiornamento.SGiocatore;
+import main.ui.gui.aggiornamento.SPunti;
+import main.ui.gui.aggiornamento.SRisorse;
 import main.ui.gui.components.ButtonLIM;
 import main.util.ANSI;
 import main.util.Costants;
@@ -177,7 +178,7 @@ public class Frame extends JFrame implements IClient {
 
 		// CONVERSIONE GIOCATORI
 
-		ArrayList<main.ui.gui.aggiornamento.Giocatore> giocatori = new ArrayList<main.ui.gui.aggiornamento.Giocatore>();
+		ArrayList<SGiocatore> giocatori = new ArrayList<SGiocatore>();
 		for (int i = 0; i < numeroGiocatoriPartita; i++) {
 
 			// SCOMUNICHE
@@ -191,7 +192,7 @@ public class Frame extends JFrame implements IClient {
 			}
 
 			// FAMIGLIARI PLANCIA GIOCATORE
-			ArrayList<main.ui.gui.aggiornamento.Famigliare> fp = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+			ArrayList<SFamigliare> fp = new ArrayList<SFamigliare>();
 			main.model.Famigliare f0, f1, f2, f3;
 			if (nomeGiocatori.get(i).equals(nomeGiocatore)) {
 				main.model.Famigliare[] famigliariModel = getClient().getPlayersFamilies().get(nomeGiocatori.get(i));
@@ -208,8 +209,7 @@ public class Frame extends JFrame implements IClient {
 							numero = 2;
 						else
 							numero = 3;
-						fp.add(new main.ui.gui.aggiornamento.Famigliare(famigliariModel[j].getValore(), numero, colore,
-								nomeGiocatore));
+						fp.add(new SFamigliare(famigliariModel[j].getValore(), numero, colore, nomeGiocatore));
 					}
 				}
 			}
@@ -259,11 +259,11 @@ public class Frame extends JFrame implements IClient {
 
 			// update.getPuntiGiocatori()
 
-			Giocatore g = new Giocatore(nomeGiocatori.get(i), coloreGiocatore,
-					new Punti(getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiVittoria(),
+			SGiocatore g = new SGiocatore(nomeGiocatori.get(i), coloreGiocatore,
+					new SPunti(getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiVittoria(),
 							getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiMilitari(),
 							getClient().getPlayersPoints().get(nomeGiocatori.get(i)).getPuntiFede()),
-					new Risorse(getClient().getPlayersResources().get(nomeGiocatori.get(i)).getMonete(),
+					new SRisorse(getClient().getPlayersResources().get(nomeGiocatori.get(i)).getMonete(),
 							getClient().getPlayersResources().get(nomeGiocatori.get(i)).getLegno(),
 							getClient().getPlayersResources().get(nomeGiocatori.get(i)).getPietre(),
 							getClient().getPlayersResources().get(nomeGiocatori.get(i)).getServitori()),
@@ -274,7 +274,7 @@ public class Frame extends JFrame implements IClient {
 
 		// FAMIGLIARI SULLA TORRE
 
-		main.ui.gui.aggiornamento.Famigliare[] torre = new main.ui.gui.aggiornamento.Famigliare[16];
+		SFamigliare[] torre = new SFamigliare[16];
 		for (int i = 0; i < 16; i++) {
 			int posizione = (i / 4) * 4 + (4 - i % 4) - 1;
 			main.model.Famigliare famigliareTorre = null;
@@ -304,14 +304,14 @@ public class Frame extends JFrame implements IClient {
 				else if (famigliareTorre.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 					coloreGiocatoreFamigliare = "giallo";
 
-				torre[i] = new main.ui.gui.aggiornamento.Famigliare(famigliareTorre.getValore(), numero,
-						coloreGiocatoreFamigliare, famigliareTorre.getGiocatore().getNome());
+				torre[i] = new SFamigliare(famigliareTorre.getValore(), numero, coloreGiocatoreFamigliare,
+						famigliareTorre.getGiocatore().getNome());
 			}
 		}
 
 		// FAMIGLIARI SUL MERCATO
 
-		main.ui.gui.aggiornamento.Famigliare[] mercato = new main.ui.gui.aggiornamento.Famigliare[4];
+		SFamigliare[] mercato = new SFamigliare[4];
 		for (int i = 0; i < 4; i++) {
 			main.model.Famigliare famigliareMercato = null;
 			if (update.getSpazioAzione() != null)
@@ -340,14 +340,14 @@ public class Frame extends JFrame implements IClient {
 				else if (famigliareMercato.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 					coloreGiocatoreFamigliare = "giallo";
 
-				mercato[i] = new main.ui.gui.aggiornamento.Famigliare(famigliareMercato.getValore(), numero,
-						coloreGiocatoreFamigliare, famigliareMercato.getGiocatore().getNome());
+				mercato[i] = new SFamigliare(famigliareMercato.getValore(), numero, coloreGiocatoreFamigliare,
+						famigliareMercato.getGiocatore().getNome());
 			}
 		}
 
 		// FAMIGLIARE SUL RACCOLTO ROTONDO
 
-		main.ui.gui.aggiornamento.Famigliare raccoltoRotondo;
+		SFamigliare raccoltoRotondo;
 
 		main.model.Famigliare famigliareRaccoltoRotondoModel = null;
 		if (update.getSpazioAzione() != null)
@@ -375,13 +375,13 @@ public class Frame extends JFrame implements IClient {
 			else if (famigliareRaccoltoRotondoModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 				coloreGiocatoreFamigliare = "giallo";
 
-			raccoltoRotondo = new main.ui.gui.aggiornamento.Famigliare(famigliareRaccoltoRotondoModel.getValore(),
-					numero, coloreGiocatoreFamigliare, famigliareRaccoltoRotondoModel.getGiocatore().getNome());
+			raccoltoRotondo = new SFamigliare(famigliareRaccoltoRotondoModel.getValore(), numero,
+					coloreGiocatoreFamigliare, famigliareRaccoltoRotondoModel.getGiocatore().getNome());
 		}
 
 		// FAMIGLIARE SUL RACCOLTO OVALE
 
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> raccoltoOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		ArrayList<SFamigliare> raccoltoOvale = new ArrayList<SFamigliare>();
 		if (update.getSpazioAzione() != null)
 			for (int i = 0; i < update.getSpazioAzione().getZonaRaccoltoOvale().size(); i++) {
 				main.model.Famigliare famigliareRaccoltoOvaleModel = null;
@@ -410,14 +410,14 @@ public class Frame extends JFrame implements IClient {
 					else if (famigliareRaccoltoOvaleModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 						coloreGiocatoreFamigliare = "giallo";
 
-					raccoltoOvale.add(new main.ui.gui.aggiornamento.Famigliare(famigliareRaccoltoOvaleModel.getValore(),
-							numero, coloreGiocatoreFamigliare, famigliareRaccoltoOvaleModel.getGiocatore().getNome()));
+					raccoltoOvale.add(new SFamigliare(famigliareRaccoltoOvaleModel.getValore(), numero,
+							coloreGiocatoreFamigliare, famigliareRaccoltoOvaleModel.getGiocatore().getNome()));
 				}
 			}
 
 		// FAMIGLIARE SU PRODUZIONE ROTONDO
 
-		main.ui.gui.aggiornamento.Famigliare produzioneRotondo;
+		SFamigliare produzioneRotondo;
 		main.model.Famigliare famigliareProduzioneRotondoModel = null;
 		if (update.getSpazioAzione() != null)
 			famigliareProduzioneRotondoModel = update.getSpazioAzione().getZonaProduzioneRotonda();
@@ -444,13 +444,13 @@ public class Frame extends JFrame implements IClient {
 			else if (famigliareProduzioneRotondoModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 				coloreGiocatoreFamigliare = "giallo";
 
-			produzioneRotondo = new main.ui.gui.aggiornamento.Famigliare(famigliareProduzioneRotondoModel.getValore(),
-					numero, coloreGiocatoreFamigliare, famigliareProduzioneRotondoModel.getGiocatore().getNome());
+			produzioneRotondo = new SFamigliare(famigliareProduzioneRotondoModel.getValore(), numero,
+					coloreGiocatoreFamigliare, famigliareProduzioneRotondoModel.getGiocatore().getNome());
 		}
 
 		// FAMIGLIARE SU PRODUZIONE OVALE
 
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> produzioneOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		ArrayList<SFamigliare> produzioneOvale = new ArrayList<SFamigliare>();
 		if (update.getSpazioAzione() != null)
 			for (int i = 0; i < update.getSpazioAzione().getZonaProduzioneOvale().size(); i++) {
 				main.model.Famigliare famigliareProduzioneOvaleModel = null;
@@ -479,15 +479,14 @@ public class Frame extends JFrame implements IClient {
 					else if (famigliareProduzioneOvaleModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 						coloreGiocatoreFamigliare = "giallo";
 
-					produzioneOvale.add(new main.ui.gui.aggiornamento.Famigliare(
-							famigliareProduzioneOvaleModel.getValore(), numero, coloreGiocatoreFamigliare,
-							famigliareProduzioneOvaleModel.getGiocatore().getNome()));
+					produzioneOvale.add(new SFamigliare(famigliareProduzioneOvaleModel.getValore(), numero,
+							coloreGiocatoreFamigliare, famigliareProduzioneOvaleModel.getGiocatore().getNome()));
 				}
 			}
 
 		// FAMIGLIARE SU PALAZZO DEL CONSIGLIO
 
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> palazzoConsiglio = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		ArrayList<SFamigliare> palazzoConsiglio = new ArrayList<SFamigliare>();
 		if (update.getSpazioAzione() != null)
 			for (int i = 0; i < update.getSpazioAzione().getPalazzoDelConsiglio().size(); i++) {
 				main.model.Famigliare famigliarePalazzoConsiglioModel = null;
@@ -516,9 +515,8 @@ public class Frame extends JFrame implements IClient {
 					else if (famigliarePalazzoConsiglioModel.getGiocatore().getColore() == EColoriGiocatori.YELLOW)
 						coloreGiocatoreFamigliare = "giallo";
 
-					palazzoConsiglio.add(new main.ui.gui.aggiornamento.Famigliare(
-							famigliarePalazzoConsiglioModel.getValore(), numero, coloreGiocatoreFamigliare,
-							famigliarePalazzoConsiglioModel.getGiocatore().getNome()));
+					palazzoConsiglio.add(new SFamigliare(famigliarePalazzoConsiglioModel.getValore(), numero,
+							coloreGiocatoreFamigliare, famigliarePalazzoConsiglioModel.getGiocatore().getNome()));
 				}
 			}
 
@@ -585,29 +583,30 @@ public class Frame extends JFrame implements IClient {
 		 */
 
 		boolean[] scomuniche1 = { false, false, false };
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> fp = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		ArrayList<SFamigliare> fp = new ArrayList<SFamigliare>();
 		// fp.add(new aggiornamento.Famigliare(0,0,colore, nomeGiocatore));
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 0, colore, nomeGiocatore));
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 1, colore, nomeGiocatore));
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 2, colore, nomeGiocatore));
-		fp.add(new main.ui.gui.aggiornamento.Famigliare(0, 3, colore, nomeGiocatore));
+		fp.add(new SFamigliare(0, 0, colore, nomeGiocatore));
+		fp.add(new SFamigliare(0, 1, colore, nomeGiocatore));
+		fp.add(new SFamigliare(0, 2, colore, nomeGiocatore));
+		fp.add(new SFamigliare(0, 3, colore, nomeGiocatore));
 
 		ArrayList<String> carteEdificio1 = new ArrayList<String>();
 
-		Giocatore g1 = new Giocatore(nomeGiocatore, colore, new Punti(0, 0, 0), new Risorse(0, 0, 0, 0), scomuniche1,
-				fp, new ArrayList<String>(), carteEdificio1, new ArrayList<String>(), new ArrayList<String>());
+		SGiocatore g1 = new SGiocatore(nomeGiocatore, colore, new SPunti(0, 0, 0), new SRisorse(0, 0, 0, 0),
+				scomuniche1, fp, new ArrayList<String>(), carteEdificio1, new ArrayList<String>(),
+				new ArrayList<String>());
 
-		ArrayList<Giocatore> giocatori = new ArrayList<Giocatore>();
+		ArrayList<SGiocatore> giocatori = new ArrayList<SGiocatore>();
 		giocatori.add(g1);
 
-		main.ui.gui.aggiornamento.Famigliare[] torre = { null, null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null };
-		main.ui.gui.aggiornamento.Famigliare[] mercato = { null, null, null, null };
-		main.ui.gui.aggiornamento.Famigliare raccoltoRotondo = null;
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> raccoltoOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		main.ui.gui.aggiornamento.Famigliare produzioneRotondo = null;
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> produzioneOvale = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
-		ArrayList<main.ui.gui.aggiornamento.Famigliare> palazzoConsiglio = new ArrayList<main.ui.gui.aggiornamento.Famigliare>();
+		SFamigliare[] torre = { null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null };
+		SFamigliare[] mercato = { null, null, null, null };
+		SFamigliare raccoltoRotondo = null;
+		ArrayList<SFamigliare> raccoltoOvale = new ArrayList<SFamigliare>();
+		SFamigliare produzioneRotondo = null;
+		ArrayList<SFamigliare> produzioneOvale = new ArrayList<SFamigliare>();
+		ArrayList<SFamigliare> palazzoConsiglio = new ArrayList<SFamigliare>();
 		String[] carteScomunica = {};
 		String[] carteTorre = {};
 

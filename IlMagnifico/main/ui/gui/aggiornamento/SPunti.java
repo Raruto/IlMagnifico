@@ -1,12 +1,12 @@
 package main.ui.gui.aggiornamento;
 
-public class Punti {
+public class SPunti {
 	
 	private int puntiVittoria;
 	private int puntiMilitari;
 	private int puntiFede;
 	
-	public Punti(int puntiVittoria, int puntiMilitari, int puntiFede){
+	public SPunti(int puntiVittoria, int puntiMilitari, int puntiFede){
 		this.puntiVittoria = puntiVittoria;
 		this.puntiMilitari = puntiMilitari;
 		this.puntiFede = puntiFede;

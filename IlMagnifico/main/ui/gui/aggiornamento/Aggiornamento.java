@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class Aggiornamento {
 
 	private int turno;
-	private ArrayList<Giocatore> giocatori;
-	private Famigliare[] torre;
-	private Famigliare[] mercato;
-	private Famigliare raccoltoRotondo;
-	private ArrayList<Famigliare> raccoltoOvale;
-	private Famigliare produzioneRotondo;
-	private ArrayList<Famigliare> produzioneOvale;
-	private ArrayList<Famigliare> palazzoConsiglio;
+	private ArrayList<SGiocatore> giocatori;
+	private SFamigliare[] torre;
+	private SFamigliare[] mercato;
+	private SFamigliare raccoltoRotondo;
+	private ArrayList<SFamigliare> raccoltoOvale;
+	private SFamigliare produzioneRotondo;
+	private ArrayList<SFamigliare> produzioneOvale;
+	private ArrayList<SFamigliare> palazzoConsiglio;
 	private String[] carteScomunica;
 	private String[] carteSviluppoTorre;
 
-	public Aggiornamento(int turno, ArrayList<Giocatore> giocatori, Famigliare[] torre, Famigliare[] mercato,
-			Famigliare raccoltoRotondo, ArrayList<Famigliare> raccoltoOvale, Famigliare produzioneRotondo,
-			ArrayList<Famigliare> produzioneOvale, ArrayList<Famigliare> palazzoConsiglio, String[] carteScomunica,
+	public Aggiornamento(int turno, ArrayList<SGiocatore> giocatori, SFamigliare[] torre, SFamigliare[] mercato,
+			SFamigliare raccoltoRotondo, ArrayList<SFamigliare> raccoltoOvale, SFamigliare produzioneRotondo,
+			ArrayList<SFamigliare> produzioneOvale, ArrayList<SFamigliare> palazzoConsiglio, String[] carteScomunica,
 			String[] carteSviluppoTorre) {
 		this.turno = turno;
 		this.giocatori = giocatori;
@@ -37,35 +37,35 @@ public class Aggiornamento {
 		return turno;
 	}
 
-	public ArrayList<Giocatore> getGiocatori() {
+	public ArrayList<SGiocatore> getGiocatori() {
 		return giocatori;
 	}
 
-	public Famigliare[] getTorre() {
+	public SFamigliare[] getTorre() {
 		return torre;
 	}
 
-	public Famigliare[] getMercato() {
+	public SFamigliare[] getMercato() {
 		return mercato;
 	}
 
-	public Famigliare getRaccoltoRotondo() {
+	public SFamigliare getRaccoltoRotondo() {
 		return raccoltoRotondo;
 	}
 
-	public ArrayList<Famigliare> getRaccoltoOvale() {
+	public ArrayList<SFamigliare> getRaccoltoOvale() {
 		return raccoltoOvale;
 	}
 
-	public Famigliare getProduzioneRotondo() {
+	public SFamigliare getProduzioneRotondo() {
 		return produzioneRotondo;
 	}
 
-	public ArrayList<Famigliare> getProduzioneOvale() {
+	public ArrayList<SFamigliare> getProduzioneOvale() {
 		return produzioneOvale;
 	}
 
-	public ArrayList<Famigliare> getPalazzoConsiglio() {
+	public ArrayList<SFamigliare> getPalazzoConsiglio() {
 		return palazzoConsiglio;
 	}
 

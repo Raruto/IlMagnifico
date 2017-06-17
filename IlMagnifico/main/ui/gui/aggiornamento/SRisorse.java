@@ -1,13 +1,13 @@
 package main.ui.gui.aggiornamento;
 
-public class Risorse {
+public class SRisorse {
 	
 	private int monete;
 	private int legno;
 	private int pietre;
 	private int servitori;
 	
-	public Risorse(int monete, int legno, int pietre, int servitori){
+	public SRisorse(int monete, int legno, int pietre, int servitori){
 		this.monete = monete;
 		this.legno = legno;
 		this.pietre = pietre;

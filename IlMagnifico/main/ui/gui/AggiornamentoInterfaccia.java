@@ -3,7 +3,7 @@ package main.ui.gui;
 import java.util.ArrayList;
 
 import main.ui.gui.aggiornamento.Aggiornamento;
-import main.ui.gui.aggiornamento.Giocatore;
+import main.ui.gui.aggiornamento.SGiocatore;
 import main.util.Costants;
 
 public class AggiornamentoInterfaccia {
@@ -23,7 +23,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaNomeGiocatori() {
 		int planceRiempite = 0;
 		for (int i = 0; i < aggiornamento.getGiocatori().size(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().setNomeGiocatore(frame.getNomeGiocatore(), frame.getColore());
@@ -38,7 +38,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaPunti() {
 		int planceRiempite = 0;
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().setPuntiVittoria(giocatoreAgg.getPunti().getPuntiVittoria());
@@ -57,7 +57,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaRisorse() {
 		int planceRiempite = 0;
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().setMonete(giocatoreAgg.getRisorse().getMonete());
@@ -110,7 +110,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaFamigliariPlancia() {
 		frame.getPlancia().rimuoviFamigliariStart();
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				Famigliare[] famigliariPlancia = new Famigliare[4];
@@ -135,7 +135,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaCarteTerritorio() {
 		int planceRiempite = 0;
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().rimuoviCarteTerritorio();
@@ -162,7 +162,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaCarteEdificio() {
 		int planceRiempite = 0;
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().rimuoviCarteProduzione();
@@ -189,7 +189,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaCarteImprese() {
 		int planceRiempite = 0;
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().rimuoviCarteImprese();
@@ -216,7 +216,7 @@ public class AggiornamentoInterfaccia {
 	public void aggiornaCartePersonaggio() {
 		int planceRiempite = 0;
 		for (int i = 0; i < frame.getNumeroGiocatori(); i++) {
-			Giocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
+			SGiocatore giocatoreAgg = aggiornamento.getGiocatori().get(i);
 			if (giocatoreAgg.getNome().equals(frame.getNomeGiocatore())
 					&& giocatoreAgg.getColore().equals(frame.getColore())) {
 				frame.getPlancia().rimuoviCartePersonaggio();

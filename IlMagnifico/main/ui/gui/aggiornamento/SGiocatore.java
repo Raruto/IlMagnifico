@@ -2,21 +2,21 @@ package main.ui.gui.aggiornamento;
 
 import java.util.ArrayList;
 
-public class Giocatore {
+public class SGiocatore {
 	
 	private String nome;
 	private String colore;
-	private Punti punti;
-	private Risorse risorse;
+	private SPunti punti;
+	private SRisorse risorse;
 	private boolean[] scomuniche;
-	private ArrayList<Famigliare> famigliariPlancia;
+	private ArrayList<SFamigliare> famigliariPlancia;
 	private ArrayList<String> carteTerritorio;
 	private ArrayList<String> carteEdificio;
 	private ArrayList<String> carteImprese;
 	private ArrayList<String> cartePersonaggio;
 	
-	public Giocatore(String nome, String colore, Punti punti, Risorse risorse, boolean[] scomuniche,
-			ArrayList<Famigliare> famigliariPlancia, ArrayList<String> carteTerritorio, ArrayList<String> carteEdificio,
+	public SGiocatore(String nome, String colore, SPunti punti, SRisorse risorse, boolean[] scomuniche,
+			ArrayList<SFamigliare> famigliariPlancia, ArrayList<String> carteTerritorio, ArrayList<String> carteEdificio,
 			ArrayList<String> carteImprese, ArrayList<String> cartePersonaggio) {
 		this.nome = nome;
 		this.colore = colore;
@@ -38,11 +38,11 @@ public class Giocatore {
 		return colore;
 	}
 
-	public Punti getPunti() {
+	public SPunti getPunti() {
 		return punti;
 	}
 
-	public Risorse getRisorse() {
+	public SRisorse getRisorse() {
 		return risorse;
 	}
 
@@ -50,7 +50,7 @@ public class Giocatore {
 		return scomuniche;
 	}
 
-	public ArrayList<Famigliare> getFamigliariPlancia() {
+	public ArrayList<SFamigliare> getFamigliariPlancia() {
 		return famigliariPlancia;
 	}
 

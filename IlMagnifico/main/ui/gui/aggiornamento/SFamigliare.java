@@ -1,13 +1,13 @@
 package main.ui.gui.aggiornamento;
 
-public class Famigliare {
+public class SFamigliare {
 	
 	private int valore;
 	private int numero;
 	private String colore;
 	private String giocatoreAppartenenza;
 	
-	public Famigliare(int valore, int numero, String colore, String giocatoreAppartenenza){
+	public SFamigliare(int valore, int numero, String colore, String giocatoreAppartenenza){
 		this.valore = valore;
 		this.numero = numero;
 		this.colore = colore;
