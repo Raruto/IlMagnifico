@@ -1602,7 +1602,12 @@ public class Frame extends JFrame implements IClient {
 
 	@Override
 	public void onGameUpdate(UpdateStats update) {
-		// TODO Auto-generated method stub
+		// "fallback" (please don't use it..)
+		aggiornamento(update);
+		if (btnMostraPlancia.isVisible())
+			btnMostraTabellone.doClick();
+		if (btnMostraTabellone.isVisible())
+			btnMostraPlancia.doClick();
 	}
 
 	@Override
@@ -1690,7 +1695,6 @@ public class Frame extends JFrame implements IClient {
 		lblTextLogger.setVisible(true);
 
 		aggiornamento(update);
-
 	}
 
 	@Override

@@ -413,5 +413,7 @@ public class AggiornamentoInterfaccia {
 		aggiornamentoPalazzoConsiglio();
 		aggiornamentoOrdineTurno();
 		aggiornaCarteSviluppoTorre();
+		
+		frame.repaint();
 	}
 }
