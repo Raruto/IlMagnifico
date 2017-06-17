@@ -172,19 +172,6 @@ public class Frame extends JFrame implements IClient {
 	}
 
 	public void aggiornamento(UpdateStats update) {
-
-		////////////////////////////////////////////////////////////////////////
-		// nel caso di aggiunta servitori vorrei rimanere nello stesso "panel"//
-		boolean isPlanciaVisible = false;
-		if (frame.getPlancia() != null && frame.getPlancia().isVisible())
-			isPlanciaVisible = true;
-		////////////////////////////////////////////////////////////////////////
-
-		if (plancia != null)
-			remove(plancia);
-		if (tabellone != null)
-			remove(tabellone);
-
 		ArrayList<String> nomeGiocatori = this.nomeGiocatoriPartita;
 		numeroGiocatoriPartita = nomeGiocatori.size();
 
@@ -567,18 +554,6 @@ public class Frame extends JFrame implements IClient {
 
 		AggiornamentoInterfaccia ai = new AggiornamentoInterfaccia(agg, this);
 		ai.aggiornaTutto();
-
-		////////////////////////////////////////////////////////////////////////
-		// nel caso di aggiunta servitori vorrei rimanere nello stesso "panel"//
-		if (isPlanciaVisible) {
-			btnMostraTabellone.setBounds(1093, 11, 127, 32);
-			btnMostraPlancia.setVisible(false);
-			btnMostraTabellone.setVisible(true);
-			tabellone.setVisible(false);
-			plancia.setVisible(true);
-			planciaAvversari.setVisible(false);
-		}
-		////////////////////////////////////////////////////////////////////////
 	}
 
 	public void aggiornamento() {
@@ -677,6 +652,18 @@ public class Frame extends JFrame implements IClient {
 
 	public void setPlanciaAvversario(PlanciaAvversario planciaAvversario) {
 		this.planciaAvversari = planciaAvversario;
+	}
+
+	public ButtonLIM getBtnMostraTabellone() {
+		return btnMostraTabellone;
+	}
+
+	public ButtonLIM getBtnMostraPlancia() {
+		return btnMostraPlancia;
+	}
+
+	public ButtonLIM getBtnMostraPlanciaAvversari() {
+		return btnMostraPlanciaAvversari;
 	}
 
 	public String getNomeGiocatore() {

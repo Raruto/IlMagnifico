@@ -393,6 +393,22 @@ public class AggiornamentoInterfaccia {
 	}
 
 	public void aggiornaTutto() {
+		////////////////////////////////////////////////////////////////////////
+		// nel caso di aggiunta servitori vorrei rimanere nello stesso "panel"//
+		boolean isPlanciaVisible = false, isPlanciaAvversarioVisible = false;
+		if (frame.getPlancia() != null && frame.getPlancia().isVisible())
+			isPlanciaVisible = true;
+		if (frame.getPlanciaAvversario() != null && frame.getPlanciaAvversario().isVisible())
+			isPlanciaAvversarioVisible = true;
+		////////////////////////////////////////////////////////////////////////
+
+		if (frame.getPlancia() != null)
+			frame.remove(frame.getPlancia());
+		if (frame.getTabellone() != null)
+			frame.remove(frame.getTabellone());
+		if (frame.getPlanciaAvversario() != null)
+			frame.remove(frame.getPlanciaAvversario());
+
 		Inizializza();
 		aggiornaNomeGiocatori();
 		aggiornaTurno();
@@ -413,7 +429,29 @@ public class AggiornamentoInterfaccia {
 		aggiornamentoPalazzoConsiglio();
 		aggiornamentoOrdineTurno();
 		aggiornaCarteSviluppoTorre();
-		
+
+		////////////////////////////////////////////////////////////////////////
+
 		frame.repaint();
+
+		////////////////////////////////////////////////////////////////////////
+		// nel caso di aggiunta servitori vorrei rimanere nello stesso "panel"//
+		if (isPlanciaVisible) {
+			frame.getBtnMostraTabellone().setBounds(1093, 11, 127, 32);
+			frame.getBtnMostraPlancia().setVisible(false);
+			frame.getBtnMostraTabellone().setVisible(true);
+			frame.getTabellone().setVisible(false);
+			frame.getPlancia().setVisible(true);
+			frame.getPlanciaAvversario().setVisible(false);
+		} else if (isPlanciaAvversarioVisible) {
+			frame.getBtnMostraTabellone().setBounds(961, 11, 127, 32);
+			frame.getBtnMostraTabellone().setVisible(true);
+			frame.getBtnMostraPlancia().setVisible(true);
+			frame.getTabellone().setVisible(false);
+			frame.getPlancia().setVisible(false);
+			frame.getPlanciaAvversario().setVisible(true);
+		}
+		////////////////////////////////////////////////////////////////////////
+
 	}
 }
