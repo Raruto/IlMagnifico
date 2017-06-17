@@ -978,7 +978,7 @@ public class Frame extends JFrame implements IClient {
 					if (numScelteCosti > 0) {
 						ArrayList<String> scelte = new ArrayList<String>();
 						for (int i = 0; i < carta.getNumScelteCosti(); i++) {
-							scelte.add(carta.getCostiCarta().get(i).getNome());
+							scelte.add(carta.getCostiCarta().get(i).getDescrizione());
 						}
 						frameSceltaCosti.setScelteCosti(scelte, posizioneTorre);
 						new ChiediSceltaCosti(EAzioniGiocatore.Torre, colorePedina, scelte, numScelteCosti);
