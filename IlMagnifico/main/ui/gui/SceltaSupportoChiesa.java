@@ -1,11 +1,8 @@
 package main.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,20 +10,12 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.EmptyBorder;
 
-import main.model.enums.EAzioniGiocatore;
-import main.model.enums.EColoriPedine;
-import main.model.enums.ECostiCarte;
-import main.model.enums.EEffettiPermanenti;
-import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.ui.gui.components.ButtonLIM;
-import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
 import res.images.Resources;
 
@@ -37,7 +26,6 @@ public class SceltaSupportoChiesa extends JFrame {
 	 */
 	private static final long serialVersionUID = 8525471854298151358L;
 	private JPanel contentPane;
-	private EAzioniGiocatore azione;
 	private boolean supporto;
 
 	private Frame framePrincipale;
@@ -81,13 +69,12 @@ public class SceltaSupportoChiesa extends JFrame {
 		this.framePrincipale = framePrincipale;
 	}
 
-	public void mostraFinestra(EAzioniGiocatore azione) {
+	public void mostraFinestra() {
 		framePrincipale.setVisible(false);
 		setVisible(true);
 		getContentPane().setLayout(null);
 		contentPane.setBounds(0, 0, 1362, 694);
 		contentPane.setLayout(null);
-		this.azione = azione;
 
 		this.scelte = new ArrayList<String>();
 		scelte.add(0, "YES, I support the Church!");
@@ -178,16 +165,10 @@ public class SceltaSupportoChiesa extends JFrame {
 		btnOK.setVisible(true);
 		contentPane.setLayout(null);
 		contentPane.add(btnOK);
-		btnOK.addActionListener(new Conferma(this));
+		btnOK.addActionListener(new Conferma());
 	}
 
 	private class Conferma implements ActionListener {
-
-		public SceltaSupportoChiesa frameSceltaCosti;
-
-		public Conferma(SceltaSupportoChiesa frameSceltaCosti) {
-			this.frameSceltaCosti = frameSceltaCosti;
-		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {

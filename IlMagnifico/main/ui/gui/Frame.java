@@ -1512,8 +1512,8 @@ public class Frame extends JFrame implements IClient {
 	}
 
 	private class ChiediSupportoChiesa implements EventListener {
-		public ChiediSupportoChiesa(EAzioniGiocatore azione) {
-			frameSceltaSupportoChiesa.mostraFinestra(azione);
+		public ChiediSupportoChiesa() {
+			frameSceltaSupportoChiesa.mostraFinestra();
 		}
 	}
 
@@ -1615,7 +1615,7 @@ public class Frame extends JFrame implements IClient {
 	public void onChurchSupport(UpdateStats update) {
 		aggiornamento(update);
 		if (update.getNomiGiocatori().contains(nomeGiocatore))
-			new ChiediSupportoChiesa(EAzioniGiocatore.SostegnoChiesa);
+			new ChiediSupportoChiesa();
 	}
 
 	@Override

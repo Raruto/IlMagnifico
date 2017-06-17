@@ -1,7 +1,6 @@
 package main.ui.gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -229,9 +228,8 @@ public class Plancia extends JPanel {
 	public void aggiungiPannelloMostraCarteImpresePersonaggio() {
 		/*
 		 * mostraCartaImpresePersonaggio = new PanelImmagine(
-		 * "/famigliareBlu.png" );
-		 * mostraCartaImpresePersonaggio.setBounds(1200, 20, 120, 180);
-		 * mostraCartaImpresePersonaggio.setOpaque(true);
+		 * "/famigliareBlu.png" ); mostraCartaImpresePersonaggio.setBounds(1200,
+		 * 20, 120, 180); mostraCartaImpresePersonaggio.setOpaque(true);
 		 * mostraCartaImpresePersonaggio.setVisible(true);
 		 * this.add(mostraCartaImpresePersonaggio);
 		 */
@@ -406,8 +404,7 @@ public class Plancia extends JPanel {
 		}
 
 		public void paintComponent(Graphics g) {
-			ImageIcon icon = new ImageIcon(
-					Resources.class.getResource(Costants.FOLDER_BASE + "/pannelloCarta2.png"));
+			ImageIcon icon = new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/pannelloCarta2.png"));
 			Image image = icon.getImage();
 			g.drawImage(image, 0, 0, null);
 		}

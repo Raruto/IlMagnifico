@@ -1,19 +1,15 @@
 package main.ui.gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-import main.network.client.Client;
 import main.network.client.ClientException;
 import main.ui.gui.components.ButtonLIM;
 import main.ui.gui.components.PanelImmagine;
@@ -108,7 +104,54 @@ public class UsernameFrame extends JFrame {
 		btnIniziaPartita = new ButtonLIM("START GAME");
 		btnIniziaPartita.setBounds(400, 400, 250, 30);
 		contentPane.add(btnIniziaPartita);
-		btnIniziaPartita.addActionListener(new IniziaPartita(this));
+		btnIniziaPartita.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				lblMessaggioErrore.setForeground(Color.RED);
+
+				if (txtFieldUsername.getText().length() == 0) {
+					lblMessaggioErrore.setText("invalid name");
+					lblMessaggioErrore.setVisible(true);
+					return;
+				}
+				lblMessaggioErrore.setVisible(false);
+
+				if ((rbtnSceltaSocket.isSelected() && rbtnSceltaRMI.isSelected())
+						|| (!rbtnSceltaSocket.isSelected() && !rbtnSceltaRMI.isSelected())) {
+					lblMessaggioErrore.setText("invalid connection choice");
+					lblMessaggioErrore.setVisible(true);
+					return;
+				}
+
+				// nomeUtente = nome con cui si vuole effettuare il login
+				// connessione = il tipo di connessione (SOCKET o RMI)
+				String nomeUtente = txtFieldUsername.getText();
+				String connessione = "";
+				if (rbtnSceltaSocket.isSelected())
+					connessione = "SOCKET";
+				if (rbtnSceltaRMI.isSelected())
+					connessione = "RMI";
+				try {
+					framePartita.getClient().startClient(connessione, Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
+							Costants.RMI_PORT);
+					framePartita.getClient().loginPlayer(nomeUtente);
+					if (framePartita.getClient().isLogged()) {
+						if (!framePartita.getClient().isGameStarted()) {
+							lblMessaggioErrore.setForeground(Color.YELLOW);
+							lblMessaggioErrore.setText("Waiting for other players");
+							lblMessaggioErrore.setVisible(true);
+						}
+					} else {
+						lblMessaggioErrore.setForeground(Color.YELLOW);
+						lblMessaggioErrore.setText("Name not available");
+						lblMessaggioErrore.setVisible(true);
+					}
+				} catch (ClientException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void inserisciSceltaConnessione() {
@@ -146,62 +189,4 @@ public class UsernameFrame extends JFrame {
 		contentPane.add(immagine);
 	}
 
-	private class IniziaPartita implements ActionListener {
-
-		private UsernameFrame usernameFrame;
-
-		public IniziaPartita(UsernameFrame usernameFrame) {
-			this.usernameFrame = usernameFrame;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			lblMessaggioErrore.setForeground(Color.RED);
-
-			if (txtFieldUsername.getText().length() == 0) {
-				lblMessaggioErrore.setText("invalid name");
-				lblMessaggioErrore.setVisible(true);
-				return;
-			}
-			lblMessaggioErrore.setVisible(false);
-
-			if ((rbtnSceltaSocket.isSelected() && rbtnSceltaRMI.isSelected())
-					|| (!rbtnSceltaSocket.isSelected() && !rbtnSceltaRMI.isSelected())) {
-				lblMessaggioErrore.setText("invalid connection choice");
-				lblMessaggioErrore.setVisible(true);
-				return;
-			}
-
-			// nomeUtente è il nome con cui il giocatore vuole effettuare il
-			// lgin
-			// connessione è una stringa che indica il tipo di connessione
-			// (SOCKET o RMI)
-			String nomeUtente = txtFieldUsername.getText();
-			String connessione = "";
-			if (rbtnSceltaSocket.isSelected())
-				connessione = "SOCKET";
-			if (rbtnSceltaRMI.isSelected())
-				connessione = "RMI";
-			try {
-				framePartita.getClient().startClient(connessione, Costants.SERVER_ADDRESS, Costants.SOCKET_PORT,
-						Costants.RMI_PORT);
-				framePartita.getClient().loginPlayer(nomeUtente);
-				if (framePartita.getClient().isLogged()) {
-					if (!framePartita.getClient().isGameStarted()) {
-						lblMessaggioErrore.setForeground(Color.YELLOW);
-						lblMessaggioErrore.setText("Waiting for other players");
-						lblMessaggioErrore.setVisible(true);
-					}
-				}
-				else{
-					lblMessaggioErrore.setForeground(Color.YELLOW);
-					lblMessaggioErrore.setText("Name not available");
-					lblMessaggioErrore.setVisible(true);
-				}
-			} catch (ClientException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 }

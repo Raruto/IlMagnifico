@@ -1,11 +1,8 @@
 package main.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,20 +10,15 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.EmptyBorder;
 
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
-import main.model.enums.ECostiCarte;
 import main.model.enums.EEffettiPermanenti;
-import main.model.enums.ESceltePrivilegioDelConsiglio;
 import main.ui.gui.components.ButtonLIM;
-import main.ui.gui.components.PanelImmagine;
 import main.util.Costants;
 import res.images.Resources;
 

@@ -1,12 +1,7 @@
 package main.ui.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class SpazioFamigliare extends JPanel {
 
