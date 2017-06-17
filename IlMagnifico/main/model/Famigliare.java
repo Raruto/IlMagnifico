@@ -121,7 +121,7 @@ public class Famigliare implements Serializable {
 			throw new NoEnoughResourcesException();
 		else {
 			spazioAzione.getCartaTorre(posizione).acquisizione(famigliareTemporaneo.giocatoreAppartenenza,
-					costiScelti.length > 0 ? costiScelti[0] : null);
+					(costiScelti != null && costiScelti.length > 0) ? costiScelti[0] : null);
 			// devo applicare tutte le modifiche al mio giocatore di partenza
 			mergeFamigliari(famigliareTemporaneo);
 			prendiCartaDallaTorre(identificativoTorre, spazioAzione, posizione);

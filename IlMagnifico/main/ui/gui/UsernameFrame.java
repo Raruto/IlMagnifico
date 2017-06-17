@@ -81,7 +81,7 @@ public class UsernameFrame extends JFrame {
 	}
 
 	public void inserisciLabelUsername() {
-		lblUsername = new JLabel("INSERISCI USERNAME : ");
+		lblUsername = new JLabel("INSERT USERNAME : ");
 		lblUsername.setBounds(400, 242, 250, 30);
 		lblUsername.setFont(new Font("ALGERIAN", 50, 20));
 		lblUsername.setForeground(Color.WHITE);
@@ -105,7 +105,7 @@ public class UsernameFrame extends JFrame {
 	}
 
 	public void inserisciBottoneIniziaPartita() {
-		btnIniziaPartita = new ButtonLIM("INIZIA PARTITA");
+		btnIniziaPartita = new ButtonLIM("START GAME");
 		btnIniziaPartita.setBounds(400, 400, 250, 30);
 		contentPane.add(btnIniziaPartita);
 		btnIniziaPartita.addActionListener(new IniziaPartita(this));
@@ -144,7 +144,7 @@ public class UsernameFrame extends JFrame {
 			lblMessaggioErrore.setForeground(Color.RED);
 
 			if (txtFieldUsername.getText().length() == 0) {
-				lblMessaggioErrore.setText("nome inserito non valido");
+				lblMessaggioErrore.setText("invalid name");
 				lblMessaggioErrore.setVisible(true);
 				return;
 			}
@@ -152,7 +152,7 @@ public class UsernameFrame extends JFrame {
 
 			if ((rbtnSceltaSocket.isSelected() && rbtnSceltaRMI.isSelected())
 					|| (!rbtnSceltaSocket.isSelected() && !rbtnSceltaRMI.isSelected())) {
-				lblMessaggioErrore.setText("scelta connessione non valida");
+				lblMessaggioErrore.setText("invalid connection choice");
 				lblMessaggioErrore.setVisible(true);
 				return;
 			}
@@ -174,7 +174,7 @@ public class UsernameFrame extends JFrame {
 				if (framePartita.getClient().isLogged()) {
 					if (!framePartita.getClient().isGameStarted()) {
 						lblMessaggioErrore.setForeground(Color.YELLOW);
-						lblMessaggioErrore.setText("In attesa di altri giocatori");
+						lblMessaggioErrore.setText("Waiting for other players");
 						lblMessaggioErrore.setVisible(true);
 					}
 				}

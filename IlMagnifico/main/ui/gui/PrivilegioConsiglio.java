@@ -54,9 +54,9 @@ public class PrivilegioConsiglio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				ArrayList<String> scelte = new ArrayList<String>();
-				scelte.add("2 legni");
-				scelte.add("4 pietre");
-				scelte.add("1 servitore");
+				scelte.add("2 woods");
+				scelte.add("4 stones");
+				scelte.add("1 servant");
 				try {
 					PrivilegioConsiglio frame = new PrivilegioConsiglio(null);
 					frame.setVisible(true);
@@ -117,7 +117,7 @@ public class PrivilegioConsiglio extends JFrame {
 		radioButtons = new JRadioButton[scelte.size()];
 		for (int i = 0; i < scelte.size(); i++) {
 			radioButtons[i] = new JRadioButton(scelte.get(i));
-			radioButtons[i].setBounds(600, 200 + 30 * i, 500, 25);
+			radioButtons[i].setBounds(590, 200 + 30 * i, 500, 25);
 			radioButtons[i].setVisible(true);
 			radioButtons[i].setOpaque(false);
 			radioButtons[i].setFont(new Font("ALGERIAN", 20, 20));
@@ -166,8 +166,8 @@ public class PrivilegioConsiglio extends JFrame {
 	}
 
 	public void aggiungiLblComunicazione() {
-		lblComunicazione = new JLabel("effettua " + numeroScelte + " scelte");
-		lblComunicazione.setBounds(575, 500, 719, 35);
+		lblComunicazione = new JLabel("make " + numeroScelte + " choices");
+		lblComunicazione.setBounds(590, 500, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
@@ -215,15 +215,15 @@ public class PrivilegioConsiglio extends JFrame {
 
 			if (azione == EAzioniGiocatore.Mercato || azione == EAzioniGiocatore.PalazzoConsiglio) {
 				for (int i = 0; i < decisioni.size(); i++) {
-					if (decisioni.get(i).equals("1 pietra e 1 legno")) {
+					if (decisioni.get(i).equals("1 wood and 1 stone")) {
 						scelte[i] = ESceltePrivilegioDelConsiglio.LegnoEPietra;
-					} else if (decisioni.get(i).equals("2 servitori")) {
+					} else if (decisioni.get(i).equals("2 servants")) {
 						scelte[i] = ESceltePrivilegioDelConsiglio.Servitori;
-					} else if (decisioni.get(i).equals("2 monete")) {
+					} else if (decisioni.get(i).equals("2 coins")) {
 						scelte[i] = ESceltePrivilegioDelConsiglio.Monete;
-					} else if (decisioni.get(i).equals("2 punti militari")) {
+					} else if (decisioni.get(i).equals("2 military points")) {
 						scelte[i] = ESceltePrivilegioDelConsiglio.PuntiMilitari;
-					} else if (decisioni.get(i).equals("1 fede")) {
+					} else if (decisioni.get(i).equals("1 faith point")) {
 						scelte[i] = ESceltePrivilegioDelConsiglio.PuntoFede;
 					}
 				}

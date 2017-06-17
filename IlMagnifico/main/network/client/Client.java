@@ -706,7 +706,7 @@ public class Client implements IClient {
 		handleResponse(update);
 
 		// "fallback" (please don't use it..)
-		// ui.onGameUpdate(update);
+		ui.onGameUpdate(update);
 	}
 
 	/**

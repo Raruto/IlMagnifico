@@ -344,7 +344,7 @@ public class AggiornamentoInterfaccia {
 
 	public void aggiornaTurno() {
 		frame.setTurno(aggiornamento.getTurno());
-		frame.getTabellone().getLblTurnoPeriodo().setText("<html><br>TURNO: " + frame.getTurno() + "</br><br>PERIODO: "
+		frame.getTabellone().getLblTurnoPeriodo().setText("<html><br>TURN: " + frame.getTurno() + "</br><br>PERIOD: "
 				+ (frame.getTurno() + 1) / 2 + "</br></html>");
 	}
 

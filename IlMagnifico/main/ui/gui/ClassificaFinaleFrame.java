@@ -63,7 +63,7 @@ public class ClassificaFinaleFrame extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		contentPane.setBackground(Color.BLACK);
 
-		btnTornaAPaginaIniziale = new ButtonLIM("TORNA ALLA PAGINA INIZIALE");
+		btnTornaAPaginaIniziale = new ButtonLIM("BACK TO THE INITIAL PAGE");
 		btnTornaAPaginaIniziale.setBounds(500, 550, 300, 50);
 		btnTornaAPaginaIniziale.addActionListener(new ActionListener() {
 

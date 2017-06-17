@@ -16,6 +16,7 @@ import main.model.Personaggio;
 import main.model.Scomunica;
 import main.model.Territorio;
 import main.model.enums.EAzioniGiocatore;
+import main.model.enums.ECarte;
 import main.model.enums.EColoriGiocatori;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ECostiCarte;
@@ -63,6 +64,7 @@ public class Frame extends JFrame implements IClient {
 	private static final long serialVersionUID = 7802964308401362865L;
 	private Frame frame = this;
 	private PrivilegioConsiglio framePrivilegioConsiglio = new PrivilegioConsiglio(this);
+	private SceltaCosti frameSceltaCosti = new SceltaCosti(this);
 
 	private JPanel contentPane;
 	private ButtonLIM btnMostraTabellone = new ButtonLIM();
@@ -234,24 +236,24 @@ public class Frame extends JFrame implements IClient {
 			ArrayList<Edificio> edificiModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i))
 					.getEdifici();
 			for (int j = 0; j < edificiModel.size(); j++) {
-				carteEdificio.add(edificiModel.get(i).getNome());
+				carteEdificio.add(edificiModel.get(j).getNome());
 			}
 
 			ArrayList<Territorio> territoriModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i))
 					.getTerritori();
 			for (int j = 0; j < territoriModel.size(); j++) {
-				carteTerritorio.add(territoriModel.get(i).getNome());
+				carteTerritorio.add(territoriModel.get(j).getNome());
 			}
 
 			ArrayList<Personaggio> personaggiModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i))
 					.getPersonaggi();
 			for (int j = 0; j < personaggiModel.size(); j++) {
-				cartePersonaggio.add(personaggiModel.get(i).getNome());
+				cartePersonaggio.add(personaggiModel.get(j).getNome());
 			}
 
 			ArrayList<Impresa> impreseModel = getClient().getPlayersDashboards().get(nomeGiocatori.get(i)).getImprese();
 			for (int j = 0; j < impreseModel.size(); j++) {
-				carteImprese.add(impreseModel.get(i).getNome());
+				carteImprese.add(impreseModel.get(j).getNome());
 			}
 
 			// CREAZIONE GIOCATORE
@@ -690,7 +692,7 @@ public class Frame extends JFrame implements IClient {
 		// btnMostraTabellone.setBounds(961, 11, 127, 32);
 		btnMostraTabellone.setBounds(1093, 11, 127, 32);
 		btnMostraTabellone.setVisible(false);
-		btnMostraTabellone.setText("TABELLONE");
+		btnMostraTabellone.setText("BOARD");
 		getContentPane().add(btnMostraTabellone);
 		btnMostraTabellone.addActionListener(new ActionListener() {
 			@Override
@@ -706,7 +708,7 @@ public class Frame extends JFrame implements IClient {
 
 		btnMostraPlancia.setBounds(1093, 11, 127, 32);
 		btnMostraPlancia.setVisible(true);
-		btnMostraPlancia.setText("PLANCIA");
+		btnMostraPlancia.setText("DASHBOARD");
 		getContentPane().add(btnMostraPlancia);
 		btnMostraPlancia.addActionListener(new ActionListener() {
 			@Override
@@ -722,7 +724,7 @@ public class Frame extends JFrame implements IClient {
 
 		btnMostraPlanciaAvversari.setBounds(1225, 11, 127, 32);
 		btnMostraPlanciaAvversari.setVisible(true);
-		btnMostraPlanciaAvversari.setText("AVVERSARI");
+		btnMostraPlanciaAvversari.setText("OPPONENTS");
 		getContentPane().add(btnMostraPlanciaAvversari);
 		btnMostraPlanciaAvversari.addActionListener(new ActionListener() {
 			@Override
@@ -828,10 +830,10 @@ public class Frame extends JFrame implements IClient {
 			if (servitoreSelezionato) {
 				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
 					lblTextLogger.setForeground(Color.GREEN);
-					lblTextLogger.setText("E' IL TUO TURNO");
+					lblTextLogger.setText("IT'S YOUR TURN");
 				} else {
 					lblTextLogger.setForeground(Color.RED);
-					lblTextLogger.setText("TOCCA A: " + getClient().getPlayerTurn());
+					lblTextLogger.setText(getClient().getPlayerTurn()+"'S TURN");
 				}
 				lblTextLogger.setVisible(true);
 
@@ -860,7 +862,7 @@ public class Frame extends JFrame implements IClient {
 				return;
 			}
 
-			lblTextLogger.setText("SELEZIONATO: " + famigliareSelezionato.getNumero() + ", valore: "
+			lblTextLogger.setText("SELECTED: " + famigliareSelezionato.getNumero() + ", value: "
 					+ famigliareSelezionato.getValore());
 			lblTextLogger.setVisible(true);
 
@@ -970,7 +972,22 @@ public class Frame extends JFrame implements IClient {
 			else
 				colorePedina = EColoriPedine.Neutrale;
 
-			movePawn(EAzioniGiocatore.Torre, colorePedina, (posizioneTorre / 4) * 4 + (4 - posizioneTorre % 4) - 1);
+			for (ECarte carta : ECarte.values()) {
+				if (tabellone.getCarteTorre().get(posizioneTorre).getNomeCarta().equals(carta.getNome())) {
+					int numScelteCosti = carta.getNumScelteCosti();
+					if (numScelteCosti > 0) {
+						ArrayList<String> scelte = new ArrayList<String>();
+						for (int i = 0; i < carta.getNumScelteCosti(); i++) {
+							scelte.add(carta.getCostiCarta().get(i).getNome());
+						}
+						frameSceltaCosti.setScelteCosti(scelte, posizioneTorre);
+						new ChiediSceltaCosti(EAzioniGiocatore.Torre, colorePedina, scelte, numScelteCosti);
+						return;
+					}
+				}
+			}
+			int pos = (posizioneTorre / 4) * 4 + (4 - posizioneTorre % 4) - 1;
+			movePawn(EAzioniGiocatore.Torre, colorePedina, pos);
 
 			// aggiornamento();
 
@@ -1257,11 +1274,11 @@ public class Frame extends JFrame implements IClient {
 				colorePedina = EColoriPedine.Neutrale;
 
 			ArrayList<String> scelte = new ArrayList<String>();
-			scelte.add("1 pietra e 1 legno");
-			scelte.add("2 servitori");
-			scelte.add("2 monete");
-			scelte.add("2 punti militari");
-			scelte.add("1 fede");
+			scelte.add("1 wood and 1 stone");
+			scelte.add("2 servants");
+			scelte.add("2 coins");
+			scelte.add("2 military points");
+			scelte.add("1 faith point");
 			new ChiediPrivilegioConsiglio(EAzioniGiocatore.PalazzoConsiglio, colorePedina, scelte, 1);
 			/*
 			 * COVERSAZIONE CON SERVER
@@ -1326,11 +1343,11 @@ public class Frame extends JFrame implements IClient {
 
 			if (posizioneMercato == 3) {
 				ArrayList<String> scelte = new ArrayList<String>();
-				scelte.add("1 pietra e 1 legno");
-				scelte.add("2 servitori");
-				scelte.add("2 monete");
-				scelte.add("2 punti militari");
-				scelte.add("1 fede");
+				scelte.add("1 wood and 1 stone");
+				scelte.add("2 servants");
+				scelte.add("2 coins");
+				scelte.add("2 military points");
+				scelte.add("1 faith point");
 				new ChiediPrivilegioConsiglio(EAzioniGiocatore.Mercato, colorePedina, scelte, 2);
 			} else {
 				movePawn(EAzioniGiocatore.Mercato, colorePedina, posizioneMercato);
@@ -1419,6 +1436,13 @@ public class Frame extends JFrame implements IClient {
 		}
 	}
 
+	private class ChiediSceltaCosti implements EventListener {
+		public ChiediSceltaCosti(EAzioniGiocatore azione, EColoriPedine colorePedina, ArrayList<String> scelte,
+				int numScelte) {
+			frameSceltaCosti.mostraFinestra(azione, colorePedina, scelte, numScelte);
+		}
+	}
+
 	private class ApriPaginaFinePartita implements EventListener {
 		public ApriPaginaFinePartita() {
 			ClassificaFinaleFrame classificaFinaleFrame = new ClassificaFinaleFrame();
@@ -1491,10 +1515,10 @@ public class Frame extends JFrame implements IClient {
 			public void run() {
 				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
 					lblTextLogger.setForeground(Color.GREEN);
-					lblTextLogger.setText("E' IL TUO TURNO");
+					lblTextLogger.setText("IT'S YOUR TURN");
 				} else {
 					lblTextLogger.setForeground(Color.RED);
-					lblTextLogger.setText("TOCCA A: " + getClient().getPlayerTurn());
+					lblTextLogger.setText(getClient().getPlayerTurn()+"'s TURN");
 				}
 				lblTextLogger.setVisible(true);
 			}
@@ -1582,10 +1606,10 @@ public class Frame extends JFrame implements IClient {
 	public void onPlayerMove(UpdateStats update) {
 		if (nomeGiocatore.equals(update.getNomeGiocatore())) {
 			lblTextLogger.setForeground(Color.GREEN);
-			lblTextLogger.setText("E' IL TUO TURNO");
+			lblTextLogger.setText("IT'S YOUR TURN");
 		} else {
 			lblTextLogger.setForeground(Color.RED);
-			lblTextLogger.setText("TOCCA A: " + update.getNomeGiocatore());
+			lblTextLogger.setText(update.getNomeGiocatore()+"'S TURN");
 		}
 		lblTextLogger.setVisible(true);
 

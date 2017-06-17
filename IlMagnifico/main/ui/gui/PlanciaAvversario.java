@@ -35,7 +35,7 @@ public class PlanciaAvversario extends JPanel {
 				planceAvversari.get(i).setVisible(false);
 
 			if (planceAvversari.size() + 1 > 2) {
-				scorriPlance.add(new ButtonLIM("PROSSIMO"));
+				scorriPlance.add(new ButtonLIM("NEXT"));
 				scorriPlance.get(i).setBounds(0, 0, 120, 30);
 				scorriPlance.get(i).setVisible(true);
 				scorriPlance.get(i).addActionListener(new ScorriPlance());
