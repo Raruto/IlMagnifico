@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -18,7 +18,8 @@ import javax.swing.JRadioButton;
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
 import main.model.enums.ESceltePrivilegioDelConsiglio;
-import main.ui.gui.components.ButtonLIM;
+import main.ui.gui.GUI;
+import main.ui.gui.components.swing.ButtonLIM;
 import main.util.Costants;
 import res.images.Resources;
 
@@ -33,7 +34,7 @@ public class PrivilegioConsiglio extends JFrame {
 	private int numeroScelte;
 	private EColoriPedine colorePedina;
 
-	private Frame framePrincipale;
+	private GUI framePrincipale;
 	private JRadioButton[] radioButtons;
 	private ButtonLIM btnOK = new ButtonLIM("OK");
 	private JLabel lblComunicazione;
@@ -64,7 +65,7 @@ public class PrivilegioConsiglio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PrivilegioConsiglio(Frame framePrincipale) {
+	public PrivilegioConsiglio(GUI framePrincipale) {
 		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

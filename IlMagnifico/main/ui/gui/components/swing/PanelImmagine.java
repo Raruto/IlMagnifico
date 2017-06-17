@@ -1,4 +1,4 @@
-package main.ui.gui.components;
+package main.ui.gui.components.swing;
 
 import java.awt.Graphics;
 import java.awt.Image;

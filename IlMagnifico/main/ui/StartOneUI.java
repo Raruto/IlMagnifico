@@ -3,7 +3,7 @@ package main.ui;
 import java.util.Scanner;
 
 import main.ui.cli.CLI;
-import main.ui.gui.Frame;
+import main.ui.gui.GUI;
 import main.util.Costants;
 
 public class StartOneUI {
@@ -15,7 +15,7 @@ public class StartOneUI {
 		inText = scanner.nextLine().toUpperCase();
 
 		if (inText.equals("G")) {
-			Frame.main(args);
+			GUI.main(args);
 		} else if (inText.equals("C")) {
 			CLI.mainClient(Costants.SERVER_ADDRESS, Costants.SOCKET_PORT, Costants.RMI_PORT);
 		}

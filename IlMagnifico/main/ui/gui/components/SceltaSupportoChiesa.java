@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -15,7 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import main.ui.gui.components.ButtonLIM;
+import main.ui.gui.GUI;
+import main.ui.gui.components.swing.ButtonLIM;
 import main.util.Costants;
 import res.images.Resources;
 
@@ -28,7 +29,7 @@ public class SceltaSupportoChiesa extends JFrame {
 	private JPanel contentPane;
 	private boolean supporto;
 
-	private Frame framePrincipale;
+	private GUI framePrincipale;
 	private JRadioButton[] radioButtons;
 	private ButtonLIM btnOK = new ButtonLIM("OK");
 	private JLabel lblComunicazione;
@@ -55,7 +56,7 @@ public class SceltaSupportoChiesa extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SceltaSupportoChiesa(Frame framePrincipale) {
+	public SceltaSupportoChiesa(GUI framePrincipale) {
 		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

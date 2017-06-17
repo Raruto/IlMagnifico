@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,8 +11,9 @@ import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
 import main.network.client.ClientException;
-import main.ui.gui.components.ButtonLIM;
-import main.ui.gui.components.PanelImmagine;
+import main.ui.gui.GUI;
+import main.ui.gui.components.swing.ButtonLIM;
+import main.ui.gui.components.swing.PanelImmagine;
 import main.util.Costants;
 import res.images.Resources;
 
@@ -35,7 +36,7 @@ public class UsernameFrame extends JFrame {
 	private JRadioButton rbtnSceltaSocket;
 	private JRadioButton rbtnSceltaRMI;
 
-	private Frame framePartita;
+	private GUI framePartita;
 
 	/**
 	 * Launch the application.
@@ -53,7 +54,7 @@ public class UsernameFrame extends JFrame {
 	 * 
 	 * @param frame
 	 */
-	public UsernameFrame(Frame frame) {
+	public UsernameFrame(GUI frame) {
 		framePartita = frame;
 
 		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());

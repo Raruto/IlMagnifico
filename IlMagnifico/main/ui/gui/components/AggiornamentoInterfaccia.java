@@ -1,7 +1,8 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.util.ArrayList;
 
+import main.ui.gui.GUI;
 import main.ui.gui.aggiornamento.Aggiornamento;
 import main.ui.gui.aggiornamento.SGiocatore;
 import main.util.Costants;
@@ -9,9 +10,9 @@ import main.util.Costants;
 public class AggiornamentoInterfaccia {
 
 	private Aggiornamento aggiornamento;
-	private Frame frame;
+	private GUI frame;
 
-	public AggiornamentoInterfaccia(Aggiornamento aggiornamento, Frame frame) {
+	public AggiornamentoInterfaccia(Aggiornamento aggiornamento, GUI frame) {
 		this.aggiornamento = aggiornamento;
 		this.frame = frame;
 	}

@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -13,8 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import main.ui.gui.components.ButtonLIM;
-import main.ui.gui.components.PanelImmagine;
+import main.ui.gui.GUI;
+import main.ui.gui.components.swing.ButtonLIM;
+import main.ui.gui.components.swing.PanelImmagine;
 import main.util.Costants;
 import res.images.Resources;
 
@@ -70,7 +71,7 @@ public class ClassificaFinaleFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				UsernameFrame nuovaPaginaLogin = new UsernameFrame(new Frame());
+				UsernameFrame nuovaPaginaLogin = new UsernameFrame(new GUI());
 				nuovaPaginaLogin.setVisible(true);
 			}
 

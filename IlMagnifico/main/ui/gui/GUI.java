@@ -31,7 +31,20 @@ import main.ui.gui.aggiornamento.SFamigliare;
 import main.ui.gui.aggiornamento.SGiocatore;
 import main.ui.gui.aggiornamento.SPunti;
 import main.ui.gui.aggiornamento.SRisorse;
-import main.ui.gui.components.ButtonLIM;
+import main.ui.gui.components.AggiornamentoInterfaccia;
+import main.ui.gui.components.CartaSviluppo;
+import main.ui.gui.components.ClassificaFinaleFrame;
+import main.ui.gui.components.Famigliare;
+import main.ui.gui.components.Plancia;
+import main.ui.gui.components.PlanciaAvversario;
+import main.ui.gui.components.PrivilegioConsiglio;
+import main.ui.gui.components.SceltaCosti;
+import main.ui.gui.components.SceltaEffettiPermanenti;
+import main.ui.gui.components.SceltaSupportoChiesa;
+import main.ui.gui.components.SpazioFamigliare;
+import main.ui.gui.components.Tabellone;
+import main.ui.gui.components.UsernameFrame;
+import main.ui.gui.components.swing.ButtonLIM;
 import main.util.ANSI;
 import main.util.Costants;
 import res.images.Resources;
@@ -48,13 +61,13 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Frame extends JFrame implements IClient {
+public class GUI extends JFrame implements IClient {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7802964308401362865L;
-	private Frame frame = this;
+	private GUI frame = this;
 	private PrivilegioConsiglio framePrivilegioConsiglio = new PrivilegioConsiglio(this);
 	private SceltaCosti frameSceltaCosti = new SceltaCosti(this);
 	private SceltaEffettiPermanenti frameSceltaEffettiPermanenti = new SceltaEffettiPermanenti(this);
@@ -110,7 +123,7 @@ public class Frame extends JFrame implements IClient {
 			public void run() {
 
 				try {
-					Frame frame = new Frame();
+					GUI frame = new GUI();
 					frame.getClient();
 					frame.Userframe = new UsernameFrame(frame);
 					frame.Userframe.setVisible(true);
@@ -137,7 +150,7 @@ public class Frame extends JFrame implements IClient {
 	/**
 	 * Create the frame.
 	 */
-	public Frame() {
+	public GUI() {
 		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -970,8 +983,10 @@ public class Frame extends JFrame implements IClient {
 			else
 				colorePedina = EColoriPedine.Neutrale;
 
+			int pos = (posizioneTorre / 4) * 4 + (4 - posizioneTorre % 4) - 1;
+
 			for (ECarte carta : ECarte.values()) {
-				if (tabellone.getCarteTorre().get(posizioneTorre).getNomeCarta().equals(carta.getNome())) {
+				if (tabellone.getCarteTorre().get(pos).getNomeCarta().equals(carta.getNome())) {
 					int numScelteCosti = carta.getNumScelteCosti();
 					if (numScelteCosti > 0) {
 						ArrayList<String> scelte = new ArrayList<String>();
@@ -980,13 +995,12 @@ public class Frame extends JFrame implements IClient {
 
 							scelte.add(carta.getCostiCarta().get(i).getDescrizione());
 						}
-						frameSceltaCosti.setScelteCosti(scelte, posizioneTorre);
+						frameSceltaCosti.setScelteCosti(scelte, pos);
 						new ChiediSceltaCosti(EAzioniGiocatore.Torre, colorePedina, scelte, numScelteCosti);
 						return;
 					}
 				}
 			}
-			int pos = (posizioneTorre / 4) * 4 + (4 - posizioneTorre % 4) - 1;
 			movePawn(EAzioniGiocatore.Torre, colorePedina, pos);
 
 			// aggiornamento();

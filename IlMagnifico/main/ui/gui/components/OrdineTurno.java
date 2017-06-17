@@ -1,8 +1,8 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import javax.swing.JPanel;
 
-import main.ui.gui.components.PanelImmagine;
+import main.ui.gui.components.swing.PanelImmagine;
 import main.util.Costants;
 
 public class OrdineTurno extends JPanel {

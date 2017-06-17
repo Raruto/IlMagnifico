@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.util.ArrayList;
 import javax.swing.JPanel;

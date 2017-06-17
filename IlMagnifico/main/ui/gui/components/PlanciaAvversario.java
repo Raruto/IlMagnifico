@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import main.ui.gui.components.ButtonLIM;
+import main.ui.gui.components.swing.ButtonLIM;
 
 public class PlanciaAvversario extends JPanel {
 

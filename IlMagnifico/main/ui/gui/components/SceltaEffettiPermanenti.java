@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -17,12 +17,13 @@ import javax.swing.JRadioButton;
 
 import main.model.enums.EAzioniGiocatore;
 import main.model.enums.EColoriPedine;
-import main.model.enums.ECostiCarte;
-import main.ui.gui.components.ButtonLIM;
+import main.model.enums.EEffettiPermanenti;
+import main.ui.gui.GUI;
+import main.ui.gui.components.swing.ButtonLIM;
 import main.util.Costants;
 import res.images.Resources;
 
-public class SceltaCosti extends JFrame {
+public class SceltaEffettiPermanenti extends JFrame {
 
 	/**
 	 * 
@@ -33,13 +34,12 @@ public class SceltaCosti extends JFrame {
 	private int numeroScelte;
 	private EColoriPedine colorePedina;
 
-	private Frame framePrincipale;
+	private GUI framePrincipale;
 	private JRadioButton[] radioButtons;
 	private ButtonLIM btnOK = new ButtonLIM("OK");
 	private JLabel lblComunicazione;
 
 	private ArrayList<String> scelte;
-	private int posTorre;
 	// private int numScelte;
 
 	/**
@@ -53,8 +53,7 @@ public class SceltaCosti extends JFrame {
 				scelte.add("Choiche 2");
 				scelte.add("Choiche 3");
 				try {
-					SceltaCosti frame = new SceltaCosti(null);
-					frame.setScelteCosti(scelte, 0);
+					SceltaEffettiPermanenti frame = new SceltaEffettiPermanenti(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +65,7 @@ public class SceltaCosti extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SceltaCosti(Frame framePrincipale) {
+	public SceltaEffettiPermanenti(GUI framePrincipale) {
 		setIconImage(new ImageIcon(Resources.class.getResource(Costants.FOLDER_BASE + "/giglio.png")).getImage());
 		setTitle("         lorenzo il magnifico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,9 +79,8 @@ public class SceltaCosti extends JFrame {
 		this.framePrincipale = framePrincipale;
 	}
 
-	public void setScelteCosti(ArrayList<String> scelte, int posTorre) {
+	public void setScelteEffetti(ArrayList<String> scelte) {
 		this.scelte = scelte;
-		this.posTorre = posTorre;
 	}
 
 	public void mostraFinestra(EAzioniGiocatore azione, EColoriPedine colorePedina, ArrayList<String> scelte,
@@ -118,7 +116,7 @@ public class SceltaCosti extends JFrame {
 		radioButtons = new JRadioButton[scelte.size()];
 		for (int i = 0; i < scelte.size(); i++) {
 			radioButtons[i] = new JRadioButton(scelte.get(i));
-			radioButtons[i].setBounds(590, 200 + 30 * i, 500, 25);
+			radioButtons[i].setBounds(600, 200 + 30 * i, 500, 25);
 			radioButtons[i].setVisible(true);
 			radioButtons[i].setOpaque(false);
 			radioButtons[i].setFont(new Font("ALGERIAN", 20, 20));
@@ -167,8 +165,8 @@ public class SceltaCosti extends JFrame {
 	}
 
 	public void aggiungiLblComunicazione() {
-		lblComunicazione = new JLabel("make " + numeroScelte + " choiches");
-		lblComunicazione.setBounds(590, 500, 719, 35);
+		lblComunicazione = new JLabel("Select also the permanent effects you want to activate: ");
+		lblComunicazione.setBounds(350, 100, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
@@ -184,9 +182,9 @@ public class SceltaCosti extends JFrame {
 
 	private class Conferma implements ActionListener {
 
-		public SceltaCosti frameSceltaCosti;
+		public SceltaEffettiPermanenti frameSceltaCosti;
 
-		public Conferma(SceltaCosti frameSceltaCosti) {
+		public Conferma(SceltaEffettiPermanenti frameSceltaCosti) {
 			this.frameSceltaCosti = frameSceltaCosti;
 		}
 
@@ -201,7 +199,7 @@ public class SceltaCosti extends JFrame {
 					contaValoriSelezionati++;
 				}
 			}
-			if (contaValoriSelezionati != numeroScelte) {
+			if (contaValoriSelezionati != numeroScelte && numeroScelte != -1) {
 				lblComunicazione.setForeground(Color.RED);
 				return;
 			}
@@ -212,17 +210,36 @@ public class SceltaCosti extends JFrame {
 			 * framePrincipale)
 			 */
 
-			ECostiCarte[] scelte = new ECostiCarte[numeroScelte];
-
-			if (azione == EAzioniGiocatore.Torre) {
-				for (int i = 0; i < decisioni.size(); i++) {
-					for (ECostiCarte ec : ECostiCarte.values()) {
-						if (decisioni.get(i).equals(ec.getDescrizione())) {
-							scelte[i] = ec;
+			if (azione == EAzioniGiocatore.Produzione || azione == EAzioniGiocatore.ProduzioneOvale) {
+				EEffettiPermanenti[] eff = framePrincipale.getClient().getPlayersDashboards()
+						.get(framePrincipale.getNomeGiocatore()).getEffettiPermanentiEdifici();
+				if (eff != null && eff.length > 0) {
+					EEffettiPermanenti[] scelte = new EEffettiPermanenti[eff.length];
+					for (int i = 0; i < decisioni.size(); i++) {
+						for (EEffettiPermanenti ec : eff) {
+							if (decisioni.get(i).equals(ec.getDescrizione())) {
+								scelte[i] = ec;
+							}
 						}
 					}
+					framePrincipale.movePawn(azione, colorePedina, 0, scelte);
 				}
-				framePrincipale.movePawn(azione, colorePedina, posTorre, scelte);
+			} else if (azione == EAzioniGiocatore.Raccolto || azione == EAzioniGiocatore.RaccoltoOvale) {
+				EEffettiPermanenti[] eff = framePrincipale.getClient().getPlayersDashboards()
+						.get(framePrincipale.getNomeGiocatore()).getEffettiPermanentiTerritori();
+				if (eff != null && eff.length > 0) {
+					EEffettiPermanenti[] scelte = new EEffettiPermanenti[eff.length];
+
+					for (int i = 0; i < decisioni.size(); i++) {
+						for (EEffettiPermanenti ec : eff) {
+							if (decisioni.get(i).equals(ec.getDescrizione())) {
+								scelte[i] = ec;
+							}
+						}
+					}
+
+					framePrincipale.movePawn(azione, colorePedina, 0, scelte);
+				}
 			}
 
 			framePrincipale.setVisible(true);

@@ -1,4 +1,4 @@
-package main.ui.gui;
+package main.ui.gui.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import main.ui.gui.components.PanelImmagine;
+import main.ui.gui.components.swing.PanelImmagine;
 import main.util.Costants;
 import res.images.Resources;
 
