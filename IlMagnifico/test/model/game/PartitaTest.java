@@ -22,9 +22,12 @@ public class PartitaTest extends Partita {
 	/**
 	 * Test che verifica che se uno o più giocatori spostano un famigliare sulla
 	 * zona Palazzo Del Consiglio, il turno successivo giocano per primi
+	 * 
+	 * @throws InsufficientValueException
+	 * @throws FamiliarAlreadyUsedException
 	 */
 	@Test
-	public void testScegliOrdine() {
+	public void testScegliOrdine() throws FamiliarAlreadyUsedException, InsufficientValueException {
 		spazioAzione = new SpazioAzione();
 		Giocatore giocatoreTemp1 = new Giocatore();
 		Giocatore giocatoreTemp2 = new Giocatore();
@@ -34,20 +37,10 @@ public class PartitaTest extends Partita {
 		inizializzaPartita();
 		this.giocatori.get(3).getFamigliare(0).cambiaValore(1);
 		this.giocatori.get(2).getFamigliare(0).cambiaValore(1);
-		try {
-			this.giocatori.get(3).getFamigliare(0)
-					.eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-		} catch (FamiliarAlreadyUsedException | InsufficientValueException e) {
-
-			e.printStackTrace();
-		}
-		try {
-			this.giocatori.get(2).getFamigliare(0)
-					.eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-		} catch (FamiliarAlreadyUsedException | InsufficientValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.giocatori.get(3).getFamigliare(0)
+				.eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
+		this.giocatori.get(2).getFamigliare(0)
+				.eseguiSpostamentoPalazzoConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 		giocatoreTemp1 = this.giocatori.get(0);
 		giocatoreTemp2 = this.giocatori.get(1);
 		scegliOrdine();
@@ -78,26 +71,20 @@ public class PartitaTest extends Partita {
 	 * Test che verifica il corretto funzionamento del metodo
 	 * eseguiRapportoVaticano e il metodo di supporto puoSostenereChiesa. In
 	 * questo test se il giocatore può sostenere la Chiesa lo fa.
+	 * 
+	 * @throws ChurchSupportException
 	 */
 	@Test
-	public void testEseguiRapportoVaticano() {
+	public void testEseguiRapportoVaticano() throws ChurchSupportException {
 		this.periodo = 2;
 		inizializzaScomunica();
 		Giocatore giocatore = new Giocatore();
 		giocatore.getPunti().cambiaPuntiFede(4);
-		try {
-			eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
-		} catch (ChurchSupportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
 		assertTrue(giocatore.getPunti().getPuntiFede() == 0 && giocatore.getPunti().getPuntiVittoria() == 4);
-		try {
-			eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
-		} catch (ChurchSupportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		eseguiRapportoVaticano(giocatore, puoSostenereChiesa(giocatore));
 		assertTrue(giocatore.getScomunica(1) == this.scomuniche[1]);
 	}
 

@@ -53,19 +53,17 @@ public class GiocatoreTest {
 	/**
 	 * Test he verifica il corretto funzionamento del metodo pagaServitore e
 	 * dello scatenamento della relativa eccezione nei casi opportuni
+	 * 
+	 * @throws NoEnoughResourcesException
 	 */
 	@Test
-	public void testPagaServitore() {
+	public void testPagaServitore() throws NoEnoughResourcesException {
 		boolean controlloEccezione = false;
 		Giocatore giocatore = new Giocatore();
 		giocatore.getRisorse().cambiaServitori(1);
 		Famigliare famigliare = new Famigliare(giocatore, 0, false);
-		try {
-			giocatore.pagaServitore(famigliare, 1);
-		} catch (NoEnoughResourcesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		giocatore.pagaServitore(famigliare, 1);
 		assertTrue(giocatore.getRisorse().getServitori() == 0);
 		assertTrue(famigliare.getValore() == 1);
 

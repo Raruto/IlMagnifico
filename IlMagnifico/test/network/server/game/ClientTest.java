@@ -87,15 +87,10 @@ public class ClientTest {
 	}
 
 	@Test
-	public void ordineEsecuzione() {
+	public void ordineEsecuzione() throws ClientException, ServerException {
 		final int SOCKET_PORT = 2004, RMI_PORT = 2005;
-		try {
-			Server server = new Server();
-			server.startServer(SOCKET_PORT, RMI_PORT);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Server server = new Server();
+		server.startServer(SOCKET_PORT, RMI_PORT);
 		String nomeGiocatore = "";
 		String nomeLastUpdate = "";
 
@@ -125,13 +120,10 @@ public class ClientTest {
 			client5.loginPlayer("quinto giocatore- movePawnMarket");
 			Thread.sleep(sec);
 
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (InterruptedException e1) {
 
 		}
-		System.out.println("il giocatore di turno è:"+client1.getPlayerTurn());
+		System.out.println("il giocatore di turno è:" + client1.getPlayerTurn());
 		for (int i = 0; i < 5; i++) {
 			if (client1.getNickname().equals(client1.getPlayerTurn()))
 				testMovePawnTowerCostChoice();
