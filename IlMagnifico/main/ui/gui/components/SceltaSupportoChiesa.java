@@ -1,8 +1,10 @@
 package main.ui.gui.components;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -33,6 +35,11 @@ public class SceltaSupportoChiesa extends JFrame {
 	private JRadioButton[] radioButtons;
 	private ButtonLIM btnOK = new ButtonLIM("OK");
 	private JLabel lblComunicazione;
+	
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private int height = screenSize.height;
+	private int width = screenSize.width;
+
 
 	private ArrayList<String> scelte;
 	private int numeroScelte;
@@ -44,7 +51,7 @@ public class SceltaSupportoChiesa extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SceltaSupportoChiesa frame = new SceltaSupportoChiesa(null);
+					SceltaSupportoChiesa frame = new SceltaSupportoChiesa(new GUI());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +73,12 @@ public class SceltaSupportoChiesa extends JFrame {
 		// "./src/cornice3.png"
 		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		setExtendedState(MAXIMIZED_BOTH);
+		//setExtendedState(MAXIMIZED_BOTH);
+
+		setSize(width / 2, height / 2);
+
+		// center the jframe on screen
+		setLocationRelativeTo(null);
 		this.framePrincipale = framePrincipale;
 	}
 
@@ -74,12 +86,13 @@ public class SceltaSupportoChiesa extends JFrame {
 		framePrincipale.setVisible(false);
 		setVisible(true);
 		getContentPane().setLayout(null);
-		contentPane.setBounds(0, 0, 1362, 694);
+		contentPane.setSize(width/2,height/2);
+		//contentPane.setBounds(0, 0, 1362, 694);
 		contentPane.setLayout(null);
 
 		this.scelte = new ArrayList<String>();
-		scelte.add(0, "YES, I support the Church!");
-		scelte.add(1, "NO, I don't support the Church!");
+		scelte.add(0, "YES, I support");
+		scelte.add(1, "NO, I don't support");
 
 		this.numeroScelte = 1;
 
@@ -105,7 +118,7 @@ public class SceltaSupportoChiesa extends JFrame {
 		radioButtons = new JRadioButton[scelte.size()];
 		for (int i = 0; i < scelte.size(); i++) {
 			radioButtons[i] = new JRadioButton(scelte.get(i));
-			radioButtons[i].setBounds(600, 200 + 30 * i, 500, 25);
+			radioButtons[i].setBounds(250, 125 + 30 * i, 500, 25);
 			radioButtons[i].setVisible(true);
 			radioButtons[i].setOpaque(false);
 			radioButtons[i].setFont(new Font("ALGERIAN", 20, 20));
@@ -115,6 +128,10 @@ public class SceltaSupportoChiesa extends JFrame {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					JRadioButton temp = (JRadioButton) (arg0.getSource());
+					for (int j = 0; j < scelte.size(); j++) {
+						if (!radioButtons[j].equals(temp))
+							radioButtons[j].setSelected(false);
+					}
 					if (!temp.isSelected())
 						temp.setForeground(Color.YELLOW);
 
@@ -155,21 +172,27 @@ public class SceltaSupportoChiesa extends JFrame {
 
 	public void aggiungiLblComunicazione() {
 		lblComunicazione = new JLabel("Support the Church? ");
-		lblComunicazione.setBounds(550, 100, 719, 35);
+		lblComunicazione.setBounds(225, 50, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
 	}
 
 	public void aggiungiBtnOK() {
-		btnOK.setBounds(575, 450, 185, 30);
+		btnOK.setBounds(241, 250, 185, 30);
 		btnOK.setVisible(true);
 		contentPane.setLayout(null);
 		contentPane.add(btnOK);
-		btnOK.addActionListener(new Conferma());
+		btnOK.addActionListener(new Conferma(this));
 	}
 
 	private class Conferma implements ActionListener {
+
+		public SceltaSupportoChiesa frameSceltaSupportoChiesa;
+
+		public Conferma(SceltaSupportoChiesa frameSceltaSupportoChiesa) {
+			this.frameSceltaSupportoChiesa = frameSceltaSupportoChiesa;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -203,6 +226,9 @@ public class SceltaSupportoChiesa extends JFrame {
 			}
 
 			framePrincipale.supportChurch(supporto);
+
+			framePrincipale.setVisible(true);
+			frameSceltaSupportoChiesa.setVisible(false);
 		}
 
 	}

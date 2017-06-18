@@ -5,7 +5,7 @@ import java.util.Scanner;
 import main.network.StartOneServer;
 import main.ui.StartOneUI;
 
-public class Program {
+public class Launcher {
 	private static String inText;
 	private static Scanner scanner = new Scanner(System.in);
 

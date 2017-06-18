@@ -172,7 +172,7 @@ public class AggiornamentoInterfaccia {
 					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),
 							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteEdificio().get(j) + ".png");
 				}
-				frame.getPlancia().aggiungiCarteTerritorio(carteProduzione);
+				frame.getPlancia().aggiungiCarteProduzione(carteProduzione); 
 			} else {
 				Plancia planciaAvv = frame.getPlanciaAvversario().getPlance().get(planceRiempite);
 				planciaAvv.rimuoviCarteProduzione();

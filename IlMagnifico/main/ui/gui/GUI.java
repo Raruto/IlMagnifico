@@ -873,8 +873,8 @@ public class GUI extends JFrame implements IClient {
 				return;
 			}
 
-			lblTextLogger.setText(
-					"SELECTED: " + famigliareSelezionato.getNumero() + ", value: " + famigliareSelezionato.getValore());
+			lblTextLogger.setText("SELECTED: " + "Pawn #" + (famigliareSelezionato.getNumero() + 1) + ", value: "
+					+ famigliareSelezionato.getValore());
 			lblTextLogger.setVisible(true);
 
 			System.out.println("famigliare selezionato");
@@ -913,9 +913,23 @@ public class GUI extends JFrame implements IClient {
 			if (!servitoreSelezionato) {
 				servitoreSelezionato = true;
 				System.out.println("selezionato servitore");
+
+				lblTextLogger.setText("SELECTED: " + "servant" + ", value: " + "+1");
+				lblTextLogger.setVisible(true);
+
 			} else {
-				servitoreSelezionato = true;
+				servitoreSelezionato = false;
 				System.out.println("deselezionato servitore");
+
+				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
+					lblTextLogger.setForeground(Color.GREEN);
+					lblTextLogger.setText("IT'S YOUR TURN");
+				} else {
+					lblTextLogger.setForeground(Color.RED);
+					lblTextLogger.setText(getClient().getPlayerTurn() + "'s TURN");
+				}
+				lblTextLogger.setVisible(true);
+
 			}
 
 		}
