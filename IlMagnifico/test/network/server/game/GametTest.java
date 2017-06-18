@@ -435,8 +435,12 @@ public class GametTest {
 			e.printStackTrace();
 		}
 
-		assertTrue(player1.getPunti().getPuntiFede() == 0 && player1.getPunti().getPuntiVittoria() == 0
-				&& player1.getScomunica(0).getNome() == EScomuniche.RICEVI_MENO_PM.getNome());
+		assertTrue(player1.getPunti().getPuntiFede() == 0);
+		assertTrue(player1.getPunti().getPuntiVittoria() == 0);
+		System.out.println();
+		System.out.println(player1.getScomunica(0).getNome() + " == " + EScomuniche.RICEVI_MENO_PM.getNome() + "?");
+		System.out.println(player1.getScomunica(0).getNome().equals(EScomuniche.RICEVI_MENO_PM.getNome()));
+		assertTrue(player1.getScomunica(0).getNome().equals(EScomuniche.RICEVI_MENO_PM.getNome()));
 		assertTrue(player2.getPunti().getPuntiFede() == 0 && player2.getPunti().getPuntiVittoria() == 3);
 	}
 
