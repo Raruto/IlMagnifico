@@ -43,25 +43,23 @@ public enum EEffettiImmediati {
 	MERCATO(				"mercato",					0, 0, 0, 0, 0, 3, 0, 0, 0, "+3VP"),
 	FORTEZZA(				"fortezza", 				0, 0, 0, 0, 0, 8, 0, 0, 0, "+8VP"),
 	GILDA_DEI_COSTRUTTORI(	"gilda dei costruttori",	0, 0, 0, 0, 0, 4, 0, 0, 0, "+4VP"),
-	BATTISTERO1(			"battistero",				0, 0, 0, 0, 0, 2, 0, 0, 0, "+2VP"),
-	BATTISTERO2(			"battistero",				0, 0, 0, 0, 0, 0, 0, 1, 0, "+1FP"),
+	BATTISTERO(			"battistero",				0, 0, 0, 0, 0, 2, 0, 1, 0, "+2VP, +1FP"),
 	TESORERIA(				"tesoreria",				0, 0, 0, 0, 0, 4, 0, 0, 0, "+4VP"),
 	CASERMA(				"caserma",					0, 0, 0, 0, 0, 3, 0, 0, 0, "+3VP"),
 	GILDA_DEGLI_SCULTORI(	"gilda degli scultori",		0, 0, 0, 0, 0, 6, 0, 0, 0, "+6VP"),
 	GILDA_DEI_PITTORI(		"gilda dei pittori",		0, 0, 0, 0, 0, 5, 0, 0, 0, "+5VP"),
-	COSTRUIRE_I_BASTIONI1(	"costrutire i bastioni",	0, 0, 0, 0, 0, 0, 3, 0, 0, "+3MP"),
-	COSTRUIRE_I_BASTIONI2(	"costrutire i bastioni",	0, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
+	COSTRUIRE_I_BASTIONI1(	"costruire i bastioni",	0, 0, 0, 0, 0, 0, 3, 0, 0, "+3MP"),
+	COSTRUIRE_I_BASTIONI2(	"costruire i bastioni",	0, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
 	ACCOGLIERE_GLI_STRANIERI("accogliere gli stranieri",0, 0, 0, 0, 5, 0, 0, 0, 0, "+5Sv"), 
 	INGAGGIARE_SOLDATI(		"ingaggiare soldati",		0, 0, 0, 0, 0, 0, 6, 0, 0, "+6MP"), 
 	SUPPORTO_AL_RE1(		"supporto al re", 			0, 5, 0, 0, 0, 0, 0, 0, 0, "+5C"), 
 	SUPPORTO_AL_RE2(		"supporto al re", 			0, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
-	CROCIATA1(				"crociata", 				0, 5, 0, 0, 0, 0, 0, 0, 0, "+5C"), 
-	CROCIATA2(				"crociata", 				0, 0, 0, 0, 0, 0, 0, 1, 0, "+1FP"),
+	CROCIATA(				"crociata", 				0, 5, 0, 0, 0, 0, 0, 1, 0, "+5C, +1FP"), 
 	SOSTEGNO_AL_CARDINALE(	"sostegno al cardinale", 	0, 0, 0, 0, 0, 0, 0, 3, 0, "+3FP"), 
-	SCAVARE_CANALIZZAZIONI(	"scavare canalizzazioni", 	-1, 0, 0, 0, 0, 0, 0, 0, 0,""),		//Non implementato?
+	SCAVARE_CANALIZZAZIONI(	"scavare canalizzazioni", 	8, 0, 0, 0, 0, 0, 0, 0, 0,"Level 4 Production"),		
 	RIPARARE_ABBAZIA(		"riparare abbazia", 		0, 0, 0, 0, 0, 0, 0, 2, 0, "+2FP"),
 	FATTORE(				"fattore", 					-1, 0, 0, 0, 0, 0, 0, 0, 0,""),
-	MESSO_REALE(			"messo reale", 				0, 0, 0, 0, 0, 0, 0, 0, 3, "+3CP"),	//Non implementato? 
+	MESSO_REALE(			"messo reale", 				3, 0, 0, 0, 0, 0, 0, 0, 3, "+3CP"),	 
 	ARCHITETTO(				"architetto", 				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
 	CAPITANO(				"capitano", 				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
 	MECENATE(				"mecenate", 				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
@@ -71,13 +69,11 @@ public enum EEffettiImmediati {
 	MINIERA_ORO(			"miniera oro", 				0, 1, 0, 0, 0, 0, 0, 0, 0, "+1C"),
 	MANIERO(				"maniero", 					-1, 0, 0, 0, 0, 0, 0, 0, 0,""),
 	EREMO(					"eremo", 					0, 0, 0, 0, 0, 0, 0, 1, 0, "+1FP"),
-	VILLAGGIO_MINERARIO1(	"villaggio minerario", 		0, 0, 0, 0, 2, 0, 0, 0, 0, "+2Sv"),
-	VILLAGGIO_MINERARIO2(	"villaggio minerario", 		0, 0, 0, 1, 0, 0, 0, 0, 0, "+1St"),
+	VILLAGGIO_MINERARIO(	"villaggio minerario", 		0, 0, 0, 1, 2, 0, 0, 0, 0, "+1St, +2Sv"),
 	VILLAGGIO_MONTANO(		"villaggio montano", 		0, 0, 0, 0, 1, 0, 0, 0, 0, "+1Sv"),
 	CAVA_DI_PIETRA(			"cava di pietra", 			0, 0, 1, 0, 0, 0, 0, 0, 0, "+1W"),
 	DUCATO(					"ducato", 					0, 4, 0, 0, 0, 0, 0, 0, 0, "+4C"),
-	POSSEDIMENTO1(			"possedimento", 			0, 0, 0, 0, 2, 0, 0, 0, 0, "+2Sv"),
-	POSSEDIMENTO2(			"possedimento", 			0, 0, 1, 0, 0, 0, 0, 0, 0, "+1W"),
+	POSSEDIMENTO(			"possedimento", 			0, 0, 1, 0, 2, 0, 0, 0, 0, "+1W, +2Sv"),
 
 	//;
 	// Periodo 3
@@ -87,13 +83,9 @@ public enum EEffettiImmediati {
 	FIERA(						"fiera",					0, 0, 0, 0, 0, 8, 0, 0, 0, "+8VP"),
 	CASTELLETTO(				"castelletto",				0, 0, 0, 0, 0, 9, 0, 0, 0, "+9VP"),
 	ACCADEMIA_MILITARE(			"accademia militare",		0, 0, 0, 0, 0, 7, 0, 0, 0, "+7VP"),
-	BASILICA1(					"basilica",					0, 0, 0, 0, 0, 5, 0, 0, 0, "+5VP"),
-	BASILICA2(					"basilica",					0, 0, 0, 0, 0, 0, 0, 1, 0, "+1FP"),
-	CATTEDRALE1(				"cattedrale",				0, 0, 0, 0, 0, 7, 0, 0, 0, "+7VP"),
-	CATTEDRALE2(				"cattedrale",				0, 0, 0, 0, 0, 0, 0, 3, 0, "+3FP"),
-	CONQUISTA_MILITARE1(		"conquista militare",		0, 0, 3, 0, 0, 0, 0, 0, 0, "+3W"),
-	CONQUISTA_MILITARE2(		"conquista militare",		0, 0, 0, 3, 0, 0, 0, 0, 0, "+3St"),
-	CONQUISTA_MILITARE3(		"conquista militare",		0, 3, 0, 0, 0, 0, 0, 0, 0, "+3C"),
+	BASILICA(					"basilica",					0, 0, 0, 0, 0, 5, 0, 1, 0, "+5VP, +1FP"),
+	CATTEDRALE(				"cattedrale",				0, 0, 0, 0, 0, 7, 0, 3, 0, "+7VP, +3FP"),
+	CONQUISTA_MILITARE(		"conquista militare",		0, 3, 3, 3, 0, 0, 0, 0, 0, "+3C, +3W, +3St"),
 	RIPARARE_LA_CATTEDRALE(		"riparare la cattedrale", 	-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
 	GUERRA_SANTA(				"guerra santa",				0, 0, 0, 0, 0, 0, 0, 4, 0, "+4FP"),
 	INGAGGIARE_MERCENARI(		"ingaggiare mercenari",		0, 0, 0, 0, 0, 0, 7, 0, 0, "+7MP"),
@@ -101,25 +93,23 @@ public enum EEffettiImmediati {
 	COSTRUIRE_LE_TORRI2(		"costruire le torri",		0, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
 	COMMISSIONARE_ARTE_SACRA(	"commissionare arte sacra",	0, 0, 0, 0, 0, 0, 0, 3, 0, "+3FP"),
 	SOSTEGNO_AL_PAPA(			"sostegno al papa",			0, 0, 0, 0, 0, 0, 0, 2, 0, "+2FP"),
-	MIGLIORARE_LE_STRADE(		"migliorare le strade",		-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	GOVERNATORE(				"governatore",				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	CARDINALE(					"cardinale",				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	GENERALE(					"generale",					-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	CORTIGIANA(					"cortigiana",				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	VESCOVO(					"vescovo",					-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	AMBASCIATORE(				"ambasciatore",				-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	ARALDO(						"araldo",					-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?
-	NOBILE(						"nobile", 					-1, 0, 0, 0, 0, 0, 0, 0, 0,""), 	//Non implementato?	
-	CITTA_MERCANTILE1(			"citta mercantile", 		0, 1, 0, 0, 0, 0, 0, 0, 0, "+1C"),
-	CITTA_MERCANTILE2(			"citta mercantile", 		0, 0, 0, 0, 1, 0, 0, 0, 0, "+1Sv"),
-	TENUTA1(					"tenuta", 					0, 0, 0, 0, 0, 1, 0, 0, 0, "+1VP"),
-	TENUTA2(					"tenuta",					0, 0, 1, 0, 0, 0, 0, 0, 0, "+1W"),
-	CITTA_FORTIFICATA1(			"citta fortificata", 		0, 0, 0, 0, 0, 0, 2, 0, 0, "+2MP"),
-	CITTA_FORTIFICATA2(			"citta fortificata", 		0, 0, 0, 0, 1, 0, 0, 0, 0, "+1Sv"),
-	CASTELLO1(					"castello", 				0, 0, 0, 0, 0, 2, 0, 0, 0, "+2VP"),
-	CASTELLO2(					"castello", 				0, 2, 0, 0, 0, 0, 0, 0, 0, "+2C"),
+	MIGLIORARE_LE_STRADE(		"migliorare le strade",		7, 0, 0, 0, 0, 0, 0, 0, 0,"Level 3 Production"), 	
+	GOVERNATORE(				"governatore",				9, 0, 0, 0, 0, 0, 0, 0, 0,"2VPxBuilding"), 	
+	CARDINALE1(					"cardinale",				6, 0, 0, 0, 0, 0, 0, 0, 0,"Level 4 Harvest"), 
+	CARDINALE2(					"cardinale",				0, 0, 0, 0, 0, 0, 0, 1, 0,"+1FP"), 		
+	GENERALE(					"generale",					17, 0, 0, 0, 0, 0, 0, 0, 0,"1VPx2MP"), 	
+	CORTIGIANA(					"cortigiana",				10, 0, 0, 0, 0, 0, 0, 0, 0,"2VPxCharacter"), 	
+	VESCOVO1(					"vescovo",					8, 0, 0, 0, 0, 0, 0, 0, 0,"Level 4 Production"), 	
+	VESCOVO2(					"vescovo",					0, 0, 0, 0, 0, 0, 0, 1, 0,"+1FP"), 	
+	AMBASCIATORE(				"ambasciatore",				3, 0, 0, 0, 0, 0, 0, 0, 0,"+1CP"), 	
+	ARALDO(						"araldo",					11, 0, 0, 0, 0, 0, 0, 0, 0,"2VPxVenture"), 	
+	NOBILE(						"nobile", 					12, 0, 0, 0, 0, 0, 0, 0, 0,"2VPxTerritory"), 		
+	CITTA_MERCANTILE(			"citta mercantile", 		0, 1, 0, 0, 1, 0, 0, 0, 0, "+1C,+1Sv"),
+	TENUTA(					"tenuta", 					0, 0, 1, 0, 0, 1, 0, 0, 0, "+1VP, +1W"),
+	CITTA_FORTIFICATA(			"citta fortificata", 		0, 0, 0, 0, 1, 0, 2, 0, 0, "+2MP, +1Sv"),
+	CASTELLO(					"castello", 				0, 2, 0, 0, 0, 2, 0, 0, 0, "+2VP, +2C"),
 	SANTUARIO(					"santuario", 				0, 0, 0, 0, 0, 0, 0, 1, 0, "+1FP"),
-	PROVINCIA1(					"provincia", 				0, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
+	PROVINCIA1(					"provincia", 				3, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
 	PROVINCIA2(					"provincia", 				0, 0, 0, 1, 0, 0, 0, 0, 0, "+1St"),
 	CAVA_DI_MARMO(				"cava di marmo", 			0, 0, 0, 0, 0, 3, 0, 0, 0, "+3VP"),
 	COLONIA(					"colonia", 					0, 0, 0, 0, 0, 0, 2, 0, 0, "+2MP");
