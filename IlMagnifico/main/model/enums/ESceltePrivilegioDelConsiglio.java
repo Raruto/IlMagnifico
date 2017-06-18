@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum ESceltePrivilegioDelConsiglio {
-	LegnoEPietra("1 Wood and 1 Stone"), Servitori("2 Servants"), Monete("2 Coins"), PuntiMilitari(
-			"2 Military Points"), PuntoFede("1 Faith Points");
+	LegnoEPietra(	"1 Wood and 1 Stone"), 
+	Servitori(		"2 Servants"), 
+	Monete(			"2 Coins"), 
+	PuntiMilitari(	"2 Military Points"), 
+	PuntoFede(		"1 Faith Points");
 
 	private String description;
 

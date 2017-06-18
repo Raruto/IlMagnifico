@@ -4,7 +4,11 @@ import main.model.Famigliare;
 import main.util.ANSI;
 
 public enum EColoriPedine {
-	Nera(0, ANSI.BLACK), Arancione(1, ANSI.YELLOW), Bianca(2, ANSI.WHITE), Neutrale(3, ANSI.CYAN);
+	Nera(	  0, ANSI.BLACK), 
+	Arancione(1, ANSI.YELLOW), 
+	Bianca(	  2, ANSI.WHITE), 
+	Neutrale( 3, ANSI.CYAN);
+	
 	private int indiceColore;
 	private String ANSICode;
 

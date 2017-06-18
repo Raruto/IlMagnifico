@@ -1,7 +1,10 @@
 package main.model.enums;
 
 public enum EFasiDiGioco {
-	InizioPartita("GameStarted"), InizioPeriodo("PeriodStarted"), InizioTurno("TurnStarted"), MossaGiocatore("PlayerMove"), FineTurno("TurnEnded"), FinePeriodo("PeriodEnded"), SostegnoChiesa("ChurchSupport"), FinePartita("GameEnded");
+	InizioPartita("GameStarted"), 	 InizioPeriodo("PeriodStarted"), 
+	InizioTurno("TurnStarted"), 	 MossaGiocatore("PlayerMove"), 
+	FineTurno("TurnEnded"), 		 FinePeriodo("PeriodEnded"), 
+	SostegnoChiesa("ChurchSupport"), FinePartita("GameEnded");
 
 	private String name;
 

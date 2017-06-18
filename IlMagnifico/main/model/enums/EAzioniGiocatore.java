@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 public enum EAzioniGiocatore {
 
-	Produzione("Production"), ProduzioneOvale("OvalProduction"), RaccoltoOvale("OvalHarvest"), Raccolto("Harvest"), Mercato("Market"), PalazzoConsiglio("CouncilPalace"), Torre("Tower"), SostegnoChiesa("ChurchSupport"), Famigliare("Familiar");
+	Produzione("Production"), ProduzioneOvale("OvalProduction"), 
+	Raccolto("Harvest"),	  RaccoltoOvale("OvalHarvest"), 
+	Mercato("Market"), 		  PalazzoConsiglio("CouncilPalace"), 
+	Torre("Tower"), 		  SostegnoChiesa("ChurchSupport"), 
+	Famigliare("Familiar");
 
 	private String name;
 	
