@@ -100,27 +100,27 @@ public class ClientTest {
 		String nomeLastUpdate = "";
 
 		try {
-			Client client1 = new Client(new CLI());
+			client1 = new Client(new CLI());
 			client1.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client1.loginPlayer("primo giocatore- ,movePawnTowerCostChoice");
 			Thread.sleep(sec);
 
-			Client client2 = new Client(new CLI());
+			client2 = new Client(new CLI());
 			client2.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client2.loginPlayer("secondo giocatore- movePawnTowerNoCostChoice");
 			Thread.sleep(sec);
 
-			Client client3 = new Client(new CLI());
+			client3 = new Client(new CLI());
 			client3.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client3.loginPlayer("terzo giocatore- movePawnProduction");
 			Thread.sleep(sec);
 
-			Client client4 = new Client(new CLI());
+			client4 = new Client(new CLI());
 			client4.startClient("SOCKET", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client4.loginPlayer("quarto giocatore- movePawnHarvest");
 			Thread.sleep(sec);
 
-			Client client5 = new Client(new CLI());
+			client5 = new Client(new CLI());
 			client5.startClient("RMI", Costants.SERVER_ADDRESS, SOCKET_PORT, RMI_PORT);
 			client5.loginPlayer("quinto giocatore- movePawnMarket");
 			Thread.sleep(sec);
