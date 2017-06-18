@@ -49,7 +49,7 @@ public enum ECostiCarte {
 	CASERMA(				 "caserma", 				0, 1, 1, 0, 0, 0, "1W, 1St"),
 	GILDA_DEGLI_SCULTORI(	 "gilda degli scultori", 	0, 0, 4, 0, 0, 0, "4St"),
 	GILDA_DEI_PITTORI(		 "gilda dei pittori", 		0, 4, 0, 0, 0, 0, "4W"),
-	COSTRUIRE_I_BASTIONI(	 "costrutire i bastioni", 	0, 0, 4, 0, 0, 0, "4St"),
+	COSTRUIRE_I_BASTIONI(	 "costruire i bastioni", 	0, 0, 4, 0, 0, 0, "4St"),
 	ACCOGLIERE_GLI_STRANIERI("accogliere gli stranieri",0, 4, 0, 0, 0, 0, "4W"), 
 	INGAGGIARE_SOLDATI(		 "ingaggiare soldati", 		6, 0, 0, 0, 0, 0, "6C"), 
 	SUPPORTO_AL_RE(			 "supporto al re", 			0, 0, 0, 0, 3, 6, "6MP? -> -3"), 

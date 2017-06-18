@@ -54,7 +54,7 @@ public enum EEffettiPermanenti {
 	GILDA_DEGLI_SCULTORI2(	 "gilda degli scultori", 	0, EAzioniGioco.Produzione, 0, 0, -3, 0, 7, 0, 0, 0, "-3St, +7VP"),
 	GILDA_DEI_PITTORI1(		 "gilda dei pittori", 		0, EAzioniGioco.Produzione, 0, -1, 0, 0, 3, 0, 0, 0, "-1W, +3VP"),
 	GILDA_DEI_PITTORI2(		 "gilda dei pittori", 		0, EAzioniGioco.Produzione, 0, -3, 0, 0, 7, 0, 0, 0, "-3W, +7VP"),
-	COSTRUIRE_I_BASTIONI(	 "costrutire i bastioni", 	0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 2, 0, 0, 0, "+2VP"),
+	COSTRUIRE_I_BASTIONI(	 "costruire i bastioni", 	0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 2, 0, 0, 0, "+2VP"),
 	ACCOGLIERE_GLI_STRANIERI("accogliere gli stranieri",0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 4, 0, 0, 0, "+4VP"), 
 	INGAGGIARE_SOLDATI(		 "ingaggiare soldati", 		0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 5, 0, 0, 0, "+5VP"), 
 	SUPPORTO_AL_RE(			 "supporto al re", 			0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 3, 0, 0, 0, "+3VP"), 
