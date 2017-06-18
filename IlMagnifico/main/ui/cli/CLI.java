@@ -33,6 +33,7 @@ import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
+import main.ui.gui.GUI;
 import main.util.ANSI;
 import main.util.Costants;
 
@@ -122,6 +123,15 @@ public class CLI implements IClient {
 		mainClient(serverAddress, socketPort, rmiPort, null);
 	}
 
+	/**
+	 * Start Client (RMI or Socket) (ritorna l'oggetto {@link Client} creato,
+	 * usato in {@link GUI}).
+	 * 
+	 * @param serverAddress
+	 * @param socketPort
+	 * @param rmiPort
+	 * @param clientUI
+	 */
 	public static Client mainClient(String serverAddress, int socketPort, int rmiPort, IClient clientUI) {
 		CLI.ui = clientUI;
 
