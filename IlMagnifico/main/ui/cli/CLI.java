@@ -33,7 +33,7 @@ import main.network.protocol.ConnectionTypes;
 import main.network.server.Server;
 import main.network.server.ServerException;
 import main.network.server.game.UpdateStats;
-import main.ui.gui.GUI;
+import main.ui.gui.components.UsernameFrame;
 import main.util.ANSI;
 import main.util.Costants;
 
@@ -125,7 +125,7 @@ public class CLI implements IClient {
 
 	/**
 	 * Start Client (RMI or Socket) (ritorna l'oggetto {@link Client} creato,
-	 * usato in {@link GUI}).
+	 * usato in {@link UsernameFrame}).
 	 * 
 	 * @param serverAddress
 	 * @param socketPort
