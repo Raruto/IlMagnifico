@@ -2,7 +2,6 @@ package test.network.server.game;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import main.model.enums.EAzioniGiocatore;
