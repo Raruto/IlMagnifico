@@ -769,6 +769,15 @@ public class GUI extends JFrame implements IClient {
 		// });
 	}
 
+	/**
+	 * Aggiunge un MouseListener ai famigliari nella plancia del giocatore tale
+	 * per cui, se è selezionato un servitore, si valuta tramite la parte logica
+	 * se è possibile incrementare il valore del famigliare. Se invece non è
+	 * selezionato alcun servitore allora il famigliare viene selezionato ed è
+	 * possibile cercare di posizionarlo nei vari spazi di azione presenti nel
+	 * tabellone (come le torri, la zona del mercato, la zona della produzione,
+	 * la zona del raccolto, il palazzo del consiglio e così via).
+	 */
 	public void aggiungiListenerFamigliariPlancia() {
 		ArrayList<SpazioFamigliare> famigliariStart = plancia.getStartFamigliari();
 		for (int i = 0; i < famigliariStart.size(); i++) {
@@ -789,6 +798,13 @@ public class GUI extends JFrame implements IClient {
 		}
 	}
 
+	/**
+	 * Aggiunge un MouseListener agli spazi della torre, per cui se si seleziona
+	 * un famigliare e si seleziona poi uno degli spazi sulla torre, è possibile
+	 * cercare di posizionare tale famigliare nella posiziona voluta
+	 * (ovviamente, la possibilità dello spostamento viene definita tramite la
+	 * parte logica sul server).
+	 */
 	public void aggiungiListenerTorreTabellone() {
 		SpazioFamigliare[] torre = tabellone.getTorre();
 		for (int i = 0; i < torre.length; i++) {
@@ -796,42 +812,83 @@ public class GUI extends JFrame implements IClient {
 		}
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio rotondo relativo al raccolto, in
+	 * maniera tale da rendere possibile lo spostamento di un famigliare sulla
+	 * zona raccolto rotonda.
+	 */
 	public void aggiungiListenerRaccoltoRotondoTabellone() {
 		SpazioFamigliare raccoltoRotondo = tabellone.getRaccoltoRotondo();
 		raccoltoRotondo.addMouseListener(new SpostamentoRaccoltoRotondo());
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio ovale relativo al raccolto, in
+	 * maniera tale da rendere possibile lo spostamento di un famigliare sulla
+	 * zona raccolto ovale.
+	 */
 	public void aggiungiListenerRaccoltoOvaleTabellone() {
 		SpazioFamigliare raccoltoOvale = tabellone.getRaccoltoOvale();
 		raccoltoOvale.addMouseListener(new SpostamentoRaccoltoOvale());
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio rotondo relativo alla produzione,
+	 * in maniera tale da rendere possibile lo spostamento di un famigliare
+	 * sulla zona produzione rotonda.
+	 */
 	public void aggiungiListenerProduzioneRotondoTabellone() {
 		SpazioFamigliare produzioneRotondo = tabellone.getProduzioneRotondo();
 		produzioneRotondo.addMouseListener(new SpostamentoProduzioneRotondo());
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio ovale relativo alla produzione, in
+	 * maniera tale da rendere possibile lo spostamento di un famigliare sulla
+	 * zona produzione ovale.
+	 */
 	public void aggiungiListenerProduzioneOvaleTabellone() {
 		SpazioFamigliare produzioneOvale = tabellone.getProduzioneOvale();
 		produzioneOvale.addMouseListener(new SpostamentoProduzioneOvale());
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio relativo al palazzo del consiglio,
+	 * in maniera tale da rendere possibile lo spostamento di un famigliare
+	 * sulla zona del palazzo del consiglio.
+	 */
 	public void aggiungiListenerPalazzoConsiglioTabellone() {
 		SpazioFamigliare palazzoConsiglio = tabellone.getPalazzoConsiglio();
 		palazzoConsiglio.addMouseListener(new SpostamentoPalazzoDelConsiglio());
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio relativo al mercato, in maniera
+	 * tale da rendere possibile lo spostamento di un famigliare su una delle
+	 * quattro posizioni possibili del mercato(in base alla posizione del
+	 * mercato si avranno effetti diversi).
+	 */
 	public void aggiungiListenerMercatoTabellone() {
 		SpazioFamigliare[] mercato = tabellone.getMercato();
 		for (int i = 0; i < mercato.length; i++)
 			mercato[i].addMouseListener(new SpostamentoMercato());
 	}
 
+	/**
+	 * Aggiunge un MouseListener allo spazio nella plancia dove sono indicati i
+	 * servitori. Cliccando sull’immagine del servitore verrà dunque selezionato
+	 * un servitore, premendo nuovamente (sempre sull’immagine del servitore)
+	 * verrà deselezionato.
+	 */
 	public void aggiungiListenerPanelServitore() {
 		JPanel panelServitore = plancia.getPanelServitore();
 		panelServitore.addMouseListener(new SelezionaServitorePlancia());
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerFamigliariPlancia()}
+	 *
+	 */
 	private class SelezionaFamigliarePlancia implements MouseListener {
 
 		@Override
@@ -906,6 +963,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerPanelServitore()}
+	 *
+	 */
 	private class SelezionaServitorePlancia implements MouseListener {
 
 		@Override
@@ -960,6 +1021,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerTorreTabellone()}
+	 *
+	 */
 	private class SpostamentoTorre implements MouseListener {
 
 		@Override
@@ -1048,6 +1113,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerRaccoltoRotondoTabellone()}
+	 *
+	 */
 	private class SpostamentoRaccoltoRotondo implements MouseListener {
 
 		@Override
@@ -1120,6 +1189,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerRaccoltoOvaleTabellone()}
+	 *
+	 */
 	private class SpostamentoRaccoltoOvale implements MouseListener {
 
 		@Override
@@ -1192,6 +1265,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerProduzioneRotondoTabellone()}
+	 *
+	 */
 	private class SpostamentoProduzioneRotondo implements MouseListener {
 
 		@Override
@@ -1264,6 +1341,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerProduzioneOvaleTabellone()}
+	 *
+	 */
 	private class SpostamentoProduzioneOvale implements MouseListener {
 
 		@Override
@@ -1336,6 +1417,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerPalazzoConsiglioTabellone()}
+	 *
+	 */
 	private class SpostamentoPalazzoDelConsiglio implements MouseListener {
 
 		@Override
@@ -1399,6 +1484,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerMercatoTabellone()}
+	 *
+	 */
 	private class SpostamentoMercato implements MouseListener {
 
 		@Override
@@ -1471,6 +1560,10 @@ public class GUI extends JFrame implements IClient {
 
 	}
 
+	/**
+	 * Implementa {@link GUI#aggiungiListenerCarteTorre()}
+	 *
+	 */
 	private class PrendiCarta implements MouseListener {
 
 		@Override

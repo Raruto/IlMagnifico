@@ -92,18 +92,21 @@ public class CLI implements IClient {
 				System.exit(0);
 			}
 		}
+		if (Costants.START_AS_SERVER_IF_CLIENT_CONNECTION_FAILS) {
+			System.out.print("Start as [C]lient or [S]erver? (Default: [C]): ");
+			inText = scanner.nextLine().toUpperCase();
 
-		System.out.print("Start as [C]lient or [S]erver? (Default: [C]): ");
-		inText = scanner.nextLine().toUpperCase();
-
-		if (inText.equals("S")) {
-			CLI.mainServer(socketPort, rmiPort);
-		} else if (inText.equals("C")) {
-			CLI.mainClient(serverAddress, socketPort, rmiPort);
-		}
-		// Default: Client
-		else {
-			System.out.println("Starting as Client..");
+			if (inText.equals("S")) {
+				CLI.mainServer(socketPort, rmiPort);
+			} else if (inText.equals("C")) {
+				CLI.mainClient(serverAddress, socketPort, rmiPort);
+			}
+			// Default: Client
+			else {
+				System.out.println("Starting as Client..");
+				CLI.mainClient(serverAddress, socketPort, rmiPort);
+			}
+		} else {
 			CLI.mainClient(serverAddress, socketPort, rmiPort);
 		}
 	}
@@ -120,8 +123,8 @@ public class CLI implements IClient {
 	}
 
 	public static Client mainClient(String serverAddress, int socketPort, int rmiPort, IClient clientUI) {
-		CLI.ui=clientUI;
-		
+		CLI.ui = clientUI;
+
 		System.out.print("[R]MI or [S]ocket? (Default: [R]): ");
 		inText = scanner.nextLine().toUpperCase();
 
@@ -166,9 +169,16 @@ public class CLI implements IClient {
 			else
 				return getClient();
 		} else {
-			System.err.println("\nCannot establish a connection to the server, the program will launch a local server");
+			if (Costants.START_AS_SERVER_IF_CLIENT_CONNECTION_FAILS) {
+				System.err.println(
+						"\nCannot establish a connection to the server, the program will launch a local server");
 
-			CLI.mainServer(socketPort, rmiPort);
+				CLI.mainServer(socketPort, rmiPort);
+			} else {
+				System.err.println("\nCannot establish a connection to the server, the program will terminate soon");
+				System.err.println("Exiting...");
+				System.exit(0);
+			}
 		}
 		return null;
 	}
