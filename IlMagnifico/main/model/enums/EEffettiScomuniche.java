@@ -9,39 +9,39 @@ public enum EEffettiScomuniche {
 	
 	//;
 	//Seconda fila
-	RICEVI_MENO_MONETE(			   "Receive less C", 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	MENO_QUATTRO_ON_EDIFICIO(	   "-4 on Building", 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	NO_PV_IMPRESA(				   "No Venture VP", 	 	 	 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
+	RICEVI_MENO_MONETE(			   "Receive less C", 	 		 -1, EAzioniGioco.RiceviMonete, 0, 0, 0, 0, 0, 0, 0, 0),
+	MENO_QUATTRO_ON_EDIFICIO(	   "-4 on Building", 	 		 18, EAzioniGioco.PrendiEdificio, 0, 0, 0, 0, 0, 0, 0, 0),
+	NO_PV_IMPRESA(				   "No Venture VP", 	 	 	 -1, EAzioniGioco.ImpreseFinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
 	
 	//;
 	//Terza fila
-	RICEVI_MENO_SERVITORI(		   "Receive less Sv", 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	MENO_QUATTRO_ON_PERSONAGGIO(   "-4 on Charachter",	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	NO_PV_TERRITORIO(			   "No Territory VP", 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
+	RICEVI_MENO_SERVITORI(		   "Receive less Sv", 	 		 -1, EAzioniGioco.RiceviServitori, 0, 0, 0, 0, 0, 0, 0, 0),
+	MENO_QUATTRO_ON_PERSONAGGIO(   "-4 on Charachter",	 		18, EAzioniGioco.PrendiPersonaggio, 0, 0, 0, 0, 0, 0, 0, 0),
+	NO_PV_TERRITORIO(			   "No Territory VP", 	 		 -1, EAzioniGioco.TerritoriFinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
 	
 	//;
 	//Quarta fila
-	RICEVI_MENO_LEGNA_PIETRA(	   "Receive less W, St",	 	 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	MENO_QUATTRO_ON_IMPRESA(	   "-4 on Venture",	 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	PV_MENO_CINQUE_PV(			   "VP-5 foreach VP",	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
+	RICEVI_MENO_LEGNA_PIETRA(	   "Receive less W, St",	 	 -1, EAzioniGioco.RiceviPietreOLegno, 0, 0, 0, 0, 0, 0, 0, 0),
+	MENO_QUATTRO_ON_IMPRESA(	   "-4 on Venture",	 	 		 18, EAzioniGioco.PrendiImpresa, 0, 0, 0, 0, 0, 0, 0, 0),
+	PV_MENO_CINQUE_PV(			   "VP-5 foreach VP",	 		 21, EAzioniGioco.FinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
 	
 	//;
 	//Quinta fila
-	MENO_TRE_ON_RACCOLTO(		   "-3 on Harvest",	 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	NO_MERCATO(					   "No Market",	 	 	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	PV_MENO_UNO_PM(				   "VP-1 foreach MP",	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
+	MENO_TRE_ON_RACCOLTO(		   "-3 on Harvest",	 	 		 19, EAzioniGioco.Raccolto, 0, 0, 0, 0, 0, 0, 0, 0),
+	NO_MERCATO(					   "No Market",	 	 	 		 -1, EAzioniGioco.Mercato, 0, 0, 0, 0, 0, 0, 0, 0),
+	PV_MENO_UNO_PM(				   "VP-1 foreach MP",	 		 22, EAzioniGioco.FinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
 
 	//;
 	//Sesta fila
-	MENO_TRE_ON_PRODUZIONE(		   "-3 on Production",	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	DIVISO_DUE_ON_INCREMENTO( 	   "Sv/2 on Increment", 	 	 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	PV_MENO_UNO_LEGNO_PIETRA_CARTE("VP-1 foreach W, St cards",	 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
+	MENO_TRE_ON_PRODUZIONE(		   "-3 on Production",	 		 19, EAzioniGioco.Produzione, 0, 0, 0, 0, 0, 0, 0, 0),
+	DIVISO_DUE_ON_INCREMENTO( 	   "Sv/2 on Increment", 	 	 -1, EAzioniGioco.PagaServitori, 0, 0, 0, 0, 0, 0, 0, 0),
+	PV_MENO_UNO_LEGNO_PIETRA_CARTE("VP-1 foreach W, St cards",	 -1, EAzioniGioco.FinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
 	
 	//;
 	//Settima fila
-	MENO_UNO_ON_FAMIGLARI(		   "-1 on Familiars",	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	SALTA_PRIMA_AZIONE_TURNO( 	   "Skip the first move", 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
-	PV_MENO_UNO_RISERVA(	  	   "VP-1 foreach W, St, Sv, C",	 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio);
+	MENO_UNO_ON_FAMIGLARI(		   "-1 on Familiars",	 		 -1, EAzioniGioco.MuoviColorato, 0, 0, 0, 0, 0, 0, 0, 0),
+	SALTA_PRIMA_AZIONE_TURNO( 	   "Skip the first move", 		 -1, EAzioniGioco.InizioTurno, 0, 0, 0, 0, 0, 0, 0, 0),
+	PV_MENO_UNO_RISERVA(	  	   "VP-1 foreach W, St, Sv, C",	 26, EAzioniGioco.FinePartita, 0, 0, 0, 0, 0, 0, 0, 0);
 	*/
 	
 	private String nome;
