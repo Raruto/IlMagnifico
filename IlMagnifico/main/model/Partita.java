@@ -584,4 +584,12 @@ public abstract class Partita {
 	public SpazioAzione getSpazioAzione() {
 		return this.spazioAzione;
 	}
+
+	/**
+	 * Metodo che restituisce le Scomuniche in uso
+	 * @return
+	 */
+	public Scomunica[] getScomuniche() {
+		return this.scomuniche;
+	}
 }
