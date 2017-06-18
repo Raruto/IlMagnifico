@@ -37,7 +37,7 @@ public enum ECostiCarte {
 	CAVA_DI_GHIAIA(		  "cava di ghiaia", 	  0, 0, 0, 0, 0, 0, ""), 
 	MONASTERO(			  "monastero", 			  0, 0, 0, 0, 0, 0, ""), 
 	CITTA(				  "citta", 				  0, 0, 0, 0, 0, 0, ""), 
-	AVAMPOSTO_COMMERCIALE("avamposto commerciale",0, 0, 0, 0, 0, 0, ""),
+	AVAMPOSTO_COMMERCIALE("avamposto commerciale",0, 0, 0, 0, 0, 0, "");/*,
 	
 	//;
 	// Periodo 2
@@ -110,7 +110,7 @@ public enum ECostiCarte {
 	PROVINCIA(				 "provincia", 				0, 0, 0, 0, 0, 0, ""),
 	CAVA_DI_MARMO(			 "cava di marmo", 			0, 0, 0, 0, 0, 0, ""),
 	COLONIA(				 "colonia", 				0, 0, 0, 0, 0, 0, "");
-
+	*/
 	
 	private String nome;
 	private int costoMonete;

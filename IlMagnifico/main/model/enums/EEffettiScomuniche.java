@@ -5,7 +5,7 @@ public enum EEffettiScomuniche {
 	//Prima fila
 	RICEVI_MENO_PM(				   "Receive less MP", 			 -1, EAzioniGioco.RiceviPM, 			  0, 0, 0, 0, 0, -1, 0, 0), 
 	MENO_QUATTRO_ON_TERRITORIO(    "-4 on Territory", 			 18, EAzioniGioco.PrendiTerritorio, 	  0, 0, 0, 0, 0, 0, 0, 0), 
-	NO_PV_PERSONAGGIO(			   "No Charachter VP", 		     -1, EAzioniGioco.PersonaggiFinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
+	NO_PV_PERSONAGGIO(			   "No Charachter VP", 		     -1, EAzioniGioco.PersonaggiFinePartita, 0, 0, 0, 0, 0, 0, 0, 0);/*,
 	
 	//;
 	//Seconda fila
@@ -42,7 +42,8 @@ public enum EEffettiScomuniche {
 	MENO_UNO_ON_FAMIGLARI(		   "-1 on Familiars",	 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
 	SALTA_PRIMA_AZIONE_TURNO( 	   "Skip the first move", 		 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio),
 	PV_MENO_UNO_RISERVA(	  	   "VP-1 foreach W, St, Sv, C",	 numeroEffetto, EAzioniGioco, monete, legno, pietra, servitori, PV, PM, PF, privilegiConsiglio);
-
+	*/
+	
 	private String nome;
 	private int numeroEffetto;
 	private EAzioniGioco azioneAttivazione;
