@@ -22,9 +22,12 @@ public class GametTest {
 	/**
 	 * Test che verifica che il turno avanzi effettivamente quando i giocatori
 	 * terminano i famigliari da muovere
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testGiroDiTurniTerminato() {
+	public void testGiroDiTurniTerminato() throws RoomFullException, GameException {
 		// faccio avanzare lo stato del gioco fino a che non sia finito il
 		// giroDiTurni
 		TestPlayer player1 = new TestPlayer();
@@ -35,104 +38,46 @@ public class GametTest {
 		update.setNomeGiocatore("charlie");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		update.setColorePedina(EColoriPedine.Nera);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Nera);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Bianca);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Bianca);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Arancione);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Arancione);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setServitoriDaPagare(1);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setServitoriDaPagare(1);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		// per verificare che il giro di turni sia terminato
 		assertTrue(game.getTurno() == 2);
 	}
