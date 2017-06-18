@@ -140,9 +140,12 @@ public class GametTest {
 	/**
 	 * Test che verifica che il periodo effettivamente avanzi dopo avere
 	 * eseguito la fase del Rapporto Col Vaticano
+	 * 
+	 * @throws GameException
+	 * @throws RoomFullException
 	 */
 	@Test
-	public void testFinePeriodo() {
+	public void testFinePeriodo() throws GameException, RoomFullException {
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
 		player1.setNome("primo");
@@ -151,215 +154,97 @@ public class GametTest {
 		update.setNomeGiocatore("charlie");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		update.setColorePedina(EColoriPedine.Nera);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Nera);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Bianca);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Bianca);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Arancione);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Arancione);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setServitoriDaPagare(1);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setServitoriDaPagare(1);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setNomeGiocatore("charlie");
 		update.setColorePedina(EColoriPedine.Nera);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Nera);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Bianca);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Bianca);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Arancione);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update.setColorePedina(EColoriPedine.Arancione);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setServitoriDaPagare(1);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setServitoriDaPagare(1);
 
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update.supportaChiesa(true);
-		try {
-			game.performGameAction(player1, update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		game.performGameAction(player1, update);
 		update = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update.supportaChiesa(true);
-		try {
-			game.performGameAction(player2, update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction(player2, update);
+
 		assertTrue(game.getTurno() == 3);
 		assertTrue(game.getPeriodo() == 2);
 	}
@@ -367,9 +252,12 @@ public class GametTest {
 	/**
 	 * Test che verifica il corretto funzionamento della gestione del Rapporto
 	 * col Vaticano
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testRapportoVaticano() {
+	public void testRapportoVaticano() throws RoomFullException, GameException {
 		// invio all'utente la notifica che è il rapporto del vaticano
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -377,12 +265,7 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 
 		Game game = new Game(room);
 		game.startNewGame();
@@ -397,12 +280,7 @@ public class GametTest {
 			UpdateStats update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 			update.setColorePedina(EColoriPedine.Nera);
 			update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 
 			for (int i = 1; i < 4; i++) {
 				game.getGiocatoreDiTurno().getFamigliare(i).setPosizionato(true);
@@ -410,47 +288,35 @@ public class GametTest {
 			update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 			update.setColorePedina(EColoriPedine.Nera);
 			update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-			try {
-				game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		}
 		UpdateStats update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update2.supportaChiesa(true);
-		try {
-			game.performGameAction(player1, update2);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction(player1, update2);
 
 		update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update2.supportaChiesa(true);
-		try {
-			game.performGameAction(player2, update2);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction(player2, update2);
 
 		assertTrue(player1.getPunti().getPuntiFede() == 0);
 		assertTrue(player1.getPunti().getPuntiVittoria() == 0);
 		System.out.println();
 		System.out.println(player1.getScomunica(0).getNome() + " == " + EScomuniche.RICEVI_MENO_PM.getNome() + "?");
 		System.out.println(player1.getScomunica(0).getNome().equals(EScomuniche.RICEVI_MENO_PM.getNome()));
-		//MODIFICARE SE SI AGGIUNGONO ALTRE SCOMUNICHE...
-		assertTrue(player1.getScomunica(0).getNome().equals(game.getScomuniche()[0].getNome()/*EScomuniche.RICEVI_MENO_PM.getNome()*/));
+		// MODIFICARE SE SI AGGIUNGONO ALTRE SCOMUNICHE...
+		assertTrue(player1.getScomunica(0).getNome().equals(game.getScomuniche()[0]
+				.getNome()/* EScomuniche.RICEVI_MENO_PM.getNome() */));
 		assertTrue(player2.getPunti().getPuntiFede() == 0 && player2.getPunti().getPuntiVittoria() == 3);
 	}
 
 	/**
 	 * Test che verifica il corretto funzionamento della eccezione SpaceTaken
 	 * nel metodo OnMarket e della relativa gestione
+	 * 
+	 * @throws RoomFullException
 	 */
 	@Test
-	public void testOnMarketExceptionSpaceTaken() {
+	public void testOnMarketExceptionSpaceTaken() throws RoomFullException {
 		boolean exceptionThrown = false;
 		String nomeGiocatoreEccezione = "";
 		TestPlayer player1 = new TestPlayer();
@@ -459,12 +325,7 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 
@@ -492,9 +353,11 @@ public class GametTest {
 	/**
 	 * Test che verifica il corretto funzionamento della eccezione
 	 * InvalidPosition nel metodo onMarket e della relativa gestione
+	 * 
+	 * @throws RoomFullException
 	 */
 	@Test
-	public void testOnMarketExceptionInvalidPosition() {
+	public void testOnMarketExceptionInvalidPosition() throws RoomFullException {
 		boolean exceptionThrown = false;
 		String nomeGiocatoreEccezione = "";
 		TestPlayer player1 = new TestPlayer();
@@ -503,12 +366,7 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 
@@ -536,9 +394,11 @@ public class GametTest {
 	/**
 	 * Test che verifica il corretto funzionamento della eccezione
 	 * InsufficientFamiliarValue nel metodo onMarket e della relativa gestione
+	 * 
+	 * @throws RoomFullException
 	 */
 	@Test
-	public void testOnMarketExceptionInsufficientFamiliarValue() {
+	public void testOnMarketExceptionInsufficientFamiliarValue() throws RoomFullException {
 		boolean exceptionThrown = false;
 		String nomeGiocatoreEccezione = "";
 		TestPlayer player1 = new TestPlayer();
@@ -547,12 +407,7 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 
@@ -582,9 +437,11 @@ public class GametTest {
 	/**
 	 * Metodo che verifica il corretto funzioonamento della eccezione
 	 * InvalidChoiche nel metodo onMarket e della relativa eccezione
+	 * 
+	 * @throws RoomFullException
 	 */
 	@Test
-	public void testOnMarketExceptionInvalidChoice() {
+	public void testOnMarketExceptionInvalidChoice() throws RoomFullException {
 		boolean exceptionThrown = false;
 		String nomeGiocatoreEccezione = "";
 		TestPlayer player1 = new TestPlayer();
@@ -593,12 +450,7 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 
@@ -631,9 +483,12 @@ public class GametTest {
 	 * Test che verifica l'effettivo spostamento del famigliare quando è
 	 * invocato il metodo onMarket.
 	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
+	 * 
 	 */
 	@Test
-	public void testOnMarket() {
+	public void testOnMarket() throws RoomFullException, GameException {
 		String nomeGiocatoreFamigliareSpostato = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -641,93 +496,74 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Mercato);
 		update.spostaPedina(EColoriPedine.Nera, 1);
-		try {
-			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(nomeGiocatoreFamigliareSpostato
 				.equals(game.getSpazioAzione().getMercato()[1].getGiocatore().getNome()));
 	}
 
 	/**
 	 * Test per verificare il corretto funzionamento del metodo OnPayServant
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnPayServant() {
+	public void testOnPayServant() throws RoomFullException, GameException {
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
 		player1.setNome("primo giocatore");
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.aumentaValorePedina(EColoriPedine.Neutrale, 2);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getGiocatoreDiTurno().getFamigliare(3).getValore() == 2);
 	}
 
 	/**
 	 * Test che verifica il corretto funzionamento del metodo onTower
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnTower() {
+	public void testOnTower() throws RoomFullException, GameException {
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
 		player1.setNome("primo giocatore");
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Torre);
 		update.spostaPedina(EColoriPedine.Nera, 0);
 		ECostiCarte[] costi = { null, null };
 		update.setScelteCosti(costi);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getSpazioAzione().getCartaTorre(0) == null);
 	}
 
 	/**
 	 * Test che verifica il corretto funzionamento del metodo onCouncilPalace
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnCouncilPalace() {
+	public void testOnCouncilPalace() throws RoomFullException, GameException {
 		String nomeGiocatoreFamigliareSpostato = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -735,33 +571,26 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.PalazzoConsiglio);
 		update.spostaPedina(EColoriPedine.Nera, 0);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
-		try {
-			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getSpazioAzione().getGiocatoriPalazzoDelConsiglio().get(0).getNome()
 				.equals(nomeGiocatoreFamigliareSpostato));
 	}
 
 	/**
 	 * Test che verifica il corretto funzionamento del metodo onHarvestRound
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnHarvestRound() {
+	public void testOnHarvestRound() throws RoomFullException, GameException {
 		String nomeGiocatoreFamigliareSpostato = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -769,32 +598,25 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Raccolto);
 		update.spostaPedina(EColoriPedine.Nera, 1);
-		try {
-			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getSpazioAzione().getZonaRaccoltoRotonda().getGiocatore().getNome()
 				.equals(nomeGiocatoreFamigliareSpostato));
 	}
 
 	/**
 	 * Test che verifica il corretto funzionamento del metodo onHarvestOval
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnHarvestOval() {
+	public void testOnHarvestOval() throws RoomFullException, GameException {
 		String nomeGiocatoreFamigliareSpostato = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -802,31 +624,16 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.aumentaValorePedina(EColoriPedine.Nera, 3);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.RaccoltoOvale);
 		update.spostaPedina(EColoriPedine.Nera, 0);
-		try {
-			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getSpazioAzione().getZonaRaccoltoOvale().get(0).getGiocatore().getNome()
 				.equals(nomeGiocatoreFamigliareSpostato));
 	}
@@ -834,9 +641,12 @@ public class GametTest {
 	/**
 	 * Test che verifica il corretto funzionamento del metoodo
 	 * onProductionRoound
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnProductionRound() {
+	public void testOnProductionRound() throws RoomFullException, GameException {
 		String nomeGiocatoreFamigliareSpostato = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -844,32 +654,25 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Produzione);
 		update.spostaPedina(EColoriPedine.Nera, 1);
-		try {
-			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getSpazioAzione().getZonaProduzioneRotonda().getGiocatore().getNome()
 				.equals(nomeGiocatoreFamigliareSpostato));
 	}
 
 	/**
 	 * Test cche verifica il corretto funzionamento del metodo onProductionOval
+	 * 
+	 * @throws RoomFullException
+	 * @throws GameException
 	 */
 	@Test
-	public void testOnProductionOval() {
+	public void testOnProductionOval() throws RoomFullException, GameException {
 		String nomeGiocatoreFamigliareSpostato = "";
 		TestPlayer player1 = new TestPlayer();
 		TestPlayer player2 = new TestPlayer();
@@ -877,31 +680,16 @@ public class GametTest {
 		player2.setNome("secondo giocatore");
 		Room room = new Room(player1, 0, 0);
 
-		try {
-			room.joinPlayer(player2);
-		} catch (RoomFullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		room.joinPlayer(player2);
 		Game game = new Game(room);
 		game.startNewGame();
 		UpdateStats update = new UpdateStats(EAzioniGiocatore.Famigliare);
 		update.aumentaValorePedina(EColoriPedine.Nera, 3);
-		try {
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.ProduzioneOvale);
 		update.spostaPedina(EColoriPedine.Nera, 0);
-		try {
-			nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
-			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
-		} catch (GameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		nomeGiocatoreFamigliareSpostato = game.getGiocatoreDiTurno().getNome();
+		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		assertTrue(game.getSpazioAzione().getZonaProduzioneOvale().get(0).getGiocatore().getNome()
 				.equals(nomeGiocatoreFamigliareSpostato));
 	}
