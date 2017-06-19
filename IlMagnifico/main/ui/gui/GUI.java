@@ -114,6 +114,7 @@ public class GUI extends JFrame implements IClient {
 	// ATTRIBUTI PER AZIONI
 	private boolean servitoreSelezionato = false;
 	private Famigliare famigliareSelezionato = null;
+	private int valoreFamigliareSelezionato = 0;
 
 	/**
 	 * Launch the application.
@@ -896,12 +897,13 @@ public class GUI extends JFrame implements IClient {
 			famigliareSelezionato = (Famigliare) (arg0.getSource());
 
 			if (servitoreSelezionato) {
+
 				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
 					lblTextLogger.setForeground(Color.GREEN);
 					lblTextLogger.setText("IT'S YOUR TURN");
 				} else {
 					lblTextLogger.setForeground(Color.RED);
-					lblTextLogger.setText(getClient().getPlayerTurn() + "'S TURN");
+					lblTextLogger.setText(getClient().getPlayerTurn() + "'s TURN");
 				}
 				lblTextLogger.setVisible(true);
 
@@ -926,7 +928,7 @@ public class GUI extends JFrame implements IClient {
 				incrementPawnValue(colorePedina, 1);
 
 				servitoreSelezionato = false;
-				famigliareSelezionato = null;
+				// famigliareSelezionato = null;
 				return;
 			}
 
@@ -1084,7 +1086,7 @@ public class GUI extends JFrame implements IClient {
 
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 		}
 
 		@Override
@@ -1159,7 +1161,7 @@ public class GUI extends JFrame implements IClient {
 
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 
 		}
 
@@ -1235,7 +1237,7 @@ public class GUI extends JFrame implements IClient {
 
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 
 		}
 
@@ -1311,7 +1313,7 @@ public class GUI extends JFrame implements IClient {
 
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 
 		}
 
@@ -1387,7 +1389,7 @@ public class GUI extends JFrame implements IClient {
 
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 
 		}
 
@@ -1454,7 +1456,7 @@ public class GUI extends JFrame implements IClient {
 			 */
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 
 		}
 
@@ -1530,7 +1532,7 @@ public class GUI extends JFrame implements IClient {
 			 */
 			// aggiornamento();
 
-			famigliareSelezionato = null;
+			// famigliareSelezionato = null;
 
 		}
 
@@ -1703,9 +1705,16 @@ public class GUI extends JFrame implements IClient {
 		new Timer().schedule(new TimerTask() {
 			@Override
 			public void run() {
+
 				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
-					lblTextLogger.setForeground(Color.GREEN);
-					lblTextLogger.setText("IT'S YOUR TURN");
+					if (famigliareSelezionato == null) {
+						lblTextLogger.setForeground(Color.GREEN);
+						lblTextLogger.setText("IT'S YOUR TURN");
+					} else {
+						lblTextLogger.setText("SELECTED: " + "Pawn #" + (famigliareSelezionato.getNumero() + 1)
+								+ ", value: " + valoreFamigliareSelezionato);
+						lblTextLogger.setVisible(true);
+					}
 				} else {
 					lblTextLogger.setForeground(Color.RED);
 					lblTextLogger.setText(getClient().getPlayerTurn() + "'s TURN");
@@ -1743,6 +1752,22 @@ public class GUI extends JFrame implements IClient {
 	@Override
 	public void onPayServant(UpdateStats update) {
 		aggiornamento(update);
+
+		if (nomeGiocatore.equals(update.getNomeGiocatore())) {
+			if (famigliareSelezionato == null) {
+				lblTextLogger.setForeground(Color.GREEN);
+				lblTextLogger.setText("IT'S YOUR TURN");
+			} else {
+				valoreFamigliareSelezionato++;
+				lblTextLogger.setText("SELECTED: " + "Pawn #" + (famigliareSelezionato.getNumero() + 1) + ", value: "
+						+ valoreFamigliareSelezionato);
+				lblTextLogger.setVisible(true);
+			}
+		} else {
+			lblTextLogger.setForeground(Color.RED);
+			lblTextLogger.setText(getClient().getPlayerTurn() + "'s TURN");
+		}
+		lblTextLogger.setVisible(true);
 
 	}
 
@@ -1803,6 +1828,9 @@ public class GUI extends JFrame implements IClient {
 	@Override
 	public void onPlayerMove(UpdateStats update) {
 		if (nomeGiocatore.equals(update.getNomeGiocatore())) {
+			if (update.getAzioneGiocatore() != EAzioniGiocatore.Famigliare) {
+				famigliareSelezionato = null;
+			}
 			lblTextLogger.setForeground(Color.GREEN);
 			lblTextLogger.setText("IT'S YOUR TURN");
 		} else {

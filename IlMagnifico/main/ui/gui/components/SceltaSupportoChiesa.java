@@ -35,11 +35,10 @@ public class SceltaSupportoChiesa extends JFrame {
 	private JRadioButton[] radioButtons;
 	private ButtonLIM btnOK = new ButtonLIM("OK");
 	private JLabel lblComunicazione;
-	
+
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int height = screenSize.height;
 	private int width = screenSize.width;
-
 
 	private ArrayList<String> scelte;
 	private int numeroScelte;
@@ -73,7 +72,7 @@ public class SceltaSupportoChiesa extends JFrame {
 		// "./src/cornice3.png"
 		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		//setExtendedState(MAXIMIZED_BOTH);
+		// setExtendedState(MAXIMIZED_BOTH);
 
 		setSize(width / 2, height / 2);
 
@@ -86,8 +85,8 @@ public class SceltaSupportoChiesa extends JFrame {
 		framePrincipale.setVisible(false);
 		setVisible(true);
 		getContentPane().setLayout(null);
-		contentPane.setSize(width/2,height/2);
-		//contentPane.setBounds(0, 0, 1362, 694);
+		contentPane.setSize(width / 2, height / 2);
+		// contentPane.setBounds(0, 0, 1362, 694);
 		contentPane.setLayout(null);
 
 		this.scelte = new ArrayList<String>();
@@ -100,6 +99,8 @@ public class SceltaSupportoChiesa extends JFrame {
 		aggiungiLblComunicazione();
 		rimuoviRadioButton();
 		aggiungiRadioButton(1, scelte);
+
+		this.repaint();
 	}
 
 	public void rimuoviRadioButton() {
@@ -171,11 +172,16 @@ public class SceltaSupportoChiesa extends JFrame {
 	}
 
 	public void aggiungiLblComunicazione() {
+		if (lblComunicazione != null) {
+			remove(lblComunicazione);
+		}
 		lblComunicazione = new JLabel("Support the Church? ");
 		lblComunicazione.setBounds(225, 50, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
+
+		lblComunicazione.repaint();
 	}
 
 	public void aggiungiBtnOK() {

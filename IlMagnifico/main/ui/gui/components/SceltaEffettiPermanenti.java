@@ -98,6 +98,8 @@ public class SceltaEffettiPermanenti extends JFrame {
 		aggiungiLblComunicazione();
 		rimuoviRadioButton();
 		aggiungiRadioButton(numeroScelte, scelte);
+
+		this.repaint();
 	}
 
 	public void rimuoviRadioButton() {
@@ -165,11 +167,16 @@ public class SceltaEffettiPermanenti extends JFrame {
 	}
 
 	public void aggiungiLblComunicazione() {
+		if (lblComunicazione != null) {
+			remove(lblComunicazione);
+		}
 		lblComunicazione = new JLabel("Select also the permanent effects you want to activate: ");
 		lblComunicazione.setBounds(350, 100, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
+
+		lblComunicazione.repaint();
 	}
 
 	public void aggiungiBtnOK() {

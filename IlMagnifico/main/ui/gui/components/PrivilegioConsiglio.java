@@ -53,8 +53,9 @@ public class PrivilegioConsiglio extends JFrame {
 				scelte.add("4 stones");
 				scelte.add("1 servant");
 				try {
-					PrivilegioConsiglio frame = new PrivilegioConsiglio(null);
+					PrivilegioConsiglio frame = new PrivilegioConsiglio(new GUI());
 					frame.setVisible(true);
+					frame.mostraFinestra(EAzioniGiocatore.Mercato, EColoriPedine.Arancione, scelte, 100);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -94,6 +95,8 @@ public class PrivilegioConsiglio extends JFrame {
 		aggiungiLblComunicazione();
 		rimuoviRadioButton();
 		aggiungiRadioButton(numeroScelte, scelte);
+
+		this.repaint();
 	}
 
 	public void rimuoviRadioButton() {
@@ -161,11 +164,16 @@ public class PrivilegioConsiglio extends JFrame {
 	}
 
 	public void aggiungiLblComunicazione() {
+		if (lblComunicazione != null) {
+			remove(lblComunicazione);
+		}
 		lblComunicazione = new JLabel("make " + numeroScelte + " choices");
 		lblComunicazione.setBounds(590, 500, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
+
+		lblComunicazione.repaint();
 	}
 
 	public void aggiungiBtnOK() {

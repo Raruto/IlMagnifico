@@ -101,6 +101,8 @@ public class SceltaCosti extends JFrame {
 		aggiungiLblComunicazione();
 		rimuoviRadioButton();
 		aggiungiRadioButton(numeroScelte, scelte);
+
+		this.repaint();
 	}
 
 	public void rimuoviRadioButton() {
@@ -168,11 +170,16 @@ public class SceltaCosti extends JFrame {
 	}
 
 	public void aggiungiLblComunicazione() {
+		if (lblComunicazione != null) {
+			remove(lblComunicazione);
+		}
 		lblComunicazione = new JLabel("make " + numeroScelte + " choiches");
 		lblComunicazione.setBounds(590, 500, 719, 35);
 		lblComunicazione.setFont(new Font("ALGERIAN", 50, 20));
 		lblComunicazione.setForeground(Color.WHITE);
 		getContentPane().add(lblComunicazione);
+
+		lblComunicazione.repaint();
 	}
 
 	public void aggiungiBtnOK() {
