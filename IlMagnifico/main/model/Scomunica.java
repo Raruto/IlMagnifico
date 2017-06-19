@@ -58,18 +58,22 @@ public class Scomunica implements Serializable {
 	}
 
 	public void attivaEffettoSingolo(Object[] parametri) {
-		if ((int) parametri[0] == 18)
-			utilEffetto.decrementaDiQuattroAzione(parametri);
-		else if ((int) parametri[0] == 19)
-			utilEffetto.decrementaDiTreAzione(parametri);
-		else if ((int) parametri[0] == 20)
-			utilEffetto.decrementaDiUnoAzione(parametri);
-		else if ((int) parametri[0] == 21)
-			utilEffetto.perdiPvxcinquePV(parametri);
-		else if ((int) parametri[0] == 22)
-			utilEffetto.perdiPvxPM(parametri);
-		else if ((int) parametri[0] == 26)
-			utilEffetto.perdiPVxRisorse(parametri);
+		try {
+			if ((int) parametri[0] == 18)
+				utilEffetto.decrementaDiQuattroAzione(parametri);
+			else if ((int) parametri[0] == 19)
+				utilEffetto.decrementaDiTreAzione(parametri);
+			else if ((int) parametri[0] == 20)
+				utilEffetto.decrementaDiUnoAzione(parametri);
+			else if ((int) parametri[0] == 21)
+				utilEffetto.perdiPvxcinquePV(parametri);
+			else if ((int) parametri[0] == 22)
+				utilEffetto.perdiPvxPM(parametri);
+			else if ((int) parametri[0] == 26)
+				utilEffetto.perdiPVxRisorse(parametri);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public void attivaOnAzione(Giocatore giocatore, EAzioniGioco azione, Famigliare famigliare, Carta carta) {

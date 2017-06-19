@@ -1,5 +1,6 @@
 package main.network.server.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import main.model.Giocatore;
@@ -75,7 +76,6 @@ public class Game extends Partita {
 	 */
 	public void startNewGame() {
 		UpdateStats update;
-
 
 		inizializzaPartita();
 		update = new UpdateStats(EFasiDiGioco.InizioPartita, this.giocatori);
@@ -157,15 +157,29 @@ public class Game extends Partita {
 					// terminaPeriodo();
 					this.periodo++;
 
-					if (this.rapportoVaticanoEseguito == false) {
+					ArrayList<Giocatore> giocatoriVaticano = giocatoriChePossonoSostenereChiesa();
+					if (giocatoriVaticano.size() > 0) {
 						for (int i = 0; i < this.giocatori.size(); i++) {
-							this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
+							if (giocatoriVaticano.contains(giocatori.get(i)))
+								this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
+							else{
+								try {
+									this.eseguiRapportoVaticano(giocatori.get(i), false);
+								} catch (ChurchSupportException e) {
+									// TODO Auto-generated catch block
+								}
+							}
 						}
 						this.periodo--;
 						this.turno--;
-						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
-								this.spazioAzione);
+
+					} else {
+						this.rapportoVaticanoEseguito = true;
+					}
+					if (this.rapportoVaticanoEseguito == false) {
+						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriVaticano, this.spazioAzione);
 						dispatchGameUpdate(update);
+
 					} else {
 						update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 						dispatchGameUpdate(update);

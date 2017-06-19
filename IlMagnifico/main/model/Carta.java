@@ -1,5 +1,6 @@
 package main.model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -247,50 +248,54 @@ public abstract class Carta implements Serializable {
 	 * corrispondente con i parametri codificati nell'array di Object
 	 */
 	public void attivaEffettoSingolo(Object[] parametri) {
-		if ((int) parametri[0] == 0)
-			utilEffetto.aggiungiRisorse(parametri);
-		else if ((int) parametri[0] == 3)
-			utilEffetto.eseguiPrivilegioDelConsiglio(parametri);
-		else if ((int) parametri[0] == 4)
-			utilEffetto.aumentaDiDueAzione(parametri);
-		else if ((int) parametri[0] == 5)
-			utilEffetto.aumentaDiTreAzione(parametri);
-		else if ((int) parametri[0] == 6)
-			utilEffetto.eseguiEffettoImmediatoRaccolto(parametri);
-		else if ((int) parametri[0] == 7)
-			utilEffetto.eseguiEffettoImmediatoProduzioneValoreTre(parametri);
-		else if ((int) parametri[0] == 8)
-			utilEffetto.eseguiEffettoImmediatoProduzioneValoreQuattro(parametri);
-		else if ((int) parametri[0] == 9)
-			utilEffetto.duePVxedificio(parametri);
-		else if ((int) parametri[0] == 10)
-			utilEffetto.duePVxpersonaggio(parametri);
-		else if ((int) parametri[0] == 11)
-			utilEffetto.duePVximpresa(parametri);
-		else if ((int) parametri[0] == 12)
-			utilEffetto.duePVxterritorio(parametri);
-		else if ((int) parametri[0] == 13)
-			utilEffetto.unPVxpersonaggio(parametri);
-		else if ((int) parametri[0] == 14)
-			utilEffetto.unPVximpresa(parametri);
-		else if ((int) parametri[0] == 15)
-			utilEffetto.unaMonetaxterritorio(parametri);
-		else if ((int) parametri[0] == 16)
-			utilEffetto.unaMonetaxedificio(parametri);
-		else if ((int) parametri[0] == 17)
-			utilEffetto.unPVxduePM(parametri);
-		else if ((int) parametri[0] == 18)
-			utilEffetto.decrementaDiQuattroAzione(parametri);
-		else if ((int) parametri[0] == 19)
-			utilEffetto.decrementaDiTreAzione(parametri);
-		else if ((int) parametri[0] == 20)
-			utilEffetto.decrementaDiUnoAzione(parametri);
-		else if ((int) parametri[0] == 23)
-			utilEffetto.scontoUnaMoneta(parametri);
-		else if ((int) parametri[0] == 24)
-			utilEffetto.scontoLegnoEPietra(parametri);
-		else if ((int) parametri[0] == 25)
-			utilEffetto.prendiCartaSenzaFamigliareQuattro(parametri);
+		try {
+			if ((int) parametri[0] == 0)
+				utilEffetto.aggiungiRisorse(parametri);
+			else if ((int) parametri[0] == 3)
+				utilEffetto.eseguiPrivilegioDelConsiglio(parametri);
+			else if ((int) parametri[0] == 4)
+				utilEffetto.aumentaDiDueAzione(parametri);
+			else if ((int) parametri[0] == 5)
+				utilEffetto.aumentaDiTreAzione(parametri);
+			else if ((int) parametri[0] == 6)
+				utilEffetto.eseguiEffettoImmediatoRaccolto(parametri);
+			else if ((int) parametri[0] == 7)
+				utilEffetto.eseguiEffettoImmediatoProduzioneValoreTre(parametri);
+			else if ((int) parametri[0] == 8)
+				utilEffetto.eseguiEffettoImmediatoProduzioneValoreQuattro(parametri);
+			else if ((int) parametri[0] == 9)
+				utilEffetto.duePVxedificio(parametri);
+			else if ((int) parametri[0] == 10)
+				utilEffetto.duePVxpersonaggio(parametri);
+			else if ((int) parametri[0] == 11)
+				utilEffetto.duePVximpresa(parametri);
+			else if ((int) parametri[0] == 12)
+				utilEffetto.duePVxterritorio(parametri);
+			else if ((int) parametri[0] == 13)
+				utilEffetto.unPVxpersonaggio(parametri);
+			else if ((int) parametri[0] == 14)
+				utilEffetto.unPVximpresa(parametri);
+			else if ((int) parametri[0] == 15)
+				utilEffetto.unaMonetaxterritorio(parametri);
+			else if ((int) parametri[0] == 16)
+				utilEffetto.unaMonetaxedificio(parametri);
+			else if ((int) parametri[0] == 17)
+				utilEffetto.unPVxduePM(parametri);
+			else if ((int) parametri[0] == 18)
+				utilEffetto.decrementaDiQuattroAzione(parametri);
+			else if ((int) parametri[0] == 19)
+				utilEffetto.decrementaDiTreAzione(parametri);
+			else if ((int) parametri[0] == 20)
+				utilEffetto.decrementaDiUnoAzione(parametri);
+			else if ((int) parametri[0] == 23)
+				utilEffetto.scontoUnaMoneta(parametri);
+			else if ((int) parametri[0] == 24)
+				utilEffetto.scontoLegnoEPietra(parametri);
+			else if ((int) parametri[0] == 25)
+				utilEffetto.prendiCartaSenzaFamigliareQuattro(parametri);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	/**
