@@ -154,7 +154,8 @@ public class Game extends Partita {
 							try {
 								this.eseguiRapportoVaticano(giocatori.get(i), false);
 							} catch (ChurchSupportException e) {
-								// TODO Auto-generated catch block
+								System.err.println("ChurchSupportException");
+
 							}
 							update = new UpdateStats(giocatori.get(i), EAzioniGiocatore.SostegnoChiesa,
 									this.spazioAzione);
