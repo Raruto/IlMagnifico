@@ -181,15 +181,16 @@ public class GametTest {
 		update.setColorePedina(EColoriPedine.Neutrale);
 		update.setSceltaConsiglio(ESceltePrivilegioDelConsiglio.LegnoEPietra);
 
-		game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
+		/*game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		update = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update.supportaChiesa(true);
 
 		game.performGameAction(player1, update);
 		update = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update.supportaChiesa(true);
-		game.performGameAction(player2, update);
-
+		game.performGameAction(player2, update);*/
+System.out.println("il turno corrente è:"+ game.getTurno());
+System.out.println("il periodo corrente è:" +game.getPeriodo());
 		assertTrue(game.getTurno() == 3);
 		assertTrue(game.getPeriodo() == 2);
 	}

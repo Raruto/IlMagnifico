@@ -39,7 +39,7 @@ public enum EEffettiPermanenti {
 	CAVA_DI_GHIAIA(			"cava di ghiaia",			0,EAzioniGioco.Raccolto,		  0,0,2,0,0,0,0,0, "+2W"), 
 	MONASTERO(				"monastero",				0,EAzioniGioco.Raccolto,		  0,0,1,0,0,0,1,0, "+1St, +1FP"), 
 	CITTA(					"citta",					3,EAzioniGioco.Raccolto,		  0,0,0,0,0,0,0,0, ""),					/*Non implementato?*/ 
-	AVAMPOSTO_COMMERCIALE(	"avamposto commerciale",	0,EAzioniGioco.Raccolto,		  1,0,0,0,0,0,0,0,"+1C");/*,
+	AVAMPOSTO_COMMERCIALE(	"avamposto commerciale",	0,EAzioniGioco.Raccolto,		  1,0,0,0,0,0,0,0,"+1C"),
 	
 	//;
 	// Periodo 2
@@ -88,8 +88,8 @@ public enum EEffettiPermanenti {
 	CASTELLETTO1(			 "castelletto", 			0, EAzioniGioco.Produzione, 0, 0, 0, 0, 2, 0, 0, 0, "+2VP"),
 	CASTELLETTO2(			 "castelletto", 			3, EAzioniGioco.Produzione, 0, 0, 0, 0, 0, 0, 0, 1, "+1CP"),
 	ACCADEMIA_MILITARE(		 "accademia militare", 		0, EAzioniGioco.Produzione, 0, 0, 0, -1, 1, 3, 0, 0, "-1Sv, +1VP, +3MP"),
-	BASILICA(				 "basilica", 				0, EAzioniGioco.Produzione, 0, -1, 0, 0, 0, 0, 2, 0, "-1W, +2FP"),
-	BASILICA(				 "basilica", 				0, EAzioniGioco.Produzione, 0, 0, -1, 0, 0, 0, 2, 0, "-1St, +2FP"),
+	BASILICA1(				 "basilica", 				0, EAzioniGioco.Produzione, 0, -1, 0, 0, 0, 0, 2, 0, "-1W, +2FP"),
+	BASILICA2(				 "basilica", 				0, EAzioniGioco.Produzione, 0, 0, -1, 0, 0, 0, 2, 0, "-1St, +2FP"),
 	CATTEDRALE(				 "cattedrale",				0, EAzioniGioco.Produzione, 0, 0, 0, 0, 1, 0, 0, 0, "+1VP"),
 	CONQUISTA_MILITARE(		 "conquista militare", 		0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 7, 0, 0, 0, "+7VP"),
 	RIPARARE_LA_CATTEDRALE(	 "riparare la cattedrale", 	0, EAzioniGioco.FinePartita, 0, 0, 0, 0, 5, 0, 0, 0, "+5VP"),
@@ -115,7 +115,7 @@ public enum EEffettiPermanenti {
 	PROVINCIA(				 "provincia", 				0, EAzioniGioco.Raccolto, 0, 0, 1, 0, 4, 0, 0, 0, "+1St, +4VP"),
 	CAVA_DI_MARMO(			 "cava di marmo", 			0, EAzioniGioco.Raccolto, 0, 0, 2, 0, 1, 0, 0, 0, "+2St, +1VP"),
 	COLONIA(				 "colonia", 				0, EAzioniGioco.Raccolto, 0, 1, 0, 0, 4, 0, 0, 0, "+1W, +4VP");
-	*/
+	
 	
 	private String nome;
 	private int numeroEffetto;

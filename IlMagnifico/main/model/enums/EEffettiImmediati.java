@@ -36,7 +36,7 @@ public enum EEffettiImmediati {
 	CAVA_DI_GHIAIA(			"cava di ghiaia",		0,0,0,2,0,0,0,0,0, "+2St"), 
 	MONASTERO(				"monastero",			0,0,0,0,1,0,2,0,0, "+1Sv, +2MP"), 
 	CITTA(					"citta",				0,3,0,0,0,0,0,0,0, "+3C"), 
-	AVAMPOSTO_COMMERCIALE(	"avamposto commerciale",-1,0,0,0,0,0,0,0,0,"");/*,
+	AVAMPOSTO_COMMERCIALE(	"avamposto commerciale",-1,0,0,0,0,0,0,0,0,""),
 	
 	//;
 	// Periodo 2
@@ -113,7 +113,7 @@ public enum EEffettiImmediati {
 	PROVINCIA2(					"provincia", 				0, 0, 0, 1, 0, 0, 0, 0, 0, "+1St"),
 	CAVA_DI_MARMO(				"cava di marmo", 			0, 0, 0, 0, 0, 3, 0, 0, 0, "+3VP"),
 	COLONIA(					"colonia", 					0, 0, 0, 0, 0, 0, 2, 0, 0, "+2MP");
-*/
+
 
 	private String nome;
 	private int numeroEffetto;

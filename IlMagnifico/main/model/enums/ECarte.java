@@ -39,7 +39,7 @@ public enum ECarte {
 	CAVA_DI_GHIAIA(		  "cava di ghiaia", 	  1, 4, ETipiCarte.Territorio, 	0, 0), 
 	MONASTERO(			  "monastero", 			  1, 6, ETipiCarte.Territorio, 	0, 0), 
 	CITTA(				  "citta", 				  1, 6, ETipiCarte.Territorio, 	0, 0), 
-	AVAMPOSTO_COMMERCIALE("avamposto commerciale",1, 1, ETipiCarte.Territorio, 	0, 0);/*,
+	AVAMPOSTO_COMMERCIALE("avamposto commerciale",1, 1, ETipiCarte.Territorio, 	0, 0),
 	
 	//;
 	// Periodo 2
@@ -110,7 +110,7 @@ public enum ECarte {
 	PROVINCIA(				 "provincia", 				3, 6, ETipiCarte.Territorio,  0, 0),
 	CAVA_DI_MARMO(			 "cava di marmo", 			3, 2, ETipiCarte.Territorio,  0, 0),
 	COLONIA(				 "colonia", 				3, 5, ETipiCarte.Territorio,  0, 0);
-	*/
+	
 	
 	private String nome;
 	private int periodo;

@@ -157,27 +157,14 @@ public class Game extends Partita {
 					// terminaPeriodo();
 					this.periodo++;
 
-					ArrayList<Giocatore> giocatoriVaticano = giocatoriChePossonoSostenereChiesa();
-					if (giocatoriVaticano.size() > 0) {
+					if (this.rapportoVaticanoEseguito == false) {
 						for (int i = 0; i < this.giocatori.size(); i++) {
-							if (giocatoriVaticano.contains(giocatori.get(i)))
-								this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
-							else{
-								try {
-									this.eseguiRapportoVaticano(giocatori.get(i), false);
-								} catch (ChurchSupportException e) {
-									// TODO Auto-generated catch block
-								}
-							}
+							this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
 						}
 						this.periodo--;
 						this.turno--;
-
-					} else {
-						this.rapportoVaticanoEseguito = true;
-					}
-					if (this.rapportoVaticanoEseguito == false) {
-						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriVaticano, this.spazioAzione);
+						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
+								this.spazioAzione);
 						dispatchGameUpdate(update);
 
 					} else {

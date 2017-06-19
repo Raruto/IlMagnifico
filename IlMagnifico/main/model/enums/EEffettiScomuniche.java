@@ -5,7 +5,7 @@ public enum EEffettiScomuniche {
 	//Prima fila
 	RICEVI_MENO_PM(				   "Receive less MP", 			 -1, EAzioniGioco.RiceviPM, 			  0, 0, 0, 0, 0, -1, 0, 0), 
 	MENO_QUATTRO_ON_TERRITORIO(    "-4 on Territory", 			 18, EAzioniGioco.PrendiTerritorio, 	  0, 0, 0, 0, 0, 0, 0, 0), 
-	NO_PV_PERSONAGGIO(			   "No Charachter VP", 		     -1, EAzioniGioco.PersonaggiFinePartita, 0, 0, 0, 0, 0, 0, 0, 0);/*,
+	NO_PV_PERSONAGGIO(			   "No Charachter VP", 		     -1, EAzioniGioco.PersonaggiFinePartita, 0, 0, 0, 0, 0, 0, 0, 0),
 	
 	//;
 	//Seconda fila
@@ -42,7 +42,7 @@ public enum EEffettiScomuniche {
 	MENO_UNO_ON_FAMIGLARI(		   "-1 on Familiars",	 		 -1, EAzioniGioco.MuoviColorato, 0, 0, 0, 0, 0, 0, 0, 0),
 	SALTA_PRIMA_AZIONE_TURNO( 	   "Skip the first move", 		 -1, EAzioniGioco.InizioTurno, 0, 0, 0, 0, 0, 0, 0, 0),
 	PV_MENO_UNO_RISERVA(	  	   "VP-1 foreach W, St, Sv, C",	 26, EAzioniGioco.FinePartita, 0, 0, 0, 0, 0, 0, 0, 0);
-	*/
+	
 	
 	private String nome;
 	private int numeroEffetto;
