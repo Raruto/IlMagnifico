@@ -246,13 +246,16 @@ System.out.println("il periodo corrente è:" +game.getPeriodo());
 		}
 		UpdateStats update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		System.out.println(game.getTurno()+" è il turno corrente");
+		System.out.println(game.getPeriodo()+" è il periodo corrente");
 		/*update2.supportaChiesa(true);
 		game.performGameAction(player1, update2);*/
 
 		update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update2.supportaChiesa(true);
 		game.performGameAction(player2, update2);
-
+		System.out.println(game.getTurno()+" è il turno corrente");
+		System.out.println(game.getPeriodo()+ " è il periodo corrente");
+		
 		assertTrue(player1.getPunti().getPuntiFede() == 0);
 		assertTrue(player1.getPunti().getPuntiVittoria() == 0);
 		System.out.println();

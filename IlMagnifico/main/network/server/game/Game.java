@@ -182,6 +182,7 @@ public class Game extends Partita {
 						this.periodo++;
 						
 						if (this.rapportoVaticanoEseguito == false) {
+							
 							update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
 									this.spazioAzione);
 							dispatchGameUpdate(update);
@@ -205,6 +206,7 @@ public class Game extends Partita {
 							}
 						}
 					}
+					if(!azione.equals(EAzioniGiocatore.SostegnoChiesa))
 					this.turno++;
 				}
 
