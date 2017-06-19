@@ -290,7 +290,7 @@ public class GUI extends JFrame implements IClient {
 
 		SFamigliare[] torre = new SFamigliare[16];
 		for (int i = 0; i < 16; i++) {
-			int posizione = (i / 4) * 4 + (4 - i % 4) - 1;
+			int posizione = getConvertedTowerNumber(i);//(i / 4) * 4 + (4 - i % 4) - 1;
 			main.model.Famigliare famigliareTorre = null;
 			if (update.getSpazioAzione() != null)
 				famigliareTorre = update.getSpazioAzione().getFamigliareTorre(posizione);
@@ -552,7 +552,7 @@ public class GUI extends JFrame implements IClient {
 		for (int i = 0; i < 16; i++) {
 			main.model.Carta cartaModel = null;
 			if (update.getSpazioAzione() != null)
-				cartaModel = update.getSpazioAzione().getCartaTorre((i / 4) * 4 + (4 - i % 4) - 1);
+				cartaModel = update.getSpazioAzione().getCartaTorre(getConvertedTowerNumber(i)/*(i / 4) * 4 + (4 - i % 4) - 1*/);
 			if (cartaModel == null)
 				carteTorre[i] = null;
 			else
@@ -691,6 +691,66 @@ public class GUI extends JFrame implements IClient {
 		return numeroGiocatoriPartita;
 	}
 
+	public int getConvertedTowerNumber(int floor) {
+		int pos = (floor / 4) * 4 + (4 - floor % 4) - 1;
+
+		switch (floor) {
+		case 0:
+			pos = 3;
+			break;
+		case 1:
+			pos = 2;
+			break;
+		case 2:
+			pos = 1;
+			break;
+		case 3:
+			pos = 0;
+			break;
+		case 4:
+			pos = 7;
+			break;
+		case 5:
+			pos = 6;
+			break;
+		case 6:
+			pos = 5;
+			break;
+		case 7:
+			pos = 4;
+			break;
+		case 8:
+			pos = 11;
+			break;
+		case 9:
+			pos = 10;
+			break;
+		case 10:
+			pos = 9;
+			break;
+		case 11:
+			pos = 8;
+			break;
+		case 12:
+			pos = 15;
+			break;
+		case 13:
+			pos = 14;
+			break;
+		case 14:
+			pos = 13;
+			break;
+		case 15:
+			pos = 12;
+			break;
+
+		default:
+			System.out.println("ERRORE: " + pos);
+			break;
+		}
+		return pos;
+	}
+	
 	public void inserisciLabelTextLogger() {
 		lblTextLogger = new JLabel("");
 		lblTextLogger.setBounds(10, 10, 250, 30);
@@ -1064,9 +1124,14 @@ public class GUI extends JFrame implements IClient {
 			else
 				colorePedina = EColoriPedine.Neutrale;
 
-			int pos = (posizioneTorre / 4) * 4 + (4 - posizioneTorre % 4) - 1;
+			int pos = getConvertedTowerNumber(posizioneTorre);
 
 			for (ECarte carta : ECarte.values()) {
+				System.out.println(tabellone == null);
+				System.out.println(tabellone.getCarteTorre() == null);
+				System.out.println(tabellone.getCarteTorre().get(pos) == null);
+				System.out.println(tabellone.getCarteTorre().get(pos).getNomeCarta() == null);
+
 				if (tabellone.getCarteTorre().get(pos).getNomeCarta().equals(carta.getNome())) {
 					int numScelteCosti = carta.getNumScelteCosti();
 					if (numScelteCosti > 0) {
