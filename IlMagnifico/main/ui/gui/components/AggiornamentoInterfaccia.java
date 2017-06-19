@@ -98,11 +98,13 @@ public class AggiornamentoInterfaccia {
 		frame.getTabellone().rimuoviCarteTorri();
 		CartaSviluppo[] carteTorre = new CartaSviluppo[aggiornamento.getCarteSviluppoTorre().length];
 		for (int i = 0; i < aggiornamento.getCarteSviluppoTorre().length; i++) {
-			if (aggiornamento.getCarteSviluppoTorre()[i] != null)
-				carteTorre[i] = new CartaSviluppo(aggiornamento.getCarteSviluppoTorre()[i],
-						Costants.FOLDER_DEV_CARDS + "/" + aggiornamento.getCarteSviluppoTorre()[i] + ".png");
+			if (aggiornamento.getCarteSviluppoTorre()[frame.getConvertedTowerNumber(i)] != null)
+				carteTorre[frame.getConvertedTowerNumber(i)] = new CartaSviluppo(
+						aggiornamento.getCarteSviluppoTorre()[frame.getConvertedTowerNumber(i)],
+						Costants.FOLDER_DEV_CARDS + "/"
+								+ aggiornamento.getCarteSviluppoTorre()[frame.getConvertedTowerNumber(i)] + ".png");
 			else
-				carteTorre[i] = null;
+				carteTorre[frame.getConvertedTowerNumber(i)] = null;
 		}
 		frame.getTabellone().aggiungiCarteTorri(carteTorre);
 		frame.aggiungiListenerCarteTorre();
@@ -172,7 +174,7 @@ public class AggiornamentoInterfaccia {
 					carteProduzione[j] = new CartaSviluppo(giocatoreAgg.getCarteEdificio().get(j),
 							Costants.FOLDER_DEV_CARDS + "/" + giocatoreAgg.getCarteEdificio().get(j) + ".png");
 				}
-				frame.getPlancia().aggiungiCarteProduzione(carteProduzione); 
+				frame.getPlancia().aggiungiCarteProduzione(carteProduzione);
 			} else {
 				Plancia planciaAvv = frame.getPlanciaAvversario().getPlance().get(planceRiempite);
 				planciaAvv.rimuoviCarteProduzione();

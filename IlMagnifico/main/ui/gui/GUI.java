@@ -290,7 +290,8 @@ public class GUI extends JFrame implements IClient {
 
 		SFamigliare[] torre = new SFamigliare[16];
 		for (int i = 0; i < 16; i++) {
-			int posizione = getConvertedTowerNumber(i);//(i / 4) * 4 + (4 - i % 4) - 1;
+			int posizione = getConvertedTowerNumber(i);// (i / 4) * 4 + (4 - i %
+														// 4) - 1;
 			main.model.Famigliare famigliareTorre = null;
 			if (update.getSpazioAzione() != null)
 				famigliareTorre = update.getSpazioAzione().getFamigliareTorre(posizione);
@@ -552,7 +553,8 @@ public class GUI extends JFrame implements IClient {
 		for (int i = 0; i < 16; i++) {
 			main.model.Carta cartaModel = null;
 			if (update.getSpazioAzione() != null)
-				cartaModel = update.getSpazioAzione().getCartaTorre(getConvertedTowerNumber(i)/*(i / 4) * 4 + (4 - i % 4) - 1*/);
+				cartaModel = update.getSpazioAzione().getCartaTorre(getConvertedTowerNumber(
+						i)/* (i / 4) * 4 + (4 - i % 4) - 1 */);
 			if (cartaModel == null)
 				carteTorre[i] = null;
 			else
@@ -750,7 +752,7 @@ public class GUI extends JFrame implements IClient {
 		}
 		return pos;
 	}
-	
+
 	public void inserisciLabelTextLogger() {
 		lblTextLogger = new JLabel("");
 		lblTextLogger.setBounds(10, 10, 250, 30);
@@ -854,8 +856,8 @@ public class GUI extends JFrame implements IClient {
 	public void aggiungiListenerCarteTorre() {
 		ArrayList<CartaSviluppo> carteTorre = tabellone.getCarteTorre();
 		for (int i = 0; i < carteTorre.size(); i++) {
-			if (carteTorre.get(i) != null)
-				carteTorre.get(i).addMouseListener(new PrendiCarta());
+			if (carteTorre.get(getConvertedTowerNumber(i)) != null)
+				carteTorre.get(getConvertedTowerNumber(i)).addMouseListener(new PrendiCarta());
 		}
 	}
 
@@ -869,7 +871,7 @@ public class GUI extends JFrame implements IClient {
 	public void aggiungiListenerTorreTabellone() {
 		SpazioFamigliare[] torre = tabellone.getTorre();
 		for (int i = 0; i < torre.length; i++) {
-			torre[i].addMouseListener(new SpostamentoTorre());
+			torre[getConvertedTowerNumber(i)].addMouseListener(new SpostamentoTorre());
 		}
 	}
 
@@ -1095,7 +1097,7 @@ public class GUI extends JFrame implements IClient {
 				return;
 			int posizioneTorre = 0;
 			for (posizioneTorre = 0; posizioneTorre < tabellone.getTorre().length; posizioneTorre++) {
-				if (tabellone.getTorre()[posizioneTorre] == (SpazioFamigliare) (e.getSource()))
+				if (tabellone.getTorre()[getConvertedTowerNumber(posizioneTorre)] == (SpazioFamigliare) (e.getSource()))
 					break;
 			}
 			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
@@ -1127,11 +1129,6 @@ public class GUI extends JFrame implements IClient {
 			int pos = getConvertedTowerNumber(posizioneTorre);
 
 			for (ECarte carta : ECarte.values()) {
-				System.out.println(tabellone == null);
-				System.out.println(tabellone.getCarteTorre() == null);
-				System.out.println(tabellone.getCarteTorre().get(pos) == null);
-				System.out.println(tabellone.getCarteTorre().get(pos).getNomeCarta() == null);
-
 				if (tabellone.getCarteTorre().get(pos).getNomeCarta().equals(carta.getNome())) {
 					int numScelteCosti = carta.getNumScelteCosti();
 					if (numScelteCosti > 0) {
@@ -1141,13 +1138,13 @@ public class GUI extends JFrame implements IClient {
 
 							scelte.add(carta.getCostiCarta().get(i).getDescrizione());
 						}
-						frameSceltaCosti.setScelteCosti(scelte, pos);
+						frameSceltaCosti.setScelteCosti(scelte, getConvertedTowerNumber(pos));
 						new ChiediSceltaCosti(EAzioniGiocatore.Torre, colorePedina, scelte, numScelteCosti);
 						return;
 					}
 				}
 			}
-			movePawn(EAzioniGiocatore.Torre, colorePedina, pos);
+			movePawn(EAzioniGiocatore.Torre, colorePedina, getConvertedTowerNumber(pos));
 
 			// aggiornamento();
 
