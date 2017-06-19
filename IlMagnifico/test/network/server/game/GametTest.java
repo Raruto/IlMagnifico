@@ -245,6 +245,7 @@ System.out.println("il periodo corrente è:" +game.getPeriodo());
 			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		}
 		UpdateStats update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
+		System.out.println(game.getTurno()+" è il turno corrente");
 		/*update2.supportaChiesa(true);
 		game.performGameAction(player1, update2);*/
 
