@@ -177,7 +177,6 @@ public class Game extends Partita {
 						dispatchGameUpdate(update);
 					} else {
 						// terminaPeriodo();
-						System.out.println("entrato nella fine del periodo");
 						this.periodo++;
 
 						if (this.rapportoVaticanoEseguito == false) {
