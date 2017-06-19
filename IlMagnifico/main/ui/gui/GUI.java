@@ -1232,11 +1232,14 @@ public class GUI extends JFrame implements IClient {
 			if (effetti != null && effetti.length > 0) {
 				ArrayList<String> scelte = new ArrayList<String>();
 				for (int i = 0; i < effetti.length; i++) {
-					scelte.add(effetti[i].getDescrizione());
+					if (!effetti[i].getDescrizione().equals(""))
+						scelte.add(effetti[i].getDescrizione());
 				}
-				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
-				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.Raccolto, colorePedina, scelte, -1);
-				return;
+				if (scelte.size() > 0) {
+					frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+					new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.Raccolto, colorePedina, scelte, -1);
+					return;
+				}
 
 			}
 
@@ -1308,11 +1311,14 @@ public class GUI extends JFrame implements IClient {
 			if (effetti != null && effetti.length > 0) {
 				ArrayList<String> scelte = new ArrayList<String>();
 				for (int i = 0; i < effetti.length; i++) {
-					scelte.add(effetti[i].getDescrizione());
+					if (effetti[i].getDescrizione() != "")
+						scelte.add(effetti[i].getDescrizione());
 				}
-				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
-				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.RaccoltoOvale, colorePedina, scelte, -1);
-				return;
+				if (scelte.size() > 0) {
+					frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+					new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.RaccoltoOvale, colorePedina, scelte, -1);
+					return;
+				}
 
 			}
 
@@ -1384,11 +1390,14 @@ public class GUI extends JFrame implements IClient {
 			if (effetti != null && effetti.length > 0) {
 				ArrayList<String> scelte = new ArrayList<String>();
 				for (int i = 0; i < effetti.length; i++) {
-					scelte.add(effetti[i].getDescrizione());
+					if (!effetti[i].getDescrizione().equals(""))
+						scelte.add(effetti[i].getDescrizione());
 				}
-				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
-				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.Produzione, colorePedina, scelte, -1);
-				return;
+				if (scelte.size() > 0) {
+					frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+					new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.Produzione, colorePedina, scelte, -1);
+					return;
+				}
 
 			}
 
@@ -1459,11 +1468,14 @@ public class GUI extends JFrame implements IClient {
 			if (effetti != null && effetti.length > 0) {
 				ArrayList<String> scelte = new ArrayList<String>();
 				for (int i = 0; i < effetti.length; i++) {
-					scelte.add(effetti[i].getDescrizione());
+					if (!effetti[i].getDescrizione().equals(""))
+						scelte.add(effetti[i].getDescrizione());
 				}
-				frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
-				new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.ProduzioneOvale, colorePedina, scelte, -1);
-				return;
+				if (scelte.size() > 0) {
+					frameSceltaEffettiPermanenti.setScelteEffetti(scelte);
+					new ChiediSceltaEffettiPermanenti(EAzioniGiocatore.ProduzioneOvale, colorePedina, scelte, -1);
+					return;
+				}
 
 			}
 
