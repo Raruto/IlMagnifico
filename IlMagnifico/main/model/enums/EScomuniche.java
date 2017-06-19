@@ -7,7 +7,7 @@ public enum EScomuniche {
 	//Prima fila
 	RICEVI_MENO_PM(				   "Receive less MP", 			 "scomunica 1_1", 1), 
 	MENO_QUATTRO_ON_TERRITORIO(	   "-4 on Territory", 			 "scomunica 1_2", 2), 
-	NO_PV_PERSONAGGIO(			   "No Charachter VP", 			 "scomunica 1_3", 3);/*,
+	NO_PV_PERSONAGGIO(			   "No Charachter VP", 			 "scomunica 1_3", 3),
 	
 	//;
 	//Seconda fila
@@ -44,7 +44,7 @@ public enum EScomuniche {
 	MENO_UNO_ON_FAMIGLARI(		   "-1 on Familiars",	 		 "scomunica 7_1", 1),
 	SALTA_PRIMA_AZIONE_TURNO( 	   "Skip the first move", 		 "scomunica 7_2", 2),
 	PV_MENO_UNO_RISERVA(	  	   "VP-1 foreach W, St, Sv, C",	 "scomunica 7_3", 3);
-    */
+    
 
 	private String nome;
 	private int periodo;
