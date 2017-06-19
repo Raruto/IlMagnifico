@@ -51,7 +51,7 @@ public enum ECarte {
 	CASERMA(				 "caserma", 				2, 1, ETipiCarte.Edificio, 	  0, 0),
 	GILDA_DEGLI_SCULTORI(	 "gilda degli scultori", 	2, 5, ETipiCarte.Edificio, 	  0, 1),
 	GILDA_DEI_PITTORI(		 "gilda dei pittori", 		2, 4, ETipiCarte.Edificio, 	  0, 1),
-	COSTRUIRE_I_BASTIONI(	 "costrutire i bastioni", 	2, 0, ETipiCarte.Impresa, 	  0, 0),
+	COSTRUIRE_I_BASTIONI(	 "costruire i bastioni", 	2, 0, ETipiCarte.Impresa, 	  0, 0),
 	ACCOGLIERE_GLI_STRANIERI("accogliere gli stranieri",2, 0, ETipiCarte.Impresa, 	  0, 0), 
 	INGAGGIARE_SOLDATI(		 "ingaggiare soldati", 		2, 0, ETipiCarte.Impresa, 	  0, 0), 
 	SUPPORTO_AL_RE(			 "supporto al re", 			2, 0, ETipiCarte.Impresa, 	  0, 0), 

@@ -39,9 +39,13 @@ public class CartaScomunica extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
-		Image image = icon.getImage();
-		g.drawImage(image, 0, 0, null);
+		try {
+			ImageIcon icon = new ImageIcon(Resources.class.getResource(pathImmagine));
+			Image image = icon.getImage();
+			g.drawImage(image, 0, 0, null);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage() + ": " + pathImmagine);
+		}
 	}
 
 }
