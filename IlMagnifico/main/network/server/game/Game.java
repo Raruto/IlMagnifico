@@ -128,69 +128,87 @@ public class Game extends Partita {
 	 */
 	private void andvanceInGameLogic(EAzioniGiocatore azione) throws GameException {
 		UpdateStats update;
-		if (azione != EAzioniGiocatore.Famigliare) {
-			avanzaDiTurno();
-			if (!isGiroDiTurniTerminato()) {
-				// avanzaDiTurno();
-				update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
-				update.setNomeGiocatore(giocatoreDiTurno.getNome());
-				dispatchGameUpdate(update);
-
-			} else {
-
-				// terminaGiroDiTurni();
-				resetPerNuovoTurno();
-				if (this.turno % 2 != 0 || this.rapportoVaticanoEseguito == true) {
-					update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
+		boolean redo = false;
+		do {
+			if (azione != EAzioniGiocatore.Famigliare) {
+				avanzaDiTurno();
+				if (!isGiroDiTurniTerminato()) {
+					// avanzaDiTurno();
+					update = new UpdateStats(EFasiDiGioco.MossaGiocatore, this.spazioAzione);
+					update.setNomeGiocatore(giocatoreDiTurno.getNome());
 					dispatchGameUpdate(update);
-				}
-				scegliOrdine();
-				this.giocatoreDiTurno = giocatori.get(0);
 
-				if (!isPeriodoTerminato()) {
-					// avanzaGiroDiTurni();
-					posizionaCarteSuTorre();
-					lanciaDadi();
-					update = new UpdateStats(EFasiDiGioco.InizioTurno, this.giocatori, this.spazioAzione);
-					dispatchGameUpdate(update);
 				} else {
-					// terminaPeriodo();
-					this.periodo++;
 
-					if (this.rapportoVaticanoEseguito == false) {
-						for (int i = 0; i < this.giocatori.size(); i++) {
-							this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
-						}
-						this.periodo--;
-						this.turno--;
-						update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
-								this.spazioAzione);
+					// terminaGiroDiTurni();
+					resetPerNuovoTurno();
+					if (this.turno % 2 != 0 || this.rapportoVaticanoEseguito == true) {
+						update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 						dispatchGameUpdate(update);
+					}
+					scegliOrdine();
+					this.giocatoreDiTurno = giocatori.get(0);
 
+					if (!isPeriodoTerminato()) {
+						// avanzaGiroDiTurni();
+						posizionaCarteSuTorre();
+						lanciaDadi();
+						update = new UpdateStats(EFasiDiGioco.InizioTurno, this.giocatori, this.spazioAzione);
+						dispatchGameUpdate(update);
 					} else {
-						update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
-						dispatchGameUpdate(update);
+						// terminaPeriodo();
+						System.out.println("entrato nella fine del periodo");
+						this.periodo++;
 
-						if (!isPartitaFinita()) {
-							// avanzaPeriodo();
-							this.rapportoVaticanoEseguito = false;
-							posizionaCarteSuTorre();
-							lanciaDadi();
-							update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+
+						ArrayList<Giocatore> giocatoriVaticano = giocatoriChePossonoSostenereChiesa();
+						if (giocatoriVaticano.size() > 0) {
+							for (int i = 0; i < this.giocatori.size(); i++) {
+								if (giocatoriVaticano.contains(giocatori.get(i)))
+									this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
+								else {
+									try {
+										this.eseguiRapportoVaticano(giocatori.get(i), false);
+									} catch (ChurchSupportException e) {
+										// TODO Auto-generated catch block
+									}
+								}
+							}
+							/*this.periodo--;
+							this.turno--;*/
+							redo=false;
+						} else {
+							this.rapportoVaticanoEseguito = true;
+							redo=true;
+						}
+						if (this.rapportoVaticanoEseguito == false) {
+							update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriVaticano, this.spazioAzione);
 							dispatchGameUpdate(update);
 						} else {
-
-							// terminaPartita();
-							this.rapportoVaticanoEseguito = false;
-							update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+							update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
 							dispatchGameUpdate(update);
+
+							if (!isPartitaFinita()) {
+								// avanzaPeriodo();
+								this.rapportoVaticanoEseguito = false;
+								posizionaCarteSuTorre();
+								lanciaDadi();
+								update = new UpdateStats(EFasiDiGioco.InizioPeriodo, this.spazioAzione);
+								dispatchGameUpdate(update);
+							} else {
+
+								// terminaPartita();
+								this.rapportoVaticanoEseguito = false;
+								update = new UpdateStats(EFasiDiGioco.FinePartita, this.spazioAzione);
+								dispatchGameUpdate(update);
+							}
 						}
 					}
+					this.turno++;
 				}
-				this.turno++;
-			}
 
-		}
+			}
+		} while (redo);
 	}
 
 	/**
