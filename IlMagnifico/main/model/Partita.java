@@ -383,7 +383,7 @@ public abstract class Partita {
 	 * @return
 	 */
 	public void eseguiRapportoVaticano(Giocatore giocatore, boolean esegui) throws ChurchSupportException {
-		if (this.turno != 3 && this.turno != 5 && this.turno != 7)
+		if (this.turno ==1)
 			throw new ChurchSupportException();
 		int puntiFede = 0;
 		int incremento = 0;
@@ -398,9 +398,9 @@ public abstract class Partita {
 		} else {
 			// gli array delle scomuniche corrispondono al numero del periodo-1
 			if (this.turno % 2 == 0)
-				giocatore.setScomunica(periodo, this.scomuniche[periodo]);
+				giocatore.setScomunica(periodo-1, this.scomuniche[periodo-1]);
 			else
-				giocatore.setScomunica(periodo - 1, scomuniche[periodo - 1]);
+				giocatore.setScomunica(periodo - 2, scomuniche[periodo - 2]);
 		}
 	}
 
