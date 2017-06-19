@@ -77,6 +77,7 @@ public class PartitaTest extends Partita {
 	@Test
 	public void testEseguiRapportoVaticano() throws ChurchSupportException {
 		this.periodo = 2;
+		this.turno=4;
 		inizializzaScomunica();
 		Giocatore giocatore = new Giocatore();
 		giocatore.getPunti().cambiaPuntiFede(4);
