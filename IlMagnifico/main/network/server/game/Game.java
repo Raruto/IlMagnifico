@@ -128,9 +128,6 @@ public class Game extends Partita {
 	 */
 	private void andvanceInGameLogic(EAzioniGiocatore azione) throws GameException {
 		UpdateStats update;
-		boolean redo = false;
-		do {
-			redo = false;
 			if (azione != EAzioniGiocatore.Famigliare) {
 				avanzaDiTurno();
 				if (!isGiroDiTurniTerminato()) {
@@ -159,13 +156,10 @@ public class Game extends Partita {
 								} catch (ChurchSupportException e) {
 									// TODO Auto-generated catch block
 								}
+							update=new UpdateStats(giocatori.get(i), EAzioniGiocatore.SostegnoChiesa, this.spazioAzione);
 							}
-							// }
-							// redo=false;
-							// } else {
 							if (giocatoriRapportoVaticano.size() == 0)
 								this.rapportoVaticanoEseguito = true;
-							// redo=true;
 						}
 					}
 					scegliOrdine();
@@ -212,7 +206,7 @@ public class Game extends Partita {
 				}
 
 			}
-		} while (redo);
+		
 
 	}
 
