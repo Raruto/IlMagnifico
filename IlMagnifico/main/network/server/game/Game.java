@@ -170,7 +170,7 @@ public class Game extends Partita {
 						posizionaCarteSuTorre();
 						lanciaDadi();
 						update = new UpdateStats(EFasiDiGioco.InizioTurno, this.giocatori, this.spazioAzione);
-						//update.setNomeGiocatore(this.giocatoreDiTurno.getNome());
+						update.setNomeGiocatore(this.giocatoreDiTurno.getNome());
 						dispatchGameUpdate(update);
 					} else {
 						// terminaPeriodo();
