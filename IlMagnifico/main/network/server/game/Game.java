@@ -149,11 +149,10 @@ public class Game extends Partita {
 					}
 					if (this.turno % 2 == 0) {
 						ArrayList<Giocatore> giocatoriVaticano = giocatoriChePossonoSostenereChiesa();
-						System.out.println(giocatoriVaticano.get(0).getNome()+"può sostenere la Chiesa");
 						// if (giocatoriVaticano.size() > 0) {
 						for (int i = 0; i < this.giocatori.size(); i++) {
-							if (giocatoriVaticano.contains(giocatori.get(i)))
-								this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
+							if (giocatoriVaticano.contains(giocatori.get(i))){
+								this.giocatoriRapportoVaticano.add(this.giocatori.get(i));}
 							else {
 								try {
 									this.eseguiRapportoVaticano(giocatori.get(i), false);
@@ -166,7 +165,6 @@ public class Game extends Partita {
 							// } else {
 							if (giocatoriRapportoVaticano.size() == 0)
 								this.rapportoVaticanoEseguito = true;
-							System.out.println("nessuno può sostenere la Chiesa");
 							// redo=true;
 						}
 					}

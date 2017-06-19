@@ -383,7 +383,7 @@ public abstract class Partita {
 	 * @return
 	 */
 	public void eseguiRapportoVaticano(Giocatore giocatore, boolean esegui) throws ChurchSupportException {
-		if (this.turno % 2 != 0)
+		if (this.turno != 3 && this.turno!=5 && this.turno!=7)
 			throw new ChurchSupportException();
 		int puntiFede = 0;
 		int incremento = 0;
