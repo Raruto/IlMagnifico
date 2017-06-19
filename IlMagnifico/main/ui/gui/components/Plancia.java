@@ -329,7 +329,7 @@ public class Plancia extends JPanel {
 	}
 
 	public void aggiungiFamigliariStart(Famigliare[] famigliari) {
-		System.out.println("size " + famigliari.length);
+		//System.out.println("size " + famigliari.length);
 		for (int i = 0; i < famigliari.length; i++) {
 			if (famigliari[i] != null) {
 				famigliari[i].setBounds(0, 0, 42, 75);
