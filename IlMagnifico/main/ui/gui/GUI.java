@@ -1937,6 +1937,18 @@ public class GUI extends JFrame implements IClient {
 
 	@Override
 	public void onTurnStarted(UpdateStats update) {
+		if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
+			if (update.getAzioneGiocatore() != EAzioniGiocatore.Famigliare) {
+				famigliareSelezionato = null;
+			}
+			lblTextLogger.setForeground(Color.GREEN);
+			lblTextLogger.setText("IT'S YOUR TURN");
+		} else {
+			lblTextLogger.setForeground(Color.RED);
+			lblTextLogger.setText(getClient().getPlayerTurn() + "'S TURN");
+		}
+		lblTextLogger.setVisible(true);
+		
 		aggiornamento(update);
 	}
 

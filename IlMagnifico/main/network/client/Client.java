@@ -903,7 +903,8 @@ public class Client implements IClient {
 	@Override
 	public void onTurnStarted(UpdateStats update) {
 		this.turn++;
-		this.playerTurn = update.getNomeGiocatore();
+		if (update.getNomeGiocatore() != null)
+			this.playerTurn = update.getNomeGiocatore();
 
 		if (update.getFamiglieGiocatori() != null)
 			this.playersFamilies = update.getFamiglieGiocatori();
