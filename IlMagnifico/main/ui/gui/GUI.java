@@ -954,9 +954,16 @@ public class GUI extends JFrame implements IClient {
 	 */
 	private class SelezionaFamigliarePlancia implements MouseListener {
 
+		boolean isfamigliareSelezionato = false;
+
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			famigliareSelezionato = (Famigliare) (arg0.getSource());
+
+			if (!isfamigliareSelezionato)
+				isfamigliareSelezionato = true;
+			else
+				isfamigliareSelezionato = false;
 
 			if (servitoreSelezionato) {
 
@@ -969,10 +976,11 @@ public class GUI extends JFrame implements IClient {
 				}
 				lblTextLogger.setVisible(true);
 
-				System.out.println("CHIAMATA A SERVER PER AGGIUNTA SERVITORE");
-				System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+				// System.out.println("CHIAMATA A SERVER PER AGGIUNTA
+				// SERVITORE");
+				System.out.println("TENTATIVO ASSEGNAMENTO SERVITORE: famigliare: "
+						+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 						+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-				System.out.println("TENTATIVO ASSEGNAMENTO SERVITORE");
 				/*
 				 * COVERSAZIONE CON SERVER
 				 */
@@ -993,12 +1001,25 @@ public class GUI extends JFrame implements IClient {
 				// famigliareSelezionato = null;
 				return;
 			}
+			if (isfamigliareSelezionato == true) {
+				lblTextLogger.setText("SELECTED: " + "Pawn #" + (famigliareSelezionato.getNumero() + 1) + ", value: "
+						+ famigliareSelezionato.getValore());
+				lblTextLogger.setVisible(true);
 
-			lblTextLogger.setText("SELECTED: " + "Pawn #" + (famigliareSelezionato.getNumero() + 1) + ", value: "
-					+ famigliareSelezionato.getValore());
-			lblTextLogger.setVisible(true);
+				System.out.println("selezionato famigliare");
+			} else {
+				famigliareSelezionato = null;
+				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
+					lblTextLogger.setForeground(Color.GREEN);
+					lblTextLogger.setText("IT'S YOUR TURN");
+				} else {
+					lblTextLogger.setForeground(Color.RED);
+					lblTextLogger.setText(getClient().getPlayerTurn() + "'s TURN");
+				}
+				lblTextLogger.setVisible(true);
 
-			System.out.println("famigliare selezionato");
+				System.out.println("de-selezionato famigliare");
+			}
 		}
 
 		@Override
@@ -1044,7 +1065,7 @@ public class GUI extends JFrame implements IClient {
 
 			} else {
 				servitoreSelezionato = false;
-				System.out.println("deselezionato servitore");
+				System.out.println("de-selezionato servitore");
 
 				if (nomeGiocatore.equals(getClient().getPlayerTurn())) {
 					lblTextLogger.setForeground(Color.GREEN);
@@ -1100,10 +1121,10 @@ public class GUI extends JFrame implements IClient {
 				if (tabellone.getTorre()[getConvertedTowerNumber(posizioneTorre)] == (SpazioFamigliare) (e.getSource()))
 					break;
 			}
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			// System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
+			System.out.println("TENTATIVO SPOSTAMENTO SU TORRE IN POSIZIONE " + posizioneTorre + ": famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU TORRE IN POSIZIONE " + posizioneTorre);
 
 			// Frame.
 			/*
@@ -1187,10 +1208,10 @@ public class GUI extends JFrame implements IClient {
 		public void mouseClicked(MouseEvent arg0) {
 			if (famigliareSelezionato == null)
 				return;
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			// System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
+			System.out.println("TENTATIVO SPOSTAMENTO SU RACCOLTO ROTONDO: famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU RACCOLTO ROTONDO");
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
@@ -1263,10 +1284,10 @@ public class GUI extends JFrame implements IClient {
 		public void mouseClicked(MouseEvent e) {
 			if (famigliareSelezionato == null)
 				return;
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			// System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
+			System.out.println("TENTATIVO SPOSTAMENTO SU RACCOLTO OVALE: famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU RACCOLTO OVALE");
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
@@ -1339,10 +1360,10 @@ public class GUI extends JFrame implements IClient {
 		public void mouseClicked(MouseEvent e) {
 			if (famigliareSelezionato == null)
 				return;
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			// System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
+			System.out.println("TENTATIVO SPOSTAMENTO SU PRODUZIONE ROTONDO: famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU PRODUZIONE ROTONDO");
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
@@ -1415,10 +1436,9 @@ public class GUI extends JFrame implements IClient {
 		public void mouseClicked(MouseEvent e) {
 			if (famigliareSelezionato == null)
 				return;
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			System.out.println("TENTATIVO SPOSTAMENTO SU PRODUZIONE OVALE: famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU PRODUZIONE OVALE");
 			/*
 			 * COVERSAZIONE CON SERVER
 			 */
@@ -1491,10 +1511,10 @@ public class GUI extends JFrame implements IClient {
 		public void mouseClicked(MouseEvent e) {
 			if (famigliareSelezionato == null)
 				return;
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			// System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
+			System.out.println("TENTATIVO SPOSTAMENTO SU PALAZZO CONSIGLIO: famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU PALAZZO CONSIGLIO");
 
 			EColoriPedine colorePedina;
 			if (famigliareSelezionato.getNumero() == 0)
@@ -1563,10 +1583,9 @@ public class GUI extends JFrame implements IClient {
 				if (tabellone.getMercato()[posizioneMercato] == (SpazioFamigliare) (e.getSource()))
 					break;
 			}
-			System.out.println("CHIAMATA A SERVER PER SPOSTAMENTO");
-			System.out.println("FAMIGLIARE: " + famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
+			System.out.println("TENTATIVO SPOSTAMENTO SU MERCATO IN POSIZIONE " + posizioneMercato + ": famigliare: "
+					+ famigliareSelezionato.getGiocatoreAppartenenza() + ", numero: "
 					+ famigliareSelezionato.getNumero() + ", valore: " + famigliareSelezionato.getValore());
-			System.out.println("SPOSTAMENTO SU MERCATO IN POSIZIONE " + posizioneMercato);
 
 			EColoriPedine colorePedina;
 			if (famigliareSelezionato.getNumero() == 0)
@@ -1632,15 +1651,15 @@ public class GUI extends JFrame implements IClient {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			System.out.println("CHIAMATA A SERVER PER PRENDERE CARTA");
+			// System.out.println("CHIAMATA A SERVER PER PRENDERE CARTA");
 			CartaSviluppo cartaSelezionata = (CartaSviluppo) (arg0.getSource());
 			int posizioneCarta = 0;
 			for (posizioneCarta = 0; posizioneCarta < tabellone.getCarteTorre().size(); posizioneCarta++) {
 				if (tabellone.getCarteTorre().get(posizioneCarta) == cartaSelezionata)
 					break;
 			}
-			System.out.println("TENTATIVO ");
-			System.out.println("PRENDERE CARTA " + cartaSelezionata.getNomeCarta() + " in posizione " + posizioneCarta);
+			System.out.println(
+					"TENTATIVO PRENDERE CARTA: " + cartaSelezionata.getNomeCarta() + " in posizione " + posizioneCarta);
 			// aggiornamento();
 		}
 
