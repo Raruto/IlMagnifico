@@ -146,24 +146,28 @@ public class Game extends Partita {
 					if (this.turno % 2 != 0 || this.rapportoVaticanoEseguito == true) {
 						update = new UpdateStats(EFasiDiGioco.FineTurno, this.spazioAzione);
 						dispatchGameUpdate(update);
-						
+					}
+					if (this.turno % 2 == 0) {
 						ArrayList<Giocatore> giocatoriVaticano = giocatoriChePossonoSostenereChiesa();
-						if (giocatoriVaticano.size() > 0) {
-							for (int i = 0; i < this.giocatori.size(); i++) {
-								if (giocatoriVaticano.contains(giocatori.get(i)))
-									this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
-								else {
-									try {
-										this.eseguiRapportoVaticano(giocatori.get(i), false);
-									} catch (ChurchSupportException e) {
-										// TODO Auto-generated catch block
-									}
+						System.out.println(giocatoriVaticano.get(0).getNome()+"può sostenere la Chiesa");
+						// if (giocatoriVaticano.size() > 0) {
+						for (int i = 0; i < this.giocatori.size(); i++) {
+							if (giocatoriVaticano.contains(giocatori.get(i)))
+								this.giocatoriRapportoVaticano.add(this.giocatori.get(i));
+							else {
+								try {
+									this.eseguiRapportoVaticano(giocatori.get(i), false);
+								} catch (ChurchSupportException e) {
+									// TODO Auto-generated catch block
 								}
 							}
-							redo=false;
-						} else {
-							this.rapportoVaticanoEseguito = true;
-							redo=true;
+							// }
+							// redo=false;
+							// } else {
+							if (giocatoriRapportoVaticano.size() == 0)
+								this.rapportoVaticanoEseguito = true;
+							System.out.println("nessuno può sostenere la Chiesa");
+							// redo=true;
 						}
 					}
 					scegliOrdine();
@@ -178,9 +182,10 @@ public class Game extends Partita {
 					} else {
 						// terminaPeriodo();
 						this.periodo++;
-
+						
 						if (this.rapportoVaticanoEseguito == false) {
-							update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(), this.spazioAzione);
+							update = new UpdateStats(EFasiDiGioco.SostegnoChiesa, giocatoriChePossonoSostenereChiesa(),
+									this.spazioAzione);
 							dispatchGameUpdate(update);
 						} else {
 							update = new UpdateStats(EFasiDiGioco.FinePeriodo, this.spazioAzione);
@@ -207,6 +212,7 @@ public class Game extends Partita {
 
 			}
 		} while (redo);
+
 	}
 
 	/**

@@ -553,8 +553,14 @@ public abstract class Partita {
 	 * @return
 	 */
 	public boolean puoSostenereChiesa(Giocatore giocatore) {
-		if (giocatore.getPunti().getPuntiFede() < (this.periodo + 2))
+		if (giocatore.getPunti().getPuntiFede() < 3 && this.turno==2)
 			return false;
+		else
+			if(giocatore.getPunti().getPuntiFede() < 4 && this.turno==4)
+				return false;
+		else 
+			if(giocatore.getPunti().getPuntiFede() < 5 && this.turno==6)
+				return false;
 		else
 			return true;
 	}

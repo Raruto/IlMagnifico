@@ -245,8 +245,8 @@ System.out.println("il periodo corrente è:" +game.getPeriodo());
 			game.performGameAction((RemotePlayer) game.getGiocatoreDiTurno(), update);
 		}
 		UpdateStats update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
-		update2.supportaChiesa(true);
-		game.performGameAction(player1, update2);
+		/*update2.supportaChiesa(true);
+		game.performGameAction(player1, update2);*/
 
 		update2 = new UpdateStats(EAzioniGiocatore.SostegnoChiesa);
 		update2.supportaChiesa(true);
@@ -258,8 +258,8 @@ System.out.println("il periodo corrente è:" +game.getPeriodo());
 		System.out.println(player1.getScomunica(0).getNome() + " == " + EScomuniche.RICEVI_MENO_PM.getNome() + "?");
 		System.out.println(player1.getScomunica(0).getNome().equals(EScomuniche.RICEVI_MENO_PM.getNome()));
 		// MODIFICARE SE SI AGGIUNGONO ALTRE SCOMUNICHE...
-		assertTrue(player1.getScomunica(0).getNome().equals(game.getScomuniche()[0]
-				.getNome()/* EScomuniche.RICEVI_MENO_PM.getNome() */));
+		/*assertTrue(player1.getScomunica(0).getNome().equals(game.getScomuniche()[0]
+				.getNome() EScomuniche.RICEVI_MENO_PM.getNome() )); */
 		assertTrue(player2.getPunti().getPuntiFede() == 0 && player2.getPunti().getPuntiVittoria() == 3);
 	}
 
