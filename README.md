@@ -1,7 +1,5 @@
 # IlMagnifico
 
-<img src="https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/ScatolaDelGioco.jpg" width="400" alt="Scatola del Gioco" align="right" />
-
 ### Manuale Utente:
 1) [**Requisiti minimi dell’utente**](#10-requisiti-minimi-dellutente)
 
@@ -18,7 +16,7 @@
    10) [**Chat**](#210-chat)
    11) [**Board**](#211-board)
    12) [**Dash**](#212-dash)
-   13) [**Cards**](#213-cards)
+   13) [**Cards**](#213-cards) <img src="https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/ScatolaDelGioco.jpg" width="400" alt="Scatola del Gioco" align="right" />
 
 3) [**Utilizzo del gioco da Interfaccia Grafica (GUI)**](#30-utilizzo-del-gioco-da-interfaccia-grafica-gui)
    1) [**Connessione**](#31-connessione)
