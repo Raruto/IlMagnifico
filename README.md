@@ -140,9 +140,8 @@ attesa della notifica da parte del
 Server dell’aggiunta di altri giocatori e
 conseguente inizio della partita
 
-![UsernameFrame](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/UsernameFrame.jpg)
-
 <sub>**UsernameFrame**, schermata usata per il login e attesa inizio partita</sub>
+![UsernameFrame](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/UsernameFrame.jpg)
 
 ### 3.2 Tabellone
 
@@ -153,9 +152,8 @@ nella plancia con un click ed in seguito selezionare la zona dove spostarlo, sem
 un click. Inoltre è possibile prendere visione delle carte sviluppo, associate alle torri, e
 delle eventuali scomuniche, associate ai giocatori.
 
-![GUI](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/GUI.jpg)
-
 <sub>**GUI**, schermata di esempio di una configurazione del tabellone nel corso di una partita</sub>
+![GUI](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/GUI.jpg)
 
 ### 3.3 Plancia
 
@@ -169,18 +167,16 @@ click su servitore e
 successivamente 1 click sulla
 pedina desiderata).
 
-![Plancia](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/Plancia.jpg)
-
 <sub>**Plancia**, esempio di una configurazione della plancia giocatore</sub>
+![Plancia](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/Plancia.jpg)
 
 ### 3.4 Avversari
 
 Componente del gioco che non fa altro che esporre le plance degli avversari (riserva,
 carte sviluppo). Non e possibile prendere visione dei famigliari non ancora posizionati.
 
-![PlanciaAvversario](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/PlanciaAvversario.jpg)
-
 <sub>**PlanciaAvversario**, esempio di una configurazione della plancia di un giocatore avversario</sub>
+![PlanciaAvversario](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/PlanciaAvversario.jpg)
 
 ### 4.0 Le Scomuniche
 
