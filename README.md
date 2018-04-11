@@ -30,7 +30,7 @@
 
 ### 1.0 Requisiti minimi dell’utente
 
-Si presuppone che l’utente conosca completamente le regole del gioco da tavolo [“Lorenzo Il
+Si presuppone che l’utente conosca completamente le [regole](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/rules/regole_del_gioco.pdf) del gioco da tavolo [“Lorenzo Il
 Magnifico”](http://www.craniocreations.it/prodotto/lorenzo-il-magnifico/), prodotto dalla [Cranio Creations](http://www.craniocreations.it/)
 
 
