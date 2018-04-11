@@ -4,8 +4,8 @@
 
 ### 1.0 Requisiti minimi dell’utente
 
-Si presuppone che l’utente conosca completamente le regole del gioco da tavolo “Lorenzo Il
-Magnifico”, prodotto dalla Cranio Creations
+Si presuppone che l’utente conosca completamente le regole del gioco da tavolo [“Lorenzo Il
+Magnifico”](http://www.craniocreations.it/prodotto/lorenzo-il-magnifico/), prodotto dalla [Cranio Creations](http://www.craniocreations.it/)
 
 ### 2.0 Utilizzo del gioco da Linea di Comando (CLI)
 
