@@ -219,3 +219,9 @@ Alla fine della partita, il programma calcola la classifica finale basata sui pu
 possesso dei giocatori, calcolando tutti i bonus derivanti da carte e i malus derivanti dalle
 tessere scomunica, nonché i punti vittoria ricevuti in base alle risorse in proprio possesso.
 Tale classifica viene poi inviata a tutti i giocatori.
+
+---
+
+**Risorse utili:** [**Manuale utente.pdf**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/docs/manuale_utente.pdf) - [**Regole del gioco:**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/rules/regole_del_gioco.pdf) [**[EN]**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/rules/regole_del_gioco_in_Inglese.pdf) - [**Documento di progetto.pdf**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/docs/documento_di_progetto.pdf) - [**UML.mdj**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/uml/LorenzoIlMagnifico.mdj)
+
+**Contributori:** [**CharlieChaplin1947**](https://github.com/CharlieChaplin1947), [**Raruto**](https://github.com/Raruto)
