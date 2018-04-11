@@ -1,11 +1,40 @@
 # IlMagnifico
 
----
+<img src="https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/ScatolaDelGioco.jpg" width="400" alt="Scatola del Gioco" align="right" />
+
+### Manuale Utente:
+1) [**Requisiti minimi dell’utente**](#10-requisiti-minimi-dellutente)
+
+2) [**Utilizzo del gioco da Linea di Comando (CLI)**](#20-utilizzo-del-gioco-da-linea-di-comando-cli)
+   1) [**Connessione**](#21-connessione)
+   2) [**Turno del giocatore**](#22-turno-del-giocatore)
+   3) [**Mercato**](#23-mercato)
+   4) [**Raccolto**](#24-raccolto)
+   5) [**Produzione**](#25-produzione)
+   6) [**Palazzo del Consiglio**](#26-palazzo-del-consiglio)
+   7) [**Torre**](#27-torre)
+   8) [**Famigliare**](#28-famigliare)
+   9) [**Sostegno dell Chiesa**](#29-sostegno-della-chiesa)
+   10) [**Chat**](#210-chat)
+   11) [**Board**](#211-board)
+   12) [**Dash**](#212-dash)
+   13) [**Cards**](#213-cards)
+
+3) [**Utilizzo del gioco da Interfaccia Grafica (GUI)**](#30-utilizzo-del-gioco-da-interfaccia-grafica-gui)
+   1) [**Connessione**](#31-connessione)
+   2) [**Tabellone**](#32-tabellone)
+   3) [**Plancia**](#33-plancia)
+   4) [**Avversari**](#34-avversari)   
+
+4) [**Le Scomuniche**](#40-le-scomuniche)
+
+5) [**Fine Del Gioco**](#50-fine-del-gioco)
 
 ### 1.0 Requisiti minimi dell’utente
 
 Si presuppone che l’utente conosca completamente le regole del gioco da tavolo [“Lorenzo Il
 Magnifico”](http://www.craniocreations.it/prodotto/lorenzo-il-magnifico/), prodotto dalla [Cranio Creations](http://www.craniocreations.it/)
+
 
 ### 2.0 Utilizzo del gioco da Linea di Comando (CLI)
 
