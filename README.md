@@ -16,7 +16,7 @@
    10) [**Chat**](#210-chat)
    11) [**Board**](#211-board)
    12) [**Dash**](#212-dash)
-   13) [**Cards**](#213-cards) <a href="http://www.craniocreations.it/prodotto/lorenzo-il-magnifico/"><img src="https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/ScatolaDelGioco.jpg" width="400" alt="Scatola del Gioco" align="right" /></a>
+   13) [**Cards**](#213-cards) <a href="http://www.craniocreations.it/prodotto/lorenzo-il-magnifico/"><img src="https://raruto.github.io/IlMagnifico/wiki-assets/ScatolaDelGioco.jpg" width="400" alt="Scatola del Gioco" align="right" /></a>
 
 3) [**Utilizzo del gioco da Interfaccia Grafica (GUI)**](#30-utilizzo-del-gioco-da-interfaccia-grafica-gui)
    1) [**Connessione**](#31-connessione)
@@ -30,7 +30,7 @@
 
 ### 1.0 Requisiti minimi dell’utente
 
-Si presuppone che l’utente conosca completamente le [regole](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/rules/regole_del_gioco.pdf) del gioco da tavolo [“Lorenzo Il
+Si presuppone che l’utente conosca completamente le [regole](https://raruto.github.io/IlMagnifico/IlMagnifico/res/rules/regole_del_gioco.pdf) del gioco da tavolo [“Lorenzo Il
 Magnifico”](http://www.craniocreations.it/prodotto/lorenzo-il-magnifico/), prodotto dalla [Cranio Creations](http://www.craniocreations.it/)
 
 
@@ -168,7 +168,7 @@ Server dell’aggiunta di altri giocatori e
 conseguente inizio della partita
 
 <sub>**UsernameFrame**, schermata usata per il login e attesa inizio partita</sub>
-![UsernameFrame](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/UsernameFrame.jpg)
+![UsernameFrame](https://raruto.github.io/IlMagnifico/wiki-assets/UsernameFrame.jpg)
 
 ### 3.2 Tabellone
 
@@ -180,7 +180,7 @@ un click. Inoltre è possibile prendere visione delle carte sviluppo, associate 
 delle eventuali scomuniche, associate ai giocatori.
 
 <sub>**GUI**, schermata di esempio di una configurazione del tabellone nel corso di una partita</sub>
-![GUI](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/GUI.jpg)
+![GUI](https://raruto.github.io/IlMagnifico/wiki-assets/GUI.jpg)
 
 ### 3.3 Plancia
 
@@ -195,7 +195,7 @@ successivamente 1 click sulla
 pedina desiderata).
 
 <sub>**Plancia**, esempio di una configurazione della plancia giocatore</sub>
-![Plancia](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/Plancia.jpg)
+![Plancia](https://raruto.github.io/IlMagnifico/wiki-assets/Plancia.jpg)
 
 ### 3.4 Avversari
 
@@ -203,7 +203,7 @@ Componente del gioco che non fa altro che esporre le plance degli avversari (ris
 carte sviluppo). Non e possibile prendere visione dei famigliari non ancora posizionati.
 
 <sub>**PlanciaAvversario**, esempio di una configurazione della plancia di un giocatore avversario</sub>
-![PlanciaAvversario](https://github.com/Raruto/IlMagnifico/blob/master/wiki-assets/PlanciaAvversario.jpg)
+![PlanciaAvversario](https://raruto.github.io/IlMagnifico/wiki-assets/PlanciaAvversario.jpg)
 
 ### 4.0 Le Scomuniche
 
@@ -222,7 +222,7 @@ Tale classifica viene poi inviata a tutti i giocatori.
 
 ---
 
-**Risorse utili:** [**Manuale utente.pdf**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/docs/manuale_utente.pdf) **-** [**Regole del gioco:**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/rules/regole_del_gioco.pdf) [**[EN]**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/rules/regole_del_gioco_in_Inglese.pdf) **-** [**Documento di progetto.pdf**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/docs/documento_di_progetto.pdf) **-** [**UML.mdj**](https://github.com/Raruto/IlMagnifico/blob/master/IlMagnifico/res/uml/LorenzoIlMagnifico.mdj)
+**Risorse utili:** [**Manuale utente.pdf**](https://raruto.github.io/IlMagnifico/IlMagnifico/res/docs/manuale_utente.pdf) **-** [**Regole del gioco:**](https://raruto.github.io/IlMagnifico/IlMagnifico/res/rules/regole_del_gioco.pdf) [**[EN]**](https://raruto.github.io/IlMagnifico/IlMagnifico/res/rules/regole_del_gioco_in_Inglese.pdf) **-** [**Documento di progetto.pdf**](https://raruto.github.io/IlMagnifico/IlMagnifico/res/docs/documento_di_progetto.pdf) **-** [**UML.mdj**](https://raruto.github.io/IlMagnifico/IlMagnifico/res/uml/LorenzoIlMagnifico.mdj)
 
 ---
 
